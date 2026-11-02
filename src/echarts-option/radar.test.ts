@@ -71,6 +71,11 @@ describe("radarOption", () => {
     // Beim Radar ist dataIndex die Serie und dimensionIndex die Achse.
     expect(label.formatter({ dataIndex: 0, dimensionIndex: 0 })).toBe("1,8\u00a0t");
     expect(label.formatter({ dataIndex: 1, dimensionIndex: 1 })).toBe("600\u00a0kWh");
+    // Die beiden Ecken abseits der Diagonalen: Nur sie decken auf, wenn
+    // Serien- und Achsenindex vertauscht sind — bei den Diagonalfaellen
+    // kommt in beiden Lesarten dasselbe heraus.
+    expect(label.formatter({ dataIndex: 0, dimensionIndex: 1 })).toBe("240\u00a0kWh");
+    expect(label.formatter({ dataIndex: 1, dimensionIndex: 0 })).toBe("4,4\u00a0t");
   });
 
   it("zeigt am Label einen Gedankenstrich, wenn der Wert fehlt", () => {
