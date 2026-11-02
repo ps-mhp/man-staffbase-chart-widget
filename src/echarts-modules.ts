@@ -76,7 +76,12 @@ const TYPE_LOADERS: Record<ChartType, (core: EChartsCore) => Promise<void>> = {
  * laufendes Promise gemerkt, und ein Typ wird nur beim ersten Mal geladen.
  */
 export async function loadECharts(type: ChartType): Promise<EChartsCore> {
-  corePromise ??= loadCore();
+  // Bleibt ein abgelehntes Promise gemerkt, scheitert jeder spaetere Aufruf
+  // ohne neuen Versuch — ein abgebrochener Netzzugriff waere endgueltig.
+  corePromise ??= loadCore().catch((error: unknown) => {
+    corePromise = null;
+    throw error;
+  });
   const core = await corePromise;
 
   if (!loaded.has(type)) {

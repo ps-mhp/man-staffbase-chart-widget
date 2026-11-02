@@ -62,4 +62,36 @@ describe("loadECharts", () => {
     jest.dontMock("echarts/charts");
     jest.resetModules();
   });
+
+  it("merkt sich keinen gescheiterten Kern, sondern versucht es erneut", async () => {
+    jest.resetModules();
+    let attempt = 0;
+    jest.doMock("echarts/core", () => {
+      attempt += 1;
+      // Nur der erste Zugriff scheitert — wie ein abgebrochener Netzzugriff.
+      if (attempt === 1) throw new Error("Netzwerk weg");
+      return { init: jest.fn(), use: jest.fn() };
+    });
+    jest.doMock("echarts/components", () => ({
+      TitleComponent: {},
+      LegendComponent: {},
+      TooltipComponent: {},
+      AriaComponent: {},
+      RadarComponent: {},
+    }));
+    jest.doMock("echarts/renderers", () => ({ SVGRenderer: {} }));
+    jest.doMock("echarts/charts", () => ({ RadarChart: {} }));
+
+    const { loadECharts: loadFlaky } = await import("./echarts-modules");
+    await expect(loadFlaky("radar")).rejects.toThrow("Netzwerk weg");
+
+    const core = await loadFlaky("radar");
+    expect(typeof core.use).toBe("function");
+
+    jest.dontMock("echarts/core");
+    jest.dontMock("echarts/components");
+    jest.dontMock("echarts/renderers");
+    jest.dontMock("echarts/charts");
+    jest.resetModules();
+  });
 });
