@@ -30,6 +30,8 @@ import {
 import icon from "../resources/chart-widget.svg";
 import pkg from "../package.json";
 
+import { ChartWidget } from "./chart-widget";
+
 /**
  * Die Attribute, wie `parseAttributes` sie liefert. Die Höhe ist weit
  * getypt, weil das SDK sie je nach Weg als Zeichenkette oder als Zahl
@@ -56,7 +58,14 @@ const factory: BlockFactory = (BaseBlockClass, _widgetApi) => {
 
     public renderBlock(container: HTMLElement): void {
       this._root ??= ReactDOM.createRoot(container);
-      this._root.render(<div style={{ height: readHeightAttribute(this.props[HEIGHT_ATTRIBUTE]) }} />);
+      const props = this.props;
+      this._root.render(
+        <ChartWidget
+          chart={props[CHART_ATTRIBUTE]}
+          height={readHeightAttribute(props[HEIGHT_ATTRIBUTE])}
+          contentLanguage={props.contentLanguage}
+        />,
+      );
     }
 
     public unmountBlock(_container: HTMLElement): void {
