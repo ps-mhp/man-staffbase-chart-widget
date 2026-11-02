@@ -69,6 +69,12 @@ describe("ChartWidget", () => {
     expect(screen.getByText(/sunburst/)).toBeInTheDocument();
   });
 
+  it("kommt ohne leere Anfuehrungszeichen aus, wenn gar kein Typ dasteht", () => {
+    const { type: _omitted, ...withoutType } = spec;
+    render(<ChartWidget chart={JSON.stringify(withoutType)} height={420} />);
+    expect(screen.getByText(/Der eingerichtete Diagrammtyp ist dieser Version/)).toBeInTheDocument();
+  });
+
   it("weist auf fehlende Daten hin, wenn es keine Serien gibt", () => {
     const bare = { ...spec, series: [] };
     render(<ChartWidget chart={serializeChartSpec(bare)} height={420} />);

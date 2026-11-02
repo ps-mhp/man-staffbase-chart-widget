@@ -35,15 +35,17 @@ export interface ChartViewProps {
   contentLanguage?: string;
 }
 
-/** Wortlaut der Hinweise an einer Stelle, damit die Doku ihn zitieren kann. */
 /** Kennzeichnet das Stylesheet in seinem Root und verhindert eine zweite Kopie. */
 const STYLE_ELEMENT_ID = "man-chart-widget-styles";
 
+/** Wortlaut der Hinweise an einer Stelle, damit die Doku ihn zitieren kann. */
 const MESSAGES = {
   empty: "Noch kein Diagramm eingerichtet. Öffnen Sie die Einstellungen des Bausteins.",
   unreadable: "Das Diagramm konnte nicht gelesen werden. Bitte richten Sie es in den Einstellungen neu ein.",
   unknownType: (name: string) =>
-    `Der Diagrammtyp „${name}" ist dieser Version des Bausteins nicht bekannt. Bitte aktualisieren Sie den Baustein.`,
+    `Der Diagrammtyp „${name}“ ist dieser Version des Bausteins nicht bekannt. Bitte aktualisieren Sie den Baustein.`,
+  unknownTypeUnnamed:
+    "Der eingerichtete Diagrammtyp ist dieser Version des Bausteins nicht bekannt. Bitte aktualisieren Sie den Baustein.",
   noData: "Noch keine Daten im Diagramm. Ergänzen Sie Kategorien und Serien in den Einstellungen.",
   loadFailed: "Das Diagramm konnte nicht geladen werden. Bitte laden Sie die Seite neu.",
 } as const;
@@ -52,7 +54,9 @@ function noticeFor(problems: ChartProblem[]): string | null {
   const unreadable = problems.find((problem) => problem.code === "unreadable");
   if (unreadable) return MESSAGES.unreadable;
   const unknown = problems.find((problem) => problem.code === "unknown-type");
-  if (unknown) return MESSAGES.unknownType(unknown.detail ?? "");
+  // Fehlt das Typfeld ganz, gibt es keinen Namen zu nennen; leere
+  // Anfuehrungszeichen waeren fuer die Redaktion nur verwirrend.
+  if (unknown) return unknown.detail ? MESSAGES.unknownType(unknown.detail) : MESSAGES.unknownTypeUnnamed;
   if (problems.some((problem) => problem.code === "empty")) return MESSAGES.empty;
   return null;
 }
