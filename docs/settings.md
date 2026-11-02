@@ -52,3 +52,10 @@ unbedeutende Unterschiede optisch groß wirken lassen. Wer das nicht möchte,
 setzt Minimum und Maximum der betroffenen Achse von Hand — z. B. 0 und 600
 für eine Reichweite, statt sie zwischen den kleinsten und größten
 vorkommenden Wert zu spannen.
+
+Ein von Hand gesetztes Minimum oder Maximum begrenzt auch die Zeichnung:
+Ein Wert außerhalb dieser Grenzen wird genau auf dem Rand dargestellt, statt
+über das Netz hinauszuragen. Die Zahl am Datenpunkt und in der Tabelle bleibt
+dabei die eingegebene — die Grenze verändert nur das Bild, nie den Wert. Wer
+also eine Achse auf 0 bis 600 festlegt und 700 einträgt, sieht den Punkt ganz
+außen und die 700 daneben stehen.
