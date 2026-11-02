@@ -39,13 +39,52 @@ function detectSeparator(headerLine: string): string {
   return SEPARATORS.find((separator) => headerLine.includes(separator)) ?? "\t";
 }
 
+/**
+ * Liest eine Zahl aus einer Zelle, auch wenn eine Einheit daran klebt.
+ *
+ * Punkt und Komma sind je nach Herkunft Dezimal- oder Tausendertrenner.
+ * Stehen beide in einer Zahl, ist das hintere das Dezimaltrennzeichen —
+ * das gilt in jeder Schreibweise. Steht nur eines da, lesen wir deutsch:
+ * ein Komma trennt die Nachkommastellen, ein Punkt gruppiert die
+ * Tausender, sofern er wie eine Gruppierung aussieht. Aus `1.234` wird
+ * also 1234 und nicht 1,234 — die Redaktion arbeitet in deutschen
+ * Tabellen, und die stille Verwechslung um den Faktor tausend ist der
+ * teuerste Fehler, den diese Funktion machen kann.
+ */
 function readCell(cell: string): number | null {
-  const text = cell.trim();
-  if (text.length === 0) return null;
-  // Tausenderpunkte lassen sich nicht sicher von Dezimalpunkten trennen,
-  // deshalb nur Komma zu Punkt und sonst nichts entfernen.
-  const value = Number.parseFloat(text.replace(/\s/g, "").replace(",", "."));
+  const compact = cell.replace(/[\s\u00a0]/g, "");
+  if (compact.length === 0) return null;
+
+  // Die Zahl herausschneiden, damit eine angehaengte Einheit nicht stoert.
+  const core = /-?\d[\d.,]*/.exec(compact)?.[0];
+  if (core === undefined) return null;
+
+  const value = Number.parseFloat(withPlainDecimalPoint(core));
   return Number.isFinite(value) ? value : null;
+}
+
+/** Bringt eine Zahl in die Schreibweise, die `parseFloat` versteht. */
+function withPlainDecimalPoint(core: string): string {
+  const lastComma = core.lastIndexOf(",");
+  const lastDot = core.lastIndexOf(".");
+
+  if (lastComma >= 0 && lastDot >= 0) {
+    const decimal = lastComma > lastDot ? "," : ".";
+    const grouping = decimal === "," ? "." : ",";
+    return core.split(grouping).join("").replace(decimal, ".");
+  }
+
+  const sole = lastComma >= 0 ? "," : lastDot >= 0 ? "." : "";
+  if (sole === "") return core;
+
+  const parts = core.split(sole);
+  // Mehr als ein Trennzeichen kann nur Gruppierung sein. Ein einzelner
+  // Punkt gruppiert, wenn genau drei Ziffern folgen und hoechstens drei
+  // vorangehen; ein einzelnes Komma trennt im Deutschen immer dezimal.
+  const leadingDigits = parts[0].replace("-", "").length;
+  const groups =
+    parts.length > 2 || (sole === "." && parts[1].length === 3 && leadingDigits >= 1 && leadingDigits <= 3);
+  return groups ? parts.join("") : parts.join(".");
 }
 
 export function parseGrid(text: string): Grid | null {

@@ -36,6 +36,28 @@ describe("parseGrid", () => {
     expect(parseGrid("x\tA\nS\t1,5")?.rows[0].values).toEqual([1.5]);
   });
 
+  it("liest den deutschen Tausenderpunkt als Gruppierung, nicht als Komma", () => {
+    // Der teuerste Fehler dieser Funktion waere ein Faktor tausend.
+    expect(parseGrid("x\tA\nS\t1.234")?.rows[0].values).toEqual([1234]);
+    expect(parseGrid("x\tA\nS\t1.234.567")?.rows[0].values).toEqual([1234567]);
+    expect(parseGrid("x\tA\nS\t-1.234")?.rows[0].values).toEqual([-1234]);
+  });
+
+  it("nimmt bei zwei Trennzeichen das hintere als Dezimaltrenner", () => {
+    expect(parseGrid("x\tA\nS\t1.234,5")?.rows[0].values).toEqual([1234.5]);
+    expect(parseGrid("x\tA\nS\t1,234.5")?.rows[0].values).toEqual([1234.5]);
+  });
+
+  it("liest weiter dezimal, wo keine Gruppierung stehen kann", () => {
+    expect(parseGrid("x\tA\nS\t0.5")?.rows[0].values).toEqual([0.5]);
+    expect(parseGrid("x\tA\nS\t1.2345")?.rows[0].values).toEqual([1.2345]);
+    expect(parseGrid("x\tA\nS\t1234.5")?.rows[0].values).toEqual([1234.5]);
+  });
+
+  it("holt die Zahl aus einer Zelle mit angehaengter Einheit", () => {
+    expect(parseGrid("x\tA\tB\nS\t12,5 kWh\t1.250 km")?.rows[0].values).toEqual([12.5, 1250]);
+  });
+
   it("macht aus leeren und unlesbaren Zellen eine Lücke statt einer Null", () => {
     // Eine 0 wäre eine Behauptung; eine Lücke ist die Wahrheit.
     expect(parseGrid("x\tA\tB\tC\nS\t\tk. A.\t3")?.rows[0].values).toEqual([null, null, 3]);

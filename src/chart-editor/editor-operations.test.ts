@@ -58,6 +58,30 @@ describe("editor-operations", () => {
     expect(next.series.map((s) => s.values)).toEqual([[2], [4]]);
   });
 
+  it("trifft auch die mittlere Spalte, statt hinten abzuschneiden", () => {
+    // Drei Kategorien mit eindeutigen Werten: Nur so faellt auf, wenn der
+    // Code den letzten Wert kappt, statt den an der richtigen Stelle.
+    const wide: ChartSpec = {
+      ...base,
+      categories: [{ label: "A" }, { label: "B" }, { label: "C" }],
+      series: [{ name: "S", values: [10, 20, 30] }],
+    };
+    const next = removeCategory(wide, 1);
+    expect(next.categories.map((c) => c.label)).toEqual(["A", "C"]);
+    expect(next.series[0].values).toEqual([10, 30]);
+  });
+
+  it("schiebt beim Einfuegen einer Kategorie die Werte dahinter mit", () => {
+    const wide: ChartSpec = {
+      ...base,
+      categories: [{ label: "A" }, { label: "B" }],
+      series: [{ name: "S", values: [10, 20] }],
+    };
+    const next = addCategory(wide);
+    expect(next.categories).toHaveLength(3);
+    expect(next.series[0].values).toEqual([10, 20, null]);
+  });
+
   it("ändert eine Kategorie, ohne die anderen zu berühren", () => {
     const next = updateCategory(base, 1, { inverted: true, unit: "t" });
     expect(next.categories[1]).toEqual({ label: "B", inverted: true, unit: "t" });
