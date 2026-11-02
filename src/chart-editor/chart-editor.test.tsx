@@ -94,14 +94,14 @@ describe("ChartEditor", () => {
     const { onChange } = setup();
     const area = screen.getByLabelText(/Tabelle einfügen/);
     fireEvent.change(area, { target: { value: "Modell\tA\tB\nNeu\t1\t2" } });
-    fireEvent.click(screen.getByRole("button", { name: /Übernehmen/ }));
+    fireEvent.click(screen.getByRole("button", { name: /Tabelle übernehmen/ }));
     expect(onChange.mock.lastCall[0].categories.map((c: { label: string }) => c.label)).toEqual(["A", "B"]);
   });
 
   it("sagt, wenn eine eingefügte Tabelle nicht lesbar war, statt stillzuhalten", () => {
     setup();
     fireEvent.change(screen.getByLabelText(/Tabelle einfügen/), { target: { value: "nur eine Zeile" } });
-    fireEvent.click(screen.getByRole("button", { name: /Übernehmen/ }));
+    fireEvent.click(screen.getByRole("button", { name: /Tabelle übernehmen/ }));
     expect(screen.getByText(/konnte nicht gelesen werden/)).toBeInTheDocument();
   });
 

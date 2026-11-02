@@ -424,7 +424,7 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
         />
         <div className="chart-editor__actions">
           <button type="button" className="chart-editor__button" onClick={applyPaste}>
-            Übernehmen
+            Tabelle übernehmen
           </button>
         </div>
         {pasteError ? (
