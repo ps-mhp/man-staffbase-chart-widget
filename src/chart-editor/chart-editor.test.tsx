@@ -57,6 +57,14 @@ describe("ChartEditor", () => {
     expect(onChange.mock.lastCall[0].series[0].values[0]).toBe(2.5);
   });
 
+  it("liest einen getippten Tausenderpunkt wie beim Einfügen einer Tabelle", () => {
+    // Drehmoment und Leistung kommen vierstellig. Ein zweiter, schwächerer
+    // Parser im Editor hätte hier still um Faktor tausend danebengelegen.
+    const { onChange } = setup();
+    fireEvent.change(screen.getByDisplayValue("1,8"), { target: { value: "1.234,56" } });
+    expect(onChange.mock.lastCall[0].series[0].values[0]).toBe(1234.56);
+  });
+
   it("macht aus einem geleerten Feld eine Lücke, nicht eine Null", () => {
     const { onChange } = setup();
     fireEvent.change(screen.getByDisplayValue("1,8"), { target: { value: "" } });

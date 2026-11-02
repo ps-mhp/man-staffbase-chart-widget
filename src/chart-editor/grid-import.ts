@@ -40,7 +40,8 @@ function detectSeparator(headerLine: string): string {
 }
 
 /**
- * Liest eine Zahl aus einer Zelle, auch wenn eine Einheit daran klebt.
+ * Liest eine Zahl aus einer Zelle oder einem Eingabefeld, auch wenn eine
+ * Einheit daran klebt.
  *
  * Punkt und Komma sind je nach Herkunft Dezimal- oder Tausendertrenner.
  * Stehen beide in einer Zahl, ist das hintere das Dezimaltrennzeichen —
@@ -51,7 +52,7 @@ function detectSeparator(headerLine: string): string {
  * Tabellen, und die stille Verwechslung um den Faktor tausend ist der
  * teuerste Fehler, den diese Funktion machen kann.
  */
-function readCell(cell: string): number | null {
+export function readNumber(cell: string): number | null {
   const compact = cell.replace(/[\s\u00a0]/g, "");
   if (compact.length === 0) return null;
 
@@ -103,7 +104,7 @@ export function parseGrid(text: string): Grid | null {
     const cells = line.split(separator);
     return {
       name: (cells[0] ?? "").trim(),
-      values: categories.map((_, index) => readCell(cells[index + 1] ?? "")),
+      values: categories.map((_, index) => readNumber(cells[index + 1] ?? "")),
     };
   });
 

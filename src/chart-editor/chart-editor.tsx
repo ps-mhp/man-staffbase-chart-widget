@@ -48,7 +48,7 @@ import {
   updateCategory,
   updateSeries,
 } from "./editor-operations";
-import { applyGrid, parseGrid } from "./grid-import";
+import { applyGrid, parseGrid, readNumber } from "./grid-import";
 import css from "./chart-editor.scss";
 
 export type ChartEditorProps = FieldModalContentProps<ChartSpec>;
@@ -65,10 +65,11 @@ const PASTE_PLACEHOLDER =
 
 /** Liest eine von der Redaktion getippte Zahl im deutschen Format. */
 function parseEditorNumber(text: string): number | null {
-  const trimmed = text.trim();
-  if (trimmed.length === 0) return null;
-  const value = Number.parseFloat(trimmed.replace(",", "."));
-  return Number.isFinite(value) ? value : null;
+  // Bewusst dieselbe Lesart wie beim Einfuegen einer Tabelle: Was in einem
+  // Feld steht, ist dieselbe Art Zahl wie das, was aus Excel kommt. Zwei
+  // eigene Parser waeren zwei Gelegenheiten, den Tausenderpunkt zu
+  // verwechseln.
+  return readNumber(text);
 }
 
 /** Zeigt eine Zahl im deutschen Format, ohne den Zahlenwert selbst zu runden. */
