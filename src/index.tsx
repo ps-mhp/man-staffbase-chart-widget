@@ -30,6 +30,7 @@ import {
 import icon from "../resources/chart-widget.svg";
 import pkg from "../package.json";
 
+import { startChartEditorInjector } from "./chart-editor/chart-editor-injector";
 import { ChartWidget } from "./chart-widget";
 
 /**
@@ -100,4 +101,7 @@ const externalBlockDefinition: ExternalBlockDefinition = {
   version: pkg.version,
 };
 
+// Nach dem Muster von `project-timeline-widget`: Der Editor hängt am Laden
+// des Bausteins im Content-Designer, nicht am bloßen Import dieser Datei.
+startChartEditorInjector();
 window.defineBlock(externalBlockDefinition);

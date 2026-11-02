@@ -1,0 +1,245 @@
+/*!
+ * Copyright 2026, MHP Management und IT-Beratung GmbH and contributors.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// Die Redaktionsoberfläche des Diagramm-Editors. Nur Editor-Flächen — also
+// `editor-chrome`, nicht die Markenpalette aus `man-tokens`: Diesen Dialog
+// sieht nur die Redaktion, nicht die Seite. Die Ausnahme ist die Vorschau:
+// Sie bettet `ChartWidget` samt seinem eigenen, markenfarbenen Stylesheet ein
+// und bekommt hier nur den Rahmen darum, keine eigenen Farben.
+@use "@shared/stylings/editor-chrome" as chrome;
+
+// `editor-chrome` hält keine Abstandsskala — nur dieser Editor braucht eine,
+// deshalb lokal und knapp gehalten, wie in `plan-editor-tokens.scss`.
+$space-s: 8px;
+$space-m: 12px;
+$space-l: 16px;
+
+.chart-editor {
+  display: flex;
+  flex-direction: column;
+  gap: $space-l;
+  width: 100%;
+  height: 100%;
+  padding: $space-l;
+  overflow-y: auto;
+  font-size: 13px;
+  color: chrome.$text;
+  background: chrome.$surface;
+  box-sizing: border-box;
+
+  &__section {
+    display: flex;
+    flex-direction: column;
+    gap: $space-m;
+  }
+
+  &__section-title {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 600;
+    color: chrome.$text-strong;
+  }
+
+  // Kopfzeile: Titel, Fußnote, Legende, typspezifische Felder.
+  &__head-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: $space-m;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  &__label {
+    font-size: 12px;
+    font-weight: 600;
+    color: chrome.$text-strong;
+  }
+
+  &__input,
+  &__textarea {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: chrome.$control-height;
+    padding: 5px 8px;
+    font: inherit;
+    color: chrome.$text-body;
+    background: chrome.$surface;
+    border: 1px solid chrome.$border-input;
+    border-radius: chrome.$radius-input;
+
+    &:focus-visible {
+      outline: none;
+      border-color: chrome.$focus-border;
+      box-shadow: chrome.$focus-ring;
+    }
+  }
+
+  &__textarea {
+    min-height: 72px;
+    resize: vertical;
+    font-family: monospace;
+  }
+
+  &__check {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  // Das Raster: eine Namensspalte, danach eine Spalte je Kategorie. Die
+  // Spaltenbreite kommt als Inline-Stil von der Komponente — nur sie kennt
+  // die Zahl der Kategorien.
+  &__grid {
+    display: grid;
+    gap: 1px;
+    overflow-x: auto;
+    background: chrome.$border;
+    border: 1px solid chrome.$border;
+    border-radius: chrome.$radius-control;
+  }
+
+  &__row {
+    display: contents;
+  }
+
+  &__cell {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: $space-s;
+    background: chrome.$surface;
+  }
+
+  &__head {
+    background: chrome.$surface-header;
+  }
+
+  // Eine Kategorie-Achse: Einheit, Nachkommastellen, Grenzen, Richtung.
+  &__axis {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__axis-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+  }
+
+  &__row-head {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    color: chrome.$text-strong;
+  }
+
+  &__color {
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    background: none;
+    border: 1px solid chrome.$border-input;
+    border-radius: chrome.$radius-small;
+    cursor: pointer;
+  }
+
+  // Zeilenweise Knöpfe (Kategorie/Serie entfernen, Serie verschieben).
+  &__row-actions {
+    display: flex;
+    gap: 4px;
+  }
+
+  &__button {
+    padding: 5px 10px;
+    font-size: 12px;
+    color: chrome.$text;
+    cursor: pointer;
+    background: chrome.$surface;
+    border: 1px solid chrome.$border-input;
+    border-radius: chrome.$radius-control;
+
+    &:hover {
+      background: chrome.$surface-hover;
+    }
+
+    &:focus-visible {
+      outline: none;
+      border-color: chrome.$focus-border;
+      box-shadow: chrome.$focus-ring;
+    }
+  }
+
+  &__button--icon {
+    padding: 2px 7px;
+    font-size: 11px;
+    line-height: 1;
+  }
+
+  &__button--primary {
+    color: chrome.$surface;
+    background: chrome.$accent;
+    border-color: chrome.$accent-strong;
+
+    &:hover {
+      background: chrome.$accent-strong;
+    }
+  }
+
+  // Die Knöpfe, die dem Raster neue Zeilen/Spalten hinzufügen.
+  &__actions {
+    display: flex;
+    gap: $space-s;
+  }
+
+  // Übernahme einer eingefügten Tabelle.
+  &__paste {
+    display: flex;
+    flex-direction: column;
+    gap: $space-s;
+  }
+
+  &__hint {
+    margin: 0;
+    font-size: 12px;
+    color: chrome.$text-muted;
+  }
+
+  &__hint--error {
+    color: chrome.$text-warning;
+  }
+
+  // Die Vorschau zeigt echte Markenfarben — ihr Rahmen hier bleibt neutral.
+  &__preview {
+    padding: $space-m;
+    background: chrome.$surface-muted;
+    border: 1px solid chrome.$border;
+    border-radius: chrome.$radius-panel;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: $space-s;
+    padding-top: $space-m;
+    border-top: 1px solid chrome.$border-soft;
+  }
+}
