@@ -69,6 +69,12 @@ describe("parseChartSpec", () => {
     expect(spec).toEqual(emptySpec());
   });
 
+  it("lässt 'detail' leer, wenn gar kein Typ dasteht, statt 'undefined' zu nennen", () => {
+    const { type: _omitted, ...withoutType } = valid;
+    const { problems } = parseChartSpec(JSON.stringify(withoutType));
+    expect(problems).toEqual([{ code: "unknown-type", detail: undefined }]);
+  });
+
   it("füllt zu kurze Serien mit null auf und meldet das", () => {
     const short = { ...valid, series: [{ name: "MAN eTGX", values: [1.8] }] };
     const { spec, problems } = parseChartSpec(JSON.stringify(short));

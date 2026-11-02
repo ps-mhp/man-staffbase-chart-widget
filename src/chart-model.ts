@@ -191,7 +191,9 @@ export function parseChartSpec(raw: string | null | undefined): {
   if (typeof type !== "string" || !CHART_TYPES.includes(type as ChartType)) {
     return {
       spec: emptySpec(),
-      problems: [{ code: "unknown-type", detail: typeof type === "string" ? type : String(type) }],
+      // Ohne Typfeld gibt es nichts zu nennen; `detail` bleibt dann leer,
+      // statt die Zeichenkette "undefined" in eine Meldung zu tragen.
+      problems: [{ code: "unknown-type", detail: typeof type === "string" ? type : undefined }],
     };
   }
 
@@ -199,6 +201,9 @@ export function parseChartSpec(raw: string | null | undefined): {
   const categories = Array.isArray(parsed.categories) ? parsed.categories.map(readCategory) : [];
 
   const rawSeries = Array.isArray(parsed.series) ? parsed.series : [];
+  // Einträge, die keine Objekte sind, lässt der Editor nie entstehen; sie
+  // könnten nur aus einem von Hand verbogenen Attribut stammen. Für die gibt
+  // es nichts sinnvoll zu melden, also fallen sie still heraus.
   const series: Series[] = rawSeries.filter(isRecord).map((entry) => {
     const name = typeof entry.name === "string" ? entry.name : "";
     const given = Array.isArray(entry.values) ? entry.values : [];
