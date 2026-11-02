@@ -11,7 +11,7 @@
  * limitations under the License.
  */
 
-import { render, screen, waitFor } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 import * as React from "react";
 
 import { readChartTheme } from "./man-chart-theme";
@@ -44,8 +44,20 @@ class StubResizeObserver {
   }
 }
 
-function Probe({ option, size }: { option: Record<string, unknown>; size: number }): React.JSX.Element {
-  const { containerRef, status } = useECharts({ type: "radar", option, theme: readChartTheme(null) });
+function Probe({
+  option,
+  size,
+  theme,
+}: {
+  option: Record<string, unknown>;
+  size: number;
+  theme?: ReturnType<typeof readChartTheme>;
+}): React.JSX.Element {
+  const { containerRef, status } = useECharts({
+    type: "radar",
+    option,
+    theme: theme ?? readChartTheme(null),
+  });
   return (
     <div>
       <span data-testid="status">{status}</span>
@@ -114,7 +126,31 @@ describe("useECharts", () => {
   it("zeichnet bei Größenänderung neu", async () => {
     render(<Probe option={option} size={400} />);
     await waitFor(() => expect(screen.getByTestId("status")).toHaveTextContent("ready"));
-    notify?.();
+    act(() => notify?.());
     await waitFor(() => expect(instance.resize).toHaveBeenCalled());
+  });
+
+  it("legt bei geändertem Theme neu an, denn ECharts nimmt es nur beim init", async () => {
+    const theme = readChartTheme(null);
+    const { rerender } = render(<Probe option={option} size={400} theme={theme} />);
+    await waitFor(() => expect(screen.getByTestId("status")).toHaveTextContent("ready"));
+    expect(init).toHaveBeenCalledTimes(1);
+
+    rerender(<Probe option={option} size={400} theme={{ ...theme, text: "#123456" }} />);
+    await waitFor(() => expect(init).toHaveBeenCalledTimes(2));
+    expect(instance.dispose).toHaveBeenCalledTimes(1);
+  });
+
+  it("legt nicht neu an, wenn dasselbe Theme nur neu verpackt hereinkommt", async () => {
+    const theme = readChartTheme(null);
+    const { rerender } = render(<Probe option={option} size={400} theme={theme} />);
+    await waitFor(() => expect(screen.getByTestId("status")).toHaveTextContent("ready"));
+
+    // Gleicher Inhalt, andere Referenz: Ein Aufrufer ohne Memoisierung darf
+    // das Diagramm nicht bei jedem Rendern wegwerfen und neu aufbauen.
+    rerender(<Probe option={option} size={400} theme={{ ...theme }} />);
+    await new Promise((resolve) => setTimeout(resolve, 20));
+    expect(init).toHaveBeenCalledTimes(1);
+    expect(instance.dispose).not.toHaveBeenCalled();
   });
 });
