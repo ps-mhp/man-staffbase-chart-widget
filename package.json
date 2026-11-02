@@ -1,0 +1,11 @@
+{
+  "name": "@man/chart-widget",
+  "version": "0.0.0",
+  "description": "",
+  "author": "",
+  "license": "ISC",
+  "staffbase": {
+    "element": "chart-widget",
+    "bundle": "dist/chart-widget.js"
+  }
+}
