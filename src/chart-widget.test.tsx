@@ -70,6 +70,7 @@ describe("ChartWidget", () => {
   });
 
   it("kommt ohne leere Anfuehrungszeichen aus, wenn gar kein Typ dasteht", () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- Feld wird bewusst weggelassen, nicht gebraucht.
     const { type: _omitted, ...withoutType } = spec;
     render(<ChartWidget chart={JSON.stringify(withoutType)} height={420} />);
     expect(screen.getByText(/Der eingerichtete Diagrammtyp ist dieser Version/)).toBeInTheDocument();

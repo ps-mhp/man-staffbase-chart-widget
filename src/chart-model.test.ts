@@ -70,6 +70,7 @@ describe("parseChartSpec", () => {
   });
 
   it("lässt 'detail' leer, wenn gar kein Typ dasteht, statt 'undefined' zu nennen", () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- Feld wird bewusst weggelassen, nicht gebraucht.
     const { type: _omitted, ...withoutType } = valid;
     const { problems } = parseChartSpec(JSON.stringify(withoutType));
     expect(problems).toEqual([{ code: "unknown-type", detail: undefined }]);
