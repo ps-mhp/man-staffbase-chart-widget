@@ -1,5 +1,5 @@
 /*!
- * Copyright 2026, Staffbase SE and contributors.
+ * Copyright 2026, MHP Management und IT-Beratung GmbH and contributors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,21 +19,49 @@ setPublicPathFromBundle("chart-widget.js");
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-import { BlockFactory, BlockDefinition, ExternalBlockDefinition, BaseBlock } from "widget-sdk";
-import { configurationSchema, uiSchema } from "./configuration-schema";
+import { BlockAttributes, BlockFactory, BlockDefinition, ExternalBlockDefinition, BaseBlock } from "widget-sdk";
+import {
+  CHART_ATTRIBUTE,
+  HEIGHT_ATTRIBUTE,
+  configurationSchema,
+  readHeightAttribute,
+  uiSchema,
+} from "./configuration-schema";
 import icon from "../resources/chart-widget.svg";
 import pkg from "../package.json";
 
-/** Attributes handled by the widget; mirrored in the configuration schema. */
-const widgetAttributes: string[] = [];
+/**
+ * Die Attribute, wie `parseAttributes` sie liefert. Die Höhe ist weit
+ * getypt, weil das SDK sie je nach Weg als Zeichenkette oder als Zahl
+ * übergibt — gelesen wird deshalb über `readHeightAttribute`, nie direkt.
+ */
+export type ChartWidgetProps = BlockAttributes & {
+  [CHART_ATTRIBUTE]?: string;
+  [HEIGHT_ATTRIBUTE]?: string | number;
+};
+
+/** Attribute aus denselben Konstanten wie das Schema, um Abweichungen zu vermeiden. */
+const widgetAttributes: string[] = [CHART_ATTRIBUTE, HEIGHT_ATTRIBUTE];
 
 const factory: BlockFactory = (BaseBlockClass, _widgetApi) => {
   return class ChartWidgetBlock extends BaseBlockClass implements BaseBlock {
     private _root: ReactDOM.Root | null = null;
 
+    private get props(): ChartWidgetProps {
+      const attrs = this.parseAttributes<ChartWidgetProps>();
+      // Die Sprache steht nicht in den Attributen, sondern am Block selbst.
+      // Ohne sie stünden Zahlen immer im deutschen Format.
+      return { ...attrs, contentLanguage: this.contentLanguage };
+    }
+
     public renderBlock(container: HTMLElement): void {
       this._root ??= ReactDOM.createRoot(container);
-      this._root.render(<div />);
+      this._root.render(<div style={{ height: readHeightAttribute(this.props[HEIGHT_ATTRIBUTE]) }} />);
+    }
+
+    public unmountBlock(_container: HTMLElement): void {
+      this._root?.unmount();
+      this._root = null;
     }
 
     public static get observedAttributes(): string[] {
@@ -53,7 +81,7 @@ const blockDefinition: BlockDefinition = {
   blockLevel: "block",
   configurationSchema: configurationSchema,
   uiSchema: uiSchema,
-  label: "ChartWidget",
+  label: "Diagramm",
   iconUrl: icon,
 };
 
