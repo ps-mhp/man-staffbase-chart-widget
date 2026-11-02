@@ -1,13 +1,43 @@
-# chart-widget
+# Diagramm
 
-TODO: Beschreibe in 2-3 Absätzen, wofür Redakteur:innen dieses Widget
-einsetzen und welches Ergebnis es auf der Seite erzeugt.
+Das Diagramm-Widget stellt Kennzahlen als **Radar-/Netzdiagramm** dar: mehrere
+Achsen strahlen sternförmig aus einem Mittelpunkt, und jede Serie — zum
+Beispiel ein Fahrzeug im Vergleich — verbindet ihre Werte auf diesen Achsen zu
+einer Fläche. So lassen sich mehrere Kennzahlen mehrerer Serien auf einen
+Blick vergleichen, auch wenn sie in ganz unterschiedlichen Einheiten gemessen
+werden — Kilometer, Tonnen, Minuten, Kilowatt.
+
+Eingerichtet wird das Diagramm über einen eigenen Editor, der sich direkt in
+den Widget-Einstellungen öffnet. Eine aus Excel kopierte Tabelle lässt sich
+dort mit einem Klick übernehmen, siehe [Schritt für Schritt](usage.md).
+
+Weitere Diagrammtypen (z. B. Balken- oder Liniendiagramme) sind für künftige
+Versionen vorgesehen, aber **noch nicht verfügbar** — aktuell lässt sich nur
+das Radar-/Netzdiagramm wählen.
 
 ## Was Leser:innen sehen
 
-TODO: Was erscheint auf der veröffentlichten Seite?
+- Das Diagramm selbst, mit beliebig vielen Achsen und Serien.
+- Die Werte stehen direkt an den Datenpunkten, zusätzlich erscheint beim
+  Überfahren eines Punkts ein Tooltip mit allen Werten der Serie.
+- Eine Legende oberhalb oder unterhalb des Diagramms, je nach Einstellung.
+- Optional ein Titel und eine Fußnote.
+- Für Screenreader zusätzlich eine vollständige Datentabelle unterhalb des
+  Diagramms. Sie ist optisch verborgen, aber vorhanden — das Diagramm ist
+  damit auch ohne visuelle Wahrnehmung nutzbar.
 
 ## Was Sie im CMS-Editor sehen
 
-TODO: Weicht die Bearbeitungsansicht davon ab? Wo muss zum Prüfen die Vorschau
-benutzt werden?
+Beim Einfügen des Bausteins öffnet sich automatisch der **Diagramm-Editor**:
+eine Tabelle aus Kategorien (Achsen) und Serien (Zeilen), dazu ein Feld zum
+Einfügen einer kopierten Tabelle sowie eine Live-Vorschau, die genau zeigt,
+wie das Diagramm später auf der Seite erscheint. Das Textfeld dahinter zeigt
+nur die technisch gespeicherte, kodierte Form der Daten und wird nie von Hand
+bearbeitet.
+
+Eine wichtige Besonderheit: Die Achsen tragen **keine sichtbare Zahlenskala**.
+Mehrere Achsen mit unterschiedlichen Einheiten (z. B. Kilometer und Minuten)
+lassen sich nicht sinnvoll auf einer gemeinsamen Skala abbilden. Jede Achse
+wird deshalb intern eigenständig zwischen ihrem kleinsten und größten Wert
+gestreckt; die tatsächlichen Zahlen stehen an den Datenpunkten, im Tooltip und
+in der Datentabelle. Mehr dazu unter [Einstellungen](settings.md).

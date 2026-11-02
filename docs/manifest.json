@@ -1,6 +1,6 @@
 {
-  "title": "chart-widget",
-  "summary": "TODO: Ein Satz, was dieses Widget für Redakteure tut.",
+  "title": "Diagramm",
+  "summary": "Stellt Kennzahlen als Radar-/Netzdiagramm dar — mit Tooltip, Wertelabels, Legende und Excel-Tabellenimport.",
   "icon": "🧩",
   "pages": [
     { "id": "overview", "title": "Übersicht", "file": "overview.md" },
