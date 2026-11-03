@@ -61,6 +61,19 @@ allen Kennzahlen gesetzt werden, bei denen ein kleinerer Wert das bessere
 Ergebnis ist — etwa Gewicht, Verbrauch oder Ladezeit. Im Diagramm-Editor bei
 der jeweiligen Achse einschalten.
 
+**Frage:** Ich sehe keine Knöpfe zum Herunterladen unterhalb des Diagramms.
+
+Antwort: Entweder ist „Download erlauben“ in den Einstellungen nicht
+eingeschaltet, oder das Diagramm ist noch nicht fertig gezeichnet — die
+Knöpfe erscheinen erst, sobald eine Grafik zum Herunterladen vorhanden ist.
+
+**Frage:** Beim Klick auf „Als SVG“ oder „Als PNG“ erscheint „Der Export ist
+fehlgeschlagen. Bitte versuchen Sie es erneut.“
+
+Antwort: Der Export konnte das gezeichnete Diagramm nicht finden — meist, weil
+es gerade neu lädt. Kurz warten und erneut klicken; besteht das Problem
+weiter, die Seite neu laden.
+
 **Frage:** Kann ich mehr als sechs Serien zeigen?
 
 Antwort: Ja. Die MAN-Farbpalette hat sechs Farben; ab der siebten Serie

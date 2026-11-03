@@ -22,9 +22,22 @@ das Radar-/Netzdiagramm wählen.
   Überfahren eines Punkts ein Tooltip mit allen Werten der Serie.
 - Eine Legende oberhalb oder unterhalb des Diagramms, je nach Einstellung.
 - Optional ein Titel und eine Fußnote.
+- Ist der Download erlaubt (siehe [Einstellungen](settings.md)), zwei Knöpfe
+  unterhalb des Diagramms zum Herunterladen als Bild.
 - Für Screenreader zusätzlich eine vollständige Datentabelle unterhalb des
   Diagramms. Sie ist optisch verborgen, aber vorhanden — das Diagramm ist
   damit auch ohne visuelle Wahrnehmung nutzbar.
+
+## Bild-Export
+
+Mit eingeschaltetem Download erscheinen unterhalb des Diagramms zwei Knöpfe,
+„Als SVG“ und „Als PNG“. Die heruntergeladene Datei enthält **nur das
+Diagramm**, nicht die übrige Seite — Titel, Legende, Achsen und Werte
+genauso, wie sie gerade angezeigt werden, mit weißem Hintergrund (auch wenn
+die Seite selbst durchsichtig oder dunkel hinterlegt ist). Das SVG lässt sich
+verlustfrei vergrößern, das PNG eignet sich für Stellen, die kein SVG
+einbinden können (z. B. die meisten Präsentationsprogramme) und wird in
+doppelter Auflösung erzeugt.
 
 ## Übersetzung
 

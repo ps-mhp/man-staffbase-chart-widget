@@ -20,6 +20,7 @@ import { ChartTable } from "./chart-table";
 import { ChartProblem, parseChartSpec } from "./chart-model";
 import { normalizeSpec } from "./chart-normalize";
 import { buildOption } from "./echarts-option";
+import { ExportButtons } from "./export-button";
 import { intlLocale } from "./format";
 import { useChartTheme } from "./use-chart-theme";
 import { useECharts } from "./use-echarts";
@@ -33,6 +34,7 @@ export interface ChartViewProps {
   chart?: string;
   height?: number;
   contentLanguage?: string;
+  allowExport?: boolean;
 }
 
 /** Kennzeichnet das Stylesheet in seinem Root und verhindert eine zweite Kopie. */
@@ -61,7 +63,7 @@ function noticeFor(problems: ChartProblem[]): string | null {
   return null;
 }
 
-export function ChartWidget({ chart, height, contentLanguage }: ChartViewProps): React.JSX.Element {
+export function ChartWidget({ chart, height, contentLanguage, allowExport }: ChartViewProps): React.JSX.Element {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const theme = useChartTheme(rootRef);
   const locale = intlLocale(contentLanguage);
@@ -105,6 +107,9 @@ export function ChartWidget({ chart, height, contentLanguage }: ChartViewProps):
             role="img"
             aria-label={spec.title ?? "Diagramm"}
           />
+          {allowExport && status === "ready" ? (
+            <ExportButtons containerRef={containerRef} theme={theme} title={spec.title} />
+          ) : null}
           <ChartTable spec={spec} locale={locale} />
         </>
       )}

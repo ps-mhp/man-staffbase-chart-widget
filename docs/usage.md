@@ -25,7 +25,11 @@ sechs Kennzahlen mit unterschiedlichen Einheiten.
 5. **Titel** und **Fußnote** eintragen, Legende ein-/ausschalten und ihre
    Position (oben/unten) wählen.
 6. Die **Höhe** des Diagramms einstellen (siehe [Einstellungen](settings.md)).
-7. Auf **Speichern** klicken, dann **Schließen**. Erst „Speichern“ überträgt
+7. Soll sich das Diagramm als Bild herunterladen lassen, den Schalter
+   **„Download erlauben“** einschalten (siehe [Einstellungen](settings.md)).
+   Unterhalb des Diagramms erscheinen dann zwei Knöpfe, „Als SVG“ und
+   „Als PNG“.
+8. Auf **Speichern** klicken, dann **Schließen**. Erst „Speichern“ überträgt
    die Daten ins Widget; solange neben den Buttons „Ungespeicherte
    Änderungen“ steht, ist noch nichts übernommen.
 

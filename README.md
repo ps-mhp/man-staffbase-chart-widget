@@ -13,17 +13,33 @@ fachliche Spezifikation liegt im Meta-Repo unter
 ## Einbindung
 
 Das Widget registriert den Web-Component-Tag `chart-widget` (siehe
-`package.json#staffbase.element`) mit zwei Attributen:
+`package.json#staffbase.element`) mit drei Attributen:
 
 | Attribut | Typ | Beschreibung |
 | --- | --- | --- |
 | `chart` | `string` | Die komplette Diagrammdefinition, kodiert. Wird ausschließlich über den Diagramm-Editor im Konfigurationsdialog geschrieben (siehe `src/chart-model.ts`, `src/chart-editor/`). |
 | `height` | `string \| number` | Höhe des Diagramms in Pixeln, 160–1200, Vorgabe 420 (`src/configuration-schema.ts`). |
+| `allow-export` | `boolean` | Zeigt unter dem Diagramm zwei Knöpfe zum Herunterladen als SVG oder PNG. Vorgabe aus (`src/chart-export.ts`). |
 
 Das Datenformat hinter `chart` ist `ChartSpec` aus `src/chart-model.ts` —
 die einzige Schnittstelle, über die Daten ins Widget gelangen. Gelesen wird
 es über `parseChartSpec`, das nie wirft und bei unlesbaren oder leeren Daten
 auf eine leere, aber gültige Definition zurückfällt.
+
+## Bild-Export (`src/chart-export.ts`)
+
+Mit `allow-export` erscheinen zwei Knöpfe, „Als SVG“ und „Als PNG“. Der
+Export läuft bewusst über **DOM-Serialisierung**
+(`container.querySelector("svg")` + `XMLSerializer`), nicht über ECharts'
+`renderToSVGString` — exportiert wird exakt das, was im Dokument steht,
+inklusive allem selbst beigesteuerten Styling. Das Widget rendert deshalb
+mit dem SVG-Renderer (siehe `use-echarts.ts`), genau damit dieser Weg
+offensteht. `standaloneSvg` arbeitet auf einer Kopie (`cloneNode`) und
+ergänzt, was beim Herauslösen sonst fehlt: Namensraum (`xmlns`, bei Bedarf
+`xmlns:xlink`), Schriftfamilie an der Wurzel und eine deckende
+Hintergrundfläche. Der PNG-Pfad (`svgToPngBlob`) geht über Canvas und lässt
+sich nicht in jsdom testen — dafür prüft `scripts/smoke-chart.mjs` ihn in
+einem echten Browser.
 
 ## Architektur: einen weiteren Diagrammtyp ergänzen
 

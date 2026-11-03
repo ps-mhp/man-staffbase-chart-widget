@@ -26,11 +26,11 @@ describe("Registrierung", () => {
 
     expect(blockDefinition.name).toBe("chart-widget");
     expect(blockDefinition.label).toBe("Diagramm");
-    expect(blockDefinition.attributes).toEqual(["chart", "height"]);
+    expect(blockDefinition.attributes).toEqual(["chart", "height", "allow-export"]);
 
     // Jedes gemeldete Attribut muss im Schema stehen — sonst bliebe es im
     // Dialog unerreichbar und zur Laufzeit stumm leer.
     const properties = Object.keys(blockDefinition.configurationSchema?.properties ?? {});
-    expect(properties.sort()).toEqual(["chart", "height"]);
+    expect(properties.sort()).toEqual(["allow-export", "chart", "height"]);
   });
 });

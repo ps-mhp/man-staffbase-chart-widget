@@ -59,4 +59,38 @@
     white-space: nowrap;
     border: 0;
   }
+
+  &__export {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: man(space-3);
+    margin-top: man(space-3);
+  }
+
+  // Werkzeug, kein Inhalt: keine Markenfarbe, nur die neutrale Form eines
+  // Knopfs aus den Tokens.
+  &__export-button {
+    padding: man(space-2) man(space-4);
+    border: man(border-width) solid man(cta-border);
+    border-radius: man(radius);
+    background: man(surface);
+    color: man(text);
+    @include man-type("body-s");
+    cursor: pointer;
+
+    &:hover {
+      border-color: man(border-input-hover);
+    }
+
+    &:focus-visible {
+      outline: man(focus-width) solid man(focus-color);
+      outline-offset: man(focus-offset);
+    }
+  }
+
+  &__export-error {
+    color: man(error-ink);
+    @include man-type("body-s");
+  }
 }

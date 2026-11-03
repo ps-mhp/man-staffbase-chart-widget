@@ -105,4 +105,18 @@ describe("ChartWidget", () => {
     render(<ChartWidget chart={serializeChartSpec(spec)} height={420} />);
     expect(await screen.findByText(/konnte nicht geladen werden/)).toBeInTheDocument();
   });
+
+  it("zeigt keine Export-Knöpfe, solange das Attribut es nicht erlaubt", async () => {
+    render(<ChartWidget chart={serializeChartSpec(spec)} height={420} />);
+    // Wartet auf "ready", ohne den Status selbst abzufragen (siehe oben).
+    await screen.findByRole("table");
+    expect(screen.queryByRole("button", { name: "Als SVG" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Als PNG" })).not.toBeInTheDocument();
+  });
+
+  it("zeigt zwei Export-Knöpfe, sobald gezeichnet ist und das Attribut es erlaubt", async () => {
+    render(<ChartWidget chart={serializeChartSpec(spec)} height={420} allowExport />);
+    expect(await screen.findByRole("button", { name: "Als SVG" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Als PNG" })).toBeInTheDocument();
+  });
 });

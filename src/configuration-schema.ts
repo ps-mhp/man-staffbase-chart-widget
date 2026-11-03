@@ -14,6 +14,10 @@
 import { UiSchema } from "@rjsf/utils";
 import { JSONSchema7 } from "json-schema";
 
+import { EXPORT_ATTRIBUTE } from "./chart-export";
+
+export { EXPORT_ATTRIBUTE } from "./chart-export";
+
 export const CHART_ATTRIBUTE = "chart";
 export const HEIGHT_ATTRIBUTE = "height";
 
@@ -53,6 +57,11 @@ export const configurationSchema: JSONSchema7 = {
       minimum: MIN_HEIGHT,
       maximum: MAX_HEIGHT,
     },
+    [EXPORT_ATTRIBUTE]: {
+      type: "boolean",
+      title: "Download erlauben",
+      default: false,
+    },
   },
 };
 
@@ -69,6 +78,11 @@ export const uiSchema: UiSchema = {
     "ui:help":
       "Wie hoch das Diagramm auf der Seite steht. Die Breite richtet sich immer nach der Spalte. " +
       `Erlaubt sind ${MIN_HEIGHT} bis ${MAX_HEIGHT} Pixel.`,
+  },
+  [EXPORT_ATTRIBUTE]: {
+    "ui:help":
+      "Zeigt unter dem Diagramm zwei Knöpfe zum Herunterladen als Bild. Die Datei enthält nur das " +
+      "Diagramm, nicht die Seite.",
   },
 };
 

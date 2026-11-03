@@ -23,11 +23,13 @@ import { BlockAttributes, BlockFactory, BlockDefinition, ExternalBlockDefinition
 import { getTranslationRegistry } from "@shared/translation/registry";
 import {
   CHART_ATTRIBUTE,
+  EXPORT_ATTRIBUTE,
   HEIGHT_ATTRIBUTE,
   configurationSchema,
   readHeightAttribute,
   uiSchema,
 } from "./configuration-schema";
+import { readExportAttribute } from "./chart-export";
 import icon from "../resources/chart-widget.svg";
 import pkg from "../package.json";
 
@@ -43,10 +45,11 @@ import { chartTranslationProvider } from "./translation-provider";
 export type ChartWidgetProps = BlockAttributes & {
   [CHART_ATTRIBUTE]?: string;
   [HEIGHT_ATTRIBUTE]?: string | number;
+  [EXPORT_ATTRIBUTE]?: string | boolean;
 };
 
 /** Attribute aus denselben Konstanten wie das Schema, um Abweichungen zu vermeiden. */
-const widgetAttributes: string[] = [CHART_ATTRIBUTE, HEIGHT_ATTRIBUTE];
+const widgetAttributes: string[] = [CHART_ATTRIBUTE, HEIGHT_ATTRIBUTE, EXPORT_ATTRIBUTE];
 
 const factory: BlockFactory = (BaseBlockClass, _widgetApi) => {
   return class ChartWidgetBlock extends BaseBlockClass implements BaseBlock {
@@ -67,6 +70,7 @@ const factory: BlockFactory = (BaseBlockClass, _widgetApi) => {
           chart={props[CHART_ATTRIBUTE]}
           height={readHeightAttribute(props[HEIGHT_ATTRIBUTE])}
           contentLanguage={props.contentLanguage}
+          allowExport={readExportAttribute(props[EXPORT_ATTRIBUTE])}
         />,
       );
     }
