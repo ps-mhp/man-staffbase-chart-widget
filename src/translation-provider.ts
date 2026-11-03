@@ -24,6 +24,7 @@
 import { TranslationProvider } from "@shared/translation/carriers";
 
 import { parseChartSpec, serializeChartSpec } from "./chart-model";
+import { CHART_ATTRIBUTE } from "./configuration-schema";
 import {
   applyTranslatedTexts,
   isTranslatedChartHtml,
@@ -34,7 +35,7 @@ import {
 export const chartTranslationProvider: TranslationProvider = {
   id: "chart-widget",
   label: "Diagramm-Widget",
-  ref: { tagName: "chart-widget", attribute: "chart" },
+  ref: { tagName: "chart-widget", attribute: CHART_ATTRIBUTE },
 
   toTranslatable: (stored) => {
     if (!stored) return null;
