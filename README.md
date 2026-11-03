@@ -70,15 +70,85 @@ braucht:
    wird vom Compiler gemeldet. Alles typübergreifende Styling (Schrift,
    Farben, Legende, Tooltip) kommt aus `echartsTheme()`
    (`src/man-chart-theme.ts`) und wird im Übersetzer nicht wiederholt.
+
+   Jeder Übersetzer bekommt als vierten Parameter die gemessene
+   Containergröße (`ChartSize`). Ob er sie braucht, hängt vom Typ ab — siehe
+   [Flächenaufteilung](#flächenaufteilung-warum-das-radar-selbst-rechnet).
+   Ein kartesischer Typ (Balken, Linie) kommt in aller Regel ohne sie aus,
+   weil `grid` mit `containLabel: true` den Platz für Achsenbeschriftungen
+   selbst reserviert.
 4. **Editor-UI** (`src/chart-editor/chart-editor.tsx`): bei Bedarf
-   typspezifische Felder ergänzen, analog zu „Ringzahl“ und „Fläche füllen“
-   beim Radar.
+   typspezifische Felder ergänzen, analog zu „Hilfslinien im Netz“ und
+   „Flächen füllen“ beim Radar. Der Editor zeigt immer nur die Felder des
+   gewählten Typs; die Typauswahl steht ganz oben im Dialog.
+
+### Flächenaufteilung: warum das Radar selbst rechnet
+
+Beim Radar reserviert ECharts **keinen** Platz für die Achsenbeschriftungen:
+Es legt das Netz mittig in den Container und schreibt die Namen darüber
+hinaus — auch aus dem Container heraus. Eine Prozentangabe für `radius` kann
+das nicht auffangen, weil sie die Länge der Beschriftungen nicht kennt.
+`radarLayout()` in `radar.ts` rechnet deshalb in Pixeln: Es misst Titel,
+Fußnote, Legende, die breiteste Zahl und die längste Beschriftung und leitet
+daraus `center`, `radius` und die Breite ab, auf die eine Beschriftung
+umbricht. Grundlage sind Textschätzungen aus `echarts-option/text-layout.ts`
+(`textWidth`, `lineCount`) — zum Zeitpunkt des Optionsbaus existiert noch
+kein Text, den man messen könnte, und eine Canvas-Messung liefe im
+SVG-Export und in jsdom ins Leere. Der Schätzfaktor liegt bewusst über dem
+tatsächlichen Mittel, damit die Schätzung in die sichere Richtung irrt.
+
+Damit die Größe überhaupt zur Verfügung steht, nimmt `useECharts` keine
+fertige Option entgegen, sondern einen Rückruf
+`makeOption(size: ChartSize)`. Der Hook ist die einzige Stelle, die die
+Containergröße kennt; bei jeder Größenänderung baut er die Option neu, statt
+nur `resize()` zu rufen.
+
+### Beschriftungen am Radar (`echarts-option/radar-labels.ts`)
+
+Zwei Dinge kann ECharts am Radar nicht, und beide werden hier als
+`graphic`-Textelemente selbst gesetzt (`axisName: { show: false }`,
+`series.label: { show: false }`):
+
+- **Richtung der Wertelabels.** ECharts kennt nur `top`/`bottom`/`left`/
+  `right`. Am Radar ist die einzig richtige Richtung „vom Mittelpunkt weg“,
+  und die ist je Achse eine andere. `axisDirection` und `anchorFor` liefern
+  sie; `valueLabels` setzt die Zahl außen an den Punkt.
+- **Abstand der Achsennamen.** `axisNameGap` gilt für alle Achsen gleich,
+  müsste also am breitesten Fall bemessen werden und fräße dann die Höhe auf
+  — und die Höhe ist beim Radar das knappe Maß. `axisNameGaps` rechnet den
+  Abstand je Richtung: seitlich die Breite der Zahlen, oben und unten nur
+  ihre Zeilenhöhe.
+
+Dazu kommen zwei Entzerrungen, weil ECharts' eigene
+(`labelLayout.moveOverlap`) am Radar wirkungslos ist: Serien auf derselben
+Achse werden senkrecht aufgefächert — **nach Wert geordnet**, denn auf einer
+schrägen Achse läge der größere Wert ohnehin weiter oben, und eine
+Auffächerung nach Serienindex höbe diesen Abstand genau auf. Zahlen
+verschiedener Achsen, die sich nahe dem Mittelpunkt treffen, rückt
+`separateLabels` um wenige Pixel auseinander.
+
+Die Zahlen tragen eine Fläche in Hintergrundfarbe und ein hohes `z`, damit
+weder eine Netzlinie noch ein Datenpunkt sie unleserlich macht.
+
+**Als QA-Werkzeug taugt nur ein Bild.** Keiner dieser Fehler fällt in einem
+Unit-Test auf — die Option war jedes Mal formal korrekt. Wer am Layout
+arbeitet, baut sich ein Wegwerfskript, das `dist/` ausliefert, den
+`defineBlock`-Shim aus `scripts/smoke-chart.mjs` installiert, das Widget in
+eine Box fester Breite hängt und per Puppeteer ein Bild schießt; geprüft wird
+bei mindestens drei Breiten (340, 520, 760 px). Ein gestrichelter Rahmen um
+die Box macht jeden Überlauf sofort sichtbar.
 
 Die Normalisierung (`src/chart-normalize.ts`) rechnet alle Achsenwerte
 unabhängig von ihrer Einheit auf eine gemeinsame Skala 0–100 und löst dabei
 auch invertierte Achsen auf („kleiner ist besser“) — ECharts selbst kann keine
 Achse umdrehen. Ein neuer Diagrammtyp, der dieselbe Achsenlogik braucht, kann
 `normalizeSpec` direkt wiederverwenden.
+
+Eine Achse ohne eigenes Minimum beginnt dabei bei **null**, nicht beim
+kleinsten vorkommenden Wert. Sonst läge die schwächere von zwei Serien auf
+jeder Achse exakt im Mittelpunkt und sähe aus wie null — das Bild behauptete
+etwas, das die Daten nicht hergeben. Nur wenn negative Werte vorkommen,
+beginnt die Achse beim kleinsten davon.
 
 ## Entwicklung
 
