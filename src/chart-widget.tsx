@@ -18,7 +18,7 @@ import { ensureStyleElement } from "@shared/style-root";
 
 import { ChartTable } from "./chart-table";
 import { ChartProblem, parseChartSpec } from "./chart-model";
-import { normalizeSpec } from "./chart-normalize";
+import { prepareSpec } from "./chart-prepare";
 import { buildOption } from "./echarts-option";
 import { ExportButtons } from "./export-button";
 import { intlLocale } from "./format";
@@ -79,8 +79,8 @@ export function ChartWidget({ chart, height, contentLanguage, allowExport }: Cha
   const notice = noticeFor(problems);
   const hasData = spec.categories.length > 0 && spec.series.length > 0;
 
-  const normalized = useMemo(
-    () => (hasData ? normalizeSpec(spec, theme.palette) : null),
+  const prepared = useMemo(
+    () => (hasData ? prepareSpec(spec, theme.palette) : null),
     [hasData, spec, theme],
   );
 
@@ -88,8 +88,8 @@ export function ChartWidget({ chart, height, contentLanguage, allowExport }: Cha
   // Hook riefe `setOption` endlos auf. Die Größe reicht der Hook herein —
   // sie entscheidet über die Aufteilung der Fläche.
   const makeOption = useCallback(
-    (size: ChartSize) => (normalized ? buildOption(normalized, theme, locale, size) : {}),
-    [normalized, theme, locale],
+    (size: ChartSize) => (prepared ? buildOption(prepared, theme, locale, size) : {}),
+    [prepared, theme, locale],
   );
 
   const { containerRef, status } = useECharts({ type: spec.type, makeOption, theme });

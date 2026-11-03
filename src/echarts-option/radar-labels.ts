@@ -40,7 +40,7 @@
  * in demselben Bezugssystem, in dem die Flächenaufteilung ohnehin rechnet.
  */
 
-import { NORMALIZED_MAX } from "../chart-normalize";
+import { NORMALIZED_MAX } from "./radar-scale";
 import { textWidth } from "./text-layout";
 
 /** Wo ECharts die erste Achse eines Radars ansetzt: senkrecht nach oben. */

@@ -14,15 +14,23 @@
 /**
  * Rechnet Achsen unterschiedlicher Einheiten auf eine gemeinsame Skala.
  *
- * Warum wir das selbst tun, obwohl ECharts `min` und `max` je Achse kann:
- * ECharts kann keine Achse umdrehen. „Kleiner ist besser" — beim
- * Batteriegewicht — wäre damit nicht darstellbar. Zwei Wege, einer über
- * ECharts-Grenzen und einer über eigene Umrechnung, wären zwei Mengen an
- * Randfällen und zwei Mengen an Tests. Also rechnen wir immer selbst, und
+ * Das kann nur das Radar brauchen, und deshalb liegt es hier und nicht in der
+ * typneutralen Vorbereitung: Ein Balken- oder Liniendiagramm zeichnet eine
+ * echte Werteachse, und eine Beschriftung von 0 bis 100 statt „600 kWh" waere
+ * dort unbrauchbar. Ebenso sind `Category.min`, `.max` und `.inverted` je
+ * Kategorie definiert — bei einer gemeinsamen Werteachse ist das nicht
+ * darstellbar.
+ *
+ * Warum wir die Umrechnung selbst tun, obwohl ECharts `min` und `max` je Achse
+ * kann: ECharts kann keine Achse umdrehen. „Kleiner ist besser" — beim
+ * Batteriegewicht — waere damit nicht darstellbar. Zwei Wege, einer ueber
+ * ECharts-Grenzen und einer ueber eigene Umrechnung, waeren zwei Mengen an
+ * Randfaellen und zwei Mengen an Tests. Also rechnen wir immer selbst, und
  * ECharts sieht nur noch Werte zwischen 0 und 100.
  */
 
-import { Category, ChartSpec, Series } from "./chart-model";
+import { Category, Series } from "../chart-model";
+import { PreparedSeries } from "../chart-prepare";
 
 export const NORMALIZED_MAX = 100;
 
@@ -30,22 +38,6 @@ export interface AxisBounds {
   min: number;
   max: number;
   inverted: boolean;
-}
-
-export interface NormalizedSeries {
-  name: string;
-  /** Aufgelöst — entweder eigene Farbe oder Palette. */
-  color: string;
-  /** Was ECharts zeichnet. */
-  normalized: (number | null)[];
-  /** Was im Label und im Tooltip steht. */
-  raw: (number | null)[];
-}
-
-export interface NormalizedSpec {
-  spec: ChartSpec;
-  bounds: AxisBounds[];
-  series: NormalizedSeries[];
 }
 
 /** Hälftige Aufspreizung, wenn alle Werte einer Achse gleich sind. */
@@ -81,8 +73,8 @@ export function axisBounds(categories: Category[], series: Series[]): AxisBounds
   });
 }
 
-function toScale(value: number | null, bounds: AxisBounds): number | null {
-  if (value === null) return null;
+function toScale(value: number | null, bounds: AxisBounds | undefined): number | null {
+  if (value === null || bounds === undefined) return null;
   const ratio = (value - bounds.min) / (bounds.max - bounds.min);
   // Begrenzen: Ein von Hand gesetztes `max` darf ein Ausreißer nicht
   // sprengen, sonst zeichnet ECharts außerhalb des Netzes.
@@ -91,13 +83,13 @@ function toScale(value: number | null, bounds: AxisBounds): number | null {
   return bounds.inverted ? NORMALIZED_MAX - scaled : scaled;
 }
 
-export function normalizeSpec(spec: ChartSpec, palette: readonly string[]): NormalizedSpec {
-  const bounds = axisBounds(spec.categories, spec.series);
-  const series = spec.series.map((entry, index) => ({
-    name: entry.name,
-    color: entry.color ?? palette[index % palette.length],
-    normalized: entry.values.map((value, axis) => toScale(value, bounds[axis])),
-    raw: entry.values,
-  }));
-  return { spec, bounds, series };
+/**
+ * Die Werte je Serie auf 0–100, in derselben Reihenfolge wie die Serien.
+ *
+ * Getrennt von `PreparedSeries` und nicht als Feld darin: Nur das Radar
+ * braucht diese Zahlen, und ein Feld, das drei von vier Typen nicht lesen,
+ * wäre genau die Vermischung, die dieser Umbau auflöst.
+ */
+export function scaleSeries(series: PreparedSeries[], bounds: AxisBounds[]): (number | null)[][] {
+  return series.map((entry) => entry.values.map((value, axis) => toScale(value, bounds[axis])));
 }

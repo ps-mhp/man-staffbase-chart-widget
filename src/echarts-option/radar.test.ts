@@ -12,7 +12,7 @@
  */
 
 import { ChartSpec } from "../chart-model";
-import { normalizeSpec } from "../chart-normalize";
+import { prepareSpec } from "../chart-prepare";
 import { SERIES_PALETTE, readChartTheme } from "../man-chart-theme";
 import { radarOption } from "./radar";
 
@@ -36,7 +36,7 @@ const theme = readChartTheme(null);
 /** Eine typische Containergröße; einzelne Tests geben eine eigene vor. */
 const SIZE = { width: 640, height: 420 };
 const build = (s: ChartSpec = spec, size = SIZE) =>
-  radarOption(normalizeSpec(s, SERIES_PALETTE), theme, "de-DE", size);
+  radarOption(prepareSpec(s, SERIES_PALETTE), theme, "de-DE", size);
 
 type Indicator = { name: string; min: number; max: number };
 type RadarAxis = { indicator: Indicator[]; splitNumber: number };

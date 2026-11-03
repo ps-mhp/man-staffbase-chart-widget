@@ -19,7 +19,7 @@
  * `echartsTheme` und werden hier bewusst nicht wiederholt.
  */
 
-import { NORMALIZED_MAX, NormalizedSpec } from "../chart-normalize";
+import { PreparedSpec } from "../chart-prepare";
 import { formatMeasure } from "../format";
 import { ChartTheme } from "../man-chart-theme";
 import { ChartSize } from "../use-echarts";
@@ -32,6 +32,7 @@ import {
   valueLabels,
 } from "./radar-labels";
 import type { Direction, TextAnchor } from "./radar-labels";
+import { NORMALIZED_MAX, axisBounds, scaleSeries } from "./radar-scale";
 import { clamp, lineCount, textWidth } from "./text-layout";
 
 const DEFAULT_GRID_LEVELS = 5;
@@ -88,12 +89,12 @@ interface RadarLayout {
  * Prozentangabe kann nicht wissen, wie lang die Beschriftungen sind.
  */
 function radarLayout(
-  n: NormalizedSpec,
+  p: PreparedSpec,
   size: ChartSize,
   legendTop: boolean,
   valueWidth: number,
 ): RadarLayout {
-  const { spec } = n;
+  const { spec } = p;
   const headerWidth = Math.max(80, size.width - 16);
 
   const titleHeight = spec.title ? lineCount(spec.title, headerWidth, TITLE_FONT) * TITLE_LINE : 0;
@@ -110,7 +111,7 @@ function radarLayout(
 
   // Die Legende bricht bei ECharts selbst um, sobald die Einträge nicht
   // mehr nebeneinander passen. Für die Höhe wird derselbe Umbruch geschätzt.
-  const legendWidth = n.series.reduce(
+  const legendWidth = p.series.reduce(
     (total, series) => total + textWidth(series.name, LEGEND_FONT) + LEGEND_SYMBOL + LEGEND_GAP,
     0,
   );
@@ -129,7 +130,7 @@ function radarLayout(
   const axisCount = spec.categories.length;
   const nameGaps = axisNameGaps({
     axisCount,
-    seriesCount: n.series.length,
+    seriesCount: p.series.length,
     valueWidth,
     valueLine: VALUE_LINE,
   });
@@ -230,34 +231,40 @@ const escapeHtml = (value: string): string =>
   value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
 export function radarOption(
-  n: NormalizedSpec,
+  p: PreparedSpec,
   theme: ChartTheme,
   locale: string,
   size: ChartSize,
 ): Record<string, unknown> {
-  const { spec } = n;
+  const { spec } = p;
   const display = spec.display?.type === "radar" ? spec.display : undefined;
   const filled = display?.filled === true;
   const legendTop = spec.legend.position === "top";
+
+  // Die Umrechnung auf 0–100 passiert jetzt hier statt in der Vorbereitung:
+  // Sie ist eine Radar-Eigenheit, kein gemeinsamer Zwischenschritt.
+  const bounds = axisBounds(spec.categories, spec.series);
+  const normalized = scaleSeries(p.series, bounds);
 
   // Die Zahlen stehen zwischen dem äußersten Punkt einer Achse und deren
   // Namen. Wie viel Platz das braucht, hängt an der längsten Zahl — „1.000
   // kW" ist breiter als „5". Ohne diese Reserve schreibt die Zahl der
   // äußersten Serie in den Achsennamen hinein.
-  const widestValue = n.series.reduce(
+  const widestValue = p.series.reduce(
     (widest, series) =>
       Math.max(
         widest,
         ...spec.categories.map((category, axisIndex) =>
-          textWidth(formatMeasure(series.raw[axisIndex] ?? null, category, locale), VALUE_FONT),
+          textWidth(formatMeasure(series.values[axisIndex] ?? null, category, locale), VALUE_FONT),
         ),
       ),
     0,
   );
-  const layout = radarLayout(n, size, legendTop, widestValue + VALUE_PAD);
+  const layout = radarLayout(p, size, legendTop, widestValue + VALUE_PAD);
 
-  // Jede Achse läuft von 0 bis 100, weil `normalizeSpec` die Einheiten und
-  // die Achsenrichtung bereits aufgelöst hat. ECharts sieht nie einen Rohwert.
+  // Jede Achse läuft von 0 bis 100, weil die Umrechnung oben die Einheiten
+  // und die Achsenrichtung bereits aufgelöst hat. ECharts sieht nie einen
+  // Rohwert.
   const indicator = spec.categories.map((category) => ({
     name: category.label,
     min: 0,
@@ -266,13 +273,13 @@ export function radarOption(
 
   const labels = separateLabels(
     valueLabels({
-    centerX: layout.centerX,
-    centerY: layout.centerY,
-    radius: layout.radius,
-    axisCount: spec.categories.length,
-    series: n.series,
-    text: (seriesIndex, axisIndex) =>
-      formatMeasure(n.series[seriesIndex]?.raw[axisIndex] ?? null, spec.categories[axisIndex], locale),
+      centerX: layout.centerX,
+      centerY: layout.centerY,
+      radius: layout.radius,
+      axisCount: spec.categories.length,
+      series: p.series.map((entry, index) => ({ color: entry.color, normalized: normalized[index] })),
+      text: (seriesIndex, axisIndex) =>
+        formatMeasure(p.series[seriesIndex]?.values[axisIndex] ?? null, spec.categories[axisIndex], locale),
     }),
     VALUE_FONT,
     VALUE_LINE,
@@ -288,11 +295,11 @@ export function radarOption(
   });
 
   const tooltipFormatter = (params: RadarTooltipParams): string => {
-    const series = n.series[params.dataIndex];
+    const series = p.series[params.dataIndex];
     if (!series) return "";
     const rows = spec.categories
       .map((category, index) => {
-        const value = escapeHtml(formatMeasure(series.raw[index] ?? null, category, locale));
+        const value = escapeHtml(formatMeasure(series.values[index] ?? null, category, locale));
         const label = escapeHtml(category.label.replace(/\n/g, " "));
         return `<tr><td style="padding:1px 12px 1px 0">${label}</td><td style="text-align:right;font-weight:600">${value}</td></tr>`;
       })
@@ -333,7 +340,7 @@ export function radarOption(
       // verankert und die Legende verzerrt.
       ...(legendTop ? { top: layout.legendTopOffset } : { bottom: 0 }),
       textStyle: { fontSize: LEGEND_FONT },
-      data: n.series.map((series) => series.name),
+      data: p.series.map((series) => series.name),
     },
     tooltip: {
       trigger: "item",
@@ -367,9 +374,9 @@ export function radarOption(
         // `radar-labels.ts` dazu, warum ECharts' eigene Label am Radar
         // nicht ausreichen.
         label: { show: false },
-        data: n.series.map((series) => ({
+        data: p.series.map((series, index) => ({
           name: series.name,
-          value: series.normalized,
+          value: normalized[index],
           itemStyle: { color: series.color },
           lineStyle: { color: series.color },
           ...(filled ? { areaStyle: { color: series.color, opacity: AREA_OPACITY } } : {}),
