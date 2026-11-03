@@ -57,8 +57,17 @@ export function axisBounds(categories: Category[], series: Series[]): AxisBounds
       .map((s) => s.values[index])
       .filter((value): value is number => typeof value === "number");
 
-    let min = category.min ?? (values.length > 0 ? Math.min(...values) : 0);
-    let max = category.max ?? (values.length > 0 ? Math.max(...values) : 1);
+    const dataMin = values.length > 0 ? Math.min(...values) : 0;
+    const dataMax = values.length > 0 ? Math.max(...values) : 1;
+
+    // Die Achse wird ohne eigene Angabe an der Null verankert, nicht am
+    // kleinsten vorkommenden Wert. Am kleinsten Wert verankert läge die
+    // schwächste Serie auf *jeder* Achse exakt im Mittelpunkt: 240 von 600
+    // kWh sähe aus wie null, und sämtliche Wertelabels der Serie lägen im
+    // Zentrum übereinander. Nur bei negativen Werten, für die es keine
+    // natürliche Null als Rand gibt, bleibt es beim Datenrand.
+    let min = category.min ?? Math.min(0, dataMin);
+    let max = category.max ?? Math.max(0, dataMax);
 
     if (min === max) {
       // Ohne Spannweite wäre die Umrechnung eine Division durch null. Der

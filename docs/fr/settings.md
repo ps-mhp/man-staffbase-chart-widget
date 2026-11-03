@@ -42,17 +42,17 @@ séries à remplir.
 | --- | --- |
 | Axe | Nom de l’axe, tel qu’il apparaît sur le graphique et dans le tableau de données. Sur plusieurs lignes : la touche Entrée génère un saut de ligne qui apparaît également dans le graphique. |
 | Unité | Est ajoutée à chaque chiffre de cet axe (point de données, info-bulle, tableau), par exemple « kWh ». |
-| Direction (« plus petit, c’est mieux ») | Inverse l’axe : la valeur la plus petite se trouve alors la plus à l’extérieur. Pour les indicateurs où une valeur plus faible est préférable — poids, consommation, temps de charge. |
+| Direction (« plus petit, c’est mieux ») | Inverse l’axe : la valeur la plus petite se trouve alors plus à l’extérieur. Pour les indicateurs où une valeur plus faible est préférable — poids, consommation, temps de charge. |
 | Décimales | Uniquement lorsque les **réglages fins par axe** sont activés : Nombre de décimales affichées. Si aucune valeur n’est indiquée, le nombre de décimales effectivement saisi est repris. |
-| Minimum | Uniquement lorsque les réglages précis sont activés : limite inférieure de l’axe. Si aucune valeur n’est indiquée, la plus petite valeur présente sur cet axe est utilisée. |
-| Maximum | Uniquement lorsque les « réglages fins » sont activés : limite supérieure de l’axe. En l’absence d’indication, la plus grande valeur présente sur cet axe est utilisée. |
+| Minimum | Uniquement lorsque les réglages précis sont activés : limite inférieure de l’axe. Si aucune valeur n’est indiquée, l’axe commence à zéro — pour les valeurs négatives, à la plus petite d’entre elles. |
+| Maximum | Uniquement lorsque les « Réglages fins » sont activés : limite supérieure de l’axe. En l’absence d’indication, la plus grande valeur présente sur cet axe est utilisée. |
 | ↑ ↓ ✕ | Déplace l’axe en cercle ou le supprime avec toutes ses valeurs. |
 
 ## Par série (une colonne de la grille)
 
 | Paramètre | Description |
 | --- | --- |
-| Nom de la série | Nom tel qu'il apparaît dans la légende, l'info-bulle et le tableau de données. |
+| Nom de la série | Nom tel qu’il apparaît dans la légende, l’info-bulle et le tableau de données. |
 | Couleur | Remplace la couleur attribuée automatiquement à partir de la palette MAN pour cette série spécifique. |
 | ← → ✕ | Déplace la série — l’ordre détermine la couleur de la palette et l’ordre dans la légende — ou la supprime. |
 
@@ -61,26 +61,30 @@ séries à remplir.
 | Paramètre | Description |
 | --- | --- |
 | Titre | En-tête au-dessus du graphique. Si le champ reste vide, aucun en-tête n’apparaît. |
-| Note de bas de page | Texte supplémentaire en petits caractères sous le titre, par exemple pour les références. |
+| Note de bas de page | Texte supplémentaire en petits caractères sous le titre, par exemple pour les références bibliographiques. |
 | Légende | « au-dessus du graphique », « sous le graphique » ou « masquer ». |
 | Lignes auxiliaires dans le réseau | Uniquement pour le graphique radar : nombre d’anneaux auxiliaires concentriques. La valeur par défaut est 5. À titre purement esthétique, cela ne modifie aucune valeur. |
-| Remplir les zones | Uniquement pour le graphique radar : remplit la zone située derrière chaque ligne de série de manière semi-transparente, dans la couleur de celle-ci. Désactivé par défaut. |
+| Remplir les zones | Uniquement pour le radar : remplit la zone située derrière chaque ligne de série de manière semi-transparente, dans la couleur de celle-ci. Désactivé par défaut. |
 
 ## Mise à l'échelle automatique
 
 Les axes ne comportent pas d'échelle numérique visible — celle-ci ne peut pas être représentée de manière pertinente lorsque plusieurs axes
-ont des unités différentes. Si aucun minimum
-ni maximum n’est défini, chaque axe s’étend alors automatiquement entre la
-plus petite et la plus grande valeur qui y apparaissent. Cela rend clairement visibles les différences
-entre les séries, mais peut également donner l’impression que de petites différences, insignifiantes dans la pratique,
-sont importantes visuellement. Si vous ne le souhaitez pas,
-définissez manuellement les valeurs minimales et maximales de l’axe concerné — par exemple 0 et 600
-pour une plage, au lieu de l’étendre entre la plus petite et la plus grande
-valeur présentes.
+ont des unités différentes. Sans indication spécifique,
+chaque axe commence alors à **zéro** et s’étend jusqu’à sa plus grande
+valeur possible. La longueur d’un rayon se comporte ainsi comme la valeur
+elle-même : la moitié du chemin vers l’extérieur correspond également à la moitié de la quantité.
+
+Si un axe comporte des valeurs négatives, il commence par la plus petite d’entre elles —
+sinon, le point se trouverait en dehors de la grille.
+
+Si vous souhaitez mettre davantage en évidence les différences entre les séries, définissez
+manuellement le minimum et le maximum de l’axe concerné — par exemple 400 et 600 au lieu de
+0 et 600. Cela augmente les écarts visibles, mais amplifie également les petites
+différences, insignifiantes dans la pratique.
 
 Un minimum ou un maximum défini manuellement limite également le tracé :
 une valeur située en dehors de ces limites est représentée exactement sur le bord, au lieu de
-dépasser la grille. Le chiffre au niveau du point de données et dans le tableau reste
+dépasser la grille. Le chiffre affiché au niveau du point de données et dans le tableau reste
 celui qui a été saisi — la limite ne modifie que l’affichage, jamais la valeur. Ainsi, si
 vous définissez un axe de 0 à 600 et que vous saisissez 700, vous verrez le point tout
 à l’extérieur et le chiffre 700 à côté.

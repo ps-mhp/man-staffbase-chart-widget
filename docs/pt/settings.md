@@ -16,7 +16,7 @@ configurações.
 ## Tipo de diagrama
 
 A seleção na parte superior do editor determina o tipo de diagrama. Atualmente, existe
-apenas o **gráfico de rede (radar / teia de aranha)**; a lista cresce à medida que novos
+apenas o **gráfico de rede (radar/aranha)**; a lista cresce à medida que novos
 tipos são suportados. As definições específicas de cada tipo — no radar, por exemplo, as
 linhas auxiliares — só aparecem enquanto o tipo correspondente estiver selecionado.
 
@@ -44,8 +44,8 @@ séries para preencher.
 | Unidade | É anexada a cada número deste eixo (ponto de dados, dica de ferramenta, tabela), por exemplo, «kWh». |
 | Direção («quanto menor, melhor») | Inverte o eixo: o valor menor fica então mais à esquerda. Para indicadores em que um valor menor é melhor — peso, consumo, tempo de carregamento. |
 | Decimais | Apenas com as **configurações avançadas por eixo** ativadas: Quantos algarismos decimais são apresentados. Se não for especificado, é utilizado o número de algarismos decimais efetivamente introduzido. |
-| Mínimo | Apenas com as «Ajustes finos por eixo» ativadas: limite inferior do eixo. Se não for especificado, é utilizado o menor valor existente neste eixo. |
-| Máximo | Apenas com as «Ajustes finos por eixo» ativadas: limite superior do eixo. Se não for especificado, é utilizado o maior valor existente nesse eixo. |
+| Mínimo | Apenas com as «Ajustes finos por eixo» ativadas: limite inferior do eixo. Se não for especificado, o eixo começa em zero — no caso de valores negativos, no menor desses valores. |
+| Máximo | Apenas com as «Ajustes finos por eixo» ativadas: limite superior do eixo. Se não for especificado, é utilizado o maior valor presente nesse eixo. |
 | ↑ ↓ ✕ | Desloca o eixo em círculo ou remove-o juntamente com os seus valores. |
 
 ## Por série (uma coluna na grelha)
@@ -54,7 +54,7 @@ séries para preencher.
 | --- | --- |
 | Nome da série | Nome tal como aparece na legenda, na dica de ferramenta e na tabela de dados. |
 | Cor | Substitui a cor atribuída automaticamente a partir da paleta MAN para esta série específica. |
-| ← → ✕ | Desloca a série — a ordem determina a cor da paleta e a ordem na legenda — ou elimina-a. |
+| ← → ✕ | Desloca a série — a ordem determina a cor da paleta e a ordem na legenda — ou remove-a. |
 
 ## Título, legenda e apresentação
 
@@ -64,23 +64,27 @@ séries para preencher.
 | Nota de rodapé | Texto adicional em letras pequenas abaixo do título, por exemplo, para referências bibliográficas. |
 | Legenda | «Acima do gráfico», «Abaixo do gráfico» ou «Ocultar». |
 | Linhas auxiliares na rede | Apenas no gráfico de radar: número de anéis auxiliares concêntricos. O valor predefinido é 5. É apenas visual, não altera os valores. |
-| Preencher áreas | Apenas no radar: preenche a área por trás de cada linha da série com a respetiva cor, de forma semitransparente. Por predefinição, está desativado. |
+| Preencher áreas | Apenas no radar: preenche a área atrás de cada linha da série com a cor da mesma, de forma semitransparente. Por predefinição, está desativado. |
 
 ## Escalonamento automático
 
 Os eixos não apresentam uma escala numérica visível — esta não pode ser representada de forma significativa quando existem vários eixos
-com unidades diferentes. Sem valores mínimos
-e máximos definidos, cada eixo estende-se automaticamente entre o
-valor mais pequeno e o valor mais grande que nele ocorrem. Isto torna as diferenças
-entre as séries claramente visíveis, mas também pode fazer com que pequenas diferenças, na prática
-insignificantes, pareçam visualmente grandes. Quem não desejar isso,
-deve definir manualmente o mínimo e o máximo do eixo em questão — por exemplo, 0 e 600
-para um intervalo, em vez de o estender entre o menor e o maior
-valor que nele ocorra.
+com unidades diferentes. Sem indicação específica,
+cada eixo começa, em vez disso, em **zero** e vai até ao seu maior
+valor possível. O comprimento de um raio comporta-se, assim, como o próprio valor:
+metade do caminho para o exterior corresponde também a metade da quantidade.
 
-Um mínimo ou máximo definido manualmente também limita o desenho:
+Se houver valores negativos num eixo, este começa pelo menor deles —
+caso contrário, o ponto ficaria fora da grelha.
+
+Quem quiser realçar mais as diferenças entre as séries deve definir
+manualmente o mínimo e o máximo do eixo em questão — por exemplo, 400 e 600 em vez de
+0 e 600. Isto aumenta as distâncias visíveis, mas também faz com que pequenas
+diferenças, insignificantes na prática, pareçam grandes.
+
+Um mínimo ou máximo definido manualmente também limita o traçado:
 um valor fora destes limites é representado exatamente na borda, em vez de
 ultrapassar a grelha. O número no ponto de dados e na tabela permanece
-o mesmo que foi introduzido — o limite altera apenas a imagem, nunca o valor. Quem
+o que foi introduzido — o limite altera apenas a imagem, nunca o valor. Quem
 definir um eixo de 0 a 600 e introduzir 700, verá o ponto na
 extremidade e o 700 ao lado.

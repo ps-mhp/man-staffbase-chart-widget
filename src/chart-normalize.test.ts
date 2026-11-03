@@ -22,12 +22,19 @@ describe("axisBounds", () => {
     { name: "B", values: [4.4, 600] },
   ];
 
-  it("leitet die Grenzen je Achse aus den Werten dieser Achse ab", () => {
+  it("verankert eine Achse ohne eigene Grenzen an der Null", () => {
     const categories: Category[] = [{ label: "t" }, { label: "kWh" }];
+    // Nicht am kleinsten Wert: Sonst laege die schwaechere Serie auf jeder
+    // Achse im Mittelpunkt und saehe aus wie null.
     expect(axisBounds(categories, series)).toEqual([
-      { min: 1.8, max: 4.4, inverted: false },
-      { min: 240, max: 600, inverted: false },
+      { min: 0, max: 4.4, inverted: false },
+      { min: 0, max: 600, inverted: false },
     ]);
+  });
+
+  it("nimmt einen negativen Wert als Untergrenze, weil die Null dann nicht mehr unten liegt", () => {
+    const bounds = axisBounds([{ label: "x" }], [{ name: "A", values: [-4] }, { name: "B", values: [9] }]);
+    expect(bounds[0]).toEqual({ min: -4, max: 9, inverted: false });
   });
 
   it("lässt gesetzte Grenzen stehen", () => {
@@ -40,8 +47,8 @@ describe("axisBounds", () => {
   });
 
   it("spreizt eine Achse ohne Spannweite auf, damit nicht durch null geteilt wird", () => {
-    const bounds = axisBounds([{ label: "x" }], [{ name: "A", values: [7] }]);
-    expect(bounds[0]).toEqual({ min: 6.5, max: 7.5, inverted: false });
+    const bounds = axisBounds([{ label: "x" }], [{ name: "A", values: [0] }]);
+    expect(bounds[0]).toEqual({ min: -0.5, max: 0.5, inverted: false });
   });
 
   it("liefert 0 bis 1 für eine Achse ganz ohne Werte", () => {
@@ -54,7 +61,7 @@ describe("axisBounds", () => {
 
   it("ignoriert fehlende Werte bei der Spannweite", () => {
     const bounds = axisBounds([{ label: "x" }], [{ name: "A", values: [null] }, { name: "B", values: [3] }, { name: "C", values: [9] }]);
-    expect(bounds[0]).toEqual({ min: 3, max: 9, inverted: false });
+    expect(bounds[0]).toEqual({ min: 0, max: 9, inverted: false });
   });
 });
 
@@ -77,8 +84,9 @@ describe("normalizeSpec", () => {
 
   it("dreht invertierte Achsen, damit 'besser' immer weiter außen liegt", () => {
     const n = normalizeSpec(spec, PALETTE);
-    // 1,8 t ist der kleinste und damit beste Wert -> ganz außen.
-    expect(n.series[0].normalized[0]).toBe(NORMALIZED_MAX);
+    // 1,8 t ist der kleinere und damit bessere Wert -> weiter außen. Die
+    // Achse laeuft von 0 bis 4,4; ganz außen liegt deshalb erst die Null.
+    expect(n.series[0].normalized[0]).toBeGreaterThan(n.series[1].normalized[0] as number);
     expect(n.series[1].normalized[0]).toBe(0);
   });
 

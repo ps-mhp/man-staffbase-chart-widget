@@ -2,7 +2,7 @@
 
 Le widget « Diagramme » présente les indicateurs sous forme de **diagramme radar/en réseau** : plusieurs
 axes rayonnent en étoile à partir d'un point central, et chaque série — par
-exemple, un véhicule en comparaison — relie ses valeurs sur ces axes pour
+exemple, un véhicule comparé à d'autres — relie ses valeurs sur ces axes pour
 former une surface. Cela permet de comparer d’un seul
 coup d’œil plusieurs indicateurs de plusieurs séries, même s’ils sont mesurés dans des unités
 très différentes — kilomètres, tonnes, minutes, kilowatts.
@@ -19,7 +19,7 @@ le graphique radar/en réseau peut être sélectionné.
 
 - Le graphique lui-même, avec un nombre illimité d’axes et de séries.
 - Les valeurs apparaissent directement sur les points de données ; de plus, lorsque
-  l’on passe la souris sur un point, une infobulle s’affiche avec toutes les valeurs de la série.
+  l’on survole un point, une infobulle s’affiche avec toutes les valeurs de la série.
 - Une légende au-dessus ou en dessous du graphique, selon les paramètres.
 - En option, un titre et une note de bas de page.
 - Si le téléchargement est autorisé (voir [Paramètres](settings.md)), deux boutons
@@ -60,8 +60,8 @@ l’éditeur explique les termes et propose les options « Charger un exemple »
 enregistrée et codée des données et n’est jamais modifié manuellement.
 
 Une particularité importante : les axes ne comportent **aucune échelle numérique visible**.
-Il n’est pas possible de représenter de manière pertinente sur une même échelle plusieurs axes avec des unités différentes (par exemple, des kilomètres et des minutes).
-Chaque axe Chaque axe
-est donc étiré en interne de manière indépendante entre sa valeur minimale et sa valeur maximale
-; les chiffres réels apparaissent au niveau des points de données, dans l’info-bulle et
+Il n’est pas possible de représenter de manière pertinente plusieurs axes avec des unités différentes (par exemple, des kilomètres et des minutes)
+sur une même échelle. Chaque axe
+est donc étiré en interne de manière indépendante : de zéro jusqu’à sa plus grande
+valeur. Les chiffres réels apparaissent au niveau des points de données, dans l’info-bulle et
 dans le tableau de données. Pour en savoir plus, consultez la rubrique [Paramètres](settings.md).

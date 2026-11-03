@@ -12,7 +12,7 @@
  */
 
 import * as React from "react";
-import { useLayoutEffect, useMemo, useRef } from "react";
+import { useCallback, useLayoutEffect, useMemo, useRef } from "react";
 
 import { ensureStyleElement } from "@shared/style-root";
 
@@ -23,7 +23,7 @@ import { buildOption } from "./echarts-option";
 import { ExportButtons } from "./export-button";
 import { intlLocale } from "./format";
 import { useChartTheme } from "./use-chart-theme";
-import { useECharts } from "./use-echarts";
+import { ChartSize, useECharts } from "./use-echarts";
 import css from "./chart-widget.scss";
 
 /**
@@ -79,14 +79,20 @@ export function ChartWidget({ chart, height, contentLanguage, allowExport }: Cha
   const notice = noticeFor(problems);
   const hasData = spec.categories.length > 0 && spec.series.length > 0;
 
-  // Ohne `useMemo` wäre die Option bei jedem Render ein neues Objekt, und
-  // der Hook riefe `setOption` endlos auf.
-  const option = useMemo(
-    () => (hasData ? buildOption(normalizeSpec(spec, theme.palette), theme, locale) : {}),
-    [hasData, spec, theme, locale],
+  const normalized = useMemo(
+    () => (hasData ? normalizeSpec(spec, theme.palette) : null),
+    [hasData, spec, theme],
   );
 
-  const { containerRef, status } = useECharts({ type: spec.type, option, theme });
+  // Ohne `useCallback` wäre das bei jedem Render eine neue Funktion, und der
+  // Hook riefe `setOption` endlos auf. Die Größe reicht der Hook herein —
+  // sie entscheidet über die Aufteilung der Fläche.
+  const makeOption = useCallback(
+    (size: ChartSize) => (normalized ? buildOption(normalized, theme, locale, size) : {}),
+    [normalized, theme, locale],
+  );
+
+  const { containerRef, status } = useECharts({ type: spec.type, makeOption, theme });
   const blocked = notice !== null || !hasData;
 
   return (

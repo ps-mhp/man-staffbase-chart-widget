@@ -30,7 +30,7 @@ hulplijnen — verschijnen alleen zolang het bijbehorende type is geselecteerd.
 
 ## Aan de slag zonder gegevens
 
-Zolang er noch assen noch reeksen zijn aangemaakt, legt de editor de
+Zolang er nog geen assen of reeksen zijn aangemaakt, legt de editor de
 begrippen uit en biedt twee knoppen aan: **„Voorbeeld laden“** vult een
 volledige vergelijking (MAN eTGX versus Mercedes-Benz eActros 600) in, die
 je kunt overschrijven; **„Lege tabel aanmaken“** stelt drie assen en twee
@@ -44,11 +44,11 @@ reeksen aan om in te vullen.
 | Eenheid | Wordt aan elk getal van deze as toegevoegd (gegevenspunt, tooltip, tabel), bijv. „kWh“. |
 | Richting („minder is beter“) | Keert de as om: de kleinere waarde ligt dan verder naar buiten. Voor kengetallen waarbij minder beter is — gewicht, verbruik, laadtijd. |
 | Decimalen | Alleen als **Fijnafstellingen per as** zijn ingeschakeld: Hoeveel cijfers achter de komma worden weergegeven. Zonder opgave wordt het aantal daadwerkelijk ingevoerde cijfers achter de komma overgenomen. |
-| Minimum | Alleen als de fijnafstellingen zijn ingeschakeld: ondergrens van de as. Zonder opgave wordt de kleinste voorkomende waarde van deze as gebruikt. |
+| Minimum | Alleen als de fijnafstellingen zijn ingeschakeld: ondergrens van de as. Zonder opgave begint de as bij nul — bij negatieve waarden bij de kleinste daarvan. |
 | Maximum | Alleen wanneer **fijnafstellingen per as** zijn ingeschakeld: bovengrens van de as. Zonder specificatie wordt de grootste voorkomende waarde van deze as gebruikt. |
 | ↑ ↓ ✕ | Verschuift de as in een cirkel of verwijdert deze samen met de waarden. |
 
-## Per reeks (één kolom in het raster)
+## Per reeks (een kolom in het raster)
 
 | Instelling | Beschrijving |
 | --- | --- |
@@ -64,19 +64,23 @@ reeksen aan om in te vullen.
 | Voetnoot | Aanvullende tekst in kleine letters onder de titel, bijvoorbeeld voor bronvermeldingen. |
 | Legenda | „boven de grafiek“, „onder de grafiek“ of „verbergen“. |
 | Hulp lijnen in het raster | Alleen bij de radargrafiek: aantal concentrische hulpringen. Standaard is dit 5. Puur visueel, verandert geen waarden. |
-| Vlakken vullen | Alleen bij de radargrafiek: vult het vlak achter elke reekslijn halfdoorzichtig in de kleur van die reeks. Standaard uitgeschakeld. |
+| Vlakken vullen | Alleen bij de radar: vult het vlak achter elke reekslijn halfdoorzichtig in de kleur van die reekslijn. Standaard uitgeschakeld. |
 
 ## Automatische schaalverdeling
 
 De assen hebben geen zichtbare getallenschaal — bij meerdere assen
-met verschillende eenheden is dit niet zinvol weer te geven. Zonder ingestelde minimum-
-en maximumwaarden strekt elke as zich in plaats daarvan automatisch uit tussen de
-kleinste en grootste waarde die erop voorkomt. Dit maakt verschillen
-tussen de reeksen duidelijk zichtbaar, maar kan ook kleine, in de praktijk
-onbelangrijke verschillen visueel groot laten lijken. Wie dat niet wil,
-stelt het minimum en maximum van de betreffende as handmatig in — bijvoorbeeld 0 en 600
-voor een bereik, in plaats van deze te laten lopen tussen de kleinste en grootste
-voorkomende waarde.
+met verschillende eenheden is het niet zinvol om deze weer te geven. Zonder eigen instelling
+begint elke as in plaats daarvan bij **nul** en loopt door tot de grootste
+voorkomende waarde. De lengte van een straal gedraagt zich daarmee net als de waarde
+zelf: de halve weg naar buiten is ook de halve hoeveelheid.
+
+Als er op een as negatieve waarden voorkomen, begint deze bij de kleinste daarvan —
+anders zou het punt buiten het raster liggen.
+
+Wie de verschillen tussen de reeksen sterker wil benadrukken, stelt
+het minimum en maximum van de betreffende as handmatig in — bijvoorbeeld 400 en 600 in plaats van
+0 en 600. Dit vergroot de zichtbare afstanden, maar laat ook kleine,
+in de praktijk onbeduidende verschillen groot lijken.
 
 Een handmatig ingesteld minimum of maximum beperkt ook de weergave:
 een waarde buiten deze grenzen wordt precies op de rand weergegeven, in plaats van

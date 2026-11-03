@@ -62,19 +62,20 @@ bouwsteen naar een bredere kolom of vouw het element uit.
 **Vraag:** Waarom zie ik bij twee bijna gelijke waarden een groot
 verschil in de grafiek?
 
-Antwoord: Zonder ingestelde minimum- en maximumwaarden strekt elke as zich automatisch uit
-tussen de kleinste en grootste voorkomende waarde — daardoor lijken ook
-kleine verschillen visueel groot. Oplossing: Stel in de diagram-editor voor de
-betrokken as handmatig minimum- en maximumwaarden in.
+Antwoord: Zonder ingestelde maximumwaarde reikt elke as tot de grootste waarde die
+erop voorkomt. Als twee waarden dicht bij elkaar liggen, maar ver van nul
+af, beslaat het bovenste deel van de as het hele bereik — het verschil
+lijkt daardoor groter dan het in werkelijkheid is. Oplossing: Stel in de diagram-editor voor de
+betrokken as handmatig een minimum en maximum in.
 
 **Vraag:** Waarom ligt de slechtere waarde verder naar buiten?
 
-Antwoord: Bij deze as ontbreekt de schakelaar „Kleiner is beter“. Deze moet worden
-ingeschakeld bij alle kengetallen waarbij een kleinere waarde het betere
-resultaat is — bijvoorbeeld gewicht, verbruik of laadtijd. Schakel deze in de grafiek-editor in bij
-de betreffende as.
+Antwoord: Bij deze as ontbreekt de schakelaar „Kleiner is beter“. Deze moet worden ingeschakeld bij
+alle kengetallen waarbij een lagere waarde het betere
+resultaat is — bijvoorbeeld gewicht, verbruik of laadtijd. Schakel deze in de diagram-editor bij
+de betreffende as in.
 
-**Vraag:** Ik zie geen knoppen om te downloaden onder de grafiek.
+**Vraag:** Ik zie geen knoppen om te downloaden onder het diagram.
 
 Antwoord: Ofwel is „Download toestaan“ in de instellingen niet
 ingeschakeld, ofwel is de grafiek nog niet helemaal getekend — de
@@ -104,7 +105,7 @@ instellingen blijven ongewijzigd.
 **Vraag:** Een ingevoerd getal is plotseling een factor 1000 te groot of
 te klein.
 
-Antwoord: De grafiekeditor interpreteert getallen volgens de Duitse notatie: een punt geldt als
+Antwoord: De grafiek-editor interpreteert getallen volgens de Duitse notatie: een punt geldt als
 duizendseparator, een komma als decimaalteken. Van `1.234` wordt
 dus `1234` en niet `1,234`. Wie een tabel met Engelse notatie
 invoegt (punt als decimaalteken), moet de betreffende getallen vóór het

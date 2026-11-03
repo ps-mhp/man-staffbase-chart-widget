@@ -48,14 +48,26 @@ function Probe({
   option,
   size,
   theme,
+  onSize,
 }: {
   option: Record<string, unknown>;
   size: number;
   theme?: ReturnType<typeof readChartTheme>;
+  onSize?: (measured: { width: number; height: number }) => void;
 }): React.JSX.Element {
+  // Der Hook erwartet eine stabile Funktion; die Tests reichen weiterhin
+  // eine fertige Option herein und merken sich nur, mit welcher Größe sie
+  // abgerufen wurde.
+  const makeOption = React.useCallback(
+    (measured: { width: number; height: number }) => {
+      onSize?.(measured);
+      return option;
+    },
+    [option, onSize],
+  );
   const { containerRef, status } = useECharts({
     type: "radar",
-    option,
+    makeOption,
     theme: theme ?? readChartTheme(null),
   });
   return (
@@ -90,6 +102,13 @@ describe("useECharts", () => {
     expect(init).toHaveBeenCalledTimes(1);
     expect(init.mock.calls[0][2]).toEqual({ renderer: "svg" });
     expect(instance.setOption).toHaveBeenCalledWith(option, true);
+  });
+
+  it("reicht die gemessene Containergröße an den Optionsbau", async () => {
+    const onSize = jest.fn();
+    render(<Probe option={option} size={400} onSize={onSize} />);
+    await waitFor(() => expect(screen.getByTestId("status")).toHaveTextContent("ready"));
+    expect(onSize).toHaveBeenCalledWith({ width: 400, height: 400 });
   });
 
   it("wartet mit dem Laden, bis der Container eine Größe hat", async () => {

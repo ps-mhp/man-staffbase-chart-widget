@@ -25,10 +25,10 @@ Respuesta: El gráfico se ha configurado con una versión más reciente del mód
 que reconoce un tipo de gráfico que esta versión aún no
 admite. Actualice el módulo a la última versión.
 
-**Pregunta:** Me aparece el mensaje «Aún no hay datos en el diagrama. Cree
+**Pregunta:** Me aparece el mensaje «Aún no hay datos en el gráfico. Cree
 ejes y series en la configuración».
 
-Respuesta: No se han creado ni ejes ni series en el editor de diagramas. En el
+Respuesta: No se han creado ni ejes ni series en el editor de gráficos. En el
 editor, inserte una tabla o utilice uno de los dos botones «Cargar ejemplo»
 o «Crear tabla vacía».
 
@@ -39,7 +39,8 @@ Respuesta: Debajo del campo de inserción se había seleccionado la dirección d
 otra opción en «¿Cómo está orientada su tabla?» y vuelva a hacer clic en
 «Aplicar tabla».
 
-**Pregunta:** El texto de mi eje es tan largo que comprime el gráfico.
+**Pregunta:** El texto de mi eje es tan largo que comprime el gráfico
+.
 
 Respuesta: En el campo del eje, pulsa la tecla Intro en el lugar deseado.
 El salto de línea se aplicará al gráfico.
@@ -61,14 +62,15 @@ el bloque a una columna más ancha o despliega el elemento.
 **Pregunta:** ¿Por qué veo una gran
 diferencia en el gráfico entre dos valores casi iguales?
 
-Respuesta: Si no se establecen valores mínimos y máximos, cada eje se extiende automáticamente
-entre el valor más pequeño y el más grande que se produce; por ello, incluso
-las pequeñas diferencias parecen grandes a simple vista. Solución: En el editor de diagramas, para el
-eje en cuestión, establece manualmente los valores mínimo y máximo.
+Respuesta: Si no se establece un máximo, cada eje se extiende hasta el valor más alto que
+aparece en él. Si hay dos valores muy próximos entre sí, pero muy alejados de cero,
+la parte superior del eje ocupa todo el espacio, por lo que la diferencia
+parece mayor de lo que realmente es. Solución: En el editor de gráficos,
+establece manualmente el mínimo y el máximo para el eje en cuestión.
 
 **Pregunta:** ¿Por qué el valor peor se encuentra más alejado?
 
-Respuesta: En este eje falta la opción «Cuanto menor, mejor». Debe activarse en
+Respuesta: En este eje falta el botón «Cuanto menor, mejor». Debe activarse en
 todos los indicadores en los que un valor menor suponga un mejor
 resultado —por ejemplo, peso, consumo o tiempo de carga—. Actívalo en el editor de gráficos en
 el eje correspondiente.
@@ -76,7 +78,7 @@ el eje correspondiente.
 **Pregunta:** No veo ningún botón para descargar debajo del gráfico.
 
 Respuesta: O bien la opción «Permitir descarga» no está
-activada en la configuración, o bien el gráfico aún no se ha completado; los
+activada en la configuración, o bien el gráfico aún no se ha completado: los
 botones solo aparecen cuando hay un gráfico disponible para descargar.
 
 **Pregunta:** Al hacer clic en «Como SVG» o «Como PNG» aparece el mensaje «La exportación ha
@@ -103,7 +105,7 @@ ajustes se mantienen sin cambios.
 **Pregunta:** Un número insertado de repente es 1000 veces mayor o
 menor de lo que debería.
 
-Respuesta: El editor de gráficos interpreta los números según la convención alemana: el punto se considera
+Respuesta: El editor de gráficos interpreta los números según las normas alemanas: el punto se considera
 separador de miles y la coma, separador decimal. Por lo tanto, `1.234` se convierte en
 `1234` y no en `1,234`. Si se inserta una tabla con el formato inglés
 (punto como separador decimal), hay que ajustar los números afectados al

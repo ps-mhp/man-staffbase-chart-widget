@@ -35,8 +35,8 @@ Com a opção de descarregamento ativada, aparecem dois botões abaixo do gráfi
 diagrama**, não o resto da página — título, legenda, eixos e valores
 exatamente como estão a ser apresentados, com fundo branco (mesmo que
 a própria página tenha um fundo transparente ou escuro). O ficheiro SVG pode ser
-ampliado sem perda de qualidade; o PNG é adequado para situações em que não é possível incorporar um SVG
-(por exemplo, na maioria dos programas de apresentação) e é gerado com
+ampliado sem perda de qualidade; o PNG é adequado para locais que não permitem a integração de SVG
+(por exemplo, a maioria dos programas de apresentação) e é gerado com
 resolução dupla.
 
 ## Tradução
@@ -55,13 +55,13 @@ na parte superior, a seleção do tipo de gráfico e um campo onde pode ser inse
 , por baixo uma grelha com **uma linha por eixo** e
 **uma coluna por série**, ao lado uma pré-visualização em tempo real que mostra exatamente como
 o gráfico aparecerá posteriormente na página. Enquanto ainda não tiver nada criado,
-o editor explica os termos e oferece as opções «Carregar exemplo» e
+o editor explica os conceitos e oferece as opções «Carregar exemplo» e
 «Criar tabela vazia». O campo de texto a seguir mostra apenas a forma técnica
 armazenada e codificada dos dados e nunca é editado manualmente.
 
 Uma característica importante: os eixos **não apresentam uma escala numérica visível**.
 Vários eixos com unidades diferentes (por exemplo, quilómetros e minutos)
 não podem ser representados de forma adequada numa escala comum. Cada eixo
-é, por isso, estendido internamente de forma independente entre o seu valor mínimo e máximo;
-os números reais aparecem nos pontos de dados, na dica de ferramenta e
+é, por isso, estendido internamente de forma independente: de zero até ao seu valor máximo
+. Os números reais aparecem nos pontos de dados, na dica de ferramenta e
 na tabela de dados. Mais informações em [Definições](settings.md).

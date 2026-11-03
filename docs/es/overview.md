@@ -4,8 +4,8 @@ El widget de gráficos representa los indicadores en forma de **gráfico radial 
 ejes se extienden en forma de estrella desde un punto central, y cada serie —por
 ejemplo, un vehículo en comparación— conecta sus valores en estos ejes para
 formar un área. De este modo, se pueden comparar de un
-solo vistazo varios indicadores de varias series, incluso si se miden en unidades muy diferentes
-—kilómetros, toneladas, minutos, kilovatios—.
+solo vistazo varios indicadores de varias series, incluso si se miden en unidades
+muy diferentes: kilómetros, toneladas, minutos, kilovatios.
 
 El diagrama se configura mediante un editor propio que se abre directamente en
 la configuración del widget. Una tabla copiada de Excel se puede
@@ -43,7 +43,7 @@ doble resolución.
 
 El gráfico se incluye en la traducción automática de la página. Se traducen
 el título, la nota al pie, las etiquetas de los ejes y los nombres de las series —precisamente los
-textos que se han introducido editorialmente—. Los números, las unidades, los límites de los ejes,
+textos que se han introducido de forma editorial. Los números, las unidades, los límites de los ejes,
 los colores y el resto de ajustes permanecen inalterados, ya que no tienen
 idioma: una unidad traducida sería incorrecta («t» no se convierte en «ton»),
 un número traducido no tendría sentido.
@@ -62,6 +62,6 @@ almacenada y codificada de los datos y nunca se edita manualmente.
 Una característica importante: los ejes **no tienen una escala numérica visible**.
 No es posible representar de forma adecuada en una escala común varios ejes con unidades diferentes (por ejemplo, kilómetros y minutos).
 Por lo tanto, Por lo tanto, cada eje
-se extiende internamente de forma independiente entre su valor mínimo y su valor máximo;
-las cifras reales aparecen en los puntos de datos, en la información sobre herramientas y
+se extiende internamente de forma independiente: desde cero hasta su valor máximo
+. Las cifras reales aparecen en los puntos de datos, en la información sobre herramientas y
 en la tabla de datos. Más información al respecto en [Configuración](settings.md).

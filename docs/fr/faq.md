@@ -9,12 +9,12 @@ les paramètres du module. »
 Réponse : Aucune configuration n’a encore été enregistrée pour ce module.
 Ouvrez les paramètres du widget, remplissez l’éditeur de diagramme et enregistrez.
 
-**Question :** Je vois le message « Le graphique n’a pas pu être lu.
+**Question :** Je vois le message « Le graphique n'a pas pu être lu.
 Veuillez le reconfigurer dans les paramètres. »
 
 Réponse : Les données enregistrées sont corrompues ou ont été modifiées manuellement.
-Ouvrez les paramètres du widget et reconfigurez le graphique dans l’éditeur,
-si nécessaire à l’aide d’un tableau nouvellement inséré.
+Ouvrez les paramètres du widget et reconfigurez le graphique dans l'éditeur,
+si nécessaire à l'aide d'un tableau nouvellement inséré.
 
 **Question :** Je vois le message « Le type de graphique « … » n’est pas reconnu par cette version du
 module. Veuillez mettre à jour le module. » (ou, sans
@@ -40,7 +40,7 @@ autre réponse sous « Comment se présente votre tableau ? » et cliquez à nou
 « Appliquer le tableau ».
 
 **Question :** Le libellé de mon axe est si long qu’il
-rétrécit le graphique.
+réduit la taille du graphique.
 
 Réponse : Dans le champ de l’axe, appuyez sur la touche Entrée à l’endroit souhaité.
 Le saut de ligne sera repris dans le graphique.
@@ -62,15 +62,16 @@ bloc dans une colonne plus large ou développez l’élément.
 **Question :** Pourquoi, pour deux valeurs presque identiques, constate-je une grande
 différence dans le graphique ?
 
-Réponse : Sans valeurs minimales et maximales définies, chaque axe s’étend automatiquement
-entre la plus petite et la plus grande valeur présentes — ce qui fait que même
-de petites différences semblent visuellement importantes. Solution : dans l’éditeur de diagramme, pour l’
-axe concerné, définir manuellement les valeurs minimales et maximales.
+Réponse : Sans limite maximale définie, chaque axe s'étend jusqu’à la plus grande valeur qui
+y apparaît. Si deux valeurs sont proches l’une de l’autre mais éloignées de zéro,
+la partie supérieure de l’axe utilise toute la plage — la différence
+semble ainsi plus grande qu’elle ne l’est en réalité. Solution : dans l’éditeur de graphique,
+définissez manuellement les valeurs minimale et maximale pour l’axe concerné.
 
 **Question :** Pourquoi la valeur la moins bonne se trouve-t-elle plus à l’extérieur ?
 
-Réponse : Sur cet axe, l’option « Plus c’est petit, mieux c’est » n’est pas activée. Elle doit être
-activée pour tous les indicateurs pour lesquels une valeur plus petite correspond à un meilleur
+Réponse : sur cet axe, l’option « Plus c’est petit, mieux c’est » n’est pas activée. Il doit être activé pour
+tous les indicateurs pour lesquels une valeur plus faible correspond à un meilleur
 résultat — par exemple le poids, la consommation ou le temps de chargement. Activez-le dans l’éditeur de graphiques pour
 l’axe concerné.
 
@@ -107,7 +108,7 @@ trop petit.
 Réponse : L'éditeur de graphiques interprète les chiffres à l'allemande : le point sert de
 séparateur des milliers, la virgule de séparateur décimal. Ainsi, `1.234` devient
 `1234` et non `1,234`. Si vous insérez un tableau au format anglais
-(point comme séparateur décimal), vous devez mettre les nombres concernés au
+(point comme séparateur décimal), vous devez convertir les nombres concernés au
 les mettre au format allemand avant de les insérer, sinon « 1.234 » (mille)
 sera par exemple interprété comme « 1,234 » (un virgule deux trois quatre). Si un nombre contient à la fois
 un point et une virgule, c’est le dernier

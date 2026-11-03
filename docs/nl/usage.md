@@ -8,7 +8,7 @@ zes kengetallen met verschillende eenheden.
 1. Plaats de widget **Diagram** op de pagina. De widgetinstellingen
    worden geopend en daarin verschijnt onmiddellijk de **diagram-editor** boven het
    eigenlijke veld.
-2. Bovenaan staat het **diagramtype**. Momenteel is daar alleen „Netwerkdiagram
+2. Bovenaan staat het **diagramtype**. Momenteel is daar alleen „Netdiagram
    (Radar / Spin)“ beschikbaar; de tekst eronder geeft aan waarvoor het type bedoeld is.
 3. Zolang er nog geen gegevens zijn, biedt het gedeelte **„Assen en
    reeksen”** twee opties: **„Voorbeeld laden”** vult de kant-en-klare
@@ -16,8 +16,8 @@ zes kengetallen met verschillende eenheden.
    kunt overschrijven, en **„Lege tabel aanmaken”** stelt drie assen en twee
    reeksen aan om in te vullen.
 4. De aanbevolen manier is echter **„Gegevens uit een tabel overnemen“** helemaal
-   bovenaan: selecteer de vergelijkingstabel in Excel, PowerPoint of Word,
-   kopieer deze en plak deze in het veld. Geef daaronder aan **hoe de tabel
+   bovenaan: de vergelijkingstabel in Excel, PowerPoint of Word selecteren,
+   kopiëren en in het veld plakken. Geef daaronder aan **hoe de tabel
    is opgebouwd** — de standaardinstelling is „per rij één kengetal, per kolom één
    variant“, dus precies zoals de tabel ook in de editor eronder verschijnt.
    Klik vervolgens op **„Tabel overnemen“**.
@@ -38,8 +38,8 @@ zes kengetallen met verschillende eenheden.
    de schakelaar **„Fijnafstellingen per as“**. In het normale geval zijn deze
    niet nodig; leeg betekent „afgeleid uit de waarden“.
 9. Voer onder **„Titel, legenda en weergave“** de titel en voetnoot in,
-   plaats of verberg de **legenda** en stel bij het netdiagram de
-   **hulplijnen in het net** en **vlakvullingen** in.
+   plaats of verberg de **legenda** en stel bij het rasterdiagram de
+   **hulplijnen in het raster** en **vlakvulling** in.
 10. Het **voorbeeld** aan de rechterkant laat continu zien hoe het diagram er op de pagina
     uitziet en blijft staan tijdens het scrollen.
 11. Stel de **hoogte** van het diagram in (zie [Instellingen](settings.md)).

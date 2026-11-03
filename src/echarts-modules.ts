@@ -63,9 +63,15 @@ const TYPE_LOADERS: Record<ChartType, (core: EChartsCore) => Promise<void>> = {
       import(/* webpackChunkName: "echarts-radar" */ /* webpackExports: ["RadarChart"] */ "echarts/charts"),
       // `RadarComponent` ist das Koordinatensystem, nicht die Serie. Ohne es
       // zeichnet ECharts nichts und meldet eine fehlende Komponente.
-      import(/* webpackChunkName: "echarts-radar" */ /* webpackExports: ["RadarComponent"] */ "echarts/components"),
+      // `GraphicComponent` trägt die Wertelabels, die das Radar selbst setzt
+      // (siehe `echarts-option/radar-labels.ts`).
+      import(
+        /* webpackChunkName: "echarts-radar" */
+        /* webpackExports: ["RadarComponent", "GraphicComponent"] */
+        "echarts/components"
+      ),
     ]);
-    core.use([charts.RadarChart, components.RadarComponent]);
+    core.use([charts.RadarChart, components.RadarComponent, components.GraphicComponent]);
   },
 };
 

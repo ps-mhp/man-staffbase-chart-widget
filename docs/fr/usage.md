@@ -35,8 +35,8 @@ six indicateurs exprimés en différentes unités.
    ce qui est voulu : dans une comparaison, il faut toujours que « plus à l’extérieur =
    mieux » s’applique.
 8. Les **décimales**, le **minimum** et le **maximum** par axe se trouvent derrière
-   le bouton **« Réglages fins par axe »**. En règle générale, ils ne sont pas nécessaires ;
-   laisser le champ vide signifie « dérivé des valeurs ».
+   le bouton **« Réglages fins par axe »**. En règle générale, ils ne sont pas nécessaires
+   ; laisser le champ vide signifie « dérivé des valeurs ».
 9. Sous **« Titre, légende et présentation »**, saisissez le titre et la note de bas de page,
    placez ou masquez la **légende** et, pour le diagramme en réseau, configurez les
    **lignes auxiliaires dans le réseau** ainsi que le **remplissage des zones**.
@@ -54,9 +54,9 @@ six indicateurs exprimés en différentes unités.
 ## Modifier a posteriori
 
 1. Rouvrez les paramètres du widget — l’éditeur de graphique s’affiche
-   à nouveau avec la dernière version enregistrée.
-2. Remplacez les valeurs directement dans la grille ou insérez à nouveau
-   un tableau mis à jour. Les axes et séries portant le même nom conservent leurs
+   à nouveau avec l’état enregistré en dernier.
+2. Remplacez les valeurs directement dans la grille ou insérez à nouveau un tableau
+   mis à jour. Les axes et séries portant le même nom conservent leurs
    unités, orientations d’axe et couleurs déjà définies — seules les valeurs sont
    remplacées.
 3. Enregistrer et fermer comme indiqué ci-dessus.

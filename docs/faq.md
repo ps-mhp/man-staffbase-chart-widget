@@ -62,9 +62,10 @@ Baustein in eine breitere Spalte verschieben bzw. das Element ausklappen.
 **Frage:** Warum sehe ich bei zwei fast gleichen Werten einen großen
 Unterschied im Diagramm?
 
-Antwort: Ohne gesetztes Minimum und Maximum spannt sich jede Achse automatisch
-zwischen dem kleinsten und größten vorkommenden Wert — dadurch wirken auch
-kleine Unterschiede optisch groß. Abhilfe: Im Diagramm-Editor für die
+Antwort: Ohne gesetztes Maximum reicht jede Achse bis zum größten Wert, der
+auf ihr vorkommt. Liegen zwei Werte dicht beieinander, aber weit von null
+entfernt, nutzt der obere Teil der Achse die ganze Strecke — der Unterschied
+wirkt dadurch größer, als er ist. Abhilfe: Im Diagramm-Editor für die
 betroffene Achse Minimum und Maximum von Hand setzen.
 
 **Frage:** Warum liegt der schlechtere Wert weiter außen?

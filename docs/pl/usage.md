@@ -65,8 +65,8 @@ sześć wskaźników w różnych jednostkach miary.
 
 1. Jeśli zamiast wykresu pojawia się komunikat, zawiera on już
    przyczyna — zapoznaj się z [FAQ](faq.md), aby sprawdzić wszystkie możliwe sformułowania.
-2. Jeśli wstawiona tabela nie może zostać zaimportowana, sprawdź, czy ma
-   nagłówki w pierwszym wierszu i w pierwszej kolumnie. Jeśli
+2. Jeśli wstawiona tabela nie może zostać zaimportowana, sprawdź, czy posiada
+   nagłówki w pierwszym wierszu i pierwszej kolumnie. Jeśli
    osie i serie są odwrócone w siatce, oznacza to, że kierunek czytania pod
    polem wstawiania został wybrany nieprawidłowo — należy go zmienić i ponownie zastosować.
 3. Jeśli po wstawieniu wykres wyświetla nieprawidłowe liczby (np. przesunięte o współczynnik

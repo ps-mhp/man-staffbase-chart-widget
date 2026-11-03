@@ -60,8 +60,8 @@ edytor wyjaśnia pojęcia i oferuje opcje „Pobierz przykład” oraz
 zapisaną, zakodowaną formę danych i nigdy nie jest edytowane ręcznie.
 
 Ważna cecha szczególna: osie nie posiadają **widocznej skali liczbowej**.
-Kilka osi o różnych jednostkach miary (np. kilometry i minuty)
+Kilku osi o różnych jednostkach miary (np. kilometry i minuty)
 nie da się sensownie przedstawić na jednej wspólnej skali. Każda oś
-jest zatem wewnętrznie rozciągana niezależnie między swoją najmniejszą a największą wartością;
-rzeczywiste liczby znajdują się przy punktach danych, w podpowiedzi oraz
+jest zatem wewnętrznie rozciągana niezależnie: od zera do swojej największej
+wartości. Rzeczywiste liczby znajdują się przy punktach danych, w podpowiedzi oraz
 w tabeli danych. Więcej informacji na ten temat w sekcji [Ustawienia](settings.md).

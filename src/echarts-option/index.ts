@@ -22,12 +22,14 @@
 import { ChartType } from "../chart-model";
 import { NormalizedSpec } from "../chart-normalize";
 import { ChartTheme } from "../man-chart-theme";
+import { ChartSize } from "../use-echarts";
 import { radarOption } from "./radar";
 
 export type OptionBuilder = (
   n: NormalizedSpec,
   theme: ChartTheme,
   locale: string,
+  size: ChartSize,
 ) => Record<string, unknown>;
 
 export const OPTION_BUILDERS: Record<ChartType, OptionBuilder> = {
@@ -38,6 +40,7 @@ export function buildOption(
   n: NormalizedSpec,
   theme: ChartTheme,
   locale: string,
+  size: ChartSize,
 ): Record<string, unknown> {
-  return OPTION_BUILDERS[n.spec.type](n, theme, locale);
+  return OPTION_BUILDERS[n.spec.type](n, theme, locale, size);
 }

@@ -18,8 +18,8 @@ il grafico radar/a rete.
 ## Cosa vedono i lettori
 
 - Il grafico stesso, con un numero illimitato di assi e serie.
-- I valori sono riportati direttamente sui punti dati; inoltre, passando il mouse su
-  un punto, appare un tooltip con tutti i valori della serie.
+- I valori sono riportati direttamente sui punti dati; inoltre, passando
+  il mouse su un punto, appare un tooltip con tutti i valori della serie.
 - Una legenda sopra o sotto il grafico, a seconda delle impostazioni.
 - Facoltativamente, un titolo e una nota a piè di pagina.
 - Se il download è consentito (vedi [Impostazioni](settings.md)), due pulsanti
@@ -30,7 +30,7 @@ il grafico radar/a rete.
 
 ## Esportazione immagine
 
-Se il download è abilitato, sotto il grafico compaiono due pulsanti:
+Se il download è attivato, sotto il grafico compaiono due pulsanti:
 «Come SVG» e «Come PNG». Il file scaricato contiene **solo il
 grafico**, non il resto della pagina — titolo, legenda, assi e valori
 esattamente come vengono visualizzati in quel momento, con sfondo bianco (anche se
@@ -60,8 +60,7 @@ l’editor spiega i termini e offre le opzioni “Carica esempio” e
 memorizzata e codificata dei dati e non viene mai modificato manualmente.
 
 Una caratteristica importante: gli assi **non presentano una scala numerica visibile**.
-Non è possibile rappresentare in modo sensato su una scala comune più assi con unità diverse (ad es. chilometri e minuti)
-. Ogni asse
-viene quindi esteso internamente in modo indipendente tra il suo valore minimo e quello massimo;
-i numeri effettivi sono riportati nei punti dati, nel tooltip e
+Non è possibile rappresentare in modo sensato su una scala comune più assi con unità diverse (ad es. chilometri e minuti). Ogni asse
+viene quindi esteso internamente in modo indipendente: da zero fino al suo valore massimo
+. I numeri effettivi sono riportati nei punti dati, nel tooltip e
 nella tabella dei dati. Maggiori informazioni alla voce [Impostazioni](settings.md).

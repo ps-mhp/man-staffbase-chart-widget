@@ -44,7 +44,7 @@ Serien zum Ausfüllen an.
 | Einheit | Wird an jede Zahl dieser Achse angehängt (Datenpunkt, Tooltip, Tabelle), z. B. „kWh“. |
 | Richtung („kleiner ist besser“) | Kehrt die Achse um: Der kleinere Wert liegt dann weiter außen. Für Kennzahlen, bei denen weniger besser ist — Gewicht, Verbrauch, Ladezeit. |
 | Nachkomma | Nur bei eingeschalteten **Feineinstellungen je Achse**: Wie viele Nachkommastellen angezeigt werden. Ohne Angabe wird die Zahl der tatsächlich eingegebenen Nachkommastellen übernommen. |
-| Minimum | Nur bei eingeschalteten Feineinstellungen: Untere Grenze der Achse. Ohne Angabe wird der kleinste vorkommende Wert dieser Achse verwendet. |
+| Minimum | Nur bei eingeschalteten Feineinstellungen: Untere Grenze der Achse. Ohne Angabe beginnt die Achse bei null — bei negativen Werten beim kleinsten davon. |
 | Maximum | Nur bei eingeschalteten Feineinstellungen: Obere Grenze der Achse. Ohne Angabe wird der größte vorkommende Wert dieser Achse verwendet. |
 | ↑ ↓ ✕ | Verschiebt die Achse im Kreis beziehungsweise entfernt sie samt ihrer Werte. |
 
@@ -69,14 +69,18 @@ Serien zum Ausfüllen an.
 ## Automatische Skalierung
 
 Die Achsen tragen keine sichtbare Zahlenskala — sie ist bei mehreren Achsen
-unterschiedlicher Einheit nicht sinnvoll darstellbar. Ohne gesetztes Minimum
-und Maximum spannt sich jede Achse stattdessen automatisch zwischen dem
-kleinsten und größten Wert, der auf ihr vorkommt. Das macht Unterschiede
-zwischen den Serien deutlich sichtbar, kann aber auch kleine, in der Praxis
-unbedeutende Unterschiede optisch groß wirken lassen. Wer das nicht möchte,
-setzt Minimum und Maximum der betroffenen Achse von Hand — z. B. 0 und 600
-für eine Reichweite, statt sie zwischen den kleinsten und größten
-vorkommenden Wert zu spannen.
+unterschiedlicher Einheit nicht sinnvoll darstellbar. Ohne eigene Angabe
+beginnt jede Achse stattdessen bei **null** und reicht bis zu ihrem größten
+vorkommenden Wert. Die Länge eines Strahls verhält sich damit wie der Wert
+selbst: Der halbe Weg nach außen ist auch die halbe Menge.
+
+Kommen auf einer Achse negative Werte vor, beginnt sie beim kleinsten davon —
+sonst läge der Punkt außerhalb des Netzes.
+
+Wer die Unterschiede zwischen den Serien stärker herausstellen möchte, setzt
+Minimum und Maximum der betroffenen Achse von Hand — z. B. 400 und 600 statt
+0 und 600. Das vergrößert die sichtbaren Abstände, lässt aber auch kleine,
+in der Praxis unbedeutende Unterschiede groß wirken.
 
 Ein von Hand gesetztes Minimum oder Maximum begrenzt auch die Zeichnung:
 Ein Wert außerhalb dieser Grenzen wird genau auf dem Rand dargestellt, statt

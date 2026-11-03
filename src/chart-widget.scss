@@ -23,6 +23,13 @@
 
   &__canvas {
     width: 100%;
+    /*
+     * Letzte Sicherung: ECharts zeichnet Beschriftungen notfalls über den
+     * Rand des SVG hinaus. Die Aufteilung in `echarts-option/radar.ts` soll
+     * das verhindern; falls eine Schätzung dort doch zu knapp ausfällt, darf
+     * das Diagramm trotzdem nicht in den Nachbarinhalt der Seite ragen.
+     */
+    overflow: hidden;
   }
 
   &__notice {

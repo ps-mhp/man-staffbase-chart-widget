@@ -19,6 +19,12 @@ import { ChartTheme, echartsTheme } from "./man-chart-theme";
 
 export type ChartStatus = "loading" | "ready" | "failed";
 
+/** Die gemessene Innenfläche des Containers in Pixeln. */
+export interface ChartSize {
+  width: number;
+  height: number;
+}
+
 /** Nur das, was wir von der Instanz brauchen. */
 interface ChartInstance {
   setOption(option: unknown, notMerge: boolean): void;
@@ -28,8 +34,17 @@ interface ChartInstance {
 
 interface UseEChartsArgs {
   type: ChartType;
-  /** Muss vom Aufrufer stabil gehalten werden, sonst läuft `setOption` bei jedem Render. */
-  option: Record<string, unknown>;
+  /**
+   * Baut die Option zur gemessenen Containergröße.
+   *
+   * Als Funktion und nicht als fertiges Objekt, weil die Aufteilung der
+   * Fläche — Netzradius, Platz für Achsenbeschriftungen, Lage der Legende —
+   * nur mit der echten Größe zu rechnen ist, und die kennt erst dieser Hook.
+   *
+   * Muss vom Aufrufer stabil gehalten werden (`useCallback`), sonst läuft
+   * `setOption` bei jedem Render.
+   */
+  makeOption: (size: ChartSize) => Record<string, unknown>;
   theme: ChartTheme;
 }
 
@@ -45,15 +60,16 @@ interface UseEChartsArgs {
  * Das Theme kann ECharts nur beim `init` entgegennehmen. Ein Theme-Wechsel
  * bedeutet deshalb `dispose` und Neuanlage, nicht `setOption`.
  */
-export function useECharts({ type, option, theme: incomingTheme }: UseEChartsArgs): {
+export function useECharts({ type, makeOption, theme: incomingTheme }: UseEChartsArgs): {
   containerRef: React.RefObject<HTMLDivElement | null>;
   status: ChartStatus;
 } {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const chartRef = useRef<ChartInstance | null>(null);
   const [core, setCore] = useState<EChartsCore | null>(null);
-  const [hasSize, setHasSize] = useState(false);
+  const [size, setSize] = useState<ChartSize | null>(null);
   const [status, setStatus] = useState<ChartStatus>("loading");
+  const hasSize = size !== null;
 
   // `theme` kommt oft als frisches Objekt herein (z.B. aus `readChartTheme`,
   // das keine Memoisierung verspricht). Ein `setStatus` weiter unten löst ein
@@ -76,10 +92,17 @@ export function useECharts({ type, option, theme: incomingTheme }: UseEChartsArg
     if (!element) return;
 
     const observer = new ResizeObserver(() => {
-      if (element.clientWidth > 0 && element.clientHeight > 0) {
-        setHasSize(true);
-        chartRef.current?.resize();
-      }
+      const width = element.clientWidth;
+      const height = element.clientHeight;
+      if (width <= 0 || height <= 0) return;
+      // Nur bei echter Änderung eine neue Referenz: Ein gleichbleibendes
+      // Maß darf keinen neuen `setOption`-Lauf auslösen.
+      setSize((previous) =>
+        previous && previous.width === width && previous.height === height
+          ? previous
+          : { width, height },
+      );
+      chartRef.current?.resize();
     });
     observer.observe(element);
     return () => observer.disconnect();
@@ -106,7 +129,7 @@ export function useECharts({ type, option, theme: incomingTheme }: UseEChartsArg
   // 3. Instanz anlegen oder die Option nachführen.
   useEffect(() => {
     const element = containerRef.current;
-    if (!core || !element) return;
+    if (!core || !element || !size) return;
 
     if (!chartRef.current) {
       chartRef.current = core.init(element, echartsTheme(theme), {
@@ -114,9 +137,9 @@ export function useECharts({ type, option, theme: incomingTheme }: UseEChartsArg
       }) as unknown as ChartInstance;
     }
     // `notMerge`: Weniger Serien als zuvor blieben sonst als Reste stehen.
-    chartRef.current.setOption(option, true);
+    chartRef.current.setOption(makeOption(size), true);
     setStatus("ready");
-  }, [core, option, theme]);
+  }, [core, makeOption, size, theme]);
 
   // Theme-Wechsel: alte Instanz weg, die nächste nimmt das neue Theme.
   useEffect(() => {

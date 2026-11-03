@@ -56,29 +56,30 @@ persists, check your network connection.
 
 Answer: Usually, the block is located in a very narrow column or within a
 collapsed element, so the container has a height of 0. The chart
-then remains permanently empty because it has no area to draw in. Move
+then remains permanently empty because it has no space to draw in. Move
 the block to a wider column or expand the element.
 
 **Question:** Why do I see a large
 difference in the chart between two values that are almost identical?
 
-Answer: Without minimum and maximum values set, each axis automatically spans
-the range between the smallest and largest values—which makes even
-small differences appear large. Solution: In the chart editor, manually set the
-minimum and maximum values for the affected axis.
+Answer: Without a maximum value set, each axis extends to the largest value that
+appears on it. If two values are close together but far from zero,
+the upper part of the axis uses the entire range—this makes the difference
+appear larger than it actually is. Solution: In the chart editor,
+manually set the minimum and maximum values for the affected axis.
 
 **Question:** Why is the worse value farther out?
 
-Answer: The “Smaller is better” toggle is missing for this axis. It must be enabled in
-the chart editor for all metrics where a smaller value indicates a better
-result—such as weight, consumption, or charging time. Enable it in the chart editor for
+Answer: The “Smaller is better” toggle is missing for this axis. It must be enabled for
+all metrics where a smaller value indicates a better
+result—such as weight, fuel consumption, or charging time. Enable it in the chart editor for
 the respective axis.
 
 **Question:** I don’t see any download buttons below the chart.
 
 Answer: Either “Allow Download” is not
-enabled in the settings, or the chart has not yet been fully generated—the
-buttons only appear once a chart is available for download.
+enabled in the settings, or the chart hasn’t finished rendering yet—the
+buttons only appear once a graphic is available for download.
 
 **Question:** When I click “As SVG” or “As PNG,” the message “The export
 failed. Please try again” appears.

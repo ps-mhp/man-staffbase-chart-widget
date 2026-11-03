@@ -15,8 +15,8 @@ sei indicatori con unità di misura diverse.
    tra MAN eTGX e Mercedes-Benz eActros 600, che si può semplicemente
    sovrascrivere, mentre **«Crea tabella vuota»** propone tre assi e due
    serie da compilare.
-4. Il metodo consigliato è tuttavia **«Importa dati da una tabella»** in
-   alto: selezionare la tabella di confronto in Excel, PowerPoint o Word,
+4. Il metodo consigliato è tuttavia **«Importa dati da una tabella»** in alto
+   a destra: selezionare la tabella di confronto in Excel, PowerPoint o Word,
    copiarla e incollarla nel campo. Sotto, specificare **come è strutturata la tabella
   ** — l’impostazione predefinita è «un indicatore per riga, una
   variante per colonna», ovvero proprio come appare la tabella nell’editor sottostante.
@@ -25,8 +25,8 @@ sei indicatori con unità di misura diverse.
    serie**. In alto in ogni colonna della serie si trovano il nome, il colore e le frecce per
    riordinare; alla fine di ogni riga dell’asse si trovano le frecce e la croce relative a quell’
    asse.
-6. Inserire l’**unità** per ciascun asse (ad es. «kWh»). Un **cambio di riga nel
-   nome dell’asse** — con il tasto Invio — viene riportato nel grafico e
+6. Inserire l’**unità** per ciascun asse (ad es. «kWh»). Un **interruzione di riga nel
+   nome dell’asse** — con il tasto Invio — viene riportata nel grafico e
    mantiene leggibili le etichette lunghe.
 7. Per gli assi in cui un **valore più piccolo è migliore** — peso,
    consumo, tempo di ricarica —, nella colonna **Direzione** attivare l’opzione
@@ -66,7 +66,7 @@ sei indicatori con unità di misura diverse.
 1. Se al posto del grafico compare un messaggio di avviso, in esso è già indicata la
    causa — consultare le [FAQ](faq.md) per ogni possibile formulazione.
 2. Se la tabella inserita non viene applicata, verificare che abbia
-   intestazioni nella prima riga e nella prima colonna. Se
+   delle intestazioni nella prima riga e nella prima colonna. Se
    gli assi e le serie sono invertiti nella griglia, la direzione di lettura sotto il
    campo di inserimento è stata selezionata in modo errato — modificarla e applicare nuovamente.
 3. Se dopo l’inserimento il grafico mostra numeri errati (ad es. spostati di un fattore

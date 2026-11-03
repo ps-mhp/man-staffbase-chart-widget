@@ -8,12 +8,12 @@ six metrics with different units.
 1. Place the **Chart** widget on the page. The widget settings
    open, and the **Chart Editor** immediately appears above the
    actual field.
-2. At the top is the **chart type**. Currently, only “Network Chart
-   (Radar / Spider)” is available; the text below explains what the type is intended for.
+2. At the top is the **Chart Type**. Currently, only “Network Chart
+   (Radar / Spider)” is available there; the text below explains what the type is intended for.
 3. As long as no data is available yet, the **“Axes and
    Series”** section offers two options: **“Load Example”** populates the chart with the completed
    comparison between the MAN eTGX and the Mercedes-Benz eActros 600, which you can simply
-   overwrite, and **“Create Empty Table”** sets up three axes and two
+   overwrite, and **“Create Empty Table”** provides three axes and two
    series for you to fill in.
 4. However, the recommended method is **“Import data from a table”** at the very
    top: Select the comparison table in Excel, PowerPoint, or Word,
@@ -23,7 +23,7 @@ six metrics with different units.
    Then click **“Import Table”**.
 5. In the grid, **each row is an axis** and **each column on the right is a
    series**. At the top of each series column are the name, color, and arrows for
-   reordering; at the end of each axis row are the arrows and the cross for that
+   reordering; at the end of each axis row are the arrows and the X for that
    axis.
 6. Enter the **unit** for each axis (e.g., “kWh”). A **line break in the
    axis name**—using the Enter key—is carried over to the chart and
@@ -66,7 +66,7 @@ six metrics with different units.
 1. If a message appears instead of the chart, it already contains the
    cause — see [FAQ](faq.md) for every possible message.
 2. If the inserted table cannot be applied, check whether it
-   has headers in the first row and in the first column. If
+   has headers in the first row and the first column. If
    the axes and series are swapped in the grid, the reading direction below the
    paste field was selected incorrectly—change it and apply again.
 3. If the chart displays incorrect numbers after pasting (e.g., shifted by a factor of

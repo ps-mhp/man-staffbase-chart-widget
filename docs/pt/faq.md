@@ -61,17 +61,18 @@ o bloco para uma coluna mais larga ou desdobre o elemento.
 **Pergunta:** Por que razão vejo uma grande
 diferença no gráfico entre dois valores quase iguais?
 
-Resposta: Sem valores mínimos e máximos definidos, cada eixo estende-se automaticamente
-entre o valor mais pequeno e o valor mais grande existentes — o que faz com que mesmo
-pequenas diferenças pareçam grandes. Solução: No editor de diagramas, para o
-eixo em questão, definir manualmente os valores mínimo e máximo.
+Resposta: Sem um valor máximo definido, cada eixo estende-se até ao valor mais elevado que
+nele ocorre. Se dois valores estiverem próximos um do outro, mas distantes de zero,
+a parte superior do eixo ocupa todo o intervalo — a diferença
+parece, assim, maior do que realmente é. Solução: No editor de gráficos, para o
+eixo em questão, defina manualmente o mínimo e o máximo.
 
 **Pergunta:** Por que razão o valor pior fica mais afastado?
 
-Resposta: Neste eixo falta a opção «Menor é melhor». Esta deve ser ativada em
-todos os indicadores em que um valor menor representa o melhor
+Resposta: Neste eixo, falta a opção «Menor é melhor». Este deve ser ativado em
+todos os indicadores em que um valor mais baixo representa o melhor
 resultado — por exemplo, peso, consumo ou tempo de carregamento. No editor de gráficos,
-ative-o no eixo em questão.
+ative-o na respetiva eixo.
 
 **Pergunta:** Não vejo botões para descarregar por baixo do gráfico.
 

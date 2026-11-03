@@ -33,11 +33,25 @@ const spec: ChartSpec = {
 };
 
 const theme = readChartTheme(null);
-const build = (s: ChartSpec = spec) => radarOption(normalizeSpec(s, SERIES_PALETTE), theme, "de-DE");
+/** Eine typische Containergröße; einzelne Tests geben eine eigene vor. */
+const SIZE = { width: 640, height: 420 };
+const build = (s: ChartSpec = spec, size = SIZE) =>
+  radarOption(normalizeSpec(s, SERIES_PALETTE), theme, "de-DE", size);
 
 type Indicator = { name: string; min: number; max: number };
 type RadarAxis = { indicator: Indicator[]; splitNumber: number };
 type SeriesEntry = { name: string; value: (number | null)[]; itemStyle: { color: string } };
+
+type GraphicText = { style: { text: string; fontWeight?: number } };
+
+const graphicTexts = (option: unknown): GraphicText[] =>
+  (option as { graphic: { elements: GraphicText[] } }).graphic.elements;
+
+/** Die Wertelabels sind die fetten unter den Textelementen. */
+const valueTexts = (option: unknown): string[] =>
+  graphicTexts(option)
+    .filter((element) => element.style.fontWeight === 600)
+    .map((element) => element.style.text);
 
 describe("radarOption", () => {
   it("gibt jeder Achse dieselbe Skala, weil die Umrechnung schon passiert ist", () => {
@@ -57,7 +71,9 @@ describe("radarOption", () => {
 
   it("gibt ECharts die normalisierten Werte, nicht die Rohwerte", () => {
     const data = (build() as { series: [{ data: SeriesEntry[] }] }).series[0].data;
-    expect(data[0].value).toEqual([100, 0]);
+    // Gewicht ist invertiert und laeuft von 0 bis 4,4: 1,8 t liegt bei 59.
+    expect(data[0].value[0]).toBeCloseTo(59.09, 2);
+    expect(data[0].value[1]).toBe(40);
   });
 
   it("färbt jede Serie aus der Palette", () => {
@@ -67,21 +83,23 @@ describe("radarOption", () => {
   });
 
   it("schreibt an jeden Punkt den Rohwert mit Einheit", () => {
-    const label = (build() as { series: [{ label: { formatter: (p: unknown) => string } }] }).series[0].label;
-    // Beim Radar ist dataIndex die Serie und dimensionIndex die Achse.
-    expect(label.formatter({ dataIndex: 0, dimensionIndex: 0 })).toBe("1,8\u00a0t");
-    expect(label.formatter({ dataIndex: 1, dimensionIndex: 1 })).toBe("600\u00a0kWh");
-    // Die beiden Ecken abseits der Diagonalen: Nur sie decken auf, wenn
-    // Serien- und Achsenindex vertauscht sind — bei den Diagonalfaellen
-    // kommt in beiden Lesarten dasselbe heraus.
-    expect(label.formatter({ dataIndex: 0, dimensionIndex: 1 })).toBe("240\u00a0kWh");
-    expect(label.formatter({ dataIndex: 1, dimensionIndex: 0 })).toBe("4,4\u00a0t");
+    // Die Zahlen setzt das Widget selbst als Textelemente: ECharts kann ein
+    // Label am Radar nicht nach außen ausrichten.
+    expect(valueTexts(build())).toEqual(
+      expect.arrayContaining(["1,8\u00a0t", "240\u00a0kWh", "4,4\u00a0t", "600\u00a0kWh"]),
+    );
   });
 
-  it("zeigt am Label einen Gedankenstrich, wenn der Wert fehlt", () => {
+  it("laesst einen fehlenden Wert weg, statt eine Zahl zu erfinden", () => {
     const sparse = { ...spec, series: [{ name: "A", values: [null, 240] }] };
-    const label = (build(sparse) as { series: [{ label: { formatter: (p: unknown) => string } }] }).series[0].label;
-    expect(label.formatter({ dataIndex: 0, dimensionIndex: 0 })).toBe("\u2013");
+    expect(valueTexts(build(sparse))).toEqual(["240\u00a0kWh"]);
+  });
+
+  it("schreibt jede Achsenbeschriftung selbst, damit ihr Abstand zur Richtung passt", () => {
+    const texts = graphicTexts(build()).map((element) => element.style.text);
+    expect(texts).toEqual(expect.arrayContaining(["Batteriegewicht [t]", "Energie [kWh]"]));
+    // ECharts darf sie dann nicht noch einmal setzen.
+    expect((build() as { radar: { axisName: { show: boolean } } }).radar.axisName.show).toBe(false);
   });
 
   it("nennt im Tooltip jede Achse mit Rohwert", () => {

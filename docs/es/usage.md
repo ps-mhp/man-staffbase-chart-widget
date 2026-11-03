@@ -1,7 +1,7 @@
 # Paso a paso
 
 Tomando como ejemplo una comparación de vehículos (MAN eTGX frente a un competidor) a través de
-seis indicadores con unidades diferentes.
+seis indicadores con diferentes unidades.
 
 ## Configurar el diagrama
 
@@ -13,13 +13,13 @@ seis indicadores con unidades diferentes.
 3. Mientras no haya datos, la sección **«Ejes y
    series»** ofrece dos opciones: **«Cargar ejemplo»** rellena la
    comparación ya preparada entre el MAN eTGX y el Mercedes-Benz eActros 600, que simplemente
-   se puede sobrescribir, y **«Crear tabla vacía»** propone tres ejes y dos
+   se puede sobrescribir, y **«Crear tabla vacía»** ofrece tres ejes y dos
    series para rellenar.
 4. Sin embargo, la opción recomendada es **«Importar datos desde una tabla»**, situada en la
    parte superior: selecciona la tabla comparativa en Excel, PowerPoint o Word,
    cópiala y pégala en el campo. Debajo, especifica **cómo está organizada la tabla
   **: la configuración predeterminada es «un indicador por fila, una
-  variante por columna», es decir, tal y como aparece la tabla en el editor que hay debajo.
+  variante por columna», es decir, tal y como aparece la tabla en el editor de abajo.
   A continuación, haz clic en **«Importar tabla»**.
 5. En la cuadrícula, **cada fila es un eje** y **cada columna de la derecha es una
    serie**. En la parte superior de cada columna de serie aparecen el nombre, el color y las flechas para
@@ -68,8 +68,8 @@ seis indicadores con unidades diferentes.
 2. Si no se puede aplicar la tabla insertada, comprueba si tiene
    encabezados en la primera fila y en la primera columna. Si
    los ejes y las series aparecen invertidos en la cuadrícula, es que la dirección de lectura debajo del
-   campo de inserción se ha seleccionado incorrectamente; cámbiala y vuelve a aplicar los cambios.
-3. Si, tras la inserción, el gráfico muestra cifras erróneas (por ejemplo, desplazadas por un factor de
+   campo de inserción se ha seleccionado incorrectamente; cámbiala y vuelve a aplicar.
+3. Si el gráfico muestra cifras erróneas tras la inserción (por ejemplo, desplazadas por un factor de
    1000), suele deberse al separador de miles en
    números procedentes de una fuente no alemana; consulta las indicaciones sobre números en
    [Configuración](settings.md) y [Preguntas frecuentes](faq.md).

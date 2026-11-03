@@ -3,11 +3,11 @@
 Ogni messaggio che il diagramma può visualizzare al posto del grafico, sotto forma di domanda —
 con il testo esatto, in modo che sia reperibile tramite la ricerca.
 
-**Domanda:** Vedo il messaggio «Diagramma non ancora configurato. Aprire
+**Domanda:** Vedo il messaggio «Grafico non ancora configurato. Aprire
 le impostazioni del widget.»
 
 Risposta: Per questo widget non è stata ancora salvata alcuna configurazione.
-Aprire le impostazioni del widget, compilare l’editor del diagramma e salvare.
+Aprire le impostazioni del widget, compilare l’editor del grafico e salvare.
 
 **Domanda:** Vedo il messaggio «Impossibile leggere il grafico.
 Si prega di configurarlo nuovamente nelle impostazioni.»
@@ -46,7 +46,7 @@ Risposta: Nel campo dell’asse, premere il tasto Invio nel punto desiderato
 . L’interruzione di riga verrà applicata al grafico.
 
 **Domanda:** Vedo il messaggio «Impossibile caricare il grafico.
-Si prega di ricaricare la pagina.”
+Si prega di ricaricare la pagina.»
 
 Risposta: Non è stato possibile ricaricare la libreria dei grafici, solitamente a causa di
 una connessione Internet interrotta. Ricaricare la pagina; se il problema
@@ -62,17 +62,18 @@ componente in una colonna più ampia oppure espandere l’elemento.
 **Domanda:** Perché vedo una grande
 differenza nel grafico tra due valori quasi identici?
 
-Risposta: Senza valori minimi e massimi impostati, ogni asse si estende automaticamente
-tra il valore più piccolo e quello più grande presenti — di conseguenza, anche
-piccole differenze appaiono visivamente grandi. Soluzione: nell’editor del grafico, per l’
-asse in questione, impostare manualmente il minimo e il massimo.
+Risposta: Senza un valore massimo impostato, ogni asse si estende fino al valore più grande che
+vi compare. Se due valori sono vicini tra loro, ma lontani da zero,
+la parte superiore dell’asse occupa l’intero intervallo — la differenza
+sembra quindi maggiore di quanto non sia in realtà. Soluzione: nell’editor del grafico,
+impostare manualmente il minimo e il massimo per l’asse in questione.
 
 **Domanda:** Perché il valore peggiore si trova più all’esterno?
 
-Risposta: Su questo asse manca l’opzione «Più piccolo è meglio». Deve essere attivata per
-tutti gli indicatori in cui un valore più piccolo rappresenta il risultato migliore
+Risposta: su questo asse manca l’opzione «Più piccolo è meglio». Deve essere attivato per
+tutti gli indicatori in cui un valore più basso rappresenta il risultato migliore
 — ad esempio peso, consumo o tempo di ricarica. Attivarlo nell’editor dei grafici per
-il rispettivo asse.
+l’asse corrispondente.
 
 **Domanda:** Non vedo i pulsanti per il download sotto il grafico.
 
@@ -104,7 +105,7 @@ impostazioni rimangono invariati.
 **Domanda:** Un numero inserito risulta improvvisamente troppo grande o
 troppo piccolo di un fattore 1000.
 
-Risposta: L’editor dei grafici interpreta i numeri secondo le regole tedesche: il punto è considerato
+Risposta: L’editor dei grafici interpreta i numeri secondo le convenzioni tedesche: il punto è considerato
 il separatore delle migliaia, mentre la virgola è il separatore decimale. Quindi `1.234` diventa
 `1234` e non `1,234`. Chi inserisce una tabella con la notazione inglese
 (punto come separatore decimale) deve convertire i numeri interessati nel

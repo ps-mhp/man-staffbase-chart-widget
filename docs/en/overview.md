@@ -62,6 +62,6 @@ stored, encoded form of the data and is never edited manually.
 An important feature: The axes have **no visible numerical scale**.
 Multiple axes with different units (e.g., kilometers and minutes)
 cannot be meaningfully displayed on a single scale. Each axis
-is therefore internally scaled independently between its minimum and maximum values;
-the actual numbers appear at the data points, in the tooltip, and
+is therefore scaled independently internally: from zero to its maximum
+value. The actual numbers appear at the data points, in the tooltip, and
 in the data table. For more information, see [Settings](settings.md).

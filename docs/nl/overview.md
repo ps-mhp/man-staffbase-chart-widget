@@ -30,7 +30,7 @@ het radar-/netdiagram worden geselecteerd.
 
 ## Afbeelding exporteren
 
-Als downloaden is ingeschakeld, verschijnen er onder de grafiek twee knoppen:
+Als het downloaden is ingeschakeld, verschijnen er onder de grafiek twee knoppen:
 „Als SVG“ en „Als PNG“. Het gedownloade bestand bevat **alleen de
 grafiek**, niet de rest van de pagina — titel, legenda, assen en waarden
 precies zoals ze op dat moment worden weergegeven, met een witte achtergrond (ook als
@@ -62,6 +62,6 @@ opgeslagen, gecodeerde vorm van de gegevens en wordt nooit handmatig bewerkt.
 Een belangrijk bijzonderheid: de assen hebben **geen zichtbare getallenschaal**.
 Meerdere assen met verschillende eenheden (bijv. kilometer en minuten)
 kunnen niet op een zinvolle manier op één gemeenschappelijke schaal worden weergegeven. Elke as
-wordt daarom intern zelfstandig uitgerekt tussen de kleinste en grootste waarde;
-de daadwerkelijke getallen staan bij de gegevenspunten, in de tooltip en
+wordt daarom intern afzonderlijk uitgerekt: van nul tot de grootste
+waarde. De daadwerkelijke getallen staan bij de gegevenspunten, in de tooltip en
 in de gegevenstabel. Meer hierover onder [Instellingen](settings.md).

@@ -3,10 +3,10 @@
 Tomando como exemplo uma comparação entre veículos (MAN eTGX versus um concorrente) com base em
 seis indicadores com unidades diferentes.
 
-## Configurar o diagrama
+## Configurar o gráfico
 
-1. Coloque o widget **Diagrama** na página. As definições do widget
-   abrem-se e, nelas, aparece imediatamente o **Editor de diagramas** por cima do
+1. Coloque o widget **Gráfico** na página. As definições do widget
+   abrem-se e, nelas, aparece imediatamente o **Editor de gráficos** por cima do
    próprio campo.
 2. Na parte superior encontra-se o **tipo de gráfico**. De momento, existe apenas «Gráfico em rede
    (Radar / Aranha)»; o texto abaixo indica para que serve esse tipo.
@@ -15,8 +15,8 @@ seis indicadores com unidades diferentes.
    entre o MAN eTGX e o Mercedes-Benz eActros 600, que pode ser facilmente
    substituída, e **«Criar tabela em branco»** disponibiliza três eixos e duas
    séries para preencher.
-4. No entanto, a forma recomendada é **«Importar dados de uma tabela»**, na parte
-   superior: selecione a tabela comparativa no Excel, PowerPoint ou Word,
+4. No entanto, a forma recomendada é **«Importar dados de uma tabela»**, mesmo
+   no topo: selecione a tabela comparativa no Excel, PowerPoint ou Word,
    copie-a e cole-a no campo. Abaixo, especifique **como a tabela
    está organizada** — a predefinição é «um indicador por linha, uma
    variante por coluna», ou seja, tal como a tabela aparece no editor abaixo.
@@ -44,7 +44,7 @@ seis indicadores com unidades diferentes.
     fica na página e mantém-se fixa durante a navegação.
 11. Definir a **altura** do diagrama (ver [Definições](settings.md)).
 12. Se pretender que o diagrama possa ser descarregado como imagem, ative o botão
-    **«Permitir descarregar»** (ver [Definições](settings.md)).
+    **«Permitir descarregamento»** (ver [Definições](settings.md)).
     Abaixo do diagrama, aparecerão então dois botões: «Como SVG» e
     «Como PNG».
 13. Clique em **Guardar** e, em seguida, em **Fechar**. Só ao clicar em «Guardar» é que
@@ -69,7 +69,7 @@ seis indicadores com unidades diferentes.
    possui títulos na primeira linha e na primeira coluna. Se
    os eixos e as séries estiverem invertidos na grelha, a direção de leitura abaixo da
    caixa de inserção foi selecionada incorretamente — altere-a e aplique novamente.
-3. Se, após a inserção, o gráfico apresentar números errados (por exemplo, deslocados pelo fator
+3. Se, após a inserção, o gráfico apresentar números errados (por exemplo, deslocados por um fator de
    1000), trata-se, na maioria das vezes, do separador de milhares em
    números provenientes de uma fonte não alemã — consulte as indicações sobre números em
-   [Definições](settings.md) e [FAQ](faq.md).
+   [Definições](settings.md) e [Perguntas Frequentes](faq.md).

@@ -10,12 +10,12 @@ ustawienia.
 | Ustawienie | Opis |
 | --- | --- |
 | Wykres | Zawiera kompletną, zakodowaną technicznie definicję wykresu. Edytuje się go wyłącznie za pomocą edytora wykresów, nigdy ręcznie. |
-| Wysokość w pikselach | Wysokość wykresu na stronie. Dopuszczalny zakres to od 160 do 1200 pikseli, wartość domyślna to 420. Szerokość zawsze zależy od kolumny. |
+| Wysokość w pikselach | Wysokość wykresu na stronie. Dopuszczalny zakres to od 160 do 1200 pikseli, domyślna wartość to 420. Szerokość zawsze zależy od kolumny. |
 | Zezwól na pobieranie | Wyświetla pod wykresem dwa przyciski umożliwiające pobranie go jako obraz. Plik zawiera wyłącznie wykres, a nie całą stronę. Domyślnie wyłączone. |
 
 ## Typ wykresu
 
-Wybór znajdujący się na samym szczycie edytora określa rodzaj wykresu. Obecnie dostępny
+Wybór znajdujący się na samym górze edytora określa rodzaj wykresu. Obecnie dostępny
 jest tylko **wykres siatkowy (radar / pajęczyna)**; lista będzie się powiększać wraz z każdym kolejnym
 obsługiwanym typem. Ustawienia zależne od typu — na przykład w przypadku wykresu radarowego
 linie pomocnicze — pojawiają się tylko wtedy, gdy wybrany jest odpowiedni typ.
@@ -42,11 +42,11 @@ serii do wypełnienia.
 | --- | --- |
 | Oś | Nazwa osi, tak jak pojawia się na wykresie i w tabeli danych. Wiele wierszy: klawisz Enter powoduje przełamanie wiersza, które pojawia się również na wykresie. |
 | Jednostka | Jest dołączana do każdej liczby na tej osi (punkt danych, podpowiedź, tabela), np. „kWh”. |
-| Kierunek („im mniej, tym lepiej”) | Odwraca oś: mniejsza wartość znajduje się wtedy dalej na zewnątrz. Dla wskaźników, w przypadku których mniej oznacza lepiej — waga, zużycie, czas ładowania. |
+| Kierunek („im mniej, tym lepiej”) | Odwraca oś: mniejsza wartość znajduje się wtedy dalej na zewnątrz. Dla wskaźników, w przypadku których mniej oznacza lepszy wynik — waga, zużycie, czas ładowania. |
 | Miejsca po przecinku | Tylko przy włączonych **precyzyjnych ustawieniach dla każdej osi**: Ile miejsc po przecinku ma być wyświetlanych. Jeśli nie podano wartości, przyjmowana jest liczba miejsc po przecinku faktycznie wprowadzona. |
-| Minimum | Tylko przy włączonych ustawieniach zaawansowanych: dolna granica osi. Jeśli nie podano wartości, stosowana jest najmniejsza występująca wartość tej osi. |
-| Maksimum | Tylko przy włączonych ustawieniach precyzyjnych: górna granica osi. W przypadku braku określenia zostanie zastosowana największa występująca wartość tej osi. |
-| ↑ ↓ ✕ | Przesuwa oś po okręgu lub usuwa ją wraz z jej wartościami. |
+| Minimum | Tylko przy włączonych ustawieniach zaawansowanych: dolna granica osi. Jeśli nie podano wartości, oś zaczyna się od zera — w przypadku wartości ujemnych od najmniejszej z nich. |
+| Maksimum | Tylko przy włączonych ustawieniach precyzyjnych: górna granica osi. W przypadku braku określenia stosowana jest największa występująca wartość tej osi. |
+| ↑ ↓ ✕ | Przesuwa oś po okręgu lub usuwa ją wraz z wartościami. |
 
 ## Dla każdej serii (jedna kolumna w siatce)
 
@@ -69,18 +69,22 @@ serii do wypełnienia.
 ## Automatyczne skalowanie
 
 Osie nie posiadają widocznej skali liczbowej — w przypadku wielu osi
-o różnych jednostkach nie da się jej sensownie przedstawić. Bez ustawionych wartości minimalnej
-i maksymalnej każda oś rozciąga się automatycznie między
-najmniejszą a największą wartością, która na niej występuje. Sprawia to, że różnice
-między seriami są wyraźnie widoczne, ale może również sprawić, że niewielkie, w praktyce
-nieistotne różnice będą optycznie wydawały się duże. Kto nie chce, aby tak było,
-może ręcznie ustawić minimalną i maksymalną wartość danej osi — np. 0 i 600
-dla zakresu, zamiast rozciągać ją między najmniejszą a największą
-występującą wartością.
+o różnych jednostkach nie da się jej sensownie przedstawić. Bez własnego określenia
+każda oś zaczyna się zamiast tego od **zera** i sięga do swojej największej
+występującej wartości. Długość promienia zachowuje się zatem tak samo jak sama wartość:
+połowa odległości na zewnątrz to również połowa wielkości.
+
+Jeśli na osi występują wartości ujemne, zaczyna się ona od najmniejszej z nich —
+w przeciwnym razie punkt znalazłby się poza siatką.
+
+Kto chce silniej podkreślić różnice między seriami, ustawia
+ręcznie minimum i maksimum danej osi — np. 400 i 600 zamiast
+0 i 600. Zwiększa to widoczne odstępy, ale sprawia również, że niewielkie,
+w praktyce nieistotne różnice wydają się większe.
 
 Ręcznie ustawiona wartość minimalna lub maksymalna ogranicza również zakres rysunku:
 wartość wykraczająca poza te granice jest wyświetlana dokładnie na krawędzi, zamiast
 wystawać poza siatkę. Liczba przy punkcie danych i w tabeli pozostaje
 przy tym taka, jaka została wprowadzona — granica zmienia jedynie obraz, nigdy wartość. Kto
 zatem ustawi oś w zakresie od 0 do 600 i wprowadzi wartość 700, zobaczy punkt na samym
-skraju, a liczbę 700 obok niego.
+skraju, a obok niego liczbę 700.

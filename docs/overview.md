@@ -62,6 +62,6 @@ gespeicherte, kodierte Form der Daten und wird nie von Hand bearbeitet.
 Eine wichtige Besonderheit: Die Achsen tragen **keine sichtbare Zahlenskala**.
 Mehrere Achsen mit unterschiedlichen Einheiten (z. B. Kilometer und Minuten)
 lassen sich nicht sinnvoll auf einer gemeinsamen Skala abbilden. Jede Achse
-wird deshalb intern eigenständig zwischen ihrem kleinsten und größten Wert
-gestreckt; die tatsächlichen Zahlen stehen an den Datenpunkten, im Tooltip und
+wird deshalb intern eigenständig gestreckt: von null bis zu ihrem größten
+Wert. Die tatsächlichen Zahlen stehen an den Datenpunkten, im Tooltip und
 in der Datentabelle. Mehr dazu unter [Einstellungen](settings.md).
