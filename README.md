@@ -40,6 +40,13 @@ braucht:
    registriert. Nur so bleibt das typweise Nachladen wirksam — ein
    gemeinsames `import("echarts/charts")` ohne Export-Liste würde sonst alle
    Diagrammtypen in denselben Chunk ziehen.
+
+   Damit das wirklich etwas spart, muss webpack die ECharts-Grundlagen in
+   einen gemeinsamen Chunk legen dürfen, statt sie jedem Typ beizulegen.
+   `webpack.prod.ts` erlaubt das über `WIDGETS_WITH_LAZY_CHUNKS` gezielt für
+   dieses Widget; repo-weit bleibt `splitChunks` aus. Ohne diese Ausnahme
+   trägt jeder Typ rund 500 KiB Duplikat mit sich. Zur Einordnung: Mit
+   gemeinsamem Chunk kostet der Radar-Typ selbst nur noch etwa 9 KiB.
 3. **Options-Übersetzer** (`src/echarts-option/`): eine neue Datei analog zu
    `radar.ts`, die eine `NormalizedSpec` in eine ECharts-Option übersetzt, und
    ein Eintrag in `OPTION_BUILDERS` (`src/echarts-option/index.ts`) — dieses
