@@ -13,8 +13,8 @@ Otwórz ustawienia widżetu, wypełnij edytor wykresów i zapisz.
 Proszę skonfigurować go ponownie w ustawieniach.”
 
 Odpowiedź: Zapisane dane są uszkodzone lub zostały zmienione ręcznie.
-Otwórz ustawienia widżetu i skonfiguruj wykres ponownie
-w edytorze — w razie potrzeby za pomocą nowo wstawionej tabeli.
+Należy otworzyć ustawienia widżetu i ponownie skonfigurować wykres w edytorze —
+w razie potrzeby za pomocą nowo wstawionej tabeli.
 
 **Pytanie:** Wyświetla się komunikat „Typ wykresu „…“ nie jest rozpoznawany przez tę wersję
 modułu. Proszę zaktualizować moduł.” (lub bez
@@ -25,19 +25,32 @@ Odpowiedź: Wykres został skonfigurowany przy użyciu nowszej wersji modułu,
 która rozpoznaje typ wykresu, którego ta wersja jeszcze nie
 obsługuje. Należy zaktualizować moduł do najnowszej wersji.
 
-**Pytanie:** Widzę komunikat „Brak danych na wykresie. Dodaj
-kategorie i serie w ustawieniach.”
+**Pytanie:** Widzę komunikat „Brak danych na wykresie. Należy utworzyć
+osie i serie w ustawieniach”.
 
-Odpowiedź: W edytorze wykresów nie utworzono ani kategorii (osi), ani serii.
-Należy dodać co najmniej jedną kategorię i jedną serię lub wstawić
-tabelę.
+Odpowiedź: W edytorze wykresów nie utworzono ani osi, ani serii. W
+edytorze wstaw tabelę lub użyj jednego z dwóch przycisków „Pobierz przykład”
+lub „Utwórz pustą tabelę”.
+
+**Pytanie:** Po wstawieniu moje wskaźniki są wyświetlane jako serie, a moje
+warianty jako osie — wszystko jest odwrócone.
+
+Odpowiedź: Pod polem wstawiania wybrano niewłaściwy kierunek czytania. Przełącz na
+inną opcję w sekcji „Jak wygląda Twoja tabela?” i ponownie kliknij
+„Przejmij tabelę”.
+
+**Pytanie:** Moje etykiety osi są tak długie, że powodują
+ściśnięcie wykresu.
+
+Odpowiedź: W polu osi w wybranym miejscu naciśnij klawisz Enter
+. Złamanie linii zostanie przeniesione do wykresu.
 
 **Pytanie:** Widzę komunikat „Nie udało się załadować wykresu.
-Proszę odświeżyć stronę.”
+Proszę odświeżyć stronę”.
 
 Odpowiedź: Nie udało się ponownie załadować biblioteki wykresów, najczęściej z powodu
-przerwanego połączenia internetowego. Należy odświeżyć stronę; jeśli problem
-nadal występuje, należy sprawdzić połączenie sieciowe.
+przerwanego połączenia internetowego. Odśwież stronę; jeśli problem
+nadal występuje, sprawdź połączenie sieciowe.
 
 **Pytanie:** Dlaczego mój wykres jest pusty, mimo że wprowadzono dane?
 
@@ -57,7 +70,7 @@ danego osi ręcznie ustawić wartości minimalną i maksymalną.
 **Pytanie:** Dlaczego gorsza wartość znajduje się dalej na zewnątrz?
 
 Odpowiedź: Na tej osi brakuje przełącznika „Im mniejsza, tym lepsza”. Należy go włączyć w
-przypadku wszystkich wskaźników, dla których mniejsza wartość oznacza lepszy
+przypadku wszystkich wskaźników, w których mniejsza wartość oznacza lepszy
 wynik — na przykład waga, zużycie lub czas ładowania. W edytorze wykresów należy
 włączyć tę opcję dla danej osi.
 
@@ -95,7 +108,7 @@ Odpowiedź: Edytor wykresów interpretuje liczby zgodnie z niemiecką konwencją
 oddzielacz tysięcy, a przecinek jako oddzielacz dziesiętny. Zatem `1.234` staje się
 `1234`, a nie `1,234`. Jeśli wstawiasz tabelę z angielskim formatem
 (kropka jako separator dziesiętny), musisz przed
-przed wstawieniem dostosować do formatu niemieckiego, w przeciwnym razie np. „1.234” (tysiąc)
+przed wstawieniem dostosować je do formatu niemieckiego, w przeciwnym razie np. „1.234” (tysiąc)
 zostanie odczytane jako „1,234” (jeden przecinek dwa trzy cztery). Jeśli w liczbie występuje zarówno
 kropek, jak i przecinek, niezależnie od sposobu zapisu za znak oddzielający dziesiętne uznaje się ostatni
 znak — zarówno `1.234,5`, jak i `1,234.5` dają

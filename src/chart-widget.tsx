@@ -48,7 +48,7 @@ const MESSAGES = {
     `Der Diagrammtyp „${name}“ ist dieser Version des Bausteins nicht bekannt. Bitte aktualisieren Sie den Baustein.`,
   unknownTypeUnnamed:
     "Der eingerichtete Diagrammtyp ist dieser Version des Bausteins nicht bekannt. Bitte aktualisieren Sie den Baustein.",
-  noData: "Noch keine Daten im Diagramm. Ergänzen Sie Kategorien und Serien in den Einstellungen.",
+  noData: "Noch keine Daten im Diagramm. Legen Sie in den Einstellungen Achsen und Serien an.",
   loadFailed: "Das Diagramm konnte nicht geladen werden. Bitte laden Sie die Seite neu.",
 } as const;
 

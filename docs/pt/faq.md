@@ -14,7 +14,7 @@ Por favor, reconfigure-o nas definições.»
 
 Resposta: Os dados guardados estão danificados ou foram alterados manualmente.
 Abra as definições do widget e reconfigure o diagrama no editor —
-se necessário, através de uma tabela inserida de novo.
+se necessário, através de uma tabela recém-inserida.
 
 **Pergunta:** Vejo a mensagem «O tipo de gráfico «…» não é reconhecido por esta versão do
 módulo. Por favor, atualize o módulo.» (ou, sem
@@ -25,21 +25,33 @@ Resposta: O gráfico foi configurado com uma versão mais recente do módulo
 que reconhece um tipo de gráfico que esta versão ainda não
 suporta. Atualize o módulo para a versão mais recente.
 
-**Pergunta:** Vejo a mensagem «Ainda não há dados no gráfico. Adicione
-categorias e séries nas definições.»
+**Pergunta:** Vejo a mensagem «Ainda não há dados no gráfico. Crie
+eixos e séries nas definições.»
 
-Resposta: Não foram criadas categorias (eixos) nem séries no editor de gráficos.
-Adicione, pelo menos, uma categoria e uma série ou insira uma
-tabela.
+Resposta: Não foram criados eixos nem séries no editor de gráficos. No
+editor, insira uma tabela ou utilize um dos dois botões «Carregar exemplo»
+ou «Criar tabela vazia».
+
+**Pergunta:** Após a inserção, os meus indicadores aparecem como séries e as minhas
+variantes como eixos — tudo invertido.
+
+Resposta: Foi selecionada a direção de leitura errada no campo de inserção. Mude para a
+outra opção em «Como está a sua tabela?» e clique novamente em
+«Aplicar tabela».
+
+**Pergunta:** O texto do meu eixo é tão longo que comprime o gráfico.
+
+Resposta: No campo do eixo, no local pretendido, prima a tecla Enter
+. A quebra de linha é aplicada ao gráfico.
 
 **Pergunta:** Vejo a mensagem «Não foi possível carregar o gráfico.
 Por favor, atualize a página.»
 
 Resposta: Não foi possível recarregar a biblioteca de gráficos, na maioria das vezes devido a
 uma ligação à Internet interrompida. Atualize a página; se o problema
-persistir, verifique a ligação de rede.
+persistir, verifique a ligação à rede.
 
-**Pergunta:** Por que razão o meu gráfico está vazio, apesar de terem sido introduzidos dados?
+**Pergunta:** Por que razão o meu diagrama está vazio, apesar de terem sido introduzidos dados?
 
 Resposta: Na maioria das vezes, o bloco encontra-se numa coluna muito estreita ou num
 elemento recolhido, pelo que o contentor tem altura 0. O gráfico

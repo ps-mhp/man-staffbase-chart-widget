@@ -25,18 +25,30 @@ Respuesta: El gráfico se ha configurado con una versión más reciente del mód
 que reconoce un tipo de gráfico que esta versión aún no
 admite. Actualice el módulo a la última versión.
 
-**Pregunta:** Me aparece el mensaje «Aún no hay datos en el gráfico. Añada
-categorías y series en la configuración».
+**Pregunta:** Me aparece el mensaje «Aún no hay datos en el diagrama. Cree
+ejes y series en la configuración».
 
-Respuesta: No se han creado ni categorías (ejes) ni series en el editor de gráficos.
-Añada al menos una categoría y una serie, o inserte una
-tabla.
+Respuesta: No se han creado ni ejes ni series en el editor de diagramas. En el
+editor, inserte una tabla o utilice uno de los dos botones «Cargar ejemplo»
+o «Crear tabla vacía».
+
+**Pregunta:** Tras la inserción, mis indicadores aparecen como series y mis
+variantes como ejes; todo está al revés.
+
+Respuesta: Debajo del campo de inserción se había seleccionado la dirección de lectura incorrecta. Cambie a la
+otra opción en «¿Cómo está orientada su tabla?» y vuelva a hacer clic en
+«Aplicar tabla».
+
+**Pregunta:** El texto de mi eje es tan largo que comprime el gráfico.
+
+Respuesta: En el campo del eje, pulsa la tecla Intro en el lugar deseado.
+El salto de línea se aplicará al gráfico.
 
 **Pregunta:** Me aparece el mensaje «No se ha podido cargar el gráfico.
-Vuelva a cargar la página».
+Por favor, actualice la página».
 
 Respuesta: No se ha podido volver a cargar la biblioteca de gráficos, normalmente debido a
-una conexión a Internet interrumpida. Vuelva a cargar la página; si el problema
+una conexión a Internet interrumpida. Actualice la página; si el problema
 persiste, compruebe la conexión de red.
 
 **Pregunta:** ¿Por qué mi diagrama está vacío aunque se hayan introducido datos?
@@ -58,20 +70,20 @@ eje en cuestión, establece manualmente los valores mínimo y máximo.
 
 Respuesta: En este eje falta la opción «Cuanto menor, mejor». Debe activarse en
 todos los indicadores en los que un valor menor suponga un mejor
-resultado —como el peso, el consumo o el tiempo de carga—. Actívalo en el editor de gráficos en
+resultado —por ejemplo, peso, consumo o tiempo de carga—. Actívalo en el editor de gráficos en
 el eje correspondiente.
 
 **Pregunta:** No veo ningún botón para descargar debajo del gráfico.
 
 Respuesta: O bien la opción «Permitir descarga» no está
-activada en la configuración, o bien el gráfico aún no se ha completado: los
+activada en la configuración, o bien el gráfico aún no se ha completado; los
 botones solo aparecen cuando hay un gráfico disponible para descargar.
 
 **Pregunta:** Al hacer clic en «Como SVG» o «Como PNG» aparece el mensaje «La exportación ha
 fallado. Inténtalo de nuevo».
 
 Respuesta: La exportación no ha podido encontrar el gráfico dibujado —normalmente porque
-se está recargando en ese momento. Espera un momento y vuelve a hacer clic; si el problema
+se está recargando en ese momento—. Espera un momento y vuelve a hacer clic; si el problema
 persiste, actualiza la página.
 
 **Pregunta:** ¿Puedo mostrar más de seis series?

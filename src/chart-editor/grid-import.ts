@@ -88,8 +88,26 @@ function withPlainDecimalPoint(core: string): string {
   return groups ? parts.join("") : parts.join(".");
 }
 
-export function parseGrid(text: string): Grid | null {
-  const lines = text
+/**
+ * Vertauscht Zeilen und Spalten einer gelesenen Tabelle.
+ *
+ * Quelltabellen stehen mal so und mal so herum: In der Präsentation steht
+ * je Zeile eine Kennzahl, in vielen Excel-Blättern je Zeile ein Produkt.
+ * Statt der Redaktion eine Leserichtung vorzuschreiben — und sie beim
+ * falschen Rateschluss mit sechs Serien zu je zwei Werten dastehen zu
+ * lassen — bietet der Editor beide an und zeigt das Ergebnis sofort.
+ */
+export function transposeGrid(grid: Grid): Grid {
+  return {
+    categories: grid.rows.map((row) => row.name),
+    rows: grid.categories.map((label, index) => ({
+      name: label,
+      values: grid.rows.map((row) => row.values[index] ?? null),
+    })),
+  };
+}
+
+export function parseGrid(text: string): Grid | null {  const lines = text
     .replace(/\r\n?/g, "\n")
     .split("\n")
     .filter((line) => line.trim().length > 0);

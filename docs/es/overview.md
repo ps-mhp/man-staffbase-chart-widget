@@ -4,8 +4,8 @@ El widget de gráficos representa los indicadores en forma de **gráfico radial 
 ejes se extienden en forma de estrella desde un punto central, y cada serie —por
 ejemplo, un vehículo en comparación— conecta sus valores en estos ejes para
 formar un área. De este modo, se pueden comparar de un
-solo vistazo varios indicadores de varias series, incluso si se miden en unidades
-muy diferentes: kilómetros, toneladas, minutos, kilovatios.
+solo vistazo varios indicadores de varias series, incluso si se miden en unidades muy diferentes
+—kilómetros, toneladas, minutos, kilovatios—.
 
 El diagrama se configura mediante un editor propio que se abre directamente en
 la configuración del widget. Una tabla copiada de Excel se puede
@@ -43,7 +43,7 @@ doble resolución.
 
 El gráfico se incluye en la traducción automática de la página. Se traducen
 el título, la nota al pie, las etiquetas de los ejes y los nombres de las series —precisamente los
-textos que se han introducido de forma editorial. Los números, las unidades, los límites de los ejes,
+textos que se han introducido editorialmente—. Los números, las unidades, los límites de los ejes,
 los colores y el resto de ajustes permanecen inalterados, ya que no tienen
 idioma: una unidad traducida sería incorrecta («t» no se convierte en «ton»),
 un número traducido no tendría sentido.
@@ -51,15 +51,17 @@ un número traducido no tendría sentido.
 ## Lo que ves en el editor del CMS
 
 Al insertar el módulo, se abre automáticamente el **editor de gráficos**:
-una tabla con categorías (ejes) y series (filas), además de un campo para
-insertar una tabla copiada, así como una vista previa en tiempo real que muestra exactamente
-cómo aparecerá el gráfico posteriormente en la página. El campo de texto que hay detrás muestra
-únicamente la forma codificada y almacenada técnicamente de los datos y nunca se
-edita manualmente.
+en la parte superior, la selección del tipo de gráfico y un campo en el que se puede pegar una tabla copiada de Excel
+, debajo una cuadrícula con **una fila por eje** y
+**una columna por serie**, y junto a ella una vista previa en tiempo real que muestra exactamente cómo
+aparecerá el gráfico posteriormente en la página. Mientras no se haya creado nada
+todavía, el editor explica los conceptos y ofrece las opciones «Cargar ejemplo» y
+«Crear tabla vacía». El campo de texto que hay detrás solo muestra la forma técnicamente
+almacenada y codificada de los datos y nunca se edita manualmente.
 
 Una característica importante: los ejes **no tienen una escala numérica visible**.
-Varios ejes con unidades diferentes (por ejemplo, kilómetros y minutos)
-no pueden representarse de forma adecuada en una escala común. Por lo tanto, cada eje
+No es posible representar de forma adecuada en una escala común varios ejes con unidades diferentes (por ejemplo, kilómetros y minutos).
+Por lo tanto, Por lo tanto, cada eje
 se extiende internamente de forma independiente entre su valor mínimo y su valor máximo;
 las cifras reales aparecen en los puntos de datos, en la información sobre herramientas y
-en la tabla de datos. Más información en [Configuración](settings.md).
+en la tabla de datos. Más información al respecto en [Configuración](settings.md).

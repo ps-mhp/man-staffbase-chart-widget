@@ -51,11 +51,13 @@ and a translated number would be nonsense.
 ## What You See in the CMS Editor
 
 When you insert the module, the **chart editor** opens automatically:
-a table of categories (axes) and series (rows), along with a field for
-pasting a copied table, as well as a live preview that shows exactly
-how the chart will appear on the page later. The text field behind it displays
-only the technically stored, encoded form of the data and is never edited
-manually.
+at the top, you’ll see the chart type selector and a field where you can paste a table copied from Excel
+, below that a grid with **one row per axis** and
+**one column per series**, and next to it a live preview that shows exactly how
+the chart will appear on the page later. As long as nothing has been created
+yet, the editor explains the terms and offers “Load Example” as well as
+“Create Empty Table.” The text field behind it displays only the technically
+stored, encoded form of the data and is never edited manually.
 
 An important feature: The axes have **no visible numerical scale**.
 Multiple axes with different units (e.g., kilometers and minutes)

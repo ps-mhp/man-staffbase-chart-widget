@@ -3,8 +3,8 @@
 Widżet wykresu przedstawia wskaźniki w formie **wykresu radarowego/siatkowego**: kilka
 osi rozchodzi się promieniście od punktu centralnego, a każda seria — na
 przykład porównanie pojazdów — łączy swoje wartości na tych osiach, tworząc
-powierzchnię. W ten sposób można jednym
-rzutem oka porównać kilka wskaźników z różnych serii, nawet jeśli są one mierzone w zupełnie różnych jednostkach
+powierzchnię. W ten sposób można na pierwszy
+rzut oka porównać kilka wskaźników z różnych serii, nawet jeśli są one mierzone w zupełnie różnych jednostkach
 — kilometrach, tonach, minutach, kilowatach.
 
 Wykres konfiguruje się za pomocą dedykowanego edytora, który otwiera się bezpośrednio w
@@ -41,23 +41,25 @@ podwójnej rozdzielczości.
 
 ## Tłumaczenie
 
-W przypadku automatycznego tłumaczenia strony wykres jest uwzględniany. Tłumaczone
-są tytuły, przypisy, opisy osi i nazwy serii — dokładnie te
+W przypadku automatycznego tłumaczenia strony wykres jest uwzględniany. Tłumaczeniu
+podlegają tytuł, przypis, opisy osi i nazwy serii — dokładnie te
 teksty, które zostały wprowadzone redakcyjnie. Liczby, jednostki, granice osi,
 kolory i wszystkie pozostałe ustawienia pozostają niezmienione, ponieważ nie mają
 charakteru językowego: przetłumaczona jednostka byłaby błędna („t” nie staje się „ton”),
 a przetłumaczona liczba nie miałaby sensu.
 
-## Co widać w edytorze CMS
+## Co widzisz w edytorze CMS
 
 Po wstawieniu modułu automatycznie otwiera się **edytor wykresów**:
-tabela zawierająca kategorie (osie) i serie (wiersze), a także pole do
-wklejenia skopiowanej tabeli, a także podgląd na żywo, który dokładnie pokazuje,
-jak wykres pojawi się później na stronie. Pole tekstowe znajdujące się za nim wyświetla
-tylko technicznie zapisaną, zakodowaną formę danych i nigdy nie jest edytowane
-ręcznie.
+u góry znajduje się wybór typu wykresu oraz pole, do którego można wkleić tabelę skopiowaną z Excela
+, poniżej siatka z **jednym wierszem na każdą oś** i
+**jedną kolumną na każdą serię**, a obok podgląd na żywo, który dokładnie pokazuje, jak
+wykres pojawi się później na stronie. Dopóki nic nie zostało jeszcze utworzone,
+edytor wyjaśnia pojęcia i oferuje opcje „Pobierz przykład” oraz
+„Utwórz pustą tabelę”. Pole tekstowe znajdujące się za nim wyświetla jedynie technicznie
+zapisaną, zakodowaną formę danych i nigdy nie jest edytowane ręcznie.
 
-Ważna cecha: osie nie posiadają **widocznej skali liczbowej**.
+Ważna cecha szczególna: osie nie posiadają **widocznej skali liczbowej**.
 Kilka osi o różnych jednostkach miary (np. kilometry i minuty)
 nie da się sensownie przedstawić na jednej wspólnej skali. Każda oś
 jest zatem wewnętrznie rozciągana niezależnie między swoją najmniejszą a największą wartością;

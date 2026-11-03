@@ -37,6 +37,41 @@ $space-l: 16px;
   background: chrome.$surface;
   box-sizing: border-box;
 
+  // Eingabe links, Vorschau rechts. Unter 1100px fällt die Vorschau unter
+  // die Eingabe — nebeneinander bliebe für beides zu wenig Breite, und ein
+  // waagerecht gequetschtes Netzdiagramm hilft beim Beurteilen nicht.
+  &__columns {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 380px);
+    gap: $space-l;
+    align-items: start;
+
+    @media (max-width: 1100px) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    gap: $space-l;
+    min-width: 0;
+  }
+
+  // Die Vorschau bleibt beim Scrollen stehen: Wer unten an den Achsen
+  // tippt, soll die Wirkung oben weiter sehen.
+  &__side {
+    min-width: 0;
+  }
+
+  &__side-inner {
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    gap: $space-s;
+  }
+
   &__section {
     display: flex;
     flex-direction: column;
@@ -64,7 +99,12 @@ $space-l: 16px;
     min-width: 0;
   }
 
+  &__field--narrow {
+    max-width: 340px;
+  }
+
   &__label {
+    padding: 0;
     font-size: 12px;
     font-weight: 600;
     color: chrome.$text-strong;
@@ -82,6 +122,10 @@ $space-l: 16px;
     border: 1px solid chrome.$border-input;
     border-radius: chrome.$radius-input;
 
+    &::placeholder {
+      color: chrome.$text-muted;
+    }
+
     &:focus-visible {
       outline: none;
       border-color: chrome.$focus-border;
@@ -90,21 +134,68 @@ $space-l: 16px;
   }
 
   &__textarea {
-    min-height: 72px;
+    min-height: 92px;
     resize: vertical;
     font-family: monospace;
+    font-size: 12px;
+  }
+
+  // Der Achsenname darf Zeilenumbrüche enthalten — ECharts bricht die
+  // Beschriftung am Umbruch um. Ein einzeiliges Feld würde den Umbruch
+  // verschlucken und „Benotung\nModularität“ als „BenotungModularität“
+  // zeigen. Deshalb hier ein Mehrzeilenfeld in Feldoptik.
+  &__input--multiline {
+    min-height: chrome.$control-height;
+    resize: vertical;
+    font-family: inherit;
+    line-height: 1.3;
   }
 
   &__check {
     display: inline-flex;
     gap: 6px;
     align-items: center;
+    line-height: 1.3;
     cursor: pointer;
   }
 
-  // Das Raster: eine Namensspalte, danach eine Spalte je Kategorie. Die
-  // Spaltenbreite kommt als Inline-Stil von der Komponente — nur sie kennt
-  // die Zahl der Kategorien.
+  // Schiebt den Umschalter für die Feineinstellungen von den Hinzufügen-
+  // Knöpfen weg ans Ende der Zeile.
+  &__check--push {
+    margin-left: auto;
+  }
+
+  // Die Leserichtung der eingefügten Tabelle.
+  &__orientation {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  // Der Startzustand: erklärt die Begriffe und bietet zwei Wege an.
+  &__empty {
+    display: flex;
+    flex-direction: column;
+    gap: $space-s;
+    padding: $space-l;
+    background: chrome.$surface-muted;
+    border: 1px dashed chrome.$border;
+    border-radius: chrome.$radius-panel;
+  }
+
+  &__empty-title {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: chrome.$text-strong;
+  }
+
+  // Das Raster: Achsenspalten, Richtung, danach eine Spalte je Serie. Die
+  // Spaltenbreiten kommen als Inline-Stil von der Komponente — nur sie kennt
+  // die Zahl der Serien und ob die Feineinstellungen sichtbar sind.
   &__grid {
     display: grid;
     gap: 1px;
@@ -122,33 +213,24 @@ $space-l: 16px;
     display: flex;
     flex-direction: column;
     gap: 6px;
+    justify-content: center;
     padding: $space-s;
     background: chrome.$surface;
   }
 
   &__head {
+    justify-content: flex-start;
     background: chrome.$surface-header;
   }
 
-  // Eine Kategorie-Achse: Einheit, Nachkommastellen, Grenzen, Richtung.
-  &__axis {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  &__axis-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4px;
-  }
-
-  &__row-head {
-    display: flex;
-    align-items: center;
-    gap: 6px;
+  // Die Spaltenüberschrift. Sie trägt die Bedeutung der Felder darunter —
+  // ohne sie wären Einheit, Richtung und Werte nicht auseinanderzuhalten.
+  &__col-head {
+    font-size: 11px;
     font-weight: 600;
-    color: chrome.$text-strong;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: chrome.$text-muted;
   }
 
   &__color {
@@ -161,10 +243,11 @@ $space-l: 16px;
     cursor: pointer;
   }
 
-  // Zeilenweise Knöpfe (Kategorie/Serie entfernen, Serie verschieben).
+  // Zeilenweise Knöpfe (Achse/Serie entfernen und verschieben).
   &__row-actions {
     display: flex;
     gap: 4px;
+    align-items: center;
   }
 
   &__button {
@@ -180,6 +263,11 @@ $space-l: 16px;
       background: chrome.$surface-hover;
     }
 
+    &:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+
     &:focus-visible {
       outline: none;
       border-color: chrome.$focus-border;
@@ -189,8 +277,8 @@ $space-l: 16px;
 
   &__button--icon {
     padding: 2px 7px;
-    font-size: 11px;
-    line-height: 1;
+    font-size: 12px;
+    line-height: 1.4;
   }
 
   &__button--primary {
@@ -207,18 +295,14 @@ $space-l: 16px;
   &__actions {
     display: flex;
     gap: $space-s;
-  }
-
-  // Übernahme einer eingefügten Tabelle.
-  &__paste {
-    display: flex;
-    flex-direction: column;
-    gap: $space-s;
+    align-items: center;
+    flex-wrap: wrap;
   }
 
   &__hint {
     margin: 0;
     font-size: 12px;
+    line-height: 1.45;
     color: chrome.$text-muted;
   }
 

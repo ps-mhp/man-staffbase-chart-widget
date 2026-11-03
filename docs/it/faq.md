@@ -25,15 +25,28 @@ Risposta: Il grafico è stato configurato con una versione più recente del modu
 che riconosce un tipo di grafico non ancora
 supportato da questa versione. Aggiornare il modulo all’ultima versione.
 
-**Domanda:** Vedo il messaggio «Ancora nessun dato nel grafico. Aggiungere
-categorie e serie nelle impostazioni.»
+**Domanda:** Vedo il messaggio «Ancora nessun dato nel grafico. Creare
+assi e serie nelle impostazioni.»
 
-Risposta: Nell’editor dei grafici non sono state create né categorie (assi) né serie.
-Aggiungere almeno una categoria e una serie oppure inserire una
-tabella.
+Risposta: Non sono stati creati né assi né serie nell’editor dei grafici. Nell’
+inserire una tabella nell’editor oppure utilizzare uno dei due pulsanti «Carica esempio»
+o «Crea tabella vuota».
+
+**Domanda:** Dopo l’inserimento, i miei indicatori risultano come serie e le mie
+varianti come assi — tutto invertito.
+
+Risposta: Sotto il campo di inserimento era stata selezionata la direzione di lettura errata. Passare all’
+altra opzione in «Come è orientata la tua tabella?» e cliccare nuovamente su
+«Applica tabella».
+
+**Domanda:** L’etichetta del mio asse è così lunga che comprime il grafico
+.
+
+Risposta: Nel campo dell’asse, premere il tasto Invio nel punto desiderato
+. L’interruzione di riga verrà applicata al grafico.
 
 **Domanda:** Vedo il messaggio «Impossibile caricare il grafico.
-Si prega di ricaricare la pagina.»
+Si prega di ricaricare la pagina.”
 
 Risposta: Non è stato possibile ricaricare la libreria dei grafici, solitamente a causa di
 una connessione Internet interrotta. Ricaricare la pagina; se il problema
@@ -91,7 +104,7 @@ impostazioni rimangono invariati.
 **Domanda:** Un numero inserito risulta improvvisamente troppo grande o
 troppo piccolo di un fattore 1000.
 
-Risposta: L’editor dei grafici interpreta i numeri secondo le convenzioni tedesche: il punto è considerato
+Risposta: L’editor dei grafici interpreta i numeri secondo le regole tedesche: il punto è considerato
 il separatore delle migliaia, mentre la virgola è il separatore decimale. Quindi `1.234` diventa
 `1234` e non `1,234`. Chi inserisce una tabella con la notazione inglese
 (punto come separatore decimale) deve convertire i numeri interessati nel

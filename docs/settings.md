@@ -13,34 +13,58 @@ Einstellungen stecken.
 | Höhe in Pixeln | Höhe des Diagramms auf der Seite. Erlaubt sind 160 bis 1200 Pixel, voreingestellt sind 420. Die Breite richtet sich immer nach der Spalte. |
 | Download erlauben | Zeigt unter dem Diagramm zwei Knöpfe zum Herunterladen als Bild. Die Datei enthält nur das Diagramm, nicht die Seite. Voreingestellt aus. |
 
-## Kopf des Diagramm-Editors
+## Diagrammtyp
+
+Die Auswahl ganz oben im Editor bestimmt die Art des Diagramms. Zurzeit gibt
+es nur **Netzdiagramm (Radar / Spinne)**; die Liste wächst mit jedem weiteren
+unterstützten Typ. Die typabhängigen Einstellungen — bei Radar etwa die
+Hilfslinien — erscheinen nur, solange der zugehörige Typ gewählt ist.
+
+## Daten aus einer Tabelle übernehmen
 
 | Einstellung | Beschreibung |
 | --- | --- |
-| Titel | Überschrift über dem Diagramm. Bleibt das Feld leer, erscheint keine Überschrift. |
-| Fußnote | Kleingedruckter Zusatztext unter dem Titel, z. B. für Quellenangaben. |
-| Legende anzeigen | Blendet die Legende mit den Seriennamen ein oder aus. |
-| Legendenposition | „oben“ oder „unten“ — wo die Legende relativ zum Diagramm steht. |
-| Ringzahl | Nur beim Radar: Anzahl der konzentrischen Hilfsringe im Netz. Voreingestellt sind 5. Rein optisch, ändert keine Werte. |
-| Fläche füllen | Nur beim Radar: Füllt die Fläche hinter jeder Serienlinie halbtransparent in deren Farbe. Voreingestellt aus. |
+| Einfügefeld | Nimmt eine aus Excel, PowerPoint oder Word kopierte Tabelle auf. Erkennt Tabulator, Semikolon und Komma als Spaltentrenner. |
+| Wie steht Ihre Tabelle? | Legt die Leserichtung fest. Voreingestellt „je Zeile eine Kennzahl, je Spalte eine Variante“ — so, wie die Tabelle auch im Raster darunter steht. Die andere Wahl kippt sie beim Übernehmen. |
+| Tabelle übernehmen | Ersetzt Achsen, Serien und Werte. Gleichnamige Achsen und Serien behalten Einheit, Achsenrichtung und Farbe. |
 
-## Je Kategorie (Achse)
+## Einstieg ohne Daten
+
+Solange weder Achsen noch Serien angelegt sind, erklärt der Editor die
+Begriffe und bietet zwei Knöpfe an: **„Beispiel laden“** füllt einen
+vollständigen Vergleich (MAN eTGX gegen Mercedes-Benz eActros 600) ein, den
+man überschreibt; **„Leere Tabelle anlegen“** legt drei Achsen und zwei
+Serien zum Ausfüllen an.
+
+## Je Achse (eine Zeile im Raster)
 
 | Einstellung | Beschreibung |
 | --- | --- |
-| Beschriftung | Name der Achse, wie er am Diagramm und in der Datentabelle erscheint. |
+| Achse | Name der Achse, wie er am Diagramm und in der Datentabelle erscheint. Mehrzeilig: Die Eingabetaste erzeugt einen Zeilenumbruch, der auch im Diagramm steht. |
 | Einheit | Wird an jede Zahl dieser Achse angehängt (Datenpunkt, Tooltip, Tabelle), z. B. „kWh“. |
-| Nachkommastellen | Wie viele Nachkommastellen angezeigt werden. Ohne Angabe wird die Zahl der tatsächlich eingegebenen Nachkommastellen übernommen. |
-| Minimum | Untere Grenze der Achse. Ohne Angabe wird der kleinste vorkommende Wert dieser Achse verwendet. |
-| Maximum | Obere Grenze der Achse. Ohne Angabe wird der größte vorkommende Wert dieser Achse verwendet. |
-| Kleiner ist besser | Kehrt die Achse um: Der kleinere Wert liegt dann weiter außen. Für Kennzahlen, bei denen weniger besser ist — Gewicht, Verbrauch, Ladezeit. |
+| Richtung („kleiner ist besser“) | Kehrt die Achse um: Der kleinere Wert liegt dann weiter außen. Für Kennzahlen, bei denen weniger besser ist — Gewicht, Verbrauch, Ladezeit. |
+| Nachkomma | Nur bei eingeschalteten **Feineinstellungen je Achse**: Wie viele Nachkommastellen angezeigt werden. Ohne Angabe wird die Zahl der tatsächlich eingegebenen Nachkommastellen übernommen. |
+| Minimum | Nur bei eingeschalteten Feineinstellungen: Untere Grenze der Achse. Ohne Angabe wird der kleinste vorkommende Wert dieser Achse verwendet. |
+| Maximum | Nur bei eingeschalteten Feineinstellungen: Obere Grenze der Achse. Ohne Angabe wird der größte vorkommende Wert dieser Achse verwendet. |
+| ↑ ↓ ✕ | Verschiebt die Achse im Kreis beziehungsweise entfernt sie samt ihrer Werte. |
 
-## Je Serie
+## Je Serie (eine Spalte im Raster)
 
 | Einstellung | Beschreibung |
 | --- | --- |
 | Serienname | Name, wie er in Legende, Tooltip und Datentabelle erscheint. |
 | Farbe | Überschreibt die automatisch zugewiesene Farbe aus der MAN-Palette für diese eine Serie. |
+| ← → ✕ | Verschiebt die Serie — die Reihenfolge bestimmt Palettenfarbe und Legendenreihenfolge — beziehungsweise entfernt sie. |
+
+## Titel, Legende und Darstellung
+
+| Einstellung | Beschreibung |
+| --- | --- |
+| Titel | Überschrift über dem Diagramm. Bleibt das Feld leer, erscheint keine Überschrift. |
+| Fußnote | Kleingedruckter Zusatztext unter dem Titel, z. B. für Quellenangaben. |
+| Legende | „über dem Diagramm“, „unter dem Diagramm“ oder „ausblenden“. |
+| Hilfslinien im Netz | Nur beim Radar: Anzahl der konzentrischen Hilfsringe. Voreingestellt sind 5. Rein optisch, ändert keine Werte. |
+| Flächen füllen | Nur beim Radar: Füllt die Fläche hinter jeder Serienlinie halbtransparent in deren Farbe. Voreingestellt aus. |
 
 ## Automatische Skalierung
 

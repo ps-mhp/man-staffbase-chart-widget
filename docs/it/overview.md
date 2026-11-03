@@ -36,29 +36,32 @@ grafico**, non il resto della pagina — titolo, legenda, assi e valori
 esattamente come vengono visualizzati in quel momento, con sfondo bianco (anche se
 la pagina stessa ha uno sfondo trasparente o scuro). Il file SVG può essere
 ingrandito senza perdita di qualità, mentre il PNG è adatto per contesti che non supportano l’integrazione di file SVG
-(ad es. la maggior parte dei programmi di presentazione) e viene generato a
+(ad es. la maggior parte dei programmi di presentazione) e viene generato in
 doppia risoluzione.
 
 ## Traduzione
 
 Il grafico viene incluso nella traduzione automatica della pagina. Vengono tradotti
 il titolo, la nota a piè di pagina, le etichette degli assi e i nomi delle serie — esattamente i
-testi che sono stati inseriti manualmente. Numeri, unità di misura, limiti degli assi,
-colori e tutte le altre impostazioni rimangono invariati, poiché non hanno
+testi che sono stati inseriti manualmente. I numeri, le unità di misura, i limiti degli assi,
+i colori e tutte le altre impostazioni rimangono invariati, poiché non hanno
 una lingua: un’unità di misura tradotta sarebbe errata («t» non diventa «ton»),
 un numero tradotto non avrebbe senso.
 
 ## Cosa vedete nell’editor del CMS
 
 Quando si inserisce il modulo, si apre automaticamente l’**editor del grafico**:
-una tabella composta da categorie (assi) e serie (righe), oltre a un campo per
-inserire una tabella copiata e un’anteprima in tempo reale che mostra esattamente
-come apparirà il grafico in seguito sulla pagina. Il campo di testo sottostante mostra
-solo la forma tecnicamente memorizzata e codificata dei dati e non viene mai modificato manualmente
-.
+in alto la selezione del tipo di grafico e un campo in cui inserire una tabella copiata da Excel
+, sotto di esso una griglia con **una riga per ogni asse** e
+**una colonna per ogni serie**, accanto un’anteprima in tempo reale che mostra esattamente come
+il grafico apparirà in seguito sulla pagina. Finché non è stato creato nulla,
+l’editor spiega i termini e offre le opzioni “Carica esempio” e
+“Crea tabella vuota”. Il campo di testo sottostante mostra solo la forma tecnicamente
+memorizzata e codificata dei dati e non viene mai modificato manualmente.
 
 Una caratteristica importante: gli assi **non presentano una scala numerica visibile**.
-Non è possibile rappresentare in modo sensato su una scala comune più assi con unità diverse (ad es. chilometri e minuti). Ogni asse
+Non è possibile rappresentare in modo sensato su una scala comune più assi con unità diverse (ad es. chilometri e minuti)
+. Ogni asse
 viene quindi esteso internamente in modo indipendente tra il suo valore minimo e quello massimo;
 i numeri effettivi sono riportati nei punti dati, nel tooltip e
 nella tabella dei dati. Maggiori informazioni alla voce [Impostazioni](settings.md).

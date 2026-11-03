@@ -94,3 +94,28 @@ export function moveSeries(spec: ChartSpec, index: number, delta: number): Chart
   [series[index], series[target]] = [series[target], series[index]];
   return { ...spec, series };
 }
+
+/**
+ * Verschiebt eine Kategorie samt ihrer Werte.
+ *
+ * Beim Radar legt die Reihenfolge fest, wo eine Achse im Kreis sitzt; beim
+ * Balken die Reihenfolge auf der Grundlinie. Anders als bei den Serien muss
+ * hier jede Serie mitziehen — ein Tausch nur in `categories` würde alle
+ * Werte um eine Achse verschieben, und das fiele erst in der Vorschau auf.
+ */
+export function moveCategory(spec: ChartSpec, index: number, delta: number): ChartSpec {
+  const target = index + delta;
+  if (target < 0 || target >= spec.categories.length) return spec;
+
+  const swap = <T>(list: T[]): T[] => {
+    const next = [...list];
+    [next[index], next[target]] = [next[target], next[index]];
+    return next;
+  };
+
+  return {
+    ...spec,
+    categories: swap(spec.categories),
+    series: spec.series.map((series) => ({ ...series, values: swap(series.values) })),
+  };
+}

@@ -25,12 +25,25 @@ Antwort: Das Diagramm wurde mit einer neueren Fassung des Bausteins
 eingerichtet, die einen Diagrammtyp kennt, den diese Version noch nicht
 unterstützt. Den Baustein auf die neueste Version aktualisieren.
 
-**Frage:** Ich sehe die Meldung „Noch keine Daten im Diagramm. Ergänzen Sie
-Kategorien und Serien in den Einstellungen.“
+**Frage:** Ich sehe die Meldung „Noch keine Daten im Diagramm. Legen Sie in
+den Einstellungen Achsen und Serien an.“
 
-Antwort: Es wurden weder Kategorien (Achsen) noch Serien im Diagramm-Editor
-angelegt. Mindestens eine Kategorie und eine Serie hinzufügen oder eine
-Tabelle einfügen.
+Antwort: Es wurden weder Achsen noch Serien im Diagramm-Editor angelegt. Im
+Editor eine Tabelle einfügen oder einen der beiden Knöpfe „Beispiel laden“
+beziehungsweise „Leere Tabelle anlegen“ verwenden.
+
+**Frage:** Nach dem Einfügen stehen meine Kennzahlen als Serien und meine
+Varianten als Achsen — alles vertauscht.
+
+Antwort: Unter dem Einfügefeld war die falsche Leserichtung gewählt. Auf die
+andere Antwort bei „Wie steht Ihre Tabelle?“ umstellen und erneut auf
+„Tabelle übernehmen“ klicken.
+
+**Frage:** Meine Achsenbeschriftung ist so lang, dass sie das Diagramm
+zusammendrückt.
+
+Antwort: Im Feld der Achse an der gewünschten Stelle die Eingabetaste
+drücken. Der Zeilenumbruch wird ins Diagramm übernommen.
 
 **Frage:** Ich sehe die Meldung „Das Diagramm konnte nicht geladen werden.
 Bitte laden Sie die Seite neu.“

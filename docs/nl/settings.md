@@ -13,44 +13,68 @@ instellingen te vinden zijn.
 | Hoogte in pixels | Hoogte van de grafiek op de pagina. Toegestane waarden zijn 160 tot 1200 pixels, de standaardinstelling is 420. De breedte wordt altijd bepaald door de kolom. |
 | Downloaden toestaan | Toont onder de grafiek twee knoppen om de grafiek als afbeelding te downloaden. Het bestand bevat alleen de grafiek, niet de pagina. Standaard uitgeschakeld. |
 
-## Koptekst van de grafiek-editor
+## Grafiektype
+
+De selectie helemaal bovenaan in de editor bepaalt het type grafiek. Momenteel is
+er alleen **netwerkdiagram (radar / spin)**; de lijst groeit met elk nieuw
+ondersteund type. De typeafhankelijke instellingen — bij radar bijvoorbeeld de
+hulplijnen — verschijnen alleen zolang het bijbehorende type is geselecteerd.
+
+## Gegevens uit een tabel overnemen
+
+| Instelling | Beschrijving |
+| --- | --- |
+| Invoervak | Neemt een uit Excel, PowerPoint of Word gekopieerde tabel op. Herkent tab, puntkomma en komma als kolomscheidingstekens. |
+| Hoe is uw tabel opgebouwd? | Bepaalt de leesrichting. Standaard ingesteld op „één kengetal per rij, één variant per kolom“ — net zoals de tabel ook in het raster eronder staat. De andere keuze draait dit om bij het overnemen. |
+| Tabel overnemen | Vervangt assen, reeksen en waarden. Assen en reeksen met dezelfde naam behouden hun eenheid, asrichting en kleur. |
+
+## Aan de slag zonder gegevens
+
+Zolang er noch assen noch reeksen zijn aangemaakt, legt de editor de
+begrippen uit en biedt twee knoppen aan: **„Voorbeeld laden“** vult een
+volledige vergelijking (MAN eTGX versus Mercedes-Benz eActros 600) in, die
+je kunt overschrijven; **„Lege tabel aanmaken“** stelt drie assen en twee
+reeksen aan om in te vullen.
+
+## Per as (één rij in het raster)
+
+| Instelling | Beschrijving |
+| --- | --- |
+| As | Naam van de as, zoals deze in het diagram en in de gegevenstabel verschijnt. Meerdere regels: de Enter-toets zorgt voor een regeleinde, dat ook in de grafiek wordt weergegeven. |
+| Eenheid | Wordt aan elk getal van deze as toegevoegd (gegevenspunt, tooltip, tabel), bijv. „kWh“. |
+| Richting („minder is beter“) | Keert de as om: de kleinere waarde ligt dan verder naar buiten. Voor kengetallen waarbij minder beter is — gewicht, verbruik, laadtijd. |
+| Decimalen | Alleen als **Fijnafstellingen per as** zijn ingeschakeld: Hoeveel cijfers achter de komma worden weergegeven. Zonder opgave wordt het aantal daadwerkelijk ingevoerde cijfers achter de komma overgenomen. |
+| Minimum | Alleen als de fijnafstellingen zijn ingeschakeld: ondergrens van de as. Zonder opgave wordt de kleinste voorkomende waarde van deze as gebruikt. |
+| Maximum | Alleen wanneer **fijnafstellingen per as** zijn ingeschakeld: bovengrens van de as. Zonder specificatie wordt de grootste voorkomende waarde van deze as gebruikt. |
+| ↑ ↓ ✕ | Verschuift de as in een cirkel of verwijdert deze samen met de waarden. |
+
+## Per reeks (één kolom in het raster)
+
+| Instelling | Beschrijving |
+| --- | --- |
+| Naam reeks | Naam zoals deze verschijnt in de legenda, tooltip en gegevenstabel. |
+| Kleur | Overschrijft de automatisch toegewezen kleur uit het MAN-palet voor deze ene reeks. |
+| ← → ✕ | Verplaatst de reeks — de volgorde bepaalt de paletkleur en de volgorde in de legenda — of verwijdert deze. |
+
+## Titel, legenda en weergave
 
 | Instelling | Beschrijving |
 | --- | --- |
 | Titel | Koptekst boven de grafiek. Als het veld leeg blijft, verschijnt er geen koptekst. |
 | Voetnoot | Aanvullende tekst in kleine letters onder de titel, bijvoorbeeld voor bronvermeldingen. |
-| Legenda weergeven | Schakelt de legenda met de reeksnamen in of uit. |
-| Positie legenda | „boven“ of „onder“ — waar de legenda ten opzichte van het diagram staat. |
-| Aantal ringen | Alleen bij radar: aantal concentrische hulpringen in het raster. Standaard is dit 5. Puur visueel, verandert geen waarden. |
-| Vlak vullen | Alleen bij radardiagrammen: vult het vlak achter elke reekslijn halfdoorzichtig in de kleur van die reeks. Standaard uitgeschakeld. |
-
-## Per categorie (as)
-
-| Instelling | Beschrijving |
-| --- | --- |
-| Label | Naam van de as, zoals deze in de grafiek en in de gegevenstabel wordt weergegeven. |
-| Eenheid | Wordt aan elk getal van deze as toegevoegd (gegevenspunt, tooltip, tabel), bijv. „kWh“. |
-| Decimalen | Hoeveel decimalen worden weergegeven. Indien niet opgegeven, wordt het aantal daadwerkelijk ingevoerde decimalen overgenomen. |
-| Minimum | Ondergrens van de as. Indien niet opgegeven, wordt de kleinste voorkomende waarde van deze as gebruikt. |
-| Maximum | Bovengrens van de as. Indien niet opgegeven, wordt de grootste waarde van deze as gebruikt. |
-| Kleiner is beter | Keert de as om: de kleinere waarde ligt dan verder naar buiten. Voor kengetallen waarbij minder beter is — gewicht, verbruik, laadtijd. |
-
-## Per serie
-
-| Instelling | Beschrijving |
-| --- | --- |
-| Serienaam | Naam zoals deze verschijnt in de legenda, tooltip en gegevenstabel. |
-| Kleur | Overschrijft de automatisch toegewezen kleur uit het MAN-palet voor deze ene serie. |
+| Legenda | „boven de grafiek“, „onder de grafiek“ of „verbergen“. |
+| Hulp lijnen in het raster | Alleen bij de radargrafiek: aantal concentrische hulpringen. Standaard is dit 5. Puur visueel, verandert geen waarden. |
+| Vlakken vullen | Alleen bij de radargrafiek: vult het vlak achter elke reekslijn halfdoorzichtig in de kleur van die reeks. Standaard uitgeschakeld. |
 
 ## Automatische schaalverdeling
 
-De assen hebben geen zichtbare getallenschaal — deze is bij meerdere assen
-met verschillende eenheden niet zinvol weer te geven. Zonder ingestelde minimum-
+De assen hebben geen zichtbare getallenschaal — bij meerdere assen
+met verschillende eenheden is dit niet zinvol weer te geven. Zonder ingestelde minimum-
 en maximumwaarden strekt elke as zich in plaats daarvan automatisch uit tussen de
 kleinste en grootste waarde die erop voorkomt. Dit maakt verschillen
-tussen de series duidelijk zichtbaar, maar kan ook kleine, in de praktijk
-onbelangrijke verschillen optisch groot doen lijken. Wie dat niet wil,
-stelt het minimum en maximum van de betreffende as handmatig in — bijv. 0 en 600
+tussen de reeksen duidelijk zichtbaar, maar kan ook kleine, in de praktijk
+onbelangrijke verschillen visueel groot laten lijken. Wie dat niet wil,
+stelt het minimum en maximum van de betreffende as handmatig in — bijvoorbeeld 0 en 600
 voor een bereik, in plaats van deze te laten lopen tussen de kleinste en grootste
 voorkomende waarde.
 

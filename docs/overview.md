@@ -51,11 +51,13 @@ eine übersetzte Zahl wäre Unsinn.
 ## Was Sie im CMS-Editor sehen
 
 Beim Einfügen des Bausteins öffnet sich automatisch der **Diagramm-Editor**:
-eine Tabelle aus Kategorien (Achsen) und Serien (Zeilen), dazu ein Feld zum
-Einfügen einer kopierten Tabelle sowie eine Live-Vorschau, die genau zeigt,
-wie das Diagramm später auf der Seite erscheint. Das Textfeld dahinter zeigt
-nur die technisch gespeicherte, kodierte Form der Daten und wird nie von Hand
-bearbeitet.
+oben die Wahl des Diagrammtyps und ein Feld, in das eine aus Excel kopierte
+Tabelle eingefügt wird, darunter ein Raster mit **einer Zeile je Achse** und
+**einer Spalte je Serie**, daneben eine Live-Vorschau, die genau zeigt, wie
+das Diagramm später auf der Seite erscheint. Solange noch nichts angelegt
+ist, erklärt der Editor die Begriffe und bietet „Beispiel laden“ sowie
+„Leere Tabelle anlegen“ an. Das Textfeld dahinter zeigt nur die technisch
+gespeicherte, kodierte Form der Daten und wird nie von Hand bearbeitet.
 
 Eine wichtige Besonderheit: Die Achsen tragen **keine sichtbare Zahlenskala**.
 Mehrere Achsen mit unterschiedlichen Einheiten (z. B. Kilometer und Minuten)

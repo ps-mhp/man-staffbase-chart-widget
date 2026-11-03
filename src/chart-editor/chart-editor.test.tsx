@@ -44,11 +44,36 @@ beforeEach(() => {
 });
 
 describe("ChartEditor", () => {
-  it("zeigt jede Kategorie als Spalte und jede Serie als Zeile", () => {
+  it("nennt den Diagrammtyp, statt ihn zu verschweigen", () => {
+    // Am alten Dialog war nicht zu erkennen, welche Art Diagramm man baut.
+    setup();
+    expect(screen.getByLabelText("Diagrammtyp")).toHaveValue("radar");
+  });
+
+  it("zeigt jede Achse als Zeile und jede Serie als Wertespalte", () => {
     setup();
     expect(screen.getByDisplayValue("Gewicht")).toBeInTheDocument();
     expect(screen.getByDisplayValue("MAN")).toBeInTheDocument();
     expect(screen.getByDisplayValue("1,8")).toBeInTheDocument();
+  });
+
+  it("beschriftet jeden Wert mit seiner Serie und seiner Achse", () => {
+    // Der alte Kopf sagte "Serie" ueber den Achsennamen — die Beschriftung
+    // log, und genau deshalb landeten Achsen in Serienfeldern.
+    setup();
+    expect(screen.getByLabelText("Name der Achse 1")).toHaveValue("Gewicht");
+    expect(screen.getByLabelText("Name der Serie 1")).toHaveValue("MAN");
+    expect(screen.getByLabelText("MAN, Gewicht")).toHaveValue("1,8");
+  });
+
+  it("behält einen Zeilenumbruch im Achsennamen", () => {
+    // ECharts bricht die Achsenbeschriftung am `\n` um. Ein einzeiliges Feld
+    // verschluckte den Umbruch und zeigte "BenotungModularitaet".
+    const { onChange } = setup();
+    const field = screen.getByLabelText("Name der Achse 1");
+    expect(field.tagName).toBe("TEXTAREA");
+    fireEvent.change(field, { target: { value: "Benotung\nModularität" } });
+    expect(onChange.mock.lastCall[0].categories[0].label).toBe("Benotung\nModularität");
   });
 
   it("meldet einen geänderten Wert nach oben", () => {
@@ -71,9 +96,9 @@ describe("ChartEditor", () => {
     expect(onChange.mock.lastCall[0].series[0].values[0]).toBeNull();
   });
 
-  it("ergänzt eine Kategorie samt Spalte", () => {
+  it("ergänzt eine Achse samt Wert in jeder Serie", () => {
     const { onChange } = setup();
-    fireEvent.click(screen.getByRole("button", { name: /Kategorie hinzufügen/ }));
+    fireEvent.click(screen.getByRole("button", { name: /Achse hinzufügen/ }));
     expect(onChange.mock.lastCall[0].categories).toHaveLength(3);
     expect(onChange.mock.lastCall[0].series[0].values).toHaveLength(3);
   });
@@ -84,18 +109,53 @@ describe("ChartEditor", () => {
     expect(onChange.mock.lastCall[0].series).toHaveLength(2);
   });
 
+  it("verschiebt eine Achse samt ihrer Werte", () => {
+    // Nur `categories` zu tauschen wuerde alle Werte um eine Achse
+    // verschieben — ein Fehler, der erst in der Vorschau auffaellt.
+    const { onChange } = setup();
+    fireEvent.click(screen.getByRole("button", { name: /Achse nach unten: Gewicht/ }));
+    const next = onChange.mock.lastCall[0];
+    expect(next.categories.map((c: { label: string }) => c.label)).toEqual(["Energie", "Gewicht"]);
+    expect(next.series[0].values).toEqual([240, 1.8]);
+  });
+
   it("schaltet die Achsenrichtung um", () => {
     const { onChange } = setup();
     fireEvent.click(screen.getAllByRole("checkbox", { name: /Kleiner ist besser/ })[0]);
     expect(onChange.mock.lastCall[0].categories[0].inverted).toBe(true);
   });
 
-  it("übernimmt eine eingefügte Tabelle", () => {
+  it("blendet die Feineinstellungen erst auf Wunsch ein", () => {
+    // Drei unbeschriftete Kaestchen je Achse waren der Hauptgrund, warum der
+    // Dialog unverstaendlich war.
+    setup();
+    expect(screen.queryByLabelText(/Minimum: Gewicht/)).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("checkbox", { name: /Feineinstellungen je Achse/ }));
+    expect(screen.getByLabelText(/Minimum: Gewicht/)).toBeInTheDocument();
+  });
+
+  it("übernimmt eine eingefügte Tabelle mit Kennzahlen in den Zeilen", () => {
     const { onChange } = setup();
-    const area = screen.getByLabelText(/Tabelle einfügen/);
-    fireEvent.change(area, { target: { value: "Modell\tA\tB\nNeu\t1\t2" } });
+    fireEvent.change(screen.getByLabelText(/Tabelle einfügen/), {
+      target: { value: "\tMAN\tMB\nLadeleistung\t750\t1.000" },
+    });
     fireEvent.click(screen.getByRole("button", { name: /Tabelle übernehmen/ }));
-    expect(onChange.mock.lastCall[0].categories.map((c: { label: string }) => c.label)).toEqual(["A", "B"]);
+    const next = onChange.mock.lastCall[0];
+    expect(next.categories.map((c: { label: string }) => c.label)).toEqual(["Ladeleistung"]);
+    expect(next.series.map((s: { name: string }) => s.name)).toEqual(["MAN", "MB"]);
+    expect(next.series[1].values).toEqual([1000]);
+  });
+
+  it("übernimmt eine eingefügte Tabelle auch andersherum", () => {
+    const { onChange } = setup();
+    fireEvent.click(screen.getByRole("radio", { name: /Je Zeile eine Variante/ }));
+    fireEvent.change(screen.getByLabelText(/Tabelle einfügen/), {
+      target: { value: "Modell\tA\tB\nMAN\t1\t2" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: /Tabelle übernehmen/ }));
+    const next = onChange.mock.lastCall[0];
+    expect(next.categories.map((c: { label: string }) => c.label)).toEqual(["A", "B"]);
+    expect(next.series.map((s: { name: string }) => s.name)).toEqual(["MAN"]);
   });
 
   it("sagt, wenn eine eingefügte Tabelle nicht lesbar war, statt stillzuhalten", () => {
@@ -110,8 +170,21 @@ describe("ChartEditor", () => {
     expect(screen.getByTestId("chart-editor-preview")).toBeInTheDocument();
   });
 
-  it("kommt mit einer leeren Definition zurecht", () => {
+  it("erklärt den Startzustand und bietet einen Einstieg an, statt leer dazustehen", () => {
     setup(emptySpec());
-    expect(screen.getByRole("button", { name: /Kategorie hinzufügen/ })).toBeInTheDocument();
+    expect(screen.getByText(/Noch keine Achsen und Serien/)).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Leere Tabelle anlegen/ })).toBeInTheDocument();
+  });
+
+  it("füllt über „Beispiel laden“ einen vollständigen Vergleich ein", () => {
+    const { onChange } = setup(emptySpec());
+    fireEvent.click(screen.getByRole("button", { name: /Beispiel laden/ }));
+    const next = onChange.mock.lastCall[0];
+    expect(next.categories).toHaveLength(6);
+    expect(next.series.map((s: { name: string }) => s.name)).toEqual([
+      "MAN eTGX",
+      "Mercedes-Benz eActros 600",
+    ]);
+    expect(next.series[0].values).toHaveLength(6);
   });
 });

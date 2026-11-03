@@ -25,23 +25,36 @@ Réponse : Le graphique a été configuré avec une version plus récente du mod
 qui prend en charge un type de graphique que cette version ne
 prend pas encore en charge. Mettez le module à jour vers la dernière version.
 
-**Question :** Je vois le message « Aucune donnée dans le graphique pour l’instant. Ajoutez
-des catégories et des séries dans les paramètres. »
+**Question :** Je vois le message « Aucune donnée dans le graphique pour l’instant. Créez des
+axes et des séries dans les paramètres. »
 
-Réponse : Aucune catégorie (axe) ni aucune série n’a été créée dans l’éditeur de graphiques.
-Ajoutez au moins une catégorie et une série, ou insérez un
-tableau.
+Réponse : Aucun axe ni aucune série n’ont été créés dans l’éditeur de graphiques. Dans l’
+éditeur, insérez un tableau ou utilisez l’un des deux boutons « Charger un exemple »
+ou « Créer un tableau vide ».
+
+**Question :** Après l’insertion, mes indicateurs apparaissent comme des séries et mes
+variantes comme des axes — tout est inversé.
+
+Réponse : Sous le champ d’insertion, le sens de lecture sélectionné était incorrect. Passez à l’
+autre réponse sous « Comment se présente votre tableau ? » et cliquez à nouveau sur
+« Appliquer le tableau ».
+
+**Question :** Le libellé de mon axe est si long qu’il
+rétrécit le graphique.
+
+Réponse : Dans le champ de l’axe, appuyez sur la touche Entrée à l’endroit souhaité.
+Le saut de ligne sera repris dans le graphique.
 
 **Question :** Je vois le message « Le graphique n’a pas pu être chargé.
-Veuillez actualiser la page. »
+Veuillez recharger la page. »
 
-Réponse : La bibliothèque de graphiques n’a pas pu être rechargée, généralement en raison
-d’une connexion Internet interrompue. Actualisez la page ; si le problème
+Réponse : La bibliothèque de graphiques n’a pas pu être rechargée, généralement en raison d’
+une connexion Internet interrompue. Rechargez la page ; si le problème
 persiste, vérifiez la connexion réseau.
 
-**Question :** Pourquoi mon graphique est-il vide alors que des données ont été saisies ?
+**Question :** Pourquoi mon diagramme est-il vide alors que des données ont été saisies ?
 
-Réponse : Le plus souvent, le bloc se trouve dans une colonne très étroite ou dans un
+Réponse : La plupart du temps, le bloc se trouve dans une colonne très étroite ou dans un
 élément replié, de sorte que le conteneur a une hauteur de 0. Le graphique
 reste alors vide en permanence, car il ne dispose d’aucun espace pour s’afficher. Déplacez le
 bloc dans une colonne plus large ou développez l’élément.

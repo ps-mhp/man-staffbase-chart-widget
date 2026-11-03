@@ -51,11 +51,13 @@ een vertaald getal zou onzin zijn.
 ## Wat u in de CMS-editor ziet
 
 Bij het invoegen van het bouwsteen wordt automatisch de **diagram-editor** geopend:
-een tabel met categorieën (assen) en reeksen (rijen), plus een veld voor het
-het invoegen van een gekopieerde tabel en een live-voorbeeld dat precies laat zien
-hoe de grafiek later op de pagina zal verschijnen. Het tekstveld daarachter toont
-alleen de technisch opgeslagen, gecodeerde vorm van de gegevens en wordt nooit handmatig
-bewerkt.
+bovenaan de keuze van het diagramtype en een veld waarin een uit Excel gekopieerde
+kan worden ingevoegd, daaronder een raster met **één rij per as** en
+**één kolom per reeks**, daarnaast een live-voorbeeld dat precies laat zien hoe
+de grafiek later op de pagina zal verschijnen. Zolang er nog niets is aangemaakt,
+legt de editor de begrippen uit en biedt hij de opties „Voorbeeld laden“ en
+„Lege tabel aanmaken“ aan. Het tekstveld daarachter toont alleen de technisch
+opgeslagen, gecodeerde vorm van de gegevens en wordt nooit handmatig bewerkt.
 
 Een belangrijk bijzonderheid: de assen hebben **geen zichtbare getallenschaal**.
 Meerdere assen met verschillende eenheden (bijv. kilometer en minuten)

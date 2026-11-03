@@ -2,7 +2,7 @@
 
 Le widget « Diagramme » présente les indicateurs sous forme de **diagramme radar/en réseau** : plusieurs
 axes rayonnent en étoile à partir d'un point central, et chaque série — par
-exemple, un véhicule comparé à d'autres — relie ses valeurs sur ces axes pour
+exemple, un véhicule en comparaison — relie ses valeurs sur ces axes pour
 former une surface. Cela permet de comparer d’un seul
 coup d’œil plusieurs indicateurs de plusieurs séries, même s’ils sont mesurés dans des unités
 très différentes — kilomètres, tonnes, minutes, kilowatts.
@@ -11,15 +11,15 @@ La configuration du diagramme s’effectue via un éditeur dédié, qui s’ouvr
 les paramètres du widget. Un tableau copié depuis Excel peut y être
 importé en un clic, voir [Étape par étape](usage.md).
 
-D’autres types de graphiques (par exemple, des graphiques à barres ou linéaires) sont prévus pour de futures
-versions, mais **ne sont pas encore disponibles** — pour l’instant, seul
+D'autres types de graphiques (par exemple, des graphiques à barres ou linéaires) sont prévus pour de futures
+versions, mais **ne sont pas encore disponibles** — pour l'instant, seul
 le graphique radar/en réseau peut être sélectionné.
 
 ## Ce que voient les lecteurs et lectrices
 
 - Le graphique lui-même, avec un nombre illimité d’axes et de séries.
 - Les valeurs apparaissent directement sur les points de données ; de plus, lorsque
-  l’on survole un point, une infobulle s’affiche avec toutes les valeurs de la série.
+  l’on passe la souris sur un point, une infobulle s’affiche avec toutes les valeurs de la série.
 - Une légende au-dessus ou en dessous du graphique, selon les paramètres.
 - En option, un titre et une note de bas de page.
 - Si le téléchargement est autorisé (voir [Paramètres](settings.md)), deux boutons
@@ -50,16 +50,18 @@ un chiffre traduit n’aurait aucun sens.
 
 ## Ce que vous voyez dans l’éditeur du CMS
 
-Lorsque vous insérez le module, l’**éditeur de graphique** s’ouvre automatiquement :
-un tableau composé de catégories (axes) et de séries (lignes), ainsi qu’un champ permettant d’
-insérer un tableau copié, ainsi qu’un aperçu en direct qui montre exactement
-comment le graphique apparaîtra ensuite sur la page. Le champ de texte situé derrière n’affiche
-que la forme codée et enregistrée techniquement des données et n’est jamais modifié manuellement
-.
+Lors de l’insertion du module, l’**éditeur de graphique** s’ouvre automatiquement :
+en haut, le choix du type de graphique et un champ dans lequel un tableau copié depuis Excel
+, en dessous une grille avec **une ligne par axe** et
+**une colonne par série**, à côté un aperçu en temps réel qui montre exactement comment
+le graphique apparaîtra ensuite sur la page. Tant que rien n’a encore été créé,
+l’éditeur explique les termes et propose les options « Charger un exemple » et
+« Créer un tableau vide ». Le champ de texte situé derrière n’affiche que la forme techniquement
+enregistrée et codée des données et n’est jamais modifié manuellement.
 
 Une particularité importante : les axes ne comportent **aucune échelle numérique visible**.
-Plusieurs axes avec des unités différentes (par exemple, kilomètres et minutes)
-ne peuvent pas être représentés de manière pertinente sur une échelle commune. Chaque axe
+Il n’est pas possible de représenter de manière pertinente sur une même échelle plusieurs axes avec des unités différentes (par exemple, des kilomètres et des minutes).
+Chaque axe Chaque axe
 est donc étiré en interne de manière indépendante entre sa valeur minimale et sa valeur maximale
 ; les chiffres réels apparaissent au niveau des points de données, dans l’info-bulle et
 dans le tableau de données. Pour en savoir plus, consultez la rubrique [Paramètres](settings.md).

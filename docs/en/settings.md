@@ -13,50 +13,74 @@ settings are located.
 | Height in pixels | Height of the diagram on the page. Valid values range from 160 to 1200 pixels; the default is 420. The width always depends on the column. |
 | Allow Download | Displays two buttons below the chart to download it as an image. The file contains only the chart, not the page. Default: off. |
 
-## Chart Editor Header
+## Chart Type
+
+The selection at the very top of the editor determines the type of chart. Currently,
+only **Network Chart (Radar / Spider)** is available; the list will grow with each additional
+supported type. Type-specific settings—such as
+guides for the Radar chart—appear only while the corresponding type is selected.
+
+## Import Data from a Table
 
 | Setting | Description |
 | --- | --- |
-| Title | Heading above the chart. If the field is left blank, no heading appears. |
-| Footnote | Additional text in small print below the title, e.g., for source citations. |
-| Show Legend | Toggles the display of the legend with the series names. |
-| Legend Position | “top” or “bottom” — where the legend is positioned relative to the chart. |
-| Number of Rings | Radar only: Number of concentric auxiliary rings in the grid. The default is 5. This is purely visual and does not change any values. |
-| Fill Area | Radar only: Fills the area behind each series line semi-transparently in its color. Default is off. |
+| Paste Field | Imports a table copied from Excel, PowerPoint, or Word. Recognizes tabs, semicolons, and commas as column delimiters. |
+| How is your table formatted? | Sets the reading direction. The default is “one metric per row, one variant per column”—just as the table appears in the grid below. Selecting the other option flips the table when importing. |
+| Apply Table | Replaces axes, series, and values. Axes and series with the same name retain their units, axis direction, and color. |
 
-## Per Category (Axis)
+## Getting Started Without Data
+
+As long as neither axes nor series have been created, the editor explains the
+terms and offers two buttons: **“Load Example”** populates a
+complete comparison (MAN eTGX vs. Mercedes-Benz eActros 600), which
+you can overwrite; **“Create Empty Table”** sets up three axes and two
+series for you to fill in.
+
+## Per Axis (one row in the grid)
 
 | Setting | Description |
 | --- | --- |
-| Label | Name of the axis as it appears on the chart and in the data table. |
+| Axis | Name of the axis, as it appears on the chart and in the data table. Multi-line: Pressing Enter creates a line break, which also appears in the chart. |
 | Unit | Appended to every number on this axis (data point, tooltip, table), e.g., “kWh”. |
-| Decimal Places | How many decimal places are displayed. If not specified, the number of decimal places actually entered is used. |
-| Minimum | Lower limit of the axis. If not specified, the smallest value occurring on this axis is used. |
-| Maximum | Upper limit of the axis. If not specified, the largest value on this axis is used. |
-| Lower is better | Reverses the axis: The smaller value is then located farther out. For metrics where lower is better—weight, consumption, charging time. |
+| Direction (“lower is better”) | Reverses the axis: The lower value is then located farther out. For metrics where lower is better—weight, consumption, charging time. |
+| Decimal Places | Only when **Advanced Settings per Axis** are enabled: How many decimal places are displayed. If not specified, the number of decimal places actually entered is used. |
+| Minimum | Only when **Fine Tuning per Axis** is enabled: Lower limit of the axis. If not specified, the smallest value occurring on this axis is used. |
+| Maximum | Only when **Fine Tuning per Axis** is enabled: Upper limit of the axis. If not specified, the largest value occurring on this axis is used. |
+| ↑ ↓ ✕ | Rotates the axis in a circle or removes it along with its values. |
 
-## Per Series
+## Per Series (one column in the grid)
 
 | Setting | Description |
 | --- | --- |
 | Series Name | Name as it appears in the legend, tooltip, and data table. |
 | Color | Overrides the automatically assigned color from the MAN palette for this specific series. |
+| ← → ✕ | Moves the series—the order determines the palette color and legend order—or removes it. |
+
+## Title, Legend, and Display
+
+| Setting | Description |
+| --- | --- |
+| Title | Heading above the chart. If the field is left blank, no heading appears. |
+| Footnote | Additional text in small print below the title, e.g., for source citations. |
+| Legend | “Above the chart,” “Below the chart,” or “Hide.” |
+| Grid Lines | Radar only: Number of concentric grid rings. Default is 5. Purely visual; does not change any values. |
+| Fill Areas | For radar charts only: Fills the area behind each data series line semi-transparently in that series’ color. Default is off. |
 
 ## Automatic Scaling
 
 The axes do not display a visible numerical scale—it cannot be meaningfully displayed when there are multiple axes
 with different units. Without specified minimum
-and maximum values, each axis instead automatically spans the
+and maximum values, each axis automatically spans the range between the
 smallest and largest values that appear on it. This makes differences
-between the series clearly visible, but it can also make small differences—which are
-insignificant in practice—appear large visually. If you do not want this,
-set the minimum and maximum values for the relevant axis manually—e.g., 0 and 600
-for a range—instead of spanning it between the smallest and largest
+between the series clearly visible, but can also make small differences—which are
+insignificant in practice—appear large visually. If you do not want this to happen,
+set the minimum and maximum values for the relevant axis manually—for example, 0 and 600
+for a range, instead of having it span the smallest and largest
 values that occur.
 
 A manually set minimum or maximum also limits the plot:
 A value outside these limits is displayed exactly at the edge, rather than
 extending beyond the grid. The number at the data point and in the table remains
-the one entered—the limit only changes the display, never the value. So if
+the one you entered—the limit only changes the display, never the value. So if
 you set an axis to 0 to 600 and enter 700, you’ll see the point all
 the way at the edge and the 700 next to it.

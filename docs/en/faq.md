@@ -22,15 +22,28 @@ the type name specified: “The configured chart type is not recognized by this 
 module. Please update the module.”)
 
 Answer: The chart was set up using a newer version of the module
-that recognizes a chart type not yet
-supported by this version. Update the module to the latest version.
+that supports a chart type not yet supported by this version.
+Update the module to the latest version.
 
-**Question:** I see the message “No data in the chart yet. Add
-categories and series in the settings.”
+**Question:** I see the message “No data in the chart yet. Create axes and series in
+the settings.”
 
-Answer: Neither categories (axes) nor series have been created in the chart editor.
-Add at least one category and one series, or insert a
-table.
+Answer: Neither axes nor series have been created in the chart editor. In the
+Insert a table in the editor or use one of the two buttons: “Load Example”
+or “Create Empty Table.”
+
+**Question:** After inserting the table, my metrics appear as series and my
+variants as axes—everything is reversed.
+
+Answer: The wrong reading direction was selected below the insertion field. Switch to the
+other option under “How is your table oriented?” and click
+“Apply Table” again.
+
+**Question:** My axis label is so long that it
+squeezes the chart.
+
+Answer: In the axis field, press the Enter key at the desired
+location. The line break will be applied to the chart.
 
 **Question:** I see the message “The chart could not be loaded.
 Please reload the page.”
@@ -64,8 +77,8 @@ the respective axis.
 **Question:** I don’t see any download buttons below the chart.
 
 Answer: Either “Allow Download” is not
-enabled in the settings, or the chart hasn’t finished rendering yet—the
-buttons only appear once a graphic is available for download.
+enabled in the settings, or the chart has not yet been fully generated—the
+buttons only appear once a chart is available for download.
 
 **Question:** When I click “As SVG” or “As PNG,” the message “The export
 failed. Please try again” appears.

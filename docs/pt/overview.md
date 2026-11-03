@@ -30,13 +30,13 @@ selecionar o gráfico de radar/rede.
 
 ## Exportação de imagem
 
-Com a opção de download ativada, aparecem dois botões abaixo do gráfico:
+Com a opção de descarregamento ativada, aparecem dois botões abaixo do gráfico:
 «Como SVG» e «Como PNG». O ficheiro descarregado contém **apenas o
 diagrama**, não o resto da página — título, legenda, eixos e valores
 exatamente como estão a ser apresentados, com fundo branco (mesmo que
 a própria página tenha um fundo transparente ou escuro). O ficheiro SVG pode ser
-ampliado sem perda de qualidade; o PNG é adequado para locais que não permitem a integração de SVG
-(por exemplo, a maioria dos programas de apresentação) e é gerado com
+ampliado sem perda de qualidade; o PNG é adequado para situações em que não é possível incorporar um SVG
+(por exemplo, na maioria dos programas de apresentação) e é gerado com
 resolução dupla.
 
 ## Tradução
@@ -45,17 +45,19 @@ Na tradução automática da página, o gráfico é incluído. São traduzidos
 o título, a nota de rodapé, as legendas dos eixos e os nomes das séries — exatamente os
 textos que foram introduzidos editorialmente. Números, unidades, limites dos eixos,
 cores e todas as restantes definições permanecem inalteradas, porque não têm
-linguagem: uma unidade traduzida estaria errada («t» não se torna «ton»),
+linguagem: uma unidade traduzida seria errada («t» não se torna «ton»),
 um número traduzido não faria sentido.
 
 ## O que vê no editor do CMS
 
 Ao inserir o bloco, abre-se automaticamente o **editor de gráficos**:
-uma tabela com categorias (eixos) e séries (linhas), além de um campo para
-inserir uma tabela copiada, bem como uma pré-visualização em tempo real que mostra exatamente
-como o gráfico aparecerá posteriormente na página. O campo de texto por trás mostra
-apenas a forma codificada e armazenada tecnicamente dos dados e nunca é editado manualmente
-.
+na parte superior, a seleção do tipo de gráfico e um campo onde pode ser inserida uma tabela copiada do Excel
+, por baixo uma grelha com **uma linha por eixo** e
+**uma coluna por série**, ao lado uma pré-visualização em tempo real que mostra exatamente como
+o gráfico aparecerá posteriormente na página. Enquanto ainda não tiver nada criado,
+o editor explica os termos e oferece as opções «Carregar exemplo» e
+«Criar tabela vazia». O campo de texto a seguir mostra apenas a forma técnica
+armazenada e codificada dos dados e nunca é editado manualmente.
 
 Uma característica importante: os eixos **não apresentam uma escala numérica visível**.
 Vários eixos com unidades diferentes (por exemplo, quilómetros e minutos)

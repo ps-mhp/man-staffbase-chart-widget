@@ -25,17 +25,30 @@ Antwoord: De grafiek is ingesteld met een nieuwere versie van de module
 die een grafiektype kent dat deze versie nog niet
 ondersteunt. Werk de module bij naar de nieuwste versie.
 
-**Vraag:** Ik zie de melding „Nog geen gegevens in de grafiek. Voeg
-categorieën en reeksen toe in de instellingen.“
+**Vraag:** Ik zie de melding „Nog geen gegevens in het diagram. Maak in
+de instellingen assen en reeksen aan.“
 
-Antwoord: Er zijn noch categorieën (assen) noch reeksen aangemaakt in de diagram-editor.
-Voeg ten minste één categorie en één reeks toe of voeg een
-tabel in.
+Antwoord: Er zijn noch assen, noch reeksen aangemaakt in de diagram-editor. Voeg in de
+editor een tabel invoegen of een van de twee knoppen „Voorbeeld laden“
+respectievelijk „Lege tabel aanmaken“ gebruiken.
 
-**Vraag:** Ik zie de melding „Het diagram kon niet worden geladen.
+**Vraag:** Na het invoegen staan mijn kengetallen als reeksen en mijn
+varianten als assen — alles is omgedraaid.
+
+Antwoord: Onder het invoerveld was de verkeerde leesrichting geselecteerd. Schakel over naar de
+andere optie bij „Hoe staat uw tabel?“ en klik opnieuw op
+„Tabel overnemen“.
+
+**Vraag:** Mijn aslabel is zo lang dat het de grafiek
+samenperst.
+
+Antwoord: Druk op de Enter-toets op de gewenste plaats in het veld van de as
+. De regeleinde wordt overgenomen in de grafiek.
+
+**Vraag:** Ik zie de melding „De grafiek kon niet worden geladen.
 Laad de pagina opnieuw.”
 
-Antwoord: De grafiekbibliotheek kon niet opnieuw worden geladen, meestal als gevolg van
+Antwoord: De grafiekbibliotheek kon niet opnieuw worden geladen, meestal door
 een onderbroken internetverbinding. Laad de pagina opnieuw; als het probleem
 blijft bestaan, controleer dan de netwerkverbinding.
 
@@ -91,7 +104,7 @@ instellingen blijven ongewijzigd.
 **Vraag:** Een ingevoerd getal is plotseling een factor 1000 te groot of
 te klein.
 
-Antwoord: De grafiek-editor interpreteert getallen volgens de Duitse notatie: een punt geldt als
+Antwoord: De grafiekeditor interpreteert getallen volgens de Duitse notatie: een punt geldt als
 duizendseparator, een komma als decimaalteken. Van `1.234` wordt
 dus `1234` en niet `1,234`. Wie een tabel met Engelse notatie
 invoegt (punt als decimaalteken), moet de betreffende getallen vóór het
