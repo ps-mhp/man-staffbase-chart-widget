@@ -1,0 +1,27 @@
+{
+  "title": "Diagrama",
+  "summary": "Muestra los indicadores en un gráfico de radar o de red, con información emergente, etiquetas de valores, leyenda e importación de hojas de cálculo de Excel.",
+  "icon": "🧩",
+  "pages": [
+    {
+      "id": "overview",
+      "title": "Resumen",
+      "file": "overview.md"
+    },
+    {
+      "id": "usage",
+      "title": "Paso a paso",
+      "file": "usage.md"
+    },
+    {
+      "id": "settings",
+      "title": "Configuración",
+      "file": "settings.md"
+    },
+    {
+      "id": "faq",
+      "title": "Preguntas frecuentes",
+      "file": "faq.md"
+    }
+  ]
+}

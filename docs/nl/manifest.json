@@ -1,0 +1,27 @@
+{
+  "title": "Diagram",
+  "summary": "Geeft kengetallen weer in de vorm van een radar- of netdiagram — met tooltips, waardelabels, legenda en import van Excel-tabellen.",
+  "icon": "🧩",
+  "pages": [
+    {
+      "id": "overview",
+      "title": "Overzicht",
+      "file": "overview.md"
+    },
+    {
+      "id": "usage",
+      "title": "Stap voor stap",
+      "file": "usage.md"
+    },
+    {
+      "id": "settings",
+      "title": "Instellingen",
+      "file": "settings.md"
+    },
+    {
+      "id": "faq",
+      "title": "Veelgestelde vragen",
+      "file": "faq.md"
+    }
+  ]
+}

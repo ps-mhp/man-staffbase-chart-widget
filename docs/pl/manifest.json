@@ -1,0 +1,27 @@
+{
+  "title": "Wykres",
+  "summary": "Przedstawia wskaźniki w formie wykresu radarowego lub siatkowego — z podpowiedziami, etykietami wartości, legendą i możliwością importu tabel z programu Excel.",
+  "icon": "🧩",
+  "pages": [
+    {
+      "id": "overview",
+      "title": "Przegląd",
+      "file": "overview.md"
+    },
+    {
+      "id": "usage",
+      "title": "Krok po kroku",
+      "file": "usage.md"
+    },
+    {
+      "id": "settings",
+      "title": "Ustawienia",
+      "file": "settings.md"
+    },
+    {
+      "id": "faq",
+      "title": "Najczęściej zadawane pytania",
+      "file": "faq.md"
+    }
+  ]
+}

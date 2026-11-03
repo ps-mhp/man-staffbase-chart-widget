@@ -1,0 +1,27 @@
+{
+  "title": "Diagramme",
+  "summary": "Affiche les indicateurs sous forme de diagramme radar ou en réseau — avec infobulle, étiquettes de valeurs, légende et importation de tableaux Excel.",
+  "icon": "🧩",
+  "pages": [
+    {
+      "id": "overview",
+      "title": "Aperçu",
+      "file": "overview.md"
+    },
+    {
+      "id": "usage",
+      "title": "Étape par étape",
+      "file": "usage.md"
+    },
+    {
+      "id": "settings",
+      "title": "Paramètres",
+      "file": "settings.md"
+    },
+    {
+      "id": "faq",
+      "title": "FAQ",
+      "file": "faq.md"
+    }
+  ]
+}
