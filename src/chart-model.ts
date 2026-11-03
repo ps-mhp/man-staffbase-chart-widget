@@ -24,9 +24,9 @@ import { decodePayload, isPayload } from "@shared/payload";
 import { encodePayload } from "@shared/payload";
 
 /** Die unterstützten Diagrammtypen. Wächst mit jedem Übersetzer in `echarts-option/`. */
-export type ChartType = "radar";
+export type ChartType = "radar" | "bar";
 
-export const CHART_TYPES: readonly ChartType[] = ["radar"];
+export const CHART_TYPES: readonly ChartType[] = ["radar", "bar"];
 
 /**
  * Eine Achse beziehungsweise Kategorie.
@@ -67,12 +67,21 @@ export interface RadarDisplay {
   filled: boolean;
 }
 
+/** Was nur das Balkendiagramm kennt. */
+export interface BarDisplay {
+  type: "bar";
+  /** Serien übereinander statt nebeneinander. */
+  stacked: boolean;
+  /** `"horizontal"` legt die Balken; die Kategorien stehen dann links. */
+  orientation: "vertical" | "horizontal";
+}
+
 /**
  * Über `type` diskriminiert. Hier steht nur, was ein einzelner Typ kennt —
  * alles Geteilte (Titel, Fußnote, Legende, Farben) steht an `ChartSpec`,
  * damit es einen Typwechsel im Editor überlebt.
  */
-export type DisplayOptions = RadarDisplay;
+export type DisplayOptions = RadarDisplay | BarDisplay;
 
 export interface Legend {
   show: boolean;
@@ -154,6 +163,16 @@ function readDisplay(value: unknown, type: ChartType): DisplayOptions | undefine
       type: "radar",
       gridLevels: readNumber(value.gridLevels) ?? 5,
       filled: value.filled === true,
+    };
+  }
+  if (type === "bar") {
+    return {
+      type: "bar",
+      stacked: value.stacked === true,
+      // Alles außer dem ausdrücklichen "horizontal" ist stehend: Das ist die
+      // erwartete Form, und ein verschriebener Wert soll kein gekipptes
+      // Diagramm ergeben.
+      orientation: value.orientation === "horizontal" ? "horizontal" : "vertical",
     };
   }
   return undefined;

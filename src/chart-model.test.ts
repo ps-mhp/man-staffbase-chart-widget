@@ -116,3 +116,41 @@ describe("serializeChartSpec", () => {
     expect(parseChartSpec(serializeChartSpec(valid)).spec).toEqual(valid);
   });
 });
+
+describe("Balkendiagramm", () => {
+  const raw = (spec: Record<string, unknown>): string => JSON.stringify(spec);
+
+  it("nimmt bar als Typ an", () => {
+    const { spec, problems } = parseChartSpec(
+      raw({ type: "bar", categories: [{ label: "A" }], series: [{ name: "x", values: [1] }] }),
+    );
+    expect(spec.type).toBe("bar");
+    expect(problems).toEqual([]);
+  });
+
+  it("liest die Anzeigeoptionen von bar", () => {
+    const { spec } = parseChartSpec(
+      raw({ type: "bar", categories: [], series: [], display: { type: "bar", stacked: true, orientation: "horizontal" } }),
+    );
+    expect(spec.display).toEqual({ type: "bar", stacked: true, orientation: "horizontal" });
+  });
+
+  it("faellt auf stehend und ungestapelt zurueck", () => {
+    const { spec } = parseChartSpec(raw({ type: "bar", categories: [], series: [], display: { type: "bar" } }));
+    expect(spec.display).toEqual({ type: "bar", stacked: false, orientation: "vertical" });
+  });
+
+  it("verwirft Anzeigeoptionen eines anderen Typs", () => {
+    const { spec } = parseChartSpec(
+      raw({ type: "bar", categories: [], series: [], display: { type: "radar", gridLevels: 7, filled: true } }),
+    );
+    expect(spec.display).toBeUndefined();
+  });
+
+  it("behaelt min, max und inverted auch wenn bar sie nicht zeichnet", () => {
+    const { spec } = parseChartSpec(
+      raw({ type: "bar", categories: [{ label: "A", min: 2, max: 8, inverted: true }], series: [] }),
+    );
+    expect(spec.categories[0]).toMatchObject({ min: 2, max: 8, inverted: true });
+  });
+});

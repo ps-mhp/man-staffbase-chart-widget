@@ -57,6 +57,7 @@ import { FieldModalContentProps } from "@shared/config-modal";
 import { ensureStyleElement } from "@shared/style-root";
 
 import {
+  BarDisplay,
   Category,
   ChartSpec,
   ChartType,
@@ -102,6 +103,10 @@ const CHART_TYPE_INFO: Record<ChartType, { label: string; hint: string }> = {
   radar: {
     label: "Netzdiagramm (Radar / Spinne)",
     hint: "Vergleicht wenige Varianten über mehrere Kennwerte hinweg. Jede Achse darf eine eigene Einheit haben.",
+  },
+  bar: {
+    label: "Balkendiagramm (Säulen)",
+    hint: "Vergleicht Werte über wenige Kategorien. Alle Balken teilen sich eine Werteachse — nur bei gleicher Einheit sinnvoll.",
   },
 };
 
@@ -191,6 +196,10 @@ function radarDisplay(spec: ChartSpec): RadarDisplay {
   return spec.display?.type === "radar" ? spec.display : { type: "radar", gridLevels: 5, filled: false };
 }
 
+function barDisplay(spec: ChartSpec): BarDisplay {
+  return spec.display?.type === "bar" ? spec.display : { type: "bar", stacked: false, orientation: "vertical" };
+}
+
 /** Benennt eine Achse für Hilfstexte, auch solange sie noch keinen Namen hat. */
 const categoryName = (category: Category, index: number): string =>
   category.label.replace(/\n/g, " ") || `Achse ${index + 1}`;
@@ -213,9 +222,19 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
     onChange(updateCategory(value, index, patch));
   const updateSeriesAt = (index: number, patch: Partial<Series>): void => onChange(updateSeries(value, index, patch));
 
-  const setDisplay = (patch: Partial<RadarDisplay>): void => {
-    const next: DisplayOptions = { ...radarDisplay(value), ...patch };
-    onChange({ ...value, display: next });
+  // Die Anzeigeoptionen sind über `type` diskriminiert, und ein Teilstück
+  // davon lässt sich nicht typsicher zusammensetzen, ohne die Vorgabe des
+  // *aktuellen* Typs zu kennen. Deshalb die Vorgabe hier, nicht beim Aufruf.
+  const displayDefaults = (type: ChartType): DisplayOptions | undefined => {
+    if (type === "radar") return radarDisplay(value);
+    if (type === "bar") return barDisplay(value);
+    return undefined;
+  };
+
+  const setDisplay = (patch: Record<string, unknown>): void => {
+    const base = displayDefaults(value.type);
+    if (base === undefined) return;
+    onChange({ ...value, display: { ...base, ...patch } as DisplayOptions });
   };
 
   const applyPaste = (): void => {
@@ -234,11 +253,15 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
   const isEmpty = value.categories.length === 0 && value.series.length === 0;
   const typeInfo = CHART_TYPE_INFO[value.type];
 
+  const showBounds = showAdvanced && value.type === "radar";
+  const showInverted = value.type === "radar";
+
   const columnTemplate = [
     "minmax(150px, 1.6fr)",
     "minmax(74px, 92px)",
-    ...(showAdvanced ? ["minmax(70px, 88px)", "minmax(70px, 88px)", "minmax(70px, 88px)"] : []),
-    "minmax(120px, 150px)",
+    ...(showAdvanced ? ["minmax(70px, 88px)"] : []),
+    ...(showBounds ? ["minmax(70px, 88px)", "minmax(70px, 88px)"] : []),
+    ...(showInverted ? ["minmax(120px, 150px)"] : []),
     `repeat(${Math.max(value.series.length, 1)}, minmax(96px, 1fr))`,
     "minmax(84px, 96px)",
   ].join(" ");
@@ -371,10 +394,12 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
                       <span className="chart-editor__col-head">Einheit</span>
                     </div>
                     {showAdvanced ? (
+                      <div className="chart-editor__cell chart-editor__head">
+                        <span className="chart-editor__col-head">Nachkomma</span>
+                      </div>
+                    ) : null}
+                    {showBounds ? (
                       <>
-                        <div className="chart-editor__cell chart-editor__head">
-                          <span className="chart-editor__col-head">Nachkomma</span>
-                        </div>
                         <div className="chart-editor__cell chart-editor__head">
                           <span className="chart-editor__col-head">Minimum</span>
                         </div>
@@ -383,9 +408,11 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
                         </div>
                       </>
                     ) : null}
-                    <div className="chart-editor__cell chart-editor__head">
-                      <span className="chart-editor__col-head">Richtung</span>
-                    </div>
+                    {showInverted ? (
+                      <div className="chart-editor__cell chart-editor__head">
+                        <span className="chart-editor__col-head">Richtung</span>
+                      </div>
+                    ) : null}
                     {value.series.map((series, seriesIndex) => (
                       <div className="chart-editor__cell chart-editor__head" key={seriesIndex}>
                         <span className="chart-editor__col-head">Serie {seriesIndex + 1}</span>
@@ -467,16 +494,18 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
                         />
                       </div>
                       {showAdvanced ? (
+                        <div className="chart-editor__cell">
+                          <NumberField
+                            id={`chart-editor-decimals-${index}`}
+                            label={`Nachkommastellen: ${categoryName(category, index)}`}
+                            placeholder="auto"
+                            value={category.decimals}
+                            onCommit={(next) => updateCategoryAt(index, { decimals: next ?? undefined })}
+                          />
+                        </div>
+                      ) : null}
+                      {showBounds ? (
                         <>
-                          <div className="chart-editor__cell">
-                            <NumberField
-                              id={`chart-editor-decimals-${index}`}
-                              label={`Nachkommastellen: ${categoryName(category, index)}`}
-                              placeholder="auto"
-                              value={category.decimals}
-                              onCommit={(next) => updateCategoryAt(index, { decimals: next ?? undefined })}
-                            />
-                          </div>
                           <div className="chart-editor__cell">
                             <NumberField
                               id={`chart-editor-min-${index}`}
@@ -497,19 +526,21 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
                           </div>
                         </>
                       ) : null}
-                      <div className="chart-editor__cell">
-                        <label className="chart-editor__check">
-                          <input
-                            type="checkbox"
-                            aria-label={`Kleiner ist besser: ${categoryName(category, index)}`}
-                            checked={category.inverted === true}
-                            onChange={(event) =>
-                              updateCategoryAt(index, { inverted: event.target.checked || undefined })
-                            }
-                          />
-                          <span>kleiner ist besser</span>
-                        </label>
-                      </div>
+                      {showInverted ? (
+                        <div className="chart-editor__cell">
+                          <label className="chart-editor__check">
+                            <input
+                              type="checkbox"
+                              aria-label={`Kleiner ist besser: ${categoryName(category, index)}`}
+                              checked={category.inverted === true}
+                              onChange={(event) =>
+                                updateCategoryAt(index, { inverted: event.target.checked || undefined })
+                              }
+                            />
+                            <span>kleiner ist besser</span>
+                          </label>
+                        </div>
+                      ) : null}
                       {value.series.map((series, seriesIndex) => (
                         <div className="chart-editor__cell" key={seriesIndex}>
                           <NumberField
@@ -665,6 +696,38 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
                       />
                       hinter den Linien füllen
                     </label>
+                  </div>
+                </>
+              ) : null}
+              {value.type === "bar" ? (
+                <>
+                  <div className="chart-editor__field">
+                    <span className="chart-editor__label">Stapeln</span>
+                    <label className="chart-editor__check" htmlFor="chart-editor-stacked">
+                      <input
+                        id="chart-editor-stacked"
+                        type="checkbox"
+                        aria-label="Balken stapeln"
+                        checked={barDisplay(value).stacked}
+                        onChange={(event) => setDisplay({ stacked: event.target.checked })}
+                      />
+                      Serien übereinander
+                    </label>
+                  </div>
+                  <div className="chart-editor__field">
+                    <label className="chart-editor__label" htmlFor="chart-editor-orientation">
+                      Richtung
+                    </label>
+                    <select
+                      id="chart-editor-orientation"
+                      aria-label="Richtung"
+                      className="chart-editor__input"
+                      value={barDisplay(value).orientation}
+                      onChange={(event) => setDisplay({ orientation: event.target.value })}
+                    >
+                      <option value="vertical">stehend</option>
+                      <option value="horizontal">liegend</option>
+                    </select>
                   </div>
                 </>
               ) : null}

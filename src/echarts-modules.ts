@@ -73,6 +73,20 @@ const TYPE_LOADERS: Record<ChartType, (core: EChartsCore) => Promise<void>> = {
     ]);
     core.use([charts.RadarChart, components.RadarComponent, components.GraphicComponent]);
   },
+  bar: async (core) => {
+    const [charts, components] = await Promise.all([
+      import(/* webpackChunkName: "echarts-cartesian" */ /* webpackExports: ["BarChart"] */ "echarts/charts"),
+      // `GridComponent` ist das kartesische Koordinatensystem. Derselbe Chunk
+      // wie bei `line`: Beide brauchen dieses Raster, zwei Chunks lieferten
+      // es doppelt aus.
+      import(
+        /* webpackChunkName: "echarts-cartesian" */
+        /* webpackExports: ["GridComponent"] */
+        "echarts/components"
+      ),
+    ]);
+    core.use([charts.BarChart, components.GridComponent]);
+  },
 };
 
 /**

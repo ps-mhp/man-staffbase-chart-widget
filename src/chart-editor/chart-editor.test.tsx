@@ -188,3 +188,44 @@ describe("ChartEditor", () => {
     expect(next.series[0].values).toHaveLength(6);
   });
 });
+
+describe("Feldsichtbarkeit je Typ", () => {
+  const typeSpec = (type: ChartSpec["type"], categories: ChartSpec["categories"] = []): ChartSpec => ({
+    version: 1,
+    type,
+    legend: { show: true, position: "top" },
+    categories,
+    series: [],
+  });
+
+  it("zeigt kleiner-ist-besser beim Radar", () => {
+    setup(typeSpec("radar", [{ label: "A" }]));
+    expect(screen.getByLabelText(/Kleiner ist besser/)).toBeInTheDocument();
+  });
+
+  it("blendet kleiner-ist-besser beim Balken aus", () => {
+    setup(typeSpec("bar", [{ label: "A" }]));
+    expect(screen.queryByLabelText(/Kleiner ist besser/)).not.toBeInTheDocument();
+  });
+
+  it("blendet Minimum und Maximum beim Balken aus, auch mit Feineinstellungen", () => {
+    setup(typeSpec("bar", [{ label: "A" }]));
+    fireEvent.click(screen.getByRole("checkbox", { name: /Feineinstellungen je Achse/ }));
+    expect(screen.queryByLabelText(/^Minimum/)).not.toBeInTheDocument();
+    expect(screen.getByLabelText(/^Nachkomma/)).toBeInTheDocument();
+  });
+
+  it("zeigt Stapeln und Richtung nur beim Balken", () => {
+    setup(typeSpec("bar"));
+    expect(screen.getByLabelText(/Balken stapeln/)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Richtung/)).toBeInTheDocument();
+    expect(screen.queryByLabelText(/Hilfslinien im Netz/)).not.toBeInTheDocument();
+  });
+
+  it("verliert min und max beim Typwechsel nicht", () => {
+    const { onChange } = setup(typeSpec("radar", [{ label: "A", min: 2 }]));
+    fireEvent.change(screen.getByLabelText("Diagrammtyp"), { target: { value: "bar" } });
+    const next = onChange.mock.lastCall[0] as ChartSpec;
+    expect(next.categories[0].min).toBe(2);
+  });
+});

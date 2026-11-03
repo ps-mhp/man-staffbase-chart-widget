@@ -1,0 +1,132 @@
+/*!
+ * Copyright 2026, MHP Management und IT-Beratung GmbH and contributors.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { ChartSpec } from "../chart-model";
+import { prepareSpec } from "../chart-prepare";
+import { readChartTheme } from "../man-chart-theme";
+import { barOption } from "./cartesian";
+
+const theme = readChartTheme(document.createElement("div"));
+const SIZE = { width: 640, height: 360 };
+
+const spec = (patch: Partial<ChartSpec> = {}): ChartSpec => ({
+  version: 1,
+  type: "bar",
+  legend: { show: true, position: "top" },
+  categories: [{ label: "Reichweite", unit: "km" }, { label: "Ladeleistung", unit: "km" }],
+  series: [{ name: "eTGX", values: [740, 750] }, { name: "eActros", values: [500, 1000] }],
+  ...patch,
+});
+
+type BarSeriesEntry = {
+  type: string;
+  name: string;
+  data: (number | null)[];
+  itemStyle: { color: string };
+  stack?: string;
+};
+type BarAxis = { type: string; data?: string[]; name?: string };
+type BarOption = {
+  xAxis: BarAxis;
+  yAxis: BarAxis;
+  series: BarSeriesEntry[];
+  grid: { containLabel: boolean };
+  tooltip: { trigger: string };
+  legend: { show: boolean; data: string[] };
+  title: { text?: string; subtext?: string };
+};
+
+const build = (patch: Partial<ChartSpec> = {}): BarOption => {
+  const given = spec(patch);
+  return barOption(prepareSpec(given, theme.palette), theme, "de-DE", SIZE) as unknown as BarOption;
+};
+
+describe("barOption", () => {
+  it("setzt die Kategorien auf die x-Achse", () => {
+    const option = build();
+    expect(option.xAxis).toMatchObject({ type: "category", data: ["Reichweite", "Ladeleistung"] });
+    expect(option.yAxis).toMatchObject({ type: "value" });
+  });
+
+  it("macht eine Serie je Definition", () => {
+    const option = build();
+    expect(option.series).toHaveLength(2);
+    expect(option.series[0]).toMatchObject({ type: "bar", name: "eTGX", data: [740, 750] });
+  });
+
+  it("faerbt nach der Palette", () => {
+    const option = build();
+    expect(option.series[0].itemStyle.color).toBe(theme.palette[0]);
+    expect(option.series[1].itemStyle.color).toBe(theme.palette[1]);
+  });
+
+  it("stapelt auf Wunsch", () => {
+    const option = build({ display: { type: "bar", stacked: true, orientation: "vertical" } });
+    expect(option.series.every((s) => s.stack === "total")).toBe(true);
+  });
+
+  it("stapelt standardmaessig nicht", () => {
+    expect(build().series[0].stack).toBeUndefined();
+  });
+
+  it("tauscht die Achsen bei liegenden Balken", () => {
+    const option = build({ display: { type: "bar", stacked: false, orientation: "horizontal" } });
+    expect(option.yAxis).toMatchObject({ type: "category", data: ["Reichweite", "Ladeleistung"] });
+    expect(option.xAxis).toMatchObject({ type: "value" });
+  });
+
+  it("beschriftet die Werteachse, wenn alle Kategorien dieselbe Einheit nennen", () => {
+    const option = build();
+    expect(option.yAxis.name).toBe("km");
+  });
+
+  it("laesst die Einheit weg, wenn die Kategorien sich unterscheiden", () => {
+    const option = build({ categories: [{ label: "A", unit: "km" }, { label: "B", unit: "kWh" }] });
+    expect(option.yAxis.name).toBeUndefined();
+  });
+
+  it("uebergeht Kategorien ohne Werte bei der Einheitenpruefung", () => {
+    const option = build({
+      categories: [{ label: "A", unit: "km" }, { label: "B", unit: "kWh" }],
+      series: [{ name: "x", values: [1, null] }],
+    });
+    expect(option.yAxis.name).toBe("km");
+  });
+
+  it("laesst ECharts die Flaeche aufteilen", () => {
+    expect(build().grid).toMatchObject({ containLabel: true });
+  });
+
+  it("zeigt alle Serien einer Kategorie im Tooltip", () => {
+    expect(build().tooltip).toMatchObject({ trigger: "axis" });
+  });
+
+  it("listet die Serien in der Legende", () => {
+    expect(build().legend).toMatchObject({ show: true, data: ["eTGX", "eActros"] });
+  });
+
+  it("blendet die Legende aus", () => {
+    expect(build({ legend: { show: false, position: "top" } }).legend.show).toBe(false);
+  });
+
+  it("uebernimmt Titel und Fussnote", () => {
+    const option = build({ title: "Vergleich", footnote: "Je 4x2" });
+    expect(option.title.text).toBe("Vergleich");
+    expect(option.title.subtext).toBe("Je 4x2");
+  });
+
+  it("reicht Luecken als null durch, statt sie zu Null zu machen", () => {
+    const option = build({ series: [{ name: "x", values: [null, 5] }] });
+    expect(option.series[0].data[0]).toBeNull();
+  });
+});

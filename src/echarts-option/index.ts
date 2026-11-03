@@ -23,6 +23,7 @@ import { ChartType } from "../chart-model";
 import { PreparedSpec } from "../chart-prepare";
 import { ChartTheme } from "../man-chart-theme";
 import { ChartSize } from "../use-echarts";
+import { barOption } from "./cartesian";
 import { radarOption } from "./radar";
 
 export type OptionBuilder = (
@@ -34,6 +35,7 @@ export type OptionBuilder = (
 
 export const OPTION_BUILDERS: Record<ChartType, OptionBuilder> = {
   radar: radarOption,
+  bar: barOption,
 };
 
 export function buildOption(
