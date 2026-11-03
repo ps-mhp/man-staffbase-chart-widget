@@ -27,6 +27,14 @@ describe("readExportAttribute", () => {
       expect(readExportAttribute(raw)).toBe(true);
     }
   });
+
+  it("hält sich an die Liste, statt jeden Wert als Ja zu deuten", () => {
+    // Die naheliegende Abkürzung wäre "irgendein Text heißt an". Dann
+    // schaltete ein Tippfehler oder ein durchgereichtes "0" den Knopf ein.
+    for (const raw of ["0", "no", "nein", "off", "irgendwas", " ", "undefined"]) {
+      expect(readExportAttribute(raw)).toBe(false);
+    }
+  });
 });
 
 describe("standaloneSvg", () => {
