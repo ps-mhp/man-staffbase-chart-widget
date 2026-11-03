@@ -68,6 +68,13 @@ wiederholen sich die Farben. Die Serien bleiben trotzdem eindeutig
 unterscheidbar, weil jeder Datenpunkt seinen Wert als Beschriftung trägt und
 Name sowie Werte jeder Serie in Tooltip und Legende stehen.
 
+**Frage:** Was passiert mit meinem Diagramm bei der automatischen
+Übersetzung der Seite?
+
+Antwort: Übersetzt werden Titel, Fußnote, Achsenbeschriftungen und
+Seriennamen. Zahlen, Einheiten, Achsengrenzen, Farben und alle übrigen
+Einstellungen bleiben unverändert erhalten.
+
 **Frage:** Eine eingefügte Zahl ist plötzlich um den Faktor 1000 zu groß oder
 zu klein.
 

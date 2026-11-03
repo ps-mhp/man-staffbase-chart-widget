@@ -20,6 +20,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 
 import { BlockAttributes, BlockFactory, BlockDefinition, ExternalBlockDefinition, BaseBlock } from "widget-sdk";
+import { getTranslationRegistry } from "@shared/translation/registry";
 import {
   CHART_ATTRIBUTE,
   HEIGHT_ATTRIBUTE,
@@ -32,6 +33,7 @@ import pkg from "../package.json";
 
 import { startChartEditorInjector } from "./chart-editor/chart-editor-injector";
 import { ChartWidget } from "./chart-widget";
+import { chartTranslationProvider } from "./translation-provider";
 
 /**
  * Die Attribute, wie `parseAttributes` sie liefert. Die Höhe ist weit
@@ -105,3 +107,5 @@ const externalBlockDefinition: ExternalBlockDefinition = {
 // des Bausteins im Content-Designer, nicht am bloßen Import dieser Datei.
 startChartEditorInjector();
 window.defineBlock(externalBlockDefinition);
+
+export const stopTranslationProvider = getTranslationRegistry().register(chartTranslationProvider);

@@ -26,6 +26,15 @@ das Radar-/Netzdiagramm wählen.
   Diagramms. Sie ist optisch verborgen, aber vorhanden — das Diagramm ist
   damit auch ohne visuelle Wahrnehmung nutzbar.
 
+## Übersetzung
+
+Bei der automatischen Seitenübersetzung macht das Diagramm mit. Übersetzt
+werden Titel, Fußnote, Achsenbeschriftungen und Seriennamen — genau die
+Texte, die redaktionell eingetragen wurden. Zahlen, Einheiten, Achsengrenzen,
+Farben und alle übrigen Einstellungen bleiben unverändert, weil sie keine
+Sprache haben: Eine übersetzte Einheit wäre falsch („t“ wird nicht zu „ton“),
+eine übersetzte Zahl wäre Unsinn.
+
 ## Was Sie im CMS-Editor sehen
 
 Beim Einfügen des Bausteins öffnet sich automatisch der **Diagramm-Editor**:
