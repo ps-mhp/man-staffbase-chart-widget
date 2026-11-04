@@ -30,7 +30,11 @@ $space-l: 16px;
   gap: $space-l;
   width: 100%;
   height: 100%;
-  padding: $space-l;
+  // Kein Polster oben: Die Leiste ist das erste Kind und soll flush am
+  // Rand des scrollenden Rahmens kleben (siehe `&__bar`). Ein negativer
+  // Rand auf der Leiste hätte dasselbe Ziel gehabt, wird aber von Chromium
+  // bei `position: sticky` ignoriert — am Bild geprüft, nicht nur gelesen.
+  padding: 0 $space-l $space-l;
   overflow-y: auto;
   font-size: 13px;
   color: chrome.$text;
@@ -322,12 +326,68 @@ $space-l: 16px;
     border-radius: chrome.$radius-panel;
   }
 
-  &__footer {
+  // Bleibt oben stehen: Der Mangel war, dass Speichern bei langem
+  // Datenraster nur ganz unten erreichbar war.
+  //
+  // Nur der seitliche Rand wird negativ aufgehoben (der Container trägt
+  // dort weiterhin Polster). Oben trägt `.chart-editor` bewusst kein
+  // Polster mehr — ein negativer oberer Rand hätte dasselbe geleistet,
+  // wird aber von Chromium bei `position: sticky` nicht angewandt: Im
+  // Bild blieb die Leiste trotz negativem Rand 16px unterhalb des Randes
+  // und auch nach dem Scrollen dort stehen, statt flush zu sitzen.
+  &__bar {
+    position: sticky;
+    top: 0;
+    z-index: 30;
     display: flex;
-    align-items: center;
-    justify-content: flex-end;
     gap: $space-s;
-    padding-top: $space-m;
-    border-top: 1px solid chrome.$border-soft;
+    align-items: center;
+    padding: $space-s $space-m;
+    margin: 0 (-$space-l);
+    background: chrome.$surface-header;
+    border-bottom: 1px solid chrome.$border;
+  }
+
+  &__bar-title {
+    font-weight: 600;
+    color: chrome.$text-strong;
+  }
+
+  &__ctl {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: chrome.$control-height-sm;
+    height: chrome.$control-height-sm;
+    color: chrome.$text;
+    cursor: pointer;
+    background: transparent;
+    border: 1px solid chrome.$border-input;
+    border-radius: chrome.$radius-control;
+
+    &:hover {
+      background: chrome.$surface-hover;
+    }
+
+    // Der Hilfe-Knopf und alles danach rücken nach rechts; Speichern bleibt
+    // links, wo der Blick zuerst hinfällt.
+    &:nth-of-type(2) {
+      margin-left: auto;
+    }
+
+    &--primary {
+      color: #fff;
+      background: chrome.$accent;
+      border-color: chrome.$accent;
+
+      &:hover {
+        background: chrome.$accent-strong;
+      }
+    }
+  }
+
+  &__dirty {
+    color: chrome.$text-warning;
+    white-space: nowrap;
   }
 }

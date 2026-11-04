@@ -83,6 +83,7 @@ import {
   updateSeries,
 } from "./editor-operations";
 import { exampleSpec, starterSpec } from "./example-spec";
+import { EditorBar } from "./editor-bar";
 import { applyGrid, parseGrid, readNumber, transposeGrid } from "./grid-import";
 import css from "./chart-editor.scss";
 
@@ -235,6 +236,11 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
   const [pasteError, setPasteError] = useState(false);
   const [pasteOrientation, setPasteOrientation] = useState<PasteOrientation>("axes-in-rows");
   const [showAdvanced, setShowAdvanced] = useState(false);
+  // Der Schieber selbst kommt erst mit Aufgabe 8; bis dahin bleibt dieser
+  // Zustand gesetzt, aber ungelesen. Deshalb hier gezielt abgeschaltet statt
+  // den Zustand vorzeitig zu entfernen.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- gelesen ab Aufgabe 8 (Hilfe-Schieber)
+  const [helpOpen, setHelpOpen] = useState(false);
 
   useLayoutEffect(() => {
     ensureStyleElement(rootRef.current, STYLE_ELEMENT_ID, css);
@@ -299,6 +305,7 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
 
   return (
     <div className="chart-editor" ref={rootRef}>
+      <EditorBar onSave={onSave} onClose={onClose} onOpenHelp={() => setHelpOpen(true)} dirty={dirty} />
       <div className="chart-editor__columns">
         <div className="chart-editor__main">
           {/* --- Diagrammtyp: beantwortet "Was baue ich hier gerade?" --- */}
@@ -886,16 +893,6 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
             </div>
           </div>
         </aside>
-      </div>
-
-      <div className="chart-editor__footer">
-        {dirty ? <p className="chart-editor__hint">Ungespeicherte Änderungen</p> : null}
-        <button type="button" className="chart-editor__button" onClick={onClose}>
-          Schließen
-        </button>
-        <button type="button" className="chart-editor__button chart-editor__button--primary" onClick={onSave}>
-          Speichern
-        </button>
       </div>
     </div>
   );
