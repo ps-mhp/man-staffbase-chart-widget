@@ -84,6 +84,7 @@ import {
 } from "./editor-operations";
 import { exampleSpec, starterSpec } from "./example-spec";
 import { EditorBar } from "./editor-bar";
+import { HelpDrawer } from "./help-drawer";
 import { applyGrid, parseGrid, readNumber, transposeGrid } from "./grid-import";
 import css from "./chart-editor.scss";
 
@@ -103,7 +104,7 @@ const PREVIEW_HEIGHT = 320;
  * taugt. Beides fehlte, und deshalb war am Dialog nicht zu erkennen, welche
  * Art Diagramm man überhaupt gerade baut.
  */
-const CHART_TYPE_INFO: Record<ChartType, { label: string; hint: string }> = {
+export const CHART_TYPE_INFO: Record<ChartType, { label: string; hint: string }> = {
   radar: {
     label: "Netzdiagramm (Radar / Spinne)",
     hint: "Vergleicht wenige Varianten über mehrere Kennwerte hinweg. Jede Achse darf eine eigene Einheit haben.",
@@ -236,10 +237,6 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
   const [pasteError, setPasteError] = useState(false);
   const [pasteOrientation, setPasteOrientation] = useState<PasteOrientation>("axes-in-rows");
   const [showAdvanced, setShowAdvanced] = useState(false);
-  // Der Schieber selbst kommt erst mit Aufgabe 8; bis dahin bleibt dieser
-  // Zustand gesetzt, aber ungelesen. Deshalb hier gezielt abgeschaltet statt
-  // den Zustand vorzeitig zu entfernen.
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- gelesen ab Aufgabe 8 (Hilfe-Schieber)
   const [helpOpen, setHelpOpen] = useState(false);
 
   useLayoutEffect(() => {
@@ -894,6 +891,8 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
           </div>
         </aside>
       </div>
+
+      <HelpDrawer open={helpOpen} onClose={() => setHelpOpen(false)} />
     </div>
   );
 }
