@@ -1,7 +1,7 @@
 # Stap voor stap
 
-Aan de hand van een voorbeeld van een voertuigvergelijking (MAN eTGX versus een concurrent) op basis van
-zes kengetallen met verschillende eenheden in de vorm van een netwerkdiagram; de
+Aan de hand van het voorbeeld van een voertuigvergelijking (MAN eTGX versus een concurrent) op basis van
+zes kengetallen met verschillende eenheden in de vorm van een netdiagram; de
 stappen gelden mutatis mutandis voor de overige drie typen.
 
 ## Diagram instellen
@@ -27,8 +27,8 @@ stappen gelden mutatis mutandis voor de overige drie typen.
    bovenaan: selecteer de vergelijkingstabel in Excel, PowerPoint of Word,
    kopieer deze en plak deze in het veld. Geef daaronder aan **hoe de tabel
    is opgebouwd** — de standaardinstelling is „per rij één kengetal, per kolom één
-   variant“, dus precies zoals de tabel ook in de editor eronder verschijnt.
-   Klik vervolgens op **„Tabel overnemen“**. Deze stap is bij alle
+   variant”, dus precies zoals de tabel ook in de editor eronder verschijnt.
+   Klik vervolgens op **„Tabel overnemen”**. Deze stap is bij alle
    vier de typen hetzelfde.
 5. In het raster is **elke rij een as** en **elke kolom rechts een
    reeks** — bij het cirkeldiagram toont het raster **alleen de eerste
@@ -38,21 +38,21 @@ stappen gelden mutatis mutandis voor de overige drie typen.
    de pijltjes om de volgorde te wijzigen; aan het einde van elke asregel staan de pijltjes en het
    kruisje voor deze as.
 6. Voer per as de **eenheid** in (bijv. „kWh“). Een **regeleinde in de
-   asnaam** — met de Enter-toets — wordt overgenomen in de grafiek en
+   asnaam** — met de Enter-toets — wordt in de grafiek overgenomen en
    zorgt ervoor dat lange labels leesbaar blijven. Bij het cirkeldiagram kun je
    bovendien per as een eigen **segmentkleur** instellen.
 7. Alleen bij het netwerkdiagram: bij assen waarbij een **lagere waarde
    beter** is — gewicht, verbruik, oplaadtijd —, schakel in de kolom **Richting**
    de schakelaar **„lager is beter“** in. Zonder deze instelling zou de
    slechtere (grotere) waarde verder naar buiten liggen, en zou de afbeelding precies het
-   tegenovergestelde weergeven van wat bedoeld is.
+   tegenovergestelde aangeven van wat bedoeld is.
 8. **Decimalen** per as worden ingesteld via de schakelaar
-   **„Fijnafstemming per as“**; **Minimum** en **Maximum** verschijnen daar
+   **„Fijnafstelling per as“**; **Minimum** en **Maximum** verschijnen daar
    alleen bij het netwerkdiagram, omdat balken en lijnen een gemeenschappelijke,
    door ECharts berekende waardeas weergeven. In het normale geval zijn deze
    niet nodig; leeg betekent „afgeleid uit de waarden“.
 9. Voer onder **„Titel, legenda en weergave“** de titel en voetnoot in,
-   plaats de **legenda** of verberg deze (bij cirkeldiagrammen somt deze de
+   plaats of verberg de **legenda** (bij cirkeldiagrammen somt deze de
    assen op, anders de reeksen) en stel de bij het type passende weergaveopties
    instellen: bij de radargrafiek **Hulplijnen in het raster** en **Vlakken vullen**,
    bij de staafgrafiek **Stapelen** en **Richting** (staand/liggend), bij de lijngrafiek
@@ -68,7 +68,7 @@ stappen gelden mutatis mutandis voor de overige drie typen.
 11. Stel de **hoogte** van de grafiek in (zie [Instellingen](settings.md)).
 12. Als je de grafiek als afbeelding wilt kunnen downloaden, schakel dan de schakelaar
     **„Download toestaan“** in (zie [Instellingen](settings.md)).
-    Onder het diagram verschijnen dan twee knoppen, „Als SVG“ en
+    Onder de grafiek verschijnen dan twee knoppen, „Als SVG“ en
     „Als PNG“ — dit werkt bij alle vier de typen op dezelfde manier.
 13. Klik op **Opslaan** en vervolgens op **Sluiten**. Pas als je op „Opslaan“ klikt, worden
     de gegevens naar de widget overgebracht; zolang er naast de knoppen „Niet-opgeslagen

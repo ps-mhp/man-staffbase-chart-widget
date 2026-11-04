@@ -9,7 +9,7 @@ kroki te mają odpowiednie zastosowanie również do pozostałych trzech typów.
 1. Umieść widżet **Wykres** na stronie. Otworzą się ustawienia widżetu,
    a w nich natychmiast pojawi się **edytor wykresów** nad
    samym polem. U góry znajduje się pasek sterowania z opcjami **Zapisz**,
-   **Pomoc** (otwiera suwak z tymi samymi objaśnieniami, co w niniejszej
+   **Pomoc** (otwiera panel z tymi samymi objaśnieniami, co w niniejszej
    dokumentacji) oraz **Zamknij**; pozostaje on widoczny podczas przewijania, nawet
    w przypadku długiej tabeli danych.
 2. U góry edytora widnieje **typ wykresu**: **wykres siatkowy (radar /
@@ -37,7 +37,7 @@ kroki te mają odpowiednie zastosowanie również do pozostałych trzech typów.
    utratę danych. U góry każdej kolumny serii znajdują się nazwa, kolor oraz
    strzałki do zmiany kolejności; na końcu każdego wiersza osi znajdują się strzałki i
    krzyżyk dla tej osi.
-6. Dla każdej osi wprowadź **jednostkę** (np. „kWh”). **Złamanie wiersza w
+6. Dla każdej osi wprowadź **jednostkę** (np. „kWh”). **Przełamanie wiersza w
    nazwie osi** — za pomocą klawisza Enter — zostanie przeniesione na wykres i
    zapewni czytelność długich opisów. W przypadku wykresu kołowego można
    dodatkowo ustawić dla każdej osi własny **kolor segmentu**.
@@ -48,7 +48,7 @@ kroki te mają odpowiednie zastosowanie również do pozostałych trzech typów.
    coś przeciwnego do zamierzonego.
 8. **Miejsca po przecinku** dla każdej osi znajdują się za przełącznikiem
    **„Precyzyjne ustawienia dla każdej osi”**; **Minimum** i **Maksimum** pojawiają się tam
-   tylko w przypadku wykresu sieciowego, ponieważ słupki i linia rysują wspólną,
+   tylko w przypadku wykresu siatki, ponieważ słupki i linia rysują wspólną,
    obliczoną przez ECharts oś wartości. W normalnym przypadku nie są one
    potrzebne; puste pole oznacza „wyliczone na podstawie wartości”.
 9. W sekcji **„Tytuł, legenda i wygląd”** wprowadź tytuł i przypis,
@@ -89,8 +89,8 @@ kroki te mają odpowiednie zastosowanie również do pozostałych trzech typów.
 1. Jeśli zamiast wykresu pojawia się komunikat, zawiera on już
    przyczynę — zobacz [FAQ](faq.md), aby zapoznać się z każdym możliwym brzmieniem.
 2. Jeśli wstawiona tabela nie zostaje zaimportowana, sprawdź, czy ma
-   nagłówki w pierwszym wierszu i pierwszej kolumnie. Jeśli
-   osie i serie są zamienione w siatce, oznacza to, że kierunek odczytu pod
+   nagłówki w pierwszym wierszu i w pierwszej kolumnie. Jeśli
+   osie i serie są odwrócone w siatce, oznacza to, że kierunek odczytu pod
    polem wstawiania został wybrany nieprawidłowo — zmień go i spróbuj ponownie.
 3. Jeśli po wstawieniu wykres wyświetla nieprawidłowe wartości (np. przesunięte o współczynnik
    1000), najczęściej wynika to z znaku tysiąca w

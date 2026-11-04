@@ -66,8 +66,8 @@ Com a opção de descarregamento ativada, aparecem dois botões abaixo do gráfi
 «Como SVG» e «Como PNG». O ficheiro descarregado contém **apenas o
 diagrama**, não o resto da página — título, legenda, eixos e valores
 exatamente como estão a ser apresentados, com fundo branco (mesmo que
-a própria página tenha um fundo transparente ou escuro). O SVG pode ser
-ampliado sem perda de qualidade; o PNG é adequado para locais que não podem incorporar SVG
+a própria página tenha um fundo transparente ou escuro). O ficheiro SVG pode ser
+ampliado sem perda de qualidade; o PNG é adequado para locais que não conseguem integrar SVG
 (por exemplo, a maioria dos programas de apresentação) e é gerado com
 resolução dupla. A exportação funciona da mesma forma para os quatro tipos
 — opera sobre a imagem desenhada e não distingue o tipo de gráfico.
@@ -90,7 +90,7 @@ porque a barra permanece fixa durante a navegação. Na parte superior, a seleç
 e um campo onde se insere uma tabela copiada do Excel; por baixo,
 uma grelha com **uma linha por eixo** e **uma coluna por série**
 (no caso de `pie`, apenas uma coluna de séries), ao lado uma pré-visualização em tempo real que mostra exatamente
-como o gráfico irá aparecer posteriormente na página. Enquanto ainda não tiver nada
+como o gráfico aparecerá posteriormente na página. Enquanto ainda não tiver nada
 criado, o editor explica os conceitos e oferece as opções «Carregar exemplo»
 e «Criar tabela vazia» — consoante o tipo selecionado, com um exemplo diferente,
 adequado a cada um. O campo de texto a seguir mostra apenas a forma tecnicamente

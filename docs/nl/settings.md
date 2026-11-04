@@ -9,9 +9,9 @@ instellingen te vinden zijn.
 
 | Instelling | Beschrijving |
 | --- | --- |
-| Diagram | Bevat de volledige, technisch gecodeerde diagramdefinitie. Wordt uitsluitend via de diagram-editor bewerkt, nooit handmatig. |
+| Diagram | Bevat de volledige, technisch gecodeerde diagramdefinitie. Wordt uitsluitend via de diagram-editor bewerkt, nooit met de hand. |
 | Hoogte in pixels | Hoogte van de grafiek op de pagina. Toegestane waarden zijn 160 tot 1200 pixels, de standaardinstelling is 420. De breedte wordt altijd bepaald door de kolom. |
-| Downloaden toestaan | Toont onder de grafiek twee knoppen om de grafiek als afbeelding te downloaden. Het bestand bevat alleen het diagram, niet de pagina. Standaard uitgeschakeld. |
+| Downloaden toestaan | Toont onder de grafiek twee knoppen om de grafiek als afbeelding te downloaden. Het bestand bevat alleen de grafiek, niet de pagina. Standaard uitgeschakeld. |
 
 ## Het bewerkingsvenster
 
@@ -65,7 +65,7 @@ sorteer of label je.
 | Instelling | Beschrijving |
 | --- | --- |
 | Invoerveld | Neemt een uit Excel, PowerPoint of Word gekopieerde tabel op. Herkent tab, puntkomma en komma als kolomscheidingstekens. |
-| Hoe staat uw tabel? | Bepaalt de leesrichting. Standaard ingesteld op „één kengetal per rij, één variant per kolom“ — precies zoals de tabel ook in het raster eronder staat. De andere keuze draait de tabel om bij het overnemen. |
+| Hoe staat uw tabel? | Bepaalt de leesrichting. Standaard ingesteld op „één kengetal per rij, één variant per kolom“ — net zoals de tabel ook in het raster eronder staat. De andere keuze draait de tabel om bij het overnemen. |
 | Tabel overnemen | Vervangt assen, reeksen en waarden. Assen en reeksen met dezelfde naam behouden hun eenheid, asrichting en kleur. |
 
 Het invoegen vanuit Excel is typeneutraal en werkt bij alle vier de typen
@@ -75,7 +75,7 @@ op dezelfde manier.
 
 Zolang er noch assen noch reeksen zijn aangemaakt, legt de editor de
 begrippen uit en biedt twee knoppen aan: **„Voorbeeld laden“** vult een
-bij het geselecteerde type passend voorbeeld in (bijv. bij de radar de vergelijking MAN
+bij het geselecteerde type passend voorbeeld in (bijv. bij de radar de vergelijking tussen de MAN
 eTGX met de Mercedes-Benz eActros 600, bij de cirkeldiagram een verdeling van de
 vlootkosten), die je kunt overschrijven; **„Lege tabel aanmaken“** maakt assen
 en reeksen aan om in te vullen.

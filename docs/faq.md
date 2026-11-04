@@ -45,6 +45,20 @@ zusammendrückt.
 Antwort: Im Feld der Achse an der gewünschten Stelle die Eingabetaste
 drücken. Der Zeilenumbruch wird ins Diagramm übernommen.
 
+**Frage:** Ich sehe die Meldung „„…“ hat einen negativen Wert. Ein
+Kuchendiagramm kann keine negativen Anteile darstellen.“ (bzw. ohne genannte
+Kategorie: „Ein Kuchendiagramm kann keine negativen Anteile darstellen.“)
+
+Antwort: Ein Kuchendiagramm zeigt die Aufteilung eines Ganzen; ein negativer
+Anteil hat darin keine Entsprechung. Die genannte Kategorie im
+Diagramm-Editor auf einen Wert ab null korrigieren — oder auf
+**Balkendiagramm** umstellen, das negative Werte darstellen kann.
+
+Der Hinweis blockiert absichtlich die ganze Grafik, statt nur das negative
+Segment wegzulassen: Ein Kuchen verteilt die verbleibenden Werte auf den
+vollen Kreis, es stünde also ein vollständig wirkendes Diagramm mit
+stillschweigend erhöhten Prozentwerten da.
+
 **Frage:** Ich sehe die Meldung „Das Diagramm konnte nicht geladen werden.
 Bitte laden Sie die Seite neu.“
 

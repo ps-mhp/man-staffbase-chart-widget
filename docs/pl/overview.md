@@ -18,7 +18,7 @@ minutach, kilowatach. Tylko w przypadku wykresu radarowego dostępne są wartoś
 i wypełniania obszarów.
 
 **Wykres słupkowy (słupki).** Porównuje wartości w ramach kilku kategorii.
-Wszystkie słupki mają wspólną oś wartości, którą ECharts samodzielnie
+Wszystkie słupki dzielą wspólną oś wartości, którą ECharts samodzielnie
 oblicza i opisuje — w przeciwieństwie do wykresu radarowego oś ta ma zatem
 sens tylko wtedy, gdy wszystkie kategorie mają tę samą jednostkę miary. Jako
 opcje wyświetlania dostępne są: układanie w stosy (serie jedna nad drugą zamiast obok siebie) oraz
@@ -69,13 +69,13 @@ dokładnie tak, jak są one aktualnie wyświetlane, na białym tle (nawet jeśli
 sama strona ma przezroczyste lub ciemne tło). Plik SVG można
 powiększać bez utraty jakości, natomiast plik PNG nadaje się do miejsc, w których nie można osadzić pliku SVG
 (np. w większości programów do prezentacji) i jest generowany w
-podwójnej rozdzielczości. Eksport działa tak samo dla wszystkich czterech typów
+podwójnej rozdzielczości. Eksport działa tak samo w przypadku wszystkich czterech typów
 — opiera się na narysowanym obrazie i nie rozpoznaje typu wykresu.
 
 ## Tłumaczenie
 
-Wykres jest uwzględniany podczas automatycznego tłumaczenia strony. Tłumaczone
-są tytuły, przypisy, etykiety osi i nazwy serii — dokładnie te
+Wykres jest uwzględniany podczas automatycznego tłumaczenia strony. Tłumaczeniu
+podlegają tytuł, przypis, opisy osi i nazwy serii — dokładnie te
 teksty, które zostały wprowadzone redakcyjnie. Liczby, jednostki, granice osi,
 kolory i wszystkie pozostałe ustawienia pozostają niezmienione, ponieważ nie mają
 charakteru językowego: przetłumaczona jednostka byłaby błędna („t” nie staje się „ton”),

@@ -1,6 +1,6 @@
 {
   "title": "Diagram",
-  "summary": "Geeft kengetallen weer in de vorm van een radar- of netdiagram — met tooltips, waardelabels, legenda en import van Excel-tabellen.",
+  "summary": "Geef kengetallen weer als netdiagram, staafdiagram, lijndiagram of cirkeldiagram — met tooltips, waardelabels, legenda en import van Excel-tabellen.",
   "icon": "🧩",
   "pages": [
     {

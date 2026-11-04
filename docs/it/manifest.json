@@ -1,6 +1,6 @@
 {
   "title": "Diagramma",
-  "summary": "Visualizza gli indicatori sotto forma di grafico a radar/a rete — con tooltip, etichette dei valori, legenda e importazione da fogli di calcolo Excel.",
+  "summary": "Visualizza gli indicatori sotto forma di diagramma a rete, grafico a barre, grafico lineare o grafico a torta — con tooltip, etichette dei valori, legenda e importazione da fogli di calcolo Excel.",
   "icon": "🧩",
   "pages": [
     {

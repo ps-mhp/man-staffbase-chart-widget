@@ -2,7 +2,7 @@
 
 Prendendo come esempio un confronto tra veicoli (MAN eTGX rispetto a un concorrente) basato su
 sei indicatori con unità diverse, rappresentato sotto forma di diagramma a rete; i
-passaggi descritti valgono, con le dovute modifiche, anche per gli altri tre tipi.
+passaggi si applicano, mutatis mutandis, anche agli altri tre tipi.
 
 ## Configurazione del diagramma
 
@@ -31,17 +31,17 @@ passaggi descritti valgono, con le dovute modifiche, anche per gli altri tre tip
    Quindi fare clic su **«Importa tabella»**. Questo passaggio è uguale per tutti e
    quattro i tipi.
 5. Nella griglia **ogni riga è un asse** e **ogni colonna a destra è una
-   serie** — nel grafico a torta, la griglia mostra **solo la prima
+   serie** — nel grafico a torta la griglia mostra **solo la prima
    colonna della serie**; una nota sottostante chiarisce che altre serie
-   rimangono salvate, ma non vengono disegnate, in modo che ciò non sembri una
+   rimangono salvate, ma non vengono tracciate, in modo che ciò non sembri una
    perdita di dati. In alto in ogni colonna della serie si trovano il nome, il colore e
-   le frecce per riordinare; alla fine di ogni riga dell’asse ci sono le frecce e la
+   le frecce per riordinare; alla fine di ogni riga dell’asse le frecce e la
    croce relative a quell’asse.
 6. Inserire l’**unità** per ciascun asse (ad es. «kWh»). Un **interruzione di riga nel
    nome dell’asse** — con il tasto Invio — viene riportata nel grafico e
    mantiene leggibili le etichette lunghe. Nel grafico a torta è possibile
-   inoltre impostare un **colore del segmento** specifico per ciascun asse.
-7. Solo per il grafico a rete: per gli assi in cui un **valore più piccolo
+   inoltre impostare un proprio **colore del segmento** per ciascun asse.
+7. Solo nel grafico a rete: per gli assi in cui un **valore più piccolo
    è migliore** — peso, consumo, tempo di ricarica —, nella colonna **Direzione**
    attivare l’opzione **«più piccolo è meglio»**. Senza di esso, il
    valore peggiore (più grande) si troverebbe più all’esterno e il grafico indicherebbe esattamente il
@@ -53,12 +53,12 @@ passaggi descritti valgono, con le dovute modifiche, anche per gli altri tre tip
   ; se sono vuoti significa «derivati dai valori».
 9. In **«Titolo, legenda e rappresentazione»** inserire titolo e nota a piè di pagina,
    posizionare o nascondere la **legenda** (nei grafici a torta elenca gli
-   assi, altrimenti le serie) e impostare le opzioni di visualizzazione adatte al tipo
+   assi, altrimenti le serie) e impostare le opzioni di visualizzazione adeguate al tipo di grafico
    : per il grafico a radar **Linee ausiliarie nella griglia** e **Riempi area**,
    per il grafico a barre **Impila** e **Direzione** (verticale/orizzontale), per il grafico a linea
-   **Smussa linee**, **Riempire l’area** e **Mostrare i punti**, per il grafico a torta
-   **Raggio interno** (0 = cerchio completo, valore maggiore = anello) e
-   **Etichetta segmento** (percentuale, valore assoluto, entrambi o disattivata).
+   **Smussa linee**, **riempire l’area** e **mostrare i punti**; per il grafico a torta
+   **raggio interno** (0 = cerchio completo, valore maggiore = anello) e
+   **etichetta segmento** (percentuale, valore assoluto, entrambi o disattivata).
 10. L’**anteprima** mostra costantemente come apparirà il grafico sulla pagina
     e rimane fissa durante lo scorrimento. Se la finestra di dialogo è abbastanza larga
     (a partire da circa 900 pixel), rimane accanto al campo di immissione; al di sotto di tale larghezza si sposta
@@ -74,7 +74,7 @@ passaggi descritti valgono, con le dovute modifiche, anche per gli altri tre tip
     i dati vengono trasferiti nel widget; finché accanto ai pulsanti compare la scritta «Modifiche non salvate»,
     non è stato applicato nulla.
 
-## Modificare in un secondo momento
+## Modifiche successive
 
 1. Riaprire le impostazioni del widget: l’editor del grafico riappare
    con lo stato salvato per ultimo, compreso il tipo di grafico.

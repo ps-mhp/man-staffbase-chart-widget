@@ -1,6 +1,6 @@
 {
   "title": "Diagramme",
-  "summary": "Affiche les indicateurs sous forme de diagramme radar ou en réseau — avec infobulle, étiquettes de valeurs, légende et importation de tableaux Excel.",
+  "summary": "Affiche les indicateurs sous forme de diagramme en réseau, de histogramme, de graphique linéaire ou de diagramme circulaire — avec infobulle, étiquettes de valeurs, légende et importation de tableaux Excel.",
   "icon": "🧩",
   "pages": [
     {

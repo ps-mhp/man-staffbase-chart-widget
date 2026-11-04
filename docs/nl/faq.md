@@ -29,26 +29,40 @@ ondersteunt. Werk de module bij naar de nieuwste versie.
 de instellingen assen en reeksen aan.“
 
 Antwoord: Er zijn noch assen, noch reeksen aangemaakt in de diagram-editor. Voeg in de
-editor een tabel invoegen of een van de twee knoppen „Voorbeeld laden“
-respectievelijk „Lege tabel aanmaken“ gebruiken.
+editor een tabel in of gebruik een van de twee knoppen „Voorbeeld laden“
+of „Lege tabel aanmaken“.
 
 **Vraag:** Na het invoegen staan mijn kengetallen als reeksen en mijn
 varianten als assen — alles is omgedraaid.
 
-Antwoord: Onder het invoerveld was de verkeerde leesrichting geselecteerd. Schakel over naar de
-andere optie bij „Hoe staat uw tabel?“ en klik opnieuw op
+Antwoord: Onder het invoerveld was de verkeerde leesrichting geselecteerd. Schakel over naar het
+andere antwoord bij „Hoe staat uw tabel?“ en klik opnieuw op
 „Tabel overnemen“.
 
 **Vraag:** Mijn aslabel is zo lang dat het de grafiek
 samenperst.
 
-Antwoord: Druk op de Enter-toets op de gewenste plaats in het veld van de as
+Antwoord: Druk in het veld van de as op de gewenste plaats op de Enter-toets
 . De regeleinde wordt overgenomen in de grafiek.
 
-**Vraag:** Ik zie de melding „De grafiek kon niet worden geladen.
-Laad de pagina opnieuw.”
+**Vraag:** Ik krijg de melding „„…“ heeft een negatieve waarde. Een
+cirkeldiagram kan geen negatieve aandelen weergeven.“ (of zonder genoemde
+categorie: „Een cirkeldiagram kan geen negatieve aandelen weergeven.“)
 
-Antwoord: De grafiekbibliotheek kon niet opnieuw worden geladen, meestal door
+Antwoord: Een cirkeldiagram toont de verdeling van een geheel; een negatief
+aandeel heeft daarin geen tegenhanger. Corrigeer de genoemde categorie in de
+diagram-editor naar een waarde vanaf nul — of schakel over naar een
+**staafdiagram**, dat negatieve waarden kan weergeven.
+
+De melding blokkeert opzettelijk de gehele grafiek, in plaats van alleen het negatieve
+segment weg te laten: een cirkeldiagram verdeelt de resterende waarden over de
+volledige cirkel, waardoor er een volledig ogende grafiek zou ontstaan met
+impliciet verhoogde percentages.
+
+**Vraag:** Ik zie de melding „De grafiek kon niet worden geladen.
+Laad de pagina opnieuw.“
+
+Antwoord: De grafiekbibliotheek kon niet opnieuw worden geladen, meestal als gevolg van
 een onderbroken internetverbinding. Laad de pagina opnieuw; als het probleem
 blijft bestaan, controleer dan de netwerkverbinding.
 

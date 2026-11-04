@@ -1,6 +1,6 @@
 # Grafico
 
-Il widget Grafico rappresenta gli indicatori in quattro tipologie: **grafico a ragnatela
+Il widget Grafico presenta gli indicatori in quattro tipologie: **grafico a ragnatela
 (radar), a barre, a linee e a torta**. Ogni tipo viene configurato tramite
 lo stesso editor, che si apre direttamente nelle impostazioni del widget; una
 tabella copiata da Excel può essere importata con un clic, vedi

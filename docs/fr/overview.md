@@ -29,7 +29,7 @@ série ordonnée, par exemple sur les années de construction. L’ordre des axe
 l’ordre sur la courbe. Options d’affichage : lisser les courbes, remplir la zone sous
 la courbe, afficher les points aux points d’appui.
 
-**Diagramme circulaire (tourte / anneau).** Affiche la répartition d’un tout :
+**Diagramme circulaire (tarte / anneau).** Affiche la répartition d’un tout :
 les segments correspondent aux axes (catégories), leurs valeurs déterminent la taille des segments.
 **Seule la première série est tracée** — les autres séries
 restent enregistrées et réapparaissent dès qu’on passe à un autre type
@@ -55,7 +55,7 @@ la légende, les axes et les séries sont conservés, tout comme les valeurs des
   types, elle répertorie les séries.
 - En option, un titre et une note de bas de page.
 - Si le téléchargement est autorisé (voir [Paramètres](settings.md)), deux boutons
-  situés sous le graphique permettent de le télécharger sous forme d’image.
+  situés sous le graphique permettent de télécharger celui-ci sous forme d’image.
 - Pour les lecteurs d’écran, un tableau complet des données est également disponible sous le
   graphique. Elle est masquée visuellement, mais bien présente — le graphique est
   ainsi utilisable même sans perception visuelle.
@@ -89,11 +89,11 @@ pied de page — ainsi, la fonction Enregistrer reste accessible même avec un t
 car la barre reste fixe lors du défilement. En haut, le choix du type de graphique
 et un champ dans lequel insérer un tableau copié depuis Excel ; en dessous,
 une grille avec **une ligne par axe** et **une colonne par série**
-(pour `pie`, une seule colonne de séries), à côté une prévisualisation en temps réel qui montre exactement
+(pour `pie`, une seule colonne de séries), à côté un aperçu en temps réel qui montre exactement
 comment le graphique apparaîtra ensuite sur la page. Tant que rien
 n’a encore été créé, l’éditeur explique les termes et propose « Charger un exemple »
-ainsi que « Créer un tableau vide » — avec, selon le type sélectionné, un autre
-exemple adapté. Le champ de texte situé derrière n’affiche que la forme techniquement
+ainsi que « Créer un tableau vide » — avec, selon le type sélectionné, un exemple différent
+et adapté. Le champ de texte situé derrière n’affiche que la forme techniquement
 enregistrée et codée des données et n’est jamais modifié manuellement.
 
 Si la boîte de dialogue est étroite (par exemple sur de petits écrans), l’

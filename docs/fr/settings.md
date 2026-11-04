@@ -16,7 +16,7 @@ paramètres sont regroupés.
 ## La boîte de dialogue de l’éditeur
 
 En haut se trouve une barre de contrôle avec **Enregistrer**, **Aide** et **Fermer** ;
-elle reste fixe lors du défilement, afin que l’enregistrement reste accessible même avec un long
+elle reste fixe lors du défilement, afin que l’enregistrement reste accessible même en cas de
 grille de données. Tant que le brouillon diffère de la version enregistrée,
 la mention « Modifications non enregistrées » s’affiche à côté. Le bouton Aide ouvre
 un volet contenant les mêmes explications que sur cette page, directement dans
@@ -88,15 +88,15 @@ et des séries à remplir.
 | Unité | Est ajoutée à chaque nombre de cet axe (point de données, info-bulle, tableau), par exemple « kWh ». Pour les graphiques à barres et les graphiques linéaires, l’axe des valeurs commun n’affiche l’unité que si **tous** les axes comportant des valeurs utilisent la même unité. |
 | Direction (« plus petit, c’est mieux ») | Uniquement pour le graphique radar. Inverse l’axe : la valeur la plus petite se trouve alors plus à l’extérieur. Pour les indicateurs où une valeur plus faible est préférable — poids, consommation, temps de charge. |
 | Couleur | Uniquement pour le graphique en camembert. Définit la couleur du segment correspondant et remplace ainsi la couleur de la palette attribuée automatiquement. |
-| Décimales | Uniquement lorsque les **réglages avancés par axe** sont activés : nombre de décimales à afficher. Si aucune valeur n’est indiquée, le nombre de décimales effectivement saisi est utilisé. |
+| Décimales | Uniquement lorsque les **réglages avancés par axe** sont activés : nombre de décimales à afficher. Si aucune valeur n’est indiquée, le nombre de décimales effectivement saisi est repris. |
 | Minimum | Uniquement pour le graphique en radar, lorsque les réglages fins sont activés : limite inférieure de l’axe. Si aucune valeur n’est indiquée, l’axe commence à zéro — ou à la plus petite des valeurs négatives, le cas échéant. |
 | Maximum | Uniquement pour le radar, lorsque les réglages fins sont activés : limite supérieure de l’axe. En l’absence d’indication, la plus grande valeur présente sur cet axe est utilisée. |
 | ↑ ↓ ✕ | Déplace l’axe ou le supprime avec toutes ses valeurs. |
 
 ## Par série (une colonne dans la grille)
 
-Dans le diagramme circulaire, la grille n’affiche **que la première colonne de la série** — une
-remarque en dessous précise que d’autres séries restent enregistrées mais
+Dans le diagramme circulaire, la grille n'affiche **que la première colonne de la série** — une
+remarque en dessous précise que d'autres séries restent enregistrées mais
 ne sont pas représentées.
 
 | Paramètre | Description |
@@ -118,13 +118,13 @@ ne sont pas représentées.
 | Type | Champs | Description |
 | --- | --- | --- |
 | Radar | Lignes auxiliaires dans le réseau | Nombre d’anneaux auxiliaires concentriques. Valeur par défaut : 5. À visée purement esthétique, ne modifie aucune valeur. |
-| Radar | Remplir les zones | Remplit la zone derrière chaque ligne de série de manière semi-transparente dans sa couleur. Désactivé par défaut. |
-| Barres | Empiler | Dessine les séries les unes au-dessus des autres plutôt que côte à côte. Désactivé par défaut. |
+| Radar | Remplir les zones | Remplit la zone derrière chaque ligne de série de manière semi-transparente dans la couleur de celle-ci. Désactivé par défaut. |
+| Barres | Empiler | Dessine les séries les unes au-dessus des autres plutôt que les unes à côté des autres. Désactivé par défaut. |
 | Barres | Orientation | « verticale » (catégories en bas) ou « horizontale » (catégories à gauche). Par défaut : verticale. |
 | Ligne | Lisser les lignes | Arrondit le tracé des lignes au lieu de les tracer en ligne droite entre les points d'appui. Par défaut : désactivé. |
 | Ligne | Remplir la zone | Remplit la zone sous la ligne avec sa couleur. Désactivé par défaut. |
 | Ligne | Afficher les points | Affiche un point à chaque point d’appui. Activé par défaut. |
-| Camembert | Rayon intérieur | Pourcentage de la partie creuse du camembert. 0 correspond à un cercle complet, une valeur supérieure (par exemple 45) à un anneau/beignet. Par défaut : 0. |
+| Camembert | Rayon intérieur | Pourcentage du trou dans le camembert. 0 correspond à un cercle complet, une valeur supérieure (par exemple 45) à un anneau/beignet. Par défaut : 0. |
 | Camembert | Libellé des segments | « Pourcentage », « Valeur absolue », « Les deux » ou « Masquer ». Par défaut : « Pourcentage ». |
 
 ## Mise à l'échelle automatique

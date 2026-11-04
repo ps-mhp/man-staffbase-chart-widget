@@ -9,12 +9,12 @@ les paramètres du module. »
 Réponse : Aucune configuration n’a encore été enregistrée pour ce module.
 Ouvrez les paramètres du widget, remplissez l’éditeur de diagramme et enregistrez.
 
-**Question :** Je vois le message « Le graphique n’a pas pu être lu.
+**Question :** Je vois le message « Le graphique n'a pas pu être lu.
 Veuillez le reconfigurer dans les paramètres. »
 
 Réponse : Les données enregistrées sont corrompues ou ont été modifiées manuellement.
-Ouvrez les paramètres du widget et reconfigurez le graphique dans l’éditeur —
-si nécessaire, à l’aide d’un tableau nouvellement inséré.
+Ouvrez les paramètres du widget et reconfigurez le graphique dans l'éditeur,
+si nécessaire à l'aide d'un tableau nouvellement inséré.
 
 **Question :** Je vois le message « Le type de graphique « … » n’est pas reconnu par cette version du
 module. Veuillez mettre à jour le module. » (ou, sans
@@ -22,8 +22,8 @@ mention du nom du type : « Le type de graphique configuré n’est pas reconnu 
 module. Veuillez mettre à jour le module.”)
 
 Réponse : Le graphique a été configuré avec une version plus récente du module
-qui prend en charge un type de graphique que cette version ne prend pas encore
-en charge. Mettez le module à jour vers la dernière version.
+qui prend en charge un type de graphique que cette version ne
+prend pas encore en charge. Mettez le module à jour vers la dernière version.
 
 **Question :** Je vois le message « Aucune donnée dans le graphique pour l’instant. Créez des
 axes et des séries dans les paramètres. »
@@ -35,15 +35,29 @@ ou « Créer un tableau vide ».
 **Question :** Après l’insertion, mes indicateurs apparaissent comme des séries et mes
 variantes comme des axes — tout est inversé.
 
-Réponse : Sous le champ d’insertion, le sens de lecture sélectionné était incorrect. Passez à l’
-autre réponse sous « Comment se présente votre tableau ? » et cliquez à nouveau sur
+Réponse : Le sens de lecture sélectionné sous la zone d’insertion était incorrect. Choisissez l’
+autre réponse dans « Comment se présente votre tableau ? » et cliquez à nouveau sur
 « Appliquer le tableau ».
 
 **Question :** Le libellé de mon axe est si long qu’il
-rétrécit le graphique.
+réduit la taille du graphique.
 
 Réponse : Dans le champ de l’axe, appuyez sur la touche Entrée à l’endroit souhaité.
 Le saut de ligne sera repris dans le graphique.
+
+**Question :** Je vois le message « « … » a une valeur négative. Un
+diagramme circulaire ne peut pas représenter de parts négatives. » (ou, sans mention de
+catégorie : « Un diagramme circulaire ne peut pas représenter de parts négatives. »)
+
+Réponse : Un diagramme circulaire montre la répartition d’un tout ; une part
+négative n’y trouve pas de correspondance. Corrigez la catégorie mentionnée dans l’
+éditeur de diagramme en lui attribuant une valeur non nulle — ou passez à un
+**diagramme à barres**, qui peut représenter des valeurs négatives.
+
+Le message bloque intentionnellement l’ensemble du graphique, au lieu de simplement omettre le
+segment négatif : un diagramme circulaire répartit les valeurs restantes sur le
+cercle complet ; on se retrouverait donc avec un diagramme d’apparence complète dont
+les pourcentages seraient implicitement augmentés.
 
 **Question :** Je vois le message « Le graphique n’a pas pu être chargé.
 Veuillez recharger la page. »
@@ -59,13 +73,13 @@ Réponse : La plupart du temps, le bloc se trouve dans une colonne très étroit
 reste alors vide en permanence, car il ne dispose d’aucun espace pour s’afficher. Déplacez le
 bloc dans une colonne plus large ou développez l’élément.
 
-**Question :** Pourquoi, pour deux valeurs presque identiques, est-ce que je constate une grande
+**Question :** Pourquoi, pour deux valeurs presque identiques, constate-je une grande
 différence dans le graphique ?
 
-Réponse : Sans limite maximale définie, chaque axe s'étend jusqu'à la plus grande valeur qui
-y apparaît. Si deux valeurs sont proches l'une de l'autre mais éloignées de zéro,
-la partie supérieure de l'axe utilise toute la plage — la différence
-semble ainsi plus grande qu'elle ne l'est en réalité. Solution : dans l’éditeur de graphique,
+Réponse : Sans limite maximale définie, chaque axe s'étend jusqu’à la plus grande valeur qui
+y apparaît. Si deux valeurs sont proches l’une de l’autre mais éloignées de zéro,
+la partie supérieure de l’axe utilise toute la plage — la différence
+semble ainsi plus grande qu’elle ne l’est en réalité. Solution : dans l’éditeur de graphique,
 définissez manuellement les valeurs minimale et maximale pour l’axe concerné.
 
 **Question :** Pourquoi la valeur la moins bonne se trouve-t-elle plus à l’extérieur ?

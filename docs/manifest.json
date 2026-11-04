@@ -1,11 +1,27 @@
 {
   "title": "Diagramm",
-  "summary": "Stellt Kennzahlen als Radar-/Netzdiagramm dar — mit Tooltip, Wertelabels, Legende und Excel-Tabellenimport.",
+  "summary": "Stellt Kennzahlen als Netzdiagramm, Balken, Linie oder Kuchen dar — mit Tooltip, Wertelabels, Legende und Excel-Tabellenimport.",
   "icon": "🧩",
   "pages": [
-    { "id": "overview", "title": "Übersicht", "file": "overview.md" },
-    { "id": "usage", "title": "Schritt für Schritt", "file": "usage.md" },
-    { "id": "settings", "title": "Einstellungen", "file": "settings.md" },
-    { "id": "faq", "title": "FAQ", "file": "faq.md" }
+    {
+      "id": "overview",
+      "title": "Übersicht",
+      "file": "overview.md"
+    },
+    {
+      "id": "usage",
+      "title": "Schritt für Schritt",
+      "file": "usage.md"
+    },
+    {
+      "id": "settings",
+      "title": "Einstellungen",
+      "file": "settings.md"
+    },
+    {
+      "id": "faq",
+      "title": "FAQ",
+      "file": "faq.md"
+    }
   ]
 }

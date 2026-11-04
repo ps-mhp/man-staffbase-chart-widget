@@ -85,7 +85,7 @@ y series para rellenar.
 | --- | --- |
 | Eje | Nombre del eje, tal y como aparece en el gráfico y en la tabla de datos. Si ocupa varias líneas: la tecla Intro genera un salto de línea que también se muestra en el gráfico. |
 | Unidad | Se añade a cada número de este eje (punto de datos, información sobre herramientas, tabla), p. ej., «kWh». En los gráficos de barras y de líneas, el eje de valores común solo muestra la unidad si **todos** los ejes con valores tienen la misma unidad. |
-| Dirección («cuanto menor, mejor») | Solo en el gráfico de radar. Invierte el eje: el valor menor queda entonces más hacia fuera. Para indicadores en los que cuanto menor, mejor: peso, consumo, tiempo de carga. |
+| Dirección («cuanto menor, mejor») | Solo en el gráfico de radar. Invierte el eje: el valor menor queda entonces más hacia el exterior. Para indicadores en los que un valor menor es mejor —peso, consumo, tiempo de carga—. |
 | Color | Solo en el gráfico de tarta. Establece el color del segmento correspondiente y anula el color de la paleta asignado automáticamente. |
 | Decimales | Solo si están activados los **ajustes avanzados por eje**: cuántos decimales se muestran. Si no se especifica, se utiliza el número de decimales introducido realmente. |
 | Mínimo | Solo en el gráfico de radar, con los ajustes precisos activados: límite inferior del eje. Si no se especifica, el eje comienza en cero; en el caso de valores negativos, en el menor de ellos. |
@@ -116,14 +116,14 @@ no se representan.
 
 | Tipo | Campos | Descripción |
 | --- | --- | --- |
-| Radar | Líneas auxiliares en la red | Número de anillos auxiliares concéntricos. Valor predeterminado: 5. Es puramente estético, no modifica los valores. |
+| Radar | Líneas auxiliares en la red | Número de anillos auxiliares concéntricos. El valor predeterminado es 5. Es puramente estético, no modifica los valores. |
 | Radar | Rellenar áreas | Rellena el área detrás de cada línea de serie con un color semitransparente. Desactivado por defecto. |
 | Barras | Apilar | Dibuja las series unas encima de otras en lugar de una al lado de otra. Desactivado por defecto. |
 | Barra | Orientación | «vertical» (categorías abajo) o «horizontal» (categorías a la izquierda). Por defecto: vertical. |
 | Línea | Suavizar líneas | Redondea el trazado de la línea en lugar de trazarla recta entre los puntos de apoyo. Por defecto: desactivado. |
 | Línea | Rellenar área | Rellena el área debajo de la línea con su color. Desactivado por defecto. |
 | Línea | Mostrar puntos | Muestra un punto en cada punto de control. Activado por defecto. |
-| Circular | Radio interior | Porcentaje del agujero en el gráfico circular. 0 da como resultado un círculo completo; un valor mayor (p. ej., 45), un anillo o una rosquilla. Por defecto: 0. |
+| Circular | Radio interior | Porcentaje del agujero en el gráfico circular. 0 da como resultado un círculo completo; un valor mayor (p. ej., 45), un anillo o una rosquilla. Predeterminado: 0. |
 | Gráfico circular | Etiqueta de segmento | «Porcentaje», «Valor absoluto», «Ambos» o «Ocultar». Por defecto, «Porcentaje». |
 
 ## Escalado automático

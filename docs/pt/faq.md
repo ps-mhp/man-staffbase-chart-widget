@@ -1,4 +1,4 @@
-# Perguntas Frequentes
+# Perguntas frequentes
 
 Cada mensagem que o diagrama possa apresentar em vez do gráfico, como uma pergunta —
 com o texto exato, para que possa ser encontrada através da pesquisa.
@@ -14,7 +14,7 @@ Por favor, reconfigure-o nas definições.»
 
 Resposta: Os dados guardados estão danificados ou foram alterados manualmente.
 Abra as definições do widget e reconfigure o diagrama no editor —
-se necessário, através de uma tabela recém-inserida.
+se necessário, através de uma tabela inserida de novo.
 
 **Pergunta:** Vejo a mensagem «O tipo de gráfico «…» não é reconhecido por esta versão do
 módulo. Por favor, atualize o módulo.» (ou, sem
@@ -35,14 +35,28 @@ ou «Criar tabela vazia».
 **Pergunta:** Após a inserção, os meus indicadores aparecem como séries e as minhas
 variantes como eixos — tudo invertido.
 
-Resposta: Foi selecionada a direção de leitura errada no campo de inserção. Mude para a
-outra opção em «Como está a sua tabela?» e clique novamente em
+Resposta: Abaixo do campo de inserção, estava selecionada a direção de leitura errada. Mude para a
+outra resposta em «Como está a sua tabela?» e clique novamente em
 «Aplicar tabela».
 
-**Pergunta:** O texto do meu eixo é tão longo que comprime o gráfico.
+**Pergunta:** O texto dos meus eixos é tão longo que comprime o gráfico.
 
-Resposta: No campo do eixo, no local pretendido, prima a tecla Enter
-. A quebra de linha é aplicada ao gráfico.
+Resposta: No campo do eixo, no local pretendido, prima a tecla Enter.
+A quebra de linha é aplicada ao gráfico.
+
+**Pergunta:** Vejo a mensagem ««…» tem um valor negativo. Um
+gráfico circular não pode representar percentagens negativas.» (ou, sem a categoria mencionada:
+«Um gráfico circular não pode representar percentagens negativas.»)
+
+Resposta: Um gráfico circular mostra a divisão de um todo; uma
+parte negativa não tem correspondência nesse contexto. Corrija a categoria em questão no
+editor de gráficos para um valor diferente de zero — ou mude para um
+**gráfico de barras**, que pode representar valores negativos.
+
+A mensagem bloqueia intencionalmente todo o gráfico, em vez de apenas omitir o
+segmento negativo: um gráfico circular distribui os valores restantes pelo
+círculo completo, pelo que resultaria num gráfico com um aspeto completo, com
+valores percentuais implicitamente aumentados.
 
 **Pergunta:** Vejo a mensagem «Não foi possível carregar o gráfico.
 Por favor, atualize a página.»
@@ -51,7 +65,7 @@ Resposta: Não foi possível recarregar a biblioteca de gráficos, na maioria da
 uma ligação à Internet interrompida. Atualize a página; se o problema
 persistir, verifique a ligação de rede.
 
-**Pergunta:** Por que razão o meu diagrama está vazio, apesar de terem sido introduzidos dados?
+**Pergunta:** Por que razão o meu gráfico está vazio, apesar de terem sido introduzidos dados?
 
 Resposta: Na maioria das vezes, o bloco encontra-se numa coluna muito estreita ou num
 elemento recolhido, pelo que o contentor tem altura 0. O gráfico
@@ -111,5 +125,5 @@ o separador de milhares e a vírgula, o separador decimal. Assim, `1.234` torna-
 formato alemão antes de os inserir; caso contrário, por exemplo, «1.234» (mil)
 será interpretado como «1,234» (um vírgula dois três quatro). Se um número contiver tanto
 o ponto como a vírgula, independentemente da notação, o último
-caractere é considerado o separador decimal — `1.234,5` e `1,234.5` resultam
+símbolo é considerado o separador decimal — `1.234,5` e `1,234.5` resultam
 ambos em `1234,5`.

@@ -9,8 +9,8 @@ passos aplicam-se, por analogia, aos restantes três tipos.
 1. Coloque o widget **Diagrama** na página. As definições do widget
    abrem-se e, nelas, aparece imediatamente o **Editor de diagramas** por cima do
    próprio campo. Na parte superior encontra-se uma barra de controlo com **Guardar**,
-   **Ajuda** (abre um painel deslizante com as mesmas explicações que constam nesta
-   documentação) e **Fechar**; esta barra permanece fixa durante a navegação, mesmo
+   **Ajuda** (abre um painel deslizante com as mesmas explicações que nesta
+   documentação) e **Fechar**; esta permanece fixa durante a navegação, mesmo
    numa grelha de dados extensa.
 2. Na parte superior do editor encontra-se o **tipo de gráfico**: **gráfico de rede (radar /
    aranha)**, **gráfico de barras (colunas)**, **gráfico de linhas (tendência)** ou
@@ -37,7 +37,7 @@ passos aplicam-se, por analogia, aos restantes três tipos.
    uma perda de dados. Na parte superior de cada coluna de série encontram-se o nome, a cor e
    as setas para reordenar; no final de cada linha de eixo, as setas e a
    cruz para esse eixo.
-6. Introduza a **unidade** em cada eixo (por exemplo, «kWh»). Uma **quebra de linha no
+6. Introduza a **unidade** para cada eixo (por exemplo, «kWh»). Uma **quebra de linha no
    nome do eixo** — com a tecla Enter — é aplicada no gráfico e
    mantém as legendas longas legíveis. No gráfico circular, é possível
    definir adicionalmente uma **cor de segmento** específica para cada eixo.
@@ -52,12 +52,12 @@ passos aplicam-se, por analogia, aos restantes três tipos.
    calculado pelo ECharts. No caso normal, não são necessários;
    em branco significa «derivado dos valores».
 9. Em **«Título, legenda e apresentação»**, introduza o título e a nota de rodapé,
-   posicione ou oculte a **legenda** (no gráfico circular, esta enumera os
+   coloque ou oculte a **legenda** (no gráfico circular, esta enumera os
    eixos; nos outros, as séries) e defina as opções de visualização adequadas ao tipo
    : no gráfico de radar, **Linhas auxiliares na grelha** e **Preencher áreas**,
    no gráfico de barras, **Empilhar** e **Orientação** (vertical/horizontal), no gráfico de linha,
    **Suavizar linhas**, **preencher a área** e **mostrar pontos**; no gráfico circular,
-   **raio interno** (0 = círculo completo, valor maior = anel) e
+   **raio interior** (0 = círculo completo, valor maior = anel) e
    **legenda dos segmentos** (percentagem, valor absoluto, ambos ou desativado).
 10. A **Pré-visualização** mostra sempre como o gráfico fica na página
     e mantém-se fixa durante a navegação. Se a caixa de diálogo for suficientemente larga
@@ -71,7 +71,7 @@ passos aplicam-se, por analogia, aos restantes três tipos.
     Abaixo do gráfico aparecem então dois botões, «Como SVG» e
     «Como PNG» — isto funciona da mesma forma para os quatro tipos.
 13. Clique em **Guardar** e, em seguida, em **Fechar**. Só ao clicar em «Guardar» é que
-    os dados são transferidos para o widget; enquanto aparecer «Alterações não guardadas»
+    os dados são transferidos para o widget; enquanto estiver escrito «Alterações não guardadas»
     ao lado dos botões, nada foi ainda aplicado.
 
 ## Alterar posteriormente

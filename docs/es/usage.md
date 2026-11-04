@@ -17,7 +17,7 @@ pasos se aplican, por analogía, a los otros tres tipos.
    **gráfico circular (tarta / anillo)**; el texto que aparece debajo indica para qué
    está pensado el tipo seleccionado. Si se cambia de tipo posteriormente, no se pierden
    datos: los ejes, las series, el título y la leyenda se conservan; solo los
-   campos específicos del tipo (p. ej., mínimo/máximo en el gráfico de radar) se
+   campos específicos del tipo (p. ej., mínimo/máximo en el radar) se
    ocultan hasta que se vuelva a seleccionar ese tipo.
 3. Mientras aún no haya datos, la sección **«Ejes y
    series»** ofrece dos opciones: **«Cargar ejemplo»** rellena el gráfico con un ejemplo
@@ -33,10 +33,10 @@ pasos se aplican, por analogía, a los otros tres tipos.
 5. En la cuadrícula, **cada fila es un eje** y **cada columna de la derecha es una
    serie**; en el gráfico circular, la cuadrícula muestra **solo la primera
    columna de la serie**; una nota debajo aclara que el resto de series
-   permanecen guardadas, pero no se representan, para que no parezca que
+   permanecen guardadas, pero no se dibujan, para que no parezca que
    se han perdido datos. En la parte superior de cada columna de serie aparecen el nombre, el color y
    las flechas para reordenar; al final de cada fila de eje, las flechas y la
-   cruz correspondientes a ese eje.
+   cruz para ese eje.
 6. Introduce la **unidad** para cada eje (p. ej., «kWh»). Un **salto de línea en el
    nombre del eje** —con la tecla Intro— se aplica al gráfico y
    permite que las etiquetas largas sean legibles. En el gráfico circular se puede
@@ -50,10 +50,10 @@ pasos se aplican, por analogía, a los otros tres tipos.
    **«Ajustes precisos por eje»**; **Mínimo** y **Máximo** allí
    solo aparecen en el diagrama de red, porque las barras y la línea trazan un eje de valores común,
    calculado por ECharts. En el caso normal no son necesarios;
-   si están en blanco, significa «derivado de los valores».
+   si están vacíos, significa «derivado de los valores».
 9. En **«Título, leyenda y representación»**, introduce el título y la nota al pie,
    coloca o oculta la **leyenda** (en los gráficos circulares enumera los
-   ejes; en los demás, las series) y configura las opciones de visualización adecuadas para el tipo de gráfico
+   ejes; en los demás, las series) y configura las opciones de visualización adecuadas para cada tipo
    : en el gráfico de radar, **líneas auxiliares en la cuadrícula** y **rellenar áreas**;
    en el de barras, **apilar** y **orientación** (vertical/horizontal); en el de líneas,
    **suavizar líneas**, **rellenar área** y **mostrar puntos**; en el gráfico circular,

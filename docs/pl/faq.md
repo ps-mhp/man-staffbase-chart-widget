@@ -35,22 +35,36 @@ lub „Utwórz pustą tabelę”.
 **Pytanie:** Po wstawieniu moje wskaźniki są wyświetlane jako serie, a moje
 warianty jako osie — wszystko jest odwrócone.
 
-Odpowiedź: Pod polem wstawiania wybrano niewłaściwy kierunek czytania. Przełącz na
+Odpowiedź: Pod polem wstawiania wybrano niewłaściwy kierunek odczytu. Przełącz na
 inną opcję w sekcji „Jak wygląda Twoja tabela?” i ponownie kliknij
-„Przejmij tabelę”.
+„Zastosuj tabelę”.
 
 **Pytanie:** Moje etykiety osi są tak długie, że powodują
 ściśnięcie wykresu.
 
-Odpowiedź: W polu osi w wybranym miejscu naciśnij klawisz Enter
-. Złamanie linii zostanie przeniesione do wykresu.
+Odpowiedź: W polu osi w wybranym miejscu naciśnij klawisz Enter.
+Złamanie wiersza zostanie przeniesione na wykres.
+
+**Pytanie:** Widzę komunikat „„…“ ma wartość ujemną.
+Wykres kołowy nie może przedstawiać ujemnych udziałów.” (lub bez podanej
+kategorii: „Wykres kołowy nie może przedstawiać ujemnych udziałów.”)
+
+Odpowiedź: Wykres kołowy przedstawia podział całości; ujemny
+udział nie ma w nim odpowiednika. Należy skorygować wymienioną kategorię w
+edytorze wykresów na wartość niezerową — lub przełączyć się na
+**wykres słupkowy**, który może przedstawiać wartości ujemne.
+
+Komunikat ten celowo blokuje cały wykres, zamiast po prostu pominąć
+segment ujemny: wykres kołowy rozdziela pozostałe wartości na
+pełne koło, w wyniku czego powstałby wykres sprawiający wrażenie kompletnego, z
+domyślnie zawyżonymi wartościami procentowymi.
 
 **Pytanie:** Widzę komunikat „Nie udało się załadować wykresu.
 Proszę odświeżyć stronę”.
 
 Odpowiedź: Nie udało się ponownie załadować biblioteki wykresów, najczęściej z powodu
-przerwanego połączenia internetowego. Odśwież stronę; jeśli problem
-nadal występuje, sprawdź połączenie sieciowe.
+przerwanego połączenia internetowego. Należy odświeżyć stronę; jeśli problem
+nadal występuje, należy sprawdzić połączenie sieciowe.
 
 **Pytanie:** Dlaczego mój wykres jest pusty, mimo że wprowadzono dane?
 
@@ -105,7 +119,7 @@ ustawienia pozostają niezmienione.
 **Pytanie:** Wstawiona liczba nagle okazuje się o współczynnik 1000 za duża lub
 za mała.
 
-Odpowiedź: Edytor wykresów interpretuje liczby zgodnie z niemiecką konwencją: kropka służy jako
+Odpowiedź: Edytor wykresów interpretuje liczby zgodnie z niemieckimi zasadami: kropka służy jako
 oddzielacz tysięcy, a przecinek jako oddzielacz dziesiętny. Zatem `1.234` staje się
 `1234`, a nie `1,234`. Jeśli wstawiasz tabelę z angielskim formatem
 (kropka jako separator dziesiętny), musisz przed

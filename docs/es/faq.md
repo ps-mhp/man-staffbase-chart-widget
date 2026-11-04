@@ -36,7 +36,7 @@ o «Crear tabla vacía».
 variantes como ejes; todo está al revés.
 
 Respuesta: Debajo del campo de inserción se había seleccionado la dirección de lectura incorrecta. Cambie a la
-otra opción en «¿Cómo está orientada su tabla?» y vuelva a hacer clic en
+otra respuesta en «¿Cómo está orientada su tabla?» y vuelva a hacer clic en
 «Aplicar tabla».
 
 **Pregunta:** El texto de mi eje es tan largo que comprime el gráfico.
@@ -44,14 +44,28 @@ otra opción en «¿Cómo está orientada su tabla?» y vuelva a hacer clic en
 Respuesta: En el campo del eje, pulsa la tecla Intro en el lugar deseado.
 El salto de línea se aplicará al gráfico.
 
+**Pregunta:** Me aparece el mensaje «“…“ tiene un valor negativo. Un
+diagrama circular no puede representar proporciones negativas» (o, si no se menciona
+la categoría: «Un diagrama circular no puede representar proporciones negativas»).
+
+Respuesta: Un gráfico circular muestra la distribución de un todo; una
+porción negativa no tiene correspondencia en él. Corrija la categoría mencionada en el
+editor de gráficos a un valor distinto de cero, o cambie a un
+**gráfico de barras**, que sí puede representar valores negativos.
+
+El aviso bloquea intencionadamente todo el gráfico, en lugar de limitarse a omitir el
+segmento negativo: un gráfico circular distribuye los valores restantes por todo el
+círculo completo, por lo que se obtendría un gráfico que parecería completo, con
+porcentajes implícitamente aumentados.
+
 **Pregunta:** Me aparece el mensaje «No se ha podido cargar el gráfico.
-Por favor, actualice la página».
+Vuelve a cargar la página».
 
-Respuesta: No se ha podido volver a cargar la biblioteca de gráficos, normalmente debido a
-una conexión a Internet interrumpida. Actualice la página; si el problema
-persiste, compruebe la conexión de red.
+Respuesta: No se ha podido recargar la biblioteca de gráficos, normalmente debido a
+una conexión a Internet interrumpida. Vuelve a cargar la página; si el problema
+persiste, comprueba la conexión de red.
 
-**Pregunta:** ¿Por qué mi diagrama está vacío aunque se hayan introducido datos?
+**Pregunta:** ¿Por qué mi gráfico está vacío aunque se hayan introducido datos?
 
 Respuesta: Normalmente, el bloque se encuentra en una columna muy estrecha o en un
 elemento contraído, por lo que el contenedor tiene una altura de 0. El gráfico
@@ -64,8 +78,8 @@ diferencia en el gráfico entre dos valores casi iguales?
 Respuesta: Si no se establece un máximo, cada eje se extiende hasta el valor más alto que
 aparece en él. Si hay dos valores muy próximos entre sí, pero muy alejados de cero,
 la parte superior del eje ocupa todo el espacio, por lo que la diferencia
-parece mayor de lo que realmente es. Solución: En el editor de gráficos, establece manualmente
-el mínimo y el máximo para el eje en cuestión.
+parece mayor de lo que es en realidad. Solución: En el editor de gráficos,
+establece manualmente el mínimo y el máximo para el eje en cuestión.
 
 **Pregunta:** ¿Por qué el valor peor se encuentra más alejado?
 
@@ -84,7 +98,7 @@ botones solo aparecen cuando hay un gráfico disponible para descargar.
 fallado. Inténtalo de nuevo».
 
 Respuesta: La exportación no ha podido encontrar el gráfico dibujado —normalmente porque
-se está recargando en ese momento—. Espera un momento y vuelve a hacer clic; si el problema
+se está recargando en ese momento. Espera un momento y vuelve a hacer clic; si el problema
 persiste, actualiza la página.
 
 **Pregunta:** ¿Puedo mostrar más de seis series?

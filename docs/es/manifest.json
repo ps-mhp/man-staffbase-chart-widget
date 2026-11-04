@@ -1,6 +1,6 @@
 {
   "title": "Diagrama",
-  "summary": "Muestra los indicadores clave en forma de gráfico de radar o de red, con información emergente, etiquetas de valores, leyenda e importación de hojas de cálculo de Excel.",
+  "summary": "Muestra los indicadores en forma de diagrama de red, gráfico de barras, gráfico de líneas o gráfico circular, con información sobre herramientas, etiquetas de valores, leyenda e importación de hojas de cálculo de Excel.",
   "icon": "🧩",
   "pages": [
     {

@@ -1,6 +1,6 @@
 {
   "title": "Chart",
-  "summary": "Displays key metrics as radar/network charts—with tooltips, value labels, a legend, and Excel table import.",
+  "summary": "Display key metrics as network diagrams, bar charts, line charts, or pie charts—with tooltips, value labels, legends, and Excel table import.",
   "icon": "🧩",
   "pages": [
     {

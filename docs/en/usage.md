@@ -22,7 +22,7 @@ steps apply mutatis mutandis to the other three types.
 3. As long as no data has been entered yet, the **“Axes and
    Series”** offers two options: **“Load Example”** populates the chart with an example
    suited to the selected chart type, which you can simply overwrite, and
-   **“Create Empty Table”** creates axes and series for you to fill in.
+   **“Create Empty Table”** sets up axes and series for you to fill in.
 4. However, the recommended method is **“Import Data from a Table”** at the very
    top: Select the comparison table in Excel, PowerPoint, or Word,
    copy it, and paste it into the field. Below that, specify **how the table
@@ -49,8 +49,8 @@ steps apply mutatis mutandis to the other three types.
 8. **Decimal places** per axis are set via the
    **“Fine adjustments per axis”** toggle; **Minimum** and **Maximum** there
    appear only in the network diagram because bars and lines share a common
-   value axis calculated by ECharts. In normal cases, they are
-   not needed; leaving them blank means “derived from the values.”
+   value axis calculated by ECharts. In most cases, they are not needed;
+   leaving them blank means “derived from the values.”
 9. Under **“Title, Legend, and Display”**, enter the title and footnote,
    position or hide the **legend** (for pie charts, it lists the
    axes; otherwise, the series), and set the display options appropriate for the chart type
@@ -60,7 +60,7 @@ steps apply mutatis mutandis to the other three types.
    **Inner radius** (0 = full circle, larger = ring) and
    **Segment label** (percentage, absolute value, both, or off).
 10. The **Preview** shows what the chart looks like on the page
-    at all times and remains in place while scrolling. If the dialog is wide enough
+    at all times and stays in place while scrolling. If the dialog is wide enough
     (starting at about 900 pixels), it appears next to the input field; below that, it moves
     below the grid, and below about 700 pixels, the grid becomes
     a sequence of cards, one per axis. The dialog never scrolls

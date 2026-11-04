@@ -1,7 +1,7 @@
 # Ustawienia
 
 W oknie dialogowym konfiguracji znajdują się technicznie tylko dwa pola: **Wykres** i
-**Wysokość w pikselach**. Pole „Wykres” nie jest edytowane bezpośrednio — zamiast tego
+**Wysokość w pikselach**. Pola „Wykres” nie edytuje się bezpośrednio — zamiast tego
 automatycznie otwiera się **edytor wykresów**, w którym znajdują się wszystkie pozostałe
 ustawienia.
 
@@ -15,8 +15,8 @@ ustawienia.
 
 ## Okno dialogowe edytora
 
-U góry znajduje się pasek sterowania z przyciskami **Zapisz**, **Pomoc** i **Zamknij**;
-pozostaje on nieruchomy podczas przewijania, dzięki czemu zapisywanie jest możliwe nawet przy długiej
+U góry znajduje się pasek sterowania z opcjami **Zapisz**, **Pomoc** i **Zamknij**;
+pozostaje on nieruchomy podczas przewijania, dzięki czemu zapisywanie jest możliwe nawet w przypadku długiej
 tabeli danych. Dopóki projekt różni się od zapisanego stanu,
 obok widnieje napis „Niezapisane zmiany”. Przycisk pomocy otwiera
 pasek z tymi samymi objaśnieniami, co na tej stronie, bezpośrednio w
@@ -102,7 +102,7 @@ nie są wyświetlane.
 | Ustawienie | Opis |
 | --- | --- |
 | Nazwa serii | Nazwa wyświetlana w legendzie (z wyjątkiem wykresów kołowych, patrz poniżej), podpowiedzi i tabeli danych. |
-| Kolor | Zastępuje automatycznie przypisany kolor z palety MAN dla tej konkretnej serii. W przypadku wykresów kołowych nie ma to wpływu — tam kolor jest przypisywany osobno dla każdej osi (patrz wyżej). |
+| Kolor | Zastępuje automatycznie przypisany kolor z palety MAN dla tej jednej serii. W przypadku wykresów kołowych nie ma to wpływu — tam kolor jest przypisywany osobno dla każdej osi (patrz wyżej). |
 | ← → ✕ | Przesuwa serię — kolejność określa kolor z palety oraz kolejność w legendzie — lub ją usuwa. |
 
 ## Tytuł, legenda i wygląd

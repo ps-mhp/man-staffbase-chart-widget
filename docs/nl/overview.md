@@ -34,7 +34,7 @@ segmenten zijn de assen (categorieën), hun waarden bepalen de grootte van de se
 **Alleen de eerste reeks wordt getekend** — verdere reeksen
 blijven opgeslagen en verschijnen weer zodra er naar een ander type
 wordt overgeschakeld; de editor wijst hier specifiek op. Elke categorie kan een
-eigen segmentkleur krijgen. Weergaveopties: binnenradius (0 geeft de
+eigen segmentkleur krijgen. Weergaveopties: binnenradius (0 geeft een
 volledige cirkel, een grotere waarde een ring/donut) en de segmentlabel
 (percentage, absolute waarde, beide of verborgen). Negatieve waarden
 vormen bij `pie` geen weergaveprobleem, maar een gegevensfout — het
@@ -93,7 +93,7 @@ een raster met **één rij per as** en **één kolom per reeks**
 laat zien hoe de grafiek later op de pagina zal verschijnen. Zolang er nog niets
 is aangemaakt, legt de editor de begrippen uit en biedt hij „Voorbeeld laden“
 en „Lege tabel aanmaken“ aan — afhankelijk van het gekozen type met een ander,
-bijpassend voorbeeld. Het tekstveld erachter toont alleen de technisch
+bijpassend voorbeeld. Het tekstveld daarachter toont alleen de technisch
 opgeslagen, gecodeerde vorm van de gegevens en wordt nooit handmatig bewerkt.
 
 Als het dialoogvenster smal is (bijv. op kleine schermen), verschuift het

@@ -3,11 +3,11 @@
 Ogni messaggio che il diagramma può visualizzare al posto del grafico, sotto forma di domanda —
 con il testo esatto, in modo che sia reperibile tramite la ricerca.
 
-**Domanda:** Vedo il messaggio «Diagramma non ancora configurato. Aprire
+**Domanda:** Vedo il messaggio «Grafico non ancora configurato. Aprire
 le impostazioni del widget.»
 
 Risposta: Per questo widget non è stata ancora salvata alcuna configurazione.
-Aprire le impostazioni del widget, compilare l’editor del diagramma e salvare.
+Aprire le impostazioni del widget, compilare l’editor del grafico e salvare.
 
 **Domanda:** Vedo il messaggio «Impossibile leggere il grafico.
 Si prega di configurarlo nuovamente nelle impostazioni.»
@@ -28,15 +28,15 @@ supportato da questa versione. Aggiornare il modulo all’ultima versione.
 **Domanda:** Vedo il messaggio «Ancora nessun dato nel grafico. Creare
 assi e serie nelle impostazioni.»
 
-Risposta: Non sono stati creati né assi né serie nell’editor dei grafici. Nell’
-inserire una tabella nell’editor oppure utilizzare uno dei due pulsanti «Carica esempio»
+Risposta: Nell’editor dei grafici non sono stati creati né assi né serie. Nell’
+editor, inserire una tabella oppure utilizzare uno dei due pulsanti «Carica esempio»
 o «Crea tabella vuota».
 
 **Domanda:** Dopo l’inserimento, i miei indicatori risultano come serie e le mie
 varianti come assi — tutto invertito.
 
 Risposta: Sotto il campo di inserimento era stata selezionata la direzione di lettura errata. Passare all’
-altra opzione in «Come è orientata la tua tabella?» e cliccare nuovamente su
+altra risposta in «Come è orientata la sua tabella?» e cliccare nuovamente su
 «Applica tabella».
 
 **Domanda:** L’etichetta del mio asse è così lunga che comprime il grafico
@@ -44,6 +44,20 @@ altra opzione in «Come è orientata la tua tabella?» e cliccare nuovamente su
 
 Risposta: Nel campo dell’asse, premere il tasto Invio nel punto desiderato
 . L’interruzione di riga verrà applicata al grafico.
+
+**Domanda:** Vedo il messaggio «“…“ ha un valore negativo. Un
+grafico a torta non può rappresentare quote negative.» (oppure, senza la categoria specificata:
+«Un grafico a torta non può rappresentare quote negative.»)
+
+Risposta: Un grafico a torta mostra la suddivisione di un insieme; una quota negativa
+non ha corrispondenza al suo interno. Correggere la categoria indicata nell’
+editor del grafico impostando un valore diverso da zero — oppure passare a un
+**grafico a barre**, che può rappresentare valori negativi.
+
+L’avviso blocca intenzionalmente l’intero grafico, invece di omettere solo il
+segmento negativo: un grafico a torta distribuisce i valori rimanenti sul
+cerchio completo, quindi si otterrebbe un grafico che appare completo con
+percentuali implicitamente aumentate.
 
 **Domanda:** Vedo il messaggio «Impossibile caricare il grafico.
 Si prega di ricaricare la pagina.»

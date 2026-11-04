@@ -11,7 +11,7 @@ configurações.
 | --- | --- |
 | Diagrama | Contém a definição completa e codificada tecnicamente do diagrama. É editado exclusivamente através do Editor de diagramas, nunca manualmente. |
 | Altura em píxeis | Altura do diagrama na página. São permitidos valores entre 160 e 1200 píxeis; o valor predefinido é 420. A largura depende sempre da coluna. |
-| Permitir download | Mostra, por baixo do diagrama, dois botões para descarregar como imagem. O ficheiro contém apenas o diagrama, não a página. Por predefinição, está desativado. |
+| Permitir download | Mostra, por baixo do diagrama, dois botões para descarregar como imagem. O ficheiro contém apenas o diagrama, não a página. Desativado por predefinição. |
 
 ## A caixa de diálogo do editor
 
@@ -119,13 +119,13 @@ não são representadas.
 | --- | --- | --- |
 | Radar | Linhas auxiliares na rede | Número de anéis auxiliares concêntricos. Predefinição: 5. Puramente visual, não altera valores. |
 | Radar | Preencher áreas | Preenche a área por trás de cada linha da série com a respetiva cor, de forma semitransparente. Predefinição: desativado. |
-| Barra | Empilhar | Desenha as séries umas sobre as outras, em vez de lado a lado. Predefinição: desativado. |
+| Barra | Empilhar | Desenha as séries umas sobre as outras em vez de lado a lado. Predefinição: desativado. |
 | Barra | Orientação | «vertical» (categorias na parte inferior) ou «horizontal» (categorias à esquerda). Predefinição: vertical. |
 | Linha | Suavizar linhas | Arredonda o traçado da linha em vez de o traçar em linha reta entre os pontos de apoio. Predefinição: desativado. |
 | Linha | Preencher área | Preenche a área sob a linha com a sua cor. Predefinição: desativado. |
 | Linha | Mostrar pontos | Mostra um ponto em cada ponto de apoio. Predefinição: ativado. |
 | Gráfico circular | Raio interior | Percentagem do buraco no gráfico circular. 0 resulta num círculo completo; um valor maior (por exemplo, 45) resulta num anel/donut. Predefinição: 0. |
-| Gráfico circular | Rótulo do segmento | «Percentagem», «Valor absoluto», «Ambos» ou «Ocultar». Predefinição: «Percentagem». |
+| Gráfico circular | Rotulagem de segmentos | «Percentagem», «Valor absoluto», «Ambos» ou «Ocultar». Predefinição: «Percentagem». |
 
 ## Escalonamento automático
 
@@ -151,9 +151,9 @@ definir um eixo de 0 a 600 e introduzir 700, verá o ponto na
 extremidade e o 700 ao lado.
 
 **Nos gráficos de barras e de linhas**, o próprio ECharts desenha um eixo de valores com
-uma escala visível; este eixo tem o ponto zero como referência e não pode ser
+uma escala visível; este eixo tem o ponto zero fixo e não pode ser
 limitado manualmente. **No gráfico circular** não existe eixo de valores — cada segmento mostra
-a sua proporção em relação ao todo. Um valor negativo não constitui, neste caso, um
-problema de representação, mas sim um erro de dados: o gráfico apresenta então uma
+a sua proporção em relação ao todo. Um valor negativo não constitui, neste caso,
+um problema de representação, mas sim um erro de dados: o gráfico apresenta então uma
 nota de aviso no eixo em questão, em vez de desenhar um gráfico circular
 distorcido.

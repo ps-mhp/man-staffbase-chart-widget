@@ -1,7 +1,7 @@
 # FAQ
 
 Any message that the chart can display instead of the graph should be listed as a question—
-with the exact wording so it can be found via search.
+using the exact wording so it can be found via search.
 
 **Question:** I see the message “No chart set up yet. Open
 the widget’s settings.”
@@ -25,11 +25,11 @@ Answer: The chart was set up using a newer version of the module
 that recognizes a chart type not yet
 supported by this version. Update the module to the latest version.
 
-**Question:** I see the message “No data in the chart yet. Create axes and series in
-the settings.”
+**Question:** I see the message “No data in the chart yet. Create
+axes and series in the settings.”
 
 Answer: Neither axes nor series have been created in the chart editor. In the
-Insert a table in the editor or use one of the two buttons: “Load Example”
+editor, insert a table or use one of the two buttons: “Load Example”
 or “Create Empty Table.”
 
 **Question:** After inserting the table, my metrics appear as series and my
@@ -43,7 +43,21 @@ other option under “How is your table oriented?” and click
 squeezes the chart.
 
 Answer: In the axis field, press the Enter key at the desired
-location. The line break will be applied to the chart.
+position. The line break will be applied to the chart.
+
+**Question:** I see the message “‘…’ has a negative value. A
+pie chart cannot display negative percentages.” (or, without a specific
+category mentioned: “A pie chart cannot display negative percentages.”)
+
+Answer: A pie chart shows the distribution of a whole; a negative
+proportion has no equivalent in it. Correct the specified category in the
+chart editor to a value greater than zero—or switch to a
+**bar chart**, which can display negative values.
+
+The warning intentionally blocks the entire chart instead of simply omitting the negative
+segment: A pie chart distributes the remaining values across the
+entire circle, so the result would be a chart that appears complete but with
+implicitly inflated percentages.
 
 **Question:** I see the message “The chart could not be loaded.
 Please reload the page.”
@@ -54,7 +68,7 @@ persists, check your network connection.
 
 **Question:** Why is my chart empty even though data has been entered?
 
-Answer: Usually, the block is located in a very narrow column or within a
+Answer: Usually, the block is located in a very narrow column or in a
 collapsed element, so the container has a height of 0. The chart
 then remains permanently empty because it has no space to draw in. Move
 the block to a wider column or expand the element.
@@ -66,7 +80,7 @@ Answer: Without a maximum value set, each axis extends to the largest value that
 appears on it. If two values are close together but far from zero,
 the upper part of the axis uses the entire range—this makes the difference
 appear larger than it actually is. Solution: In the chart editor,
-manually set the minimum and maximum values for the affected axis.
+manually set the minimum and maximum for the affected axis.
 
 **Question:** Why is the worse value farther out?
 
@@ -78,7 +92,7 @@ the respective axis.
 **Question:** I don’t see any download buttons below the chart.
 
 Answer: Either “Allow Download” is not
-enabled in the settings, or the chart hasn’t finished rendering yet—the
+enabled in the settings, or the chart has not yet finished rendering—the
 buttons only appear once a graphic is available for download.
 
 **Question:** When I click “As SVG” or “As PNG,” the message “The export
@@ -105,8 +119,8 @@ settings remain unchanged.
 **Question:** An inserted number is suddenly 1,000 times too large or
 too small.
 
-Answer: The chart editor interprets numbers according to German conventions: A period is used as the
-thousands separator, and a comma as the decimal separator. So `1.234` becomes
+Answer: The chart editor interprets numbers in the German format: A period is used as
+the thousands separator, and a comma as the decimal separator. So `1.234` becomes
 `1234` and not `1,234`. If you insert a table with English notation
 (period as the decimal separator), you must convert the affected numbers to
 convert them to the German format; otherwise, for example, “1.234” (one thousand)

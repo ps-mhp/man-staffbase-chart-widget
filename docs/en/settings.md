@@ -43,7 +43,7 @@ minimum/maximum for radar charts) are also retained and take effect again
 as soon as the corresponding chart type is selected again—they are not
 deleted, but merely hidden.
 
-## Which Fields Appear for Which Chart Type
+## Which fields appear for which chart type
 
 | Field | Radar | Bar | Line | Pie |
 | --- | :-: | :-: | :-: | :-: |
@@ -65,7 +65,7 @@ sort or label the data.
 | Setting | Description |
 | --- | --- |
 | Paste Field | Imports a table copied from Excel, PowerPoint, or Word. Recognizes tabs, semicolons, and commas as column delimiters. |
-| How is your table oriented? | Sets the reading direction. The default is “one metric per row, one variant per column”—just as the table appears in the grid below. Selecting the other option flips the orientation when importing. |
+| How is your table oriented? | Sets the reading direction. The default is “one metric per row, one variant per column”—just as the table appears in the grid below. Selecting the other option flips the table orientation when importing. |
 | Import Table | Replaces axes, series, and values. Axes and series with the same name retain their units, axis direction, and color. |
 
 Pasting from Excel is type-neutral and works the same for all four types.
@@ -87,7 +87,7 @@ and series for you to fill in.
 | Unit | Appended to every number on this axis (data point, tooltip, table), e.g., “kWh.” For bar and line charts, the shared value axis displays the unit only if **all** axes with values use the same unit. |
 | Direction (“lower is better”) | Only for radar charts. Reverses the axis: The lower value is then located farther out. For metrics where lower is better—weight, consumption, charging time. |
 | Color | Only for pie charts. Sets the color of the corresponding segment, overriding the automatically assigned palette color. |
-| Decimal Places | Only when **Fine Settings per Axis** are enabled: How many decimal places are displayed. If not specified, the number of decimal places actually entered is used. |
+| Decimal Places | Only when **Advanced Settings per Axis** are enabled: How many decimal places are displayed. If not specified, the number of decimal places actually entered is used. |
 | Minimum | Only for the radar chart, when fine-tuning is enabled: Lower limit of the axis. If not specified, the axis starts at zero—or, for negative values, at the smallest of them. |
 | Maximum | Only for Radar, when **Fine Tuning per Axis** is enabled: Upper limit of the axis. If not specified, the largest value occurring on this axis is used. |
 | ↑ ↓ ✕ | Moves the axis or removes it along with its values. |
@@ -95,7 +95,7 @@ and series for you to fill in.
 ## Per Series (one column in the grid)
 
 In a pie chart, the grid shows **only the first series column**—a
-note below it makes it clear that additional series remain stored but
+note below it clarifies that additional series remain stored but
 are not plotted.
 
 | Setting | Description |
@@ -112,11 +112,11 @@ are not plotted.
 | Footnote | Additional text in small print below the title, e.g., for source citations. |
 | Legend | “Above the chart,” “Below the chart,” or “Hide.” For pie charts, the legend lists the axes (slices); for other chart types, it lists the series. |
 
-### Display Options by Chart Type
+### Display Options by Type
 
 | Type | Fields | Description |
 | --- | --- | --- |
-| Radar | Guide Lines in Grid | Number of concentric guide rings. Default is 5. Purely visual; does not change any values. |
+| Radar | Guide lines in the grid | Number of concentric guide rings. Default is 5. Purely visual; does not change any values. |
 | Radar | Fill Areas | Fills the area behind each series line with its color in a semi-transparent manner. Default: off. |
 | Bar | Stack | Plots series on top of each other instead of side by side. Default: off. |
 | Bar | Orientation | “Vertical” (categories at the bottom) or “Horizontal” (categories on the left). Default: vertical. |
@@ -128,7 +128,7 @@ are not plotted.
 
 ## Automatic Scaling
 
-**In radar charts**, the axes do not display a visible numerical scale—it cannot be
+**In radar charts**, the axes do not have a visible numerical scale—it cannot be
 meaningfully displayed when there are
 multiple axes with different units. Unless
 otherwise specified, each axis instead starts at **zero** and extends to
@@ -153,7 +153,7 @@ the way at the edge and the 700 next to it.
 **For bar and line charts**, ECharts automatically draws a value axis with
 a visible scale; it is anchored at zero and cannot be manually
 limited. **For pie charts**, there is no value axis—each segment shows
-its proportion of the whole. A negative value is not a
+its share of the whole. A negative value is not a
 display issue here, but a data error: The chart then displays a
 note on the affected axis instead of drawing a distorted pie
 chart.

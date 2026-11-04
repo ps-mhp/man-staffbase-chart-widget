@@ -1,7 +1,7 @@
 # Impostazioni
 
 Nella finestra di dialogo di configurazione sono presenti, tecnicamente, solo due campi: **Diagramma** e
-**Altezza in pixel**. Il campo “Diagramma” non viene modificato direttamente; al suo posto
+**Altezza in pixel**. Il campo “Diagramma” non viene modificato direttamente — al suo posto
 si apre automaticamente l’**Editor del diagramma**, in cui si trovano tutte le altre
 impostazioni.
 
@@ -35,7 +35,7 @@ La selezione nella parte superiore dell’editor determina il tipo di grafico:
 | Grafico a rete (radar / a ragnatela) | Confronto di poche varianti su più valori caratteristici con unità potenzialmente diverse. |
 | Grafico a barre (colonne) | Confronto di valori su poche categorie con unità comune. |
 | Grafico a linee (andamento) | Andamento su una serie ordinata, ad es. anni. |
-| Grafico a torta (torta / anello) | Suddivisione di un insieme in segmenti; disegna solo la prima serie. |
+| Grafico a torta (a torta / ad anello) | Suddivisione di un insieme in segmenti; traccia solo la prima serie. |
 
 Cambiando il tipo non si perdono dati: titolo, nota a piè di pagina, legenda, assi e
 serie rimangono invariati. Anche le impostazioni specifiche del tipo salvate (ad es.
@@ -54,7 +54,7 @@ cancellate, ma solo nascoste.
 | Colonne della serie nella griglia | tutte | tutte | tutte | solo la prima |
 
 **Perché il minimo, il massimo e «più piccolo è meglio» compaiono solo nel grafico radar
-:** sono definiti per ciascun asse e, in presenza di un'asse dei valori comune
+:** sono definiti per ciascun asse e, in presenza di un’asse dei valori comune
 asse dei valori — come quelli utilizzati per i grafici a barre e a linee — non sono visualizzabili. Nei grafici a torta
 non c’è alcun asse. «Più piccolo è meglio» è inoltre un
 concetto proprio del grafico a radar: in presenza di un vero asse dei valori non si inverte l’asse, ma
@@ -102,7 +102,7 @@ non vengono visualizzate.
 | Impostazione | Descrizione |
 | --- | --- |
 | Nome serie | Nome che appare nella legenda (tranne che nei grafici a torta, vedi sotto), nel tooltip e nella tabella dei dati. |
-| Colore | Sovrascrive il colore assegnato automaticamente dalla tavolozza MAN per questa singola serie. Non ha effetto sui grafici a torta — in quel caso il colore varia a seconda dell’asse (vedi sopra). |
+| Colore | Sovrascrive il colore assegnato automaticamente dalla tavolozza MAN per questa singola serie. Non ha effetto nei grafici a torta — in quel caso il colore varia a seconda dell’asse (vedi sopra). |
 | ← → ✕ | Sposta la serie — l’ordine determina il colore della tavolozza e l’ordine nella legenda — oppure la rimuove. |
 
 ## Titolo, legenda e visualizzazione
@@ -111,7 +111,7 @@ non vengono visualizzate.
 | --- | --- |
 | Titolo | Intestazione sopra il grafico. Se il campo rimane vuoto, non viene visualizzata alcuna intestazione. |
 | Nota a piè di pagina | Testo aggiuntivo in caratteri piccoli sotto il titolo, ad es. per i riferimenti bibliografici. |
-| Legenda | «sopra il grafico», «sotto il grafico» o «nascondi». Nei grafici a torta la legenda elenca gli assi (segmenti), negli altri tipi le serie. |
+| Legenda | «sopra il grafico», «sotto il grafico» o «nascondi». Nei grafici a torta la legenda elenca gli assi (segmenti), mentre negli altri tipi elenca le serie. |
 
 ### Opzioni di visualizzazione per tipo
 
@@ -119,11 +119,11 @@ non vengono visualizzate.
 | --- | --- | --- |
 | Radar | Linee ausiliarie nella griglia | Numero di anelli ausiliari concentrici. Impostazione predefinita: 5. Solo a scopo visivo, non modifica i valori. |
 | Radar | Riempi aree | Riempie l’area dietro ogni linea della serie in modo semitrasparente con il colore della stessa. Impostazione predefinita: disattivato. |
-| Barre | Impila | Disegna le serie una sopra l’altra anziché affiancate. Impostazione predefinita: disattivato. |
+| Barre | Impila | Disegna le serie una sopra l’altra anziché una accanto all’altra. Impostazione predefinita: disattivato. |
 | Barra | Direzione | «verticale» (categorie in basso) o «orizzontale» (categorie a sinistra). Impostazione predefinita: verticale. |
 | Linea | Smussare le linee | Arrotonda il tracciato delle linee invece di tracciarle dritte tra i punti di supporto. Impostazione predefinita: disattivato. |
-| Linea | Riempi area | Riempie l’area sotto la linea con il suo colore. Impostazione predefinita: disattivato. |
-| Linea | Mostra punti | Mostra un punto in corrispondenza di ogni punto di controllo. Impostazione predefinita: attivato. |
+| Linea | Riempi area | Riempie l’area sotto la linea con il suo colore. Impostazione predefinita: disattivata. |
+| Linea | Mostra punti | Mostra un punto in corrispondenza di ogni punto di controllo. Impostazione predefinita: attivata. |
 | Grafico a torta | Raggio interno | Percentuale del foro nella torta. 0 corrisponde a un cerchio completo, un valore maggiore (ad es. 45) a un anello/ciambella. Impostazione predefinita: 0. |
 | Grafico a torta | Etichetta segmento | «Percentuale», «Valore assoluto», «Entrambi» o «Nascondi». Impostazione predefinita: «Percentuale». |
 

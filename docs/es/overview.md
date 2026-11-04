@@ -38,7 +38,7 @@ color de segmento propio. Opciones de visualización: radio interior (0 da como 
 círculo completo; un valor mayor, un anillo o una rosquilla) y la etiqueta del segmento
 (porcentaje, valor absoluto, ambos o oculta). Los valores negativos
 no suponen un problema de visualización en `pie`, sino un error de datos; en ese caso,
-el gráfico muestra un aviso en lugar de un gráfico circular distorsionado.
+el gráfico muestra un aviso en lugar de un gráfico circular erróneo.
 
 Al cambiar el tipo de gráfico en el editor no se pierden datos: el título, la nota al pie,
 la leyenda, los ejes y las series se conservan, al igual que los valores de los campos específicos
@@ -69,7 +69,7 @@ tal y como se muestran en ese momento, con fondo blanco (incluso si
 la propia página tiene un fondo transparente u oscuro). El SVG se puede
 ampliar sin pérdida de calidad; el PNG es adecuado para lugares que no pueden
 incorporar SVG (por ejemplo, la mayoría de los programas de presentaciones) y se genera en
-doble resolución. La exportación funciona igual para los cuatro tipos
+doble resolución. La exportación funciona igual con los cuatro tipos
 : se basa en la imagen dibujada y no distingue el tipo de gráfico.
 
 ## Traducción

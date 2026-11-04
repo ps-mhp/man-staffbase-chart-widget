@@ -1,6 +1,6 @@
 {
   "title": "Diagrama",
-  "summary": "Apresenta indicadores sob a forma de gráficos de radar/de rede — com dicas de ferramenta, rótulos de valores, legenda e importação de tabelas do Excel.",
+  "summary": "Apresenta indicadores sob a forma de diagramas de rede, histogramas, gráficos de linhas ou gráficos circulares — com dicas de ferramenta, rótulos de valores, legenda e importação de tabelas do Excel.",
   "icon": "🧩",
   "pages": [
     {
