@@ -1,7 +1,7 @@
 # Chart
 
 The chart widget displays metrics in four types—**radar chart
-(radar), bar chart, line chart, and pie chart**. Each type is configured using
+(radar), bar, line, and pie**. Each type is configured using
 the same editor, which opens directly in the widget settings; a
 table copied from Excel can be imported there with a single click—see
 [Step-by-Step Guide](usage.md).
@@ -24,17 +24,17 @@ only useful if all categories use the same unit. As
 display options include stacking (series stacked on top of each other instead of side by side) and
 orientation (portrait or landscape).
 
-**Line Chart (Trend).** Shows a trend across an ordered
+**Line Chart (Trend).** Shows a trend over an ordered
 series, such as by year of construction. The order of the axes in the grid is
 the order on the line. Display options: Smooth lines, fill the area under
-the line, show points at the interpolation points.
+the line, show points at the control points.
 
 **Pie chart (pie / ring).** Shows the breakdown of a whole:
 Segments are the axes (categories); their values determine the segment sizes.
 **Only the first series is plotted**—additional series
 remain saved and reappear as soon as you switch to a different chart
-type; the editor provides a specific notification to this effect. Each category can be assigned
-its own segment color. Display options: inner radius (0 results in a
+type; the editor specifically notes this. Each category can be assigned
+its own segment color. Display options: Inner radius (0 results in a
 full circle; a larger value results in a ring/doughnut) and segment labeling
 (percentage, absolute value, both, or hidden). Negative values
 are not a display issue with `pie`, but rather a data error—the
@@ -64,7 +64,7 @@ fields—they simply do not take effect as long as a different type is selected.
 
 When downloads are enabled, two buttons appear below the chart:
 “As SVG” and “As PNG.” The downloaded file contains **only the
-chart**, not the rest of the page—the title, legend, axes, and values
+chart**, not the rest of the page—title, legend, axes, and values
 exactly as they are currently displayed, with a white background (even if
 the page itself has a transparent or dark background). The SVG can be
 scaled up without loss of quality; the PNG is suitable for situations where SVG

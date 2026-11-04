@@ -19,8 +19,8 @@ y relleno de áreas.
 
 **Gráfico de barras (columnas).** Compara valores entre unas pocas categorías.
 Todas las barras comparten un eje de valores común, que el propio ECharts
-calcula y etiqueta; a diferencia del gráfico de radar, este eje solo tiene
-sentido si todas las categorías utilizan la misma unidad. Como
+calcula y etiqueta; a diferencia del gráfico de radar, este eje solo
+tiene sentido si todas las categorías utilizan la misma unidad. Como
 opciones de visualización están disponibles el apilado (series una encima de otra en lugar de una al lado de otra) y
 la orientación (vertical u horizontal).
 
@@ -69,7 +69,7 @@ tal y como se muestran en ese momento, con fondo blanco (incluso si
 la propia página tiene un fondo transparente u oscuro). El SVG se puede
 ampliar sin pérdida de calidad; el PNG es adecuado para lugares que no pueden
 incorporar SVG (por ejemplo, la mayoría de los programas de presentaciones) y se genera en
-doble resolución. La exportación funciona igual con los cuatro tipos
+doble resolución. La exportación funciona igual para los cuatro tipos
 : se basa en la imagen dibujada y no distingue el tipo de gráfico.
 
 ## Traducción

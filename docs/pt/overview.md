@@ -38,7 +38,7 @@ cor de segmento própria. Opções de visualização: raio interior (0 resulta n
 círculo completo, um valor maior num anel/donut) e a legenda do segmento
 (percentagem, valor absoluto, ambos ou oculta). Os valores negativos
 não constituem um problema de representação no `pie`, mas sim um erro de dados — o
-gráfico apresenta então uma mensagem em vez de um gráfico de pizza incorreto.
+gráfico mostra então uma mensagem em vez de um gráfico de pizza incorreto.
 
 Uma alteração do tipo de gráfico no editor não implica a perda de dados: o título, a nota de rodapé,
 a legenda, os eixos e as séries são mantidos, assim como os valores dos campos específicos
@@ -62,12 +62,12 @@ do tipo — apenas não têm efeito enquanto estiver selecionado outro tipo.
 
 ## Exportação de imagem
 
-Com a opção de descarregamento ativada, aparecem dois botões abaixo do gráfico:
+Com a opção de download ativada, aparecem dois botões abaixo do gráfico:
 «Como SVG» e «Como PNG». O ficheiro descarregado contém **apenas o
 diagrama**, não o resto da página — título, legenda, eixos e valores
 exatamente como estão a ser apresentados, com fundo branco (mesmo que
-a própria página tenha um fundo transparente ou escuro). O ficheiro SVG pode ser
-ampliado sem perda de qualidade; o PNG é adequado para locais que não conseguem integrar SVG
+a própria página tenha um fundo transparente ou escuro). O SVG pode ser
+ampliado sem perda de qualidade; o PNG é adequado para locais que não conseguem incorporar SVG
 (por exemplo, a maioria dos programas de apresentação) e é gerado com
 resolução dupla. A exportação funciona da mesma forma para os quatro tipos
 — opera sobre a imagem desenhada e não distingue o tipo de gráfico.
@@ -86,14 +86,14 @@ um número traduzido não faria sentido.
 Ao inserir o bloco, abre-se automaticamente o **Editor de gráficos**
 com uma barra de controlo na parte superior (Guardar, Ajuda, Fechar) em vez de um
 rodapé — assim, a opção «Guardar» permanece acessível mesmo numa grelha de dados extensa,
-porque a barra permanece fixa durante a navegação. Na parte superior, a seleção do tipo de gráfico
+uma vez que a barra permanece fixa durante a deslocamento. Na parte superior, a seleção do tipo de gráfico
 e um campo onde se insere uma tabela copiada do Excel; por baixo,
 uma grelha com **uma linha por eixo** e **uma coluna por série**
 (no caso de `pie`, apenas uma coluna de séries), ao lado uma pré-visualização em tempo real que mostra exatamente
-como o gráfico aparecerá posteriormente na página. Enquanto ainda não tiver nada
+como o gráfico irá aparecer posteriormente na página. Enquanto ainda não tiver nada
 criado, o editor explica os conceitos e oferece as opções «Carregar exemplo»
 e «Criar tabela vazia» — consoante o tipo selecionado, com um exemplo diferente,
-adequado a cada um. O campo de texto a seguir mostra apenas a forma tecnicamente
+adequado a esse tipo. O campo de texto a seguir mostra apenas a forma tecnicamente
 armazenada e codificada dos dados e nunca é editado manualmente.
 
 Se a caixa de diálogo for estreita (por exemplo, em ecrãs pequenos), a

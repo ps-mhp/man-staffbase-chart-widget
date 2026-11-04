@@ -9,31 +9,33 @@ kroki te mają odpowiednie zastosowanie również do pozostałych trzech typów.
 1. Umieść widżet **Wykres** na stronie. Otworzą się ustawienia widżetu,
    a w nich natychmiast pojawi się **edytor wykresów** nad
    samym polem. U góry znajduje się pasek sterowania z opcjami **Zapisz**,
-   **Pomoc** (otwiera panel z tymi samymi objaśnieniami, co w niniejszej
+   **Pomoc** (otwiera suwak z tymi samymi objaśnieniami, co w niniejszej
    dokumentacji) oraz **Zamknij**; pozostaje on widoczny podczas przewijania, nawet
    w przypadku długiej tabeli danych.
 2. U góry edytora widnieje **typ wykresu**: **wykres siatkowy (radar /
-   pajęczyna)**, **wykres słupkowy (słupki)**, **wykres liniowy (przebieg)** lub
+   pajęczyna)**, **wykres słupkowy (kolumny)**, **wykres liniowy (przebieg)** lub
    **wykres kołowy (tort / pierścień)**; tekst poniżej wyjaśnia, do czego służy
    wybrany typ. Późniejsza zmiana typu nie powoduje utraty
-   danych — osie, serie, tytuł i legenda pozostają zachowane, jedynie
-   pola specyficzne dla danego typu (np. minimum/maksimum w przypadku wykresu radarowego) są
+   danych — osie, serie, tytuł i legenda pozostają zachowane, a także
+   informacje na osiach (np. minimum/maksimum w przypadku wykresu radarowego) są jedynie
    ukrywane, dopóki typ nie zostanie ponownie wybrany.
-3. Dopóki nie ma jeszcze danych, sekcja **„Osie i
-   serie”** dwie opcje: **„Załaduj przykład”** wypełnia
-   przykład pasujący do wybranego typu, który można po prostu nadpisać, a
+   **Ustawienia wyświetlania** starego typu zostaną jednak utracone;
+   więcej na ten temat w sekcji „Ustawienia”.
+3. Dopóki nie ma jeszcze żadnych danych, sekcja **„Osie i
+   serie”** oferuje dwie opcje: **„Wczytaj przykład”** wypełnia wykres przykładem
+   pasującym do wybranego typu, który można po prostu nadpisać, oraz
    **„Utwórz pustą tabelę”** tworzy osie i serie do wypełnienia.
-4. Zalecaną metodą jest jednak opcja **„Przenieś dane z tabeli”** znajdująca się
-   na samym górze: zaznacz tabelę porównawczą w programie Excel, PowerPoint lub Word,
-   skopiuj ją i wklej do pola. Poniżej określ, **jak ma wyglądać tabela
-   ma być ułożona** — domyślnym ustawieniem jest „jedna wartość w każdym wierszu, jedna
-   wariant w każdej kolumnie”, czyli tak, jak tabela pojawia się w edytorze poniżej.
+4. Zalecanym sposobem jest jednak **„Przenieś dane z tabeli”** — wystarczy
+   u góry: zaznaczyć tabelę porównawczą w programie Excel, PowerPoint lub Word,
+   skopiować ją i wkleić do pola. Poniżej określić, **jak wygląda tabela
+  ** — domyślnym ustawieniem jest „jedna wartość w każdym wierszu, jedna
+   wariant”, czyli tak, jak tabela pojawia się również w edytorze poniżej.
    Następnie kliknij **„Przenieś tabelę”**. Ten krok jest taki sam dla wszystkich
    czterech typów.
 5. W siatce **każdy wiersz to oś**, a **każda kolumna po prawej to
    seria** — w przypadku wykresu kołowego siatka pokazuje **tylko pierwszą
    kolumnę serii**; informacja poniżej wyjaśnia, że pozostałe serie
-   zostają zapisane, ale nie są wyświetlane, aby nie wyglądało to na
+   pozostają zapisane, ale nie są wyświetlane, aby nie wyglądało to na
    utratę danych. U góry każdej kolumny serii znajdują się nazwa, kolor oraz
    strzałki do zmiany kolejności; na końcu każdego wiersza osi znajdują się strzałki i
    krzyżyk dla tej osi.
@@ -41,19 +43,19 @@ kroki te mają odpowiednie zastosowanie również do pozostałych trzech typów.
    nazwie osi** — za pomocą klawisza Enter — zostanie przeniesione na wykres i
    zapewni czytelność długich opisów. W przypadku wykresu kołowego można
    dodatkowo ustawić dla każdej osi własny **kolor segmentu**.
-7. Tylko w przypadku wykresu siatkowego: w przypadku osi, dla których **mniejsza wartość
+7. Tylko w przypadku wykresu sieciowego: w przypadku osi, dla których **mniejsza wartość
    jest lepsza** — waga, zużycie, czas ładowania — w kolumnie **Kierunek**
    włącz przełącznik **„mniejsze jest lepsze”**. Bez tego
    gorsza (większa) wartość znajdowałaby się dalej na zewnątrz, a wykres sugerowałby dokładnie
    coś przeciwnego do zamierzonego.
-8. **Miejsca po przecinku** dla każdej osi znajdują się za przełącznikiem
+8. **Liczba miejsc po przecinku** dla każdej osi znajduje się za przełącznikiem
    **„Precyzyjne ustawienia dla każdej osi”**; **Minimum** i **Maksimum** pojawiają się tam
-   tylko w przypadku wykresu siatki, ponieważ słupki i linia rysują wspólną,
+   tylko w przypadku wykresu sieciowego, ponieważ słupki i linia rysują wspólną,
    obliczoną przez ECharts oś wartości. W normalnym przypadku nie są one
    potrzebne; puste pole oznacza „wyliczone na podstawie wartości”.
 9. W sekcji **„Tytuł, legenda i wygląd”** wprowadź tytuł i przypis,
    umieść lub ukryj **legendę** (w przypadku wykresów kołowych wymienia ona
-   osie, w pozostałych przypadkach – serie) oraz ustaw opcje wyświetlania odpowiednie dla danego typu wykresu
+   osie, w pozostałych przypadkach serie) oraz ustaw opcje wyświetlania odpowiednie dla danego typu wykresu
    : w przypadku wykresu radarowego **linie pomocnicze w siatce** i **wypełnianie obszarów**,
    w przypadku wykresu słupkowego **układanie w stosy** i **kierunek** (pionowy/poziomy), w przypadku wykresu liniowego
    **wygładzanie linii**, **wypełnienie obszaru** i **wyświetlanie punktów**, w przypadku wykresu kołowego
@@ -79,8 +81,8 @@ kroki te mają odpowiednie zastosowanie również do pozostałych trzech typów.
 1. Otwórz ponownie ustawienia widżetu — edytor wykresów pojawi się
    ponownie z ostatnio zapisanym stanem, łącznie z typem wykresu.
 2. Nadpisz wartości bezpośrednio w siatce lub ponownie wstaw zaktualizowaną
-   tabelę. Osie i serie o tej samej nazwie zachowują przy tym swoje
-   dotychczasowe jednostki, kierunki osi i kolory — zastępowane są tylko
+   tabelę. Osie i serie o tej samej nazwie zachowują przy tym swoje dotychczasowe
+   jednostki, kierunki osi i kolory — zastępowane są jedynie
    wartości.
 3. Zapisz i zamknij tak jak powyżej.
 
@@ -88,8 +90,8 @@ kroki te mają odpowiednie zastosowanie również do pozostałych trzech typów.
 
 1. Jeśli zamiast wykresu pojawia się komunikat, zawiera on już
    przyczynę — zobacz [FAQ](faq.md), aby zapoznać się z każdym możliwym brzmieniem.
-2. Jeśli wstawiona tabela nie zostaje zaimportowana, sprawdź, czy ma
-   nagłówki w pierwszym wierszu i w pierwszej kolumnie. Jeśli
+2. Jeśli wstawiona tabela nie zostaje zaimportowana, sprawdź, czy zawiera
+   nagłówki w pierwszym wierszu i pierwszej kolumnie. Jeśli
    osie i serie są odwrócone w siatce, oznacza to, że kierunek odczytu pod
    polem wstawiania został wybrany nieprawidłowo — zmień go i spróbuj ponownie.
 3. Jeśli po wstawieniu wykres wyświetla nieprawidłowe wartości (np. przesunięte o współczynnik

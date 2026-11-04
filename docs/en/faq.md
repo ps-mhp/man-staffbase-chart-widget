@@ -22,8 +22,8 @@ the type name specified: “The configured chart type is not recognized by this 
 module. Please update the module.”)
 
 Answer: The chart was set up using a newer version of the module
-that recognizes a chart type not yet
-supported by this version. Update the module to the latest version.
+that supports a chart type not yet supported by this version.
+Update the module to the latest version.
 
 **Question:** I see the message “No data in the chart yet. Create
 axes and series in the settings.”
@@ -85,7 +85,7 @@ manually set the minimum and maximum for the affected axis.
 **Question:** Why is the worse value farther out?
 
 Answer: The “Smaller is better” toggle is missing for this axis. It must be enabled for
-all metrics where a smaller value indicates a better
+all metrics where a smaller value represents a better
 result—such as weight, fuel consumption, or charging time. Enable it in the chart editor for
 the respective axis.
 
@@ -119,8 +119,8 @@ settings remain unchanged.
 **Question:** An inserted number is suddenly 1,000 times too large or
 too small.
 
-Answer: The chart editor interprets numbers in the German format: A period is used as
-the thousands separator, and a comma as the decimal separator. So `1.234` becomes
+Answer: The chart editor interprets numbers according to German conventions: A period is used as the
+thousands separator, and a comma as the decimal separator. So `1.234` becomes
 `1234` and not `1,234`. If you insert a table with English notation
 (period as the decimal separator), you must convert the affected numbers to
 convert them to the German format; otherwise, for example, “1.234” (one thousand)

@@ -16,15 +16,17 @@ stappen gelden mutatis mutandis voor de overige drie typen.
    spin)**, **staafdiagram (kolommen)**, **lijndiagram (verloop)** of
    **cirkeldiagram (taart / ring)**; de tekst eronder geeft aan waarvoor het
    geselecteerde type bedoeld is. Bij een latere wijziging van het type gaan er geen
-   gegevens — assen, reeksen, titel en legenda blijven behouden, alleen de
-   typespecifieke velden (bijv. minimum/maximum bij de radar) worden
-   verborgen totdat het type opnieuw wordt geselecteerd.
+   gegevens verloren — assen, reeksen, titel en legenda blijven behouden, en ook de
+   gegevens op de assen (bijv. minimum/maximum bij de radar) worden alleen
+   verborgen totdat het type opnieuw wordt geselecteerd. De
+   **weergave-instellingen** van het oude type gaan daarbij echter verloren;
+   meer hierover onder „Instellingen”.
 3. Zolang er nog geen gegevens zijn, biedt het gedeelte **„Assen en
-   reeksen“** twee opties: **„Voorbeeld laden“** vult een voorbeeld in dat
-   bij het gekozen type past, dat je eenvoudig kunt overschrijven, en
+   reeksen“** twee mogelijkheden: **„Voorbeeld laden“** vult een voorbeeld in dat
+   bij het geselecteerde type past, dat je eenvoudig kunt overschrijven, en
    **„Lege tabel aanmaken“** maakt assen en reeksen aan om in te vullen.
 4. De aanbevolen methode is echter **„Gegevens uit een tabel overnemen“** helemaal
-   bovenaan: selecteer de vergelijkingstabel in Excel, PowerPoint of Word,
+   boven: Selecteer de vergelijkingstabel in Excel, PowerPoint of Word,
    kopieer deze en plak deze in het veld. Geef daaronder aan **hoe de tabel
    is opgebouwd** — de standaardinstelling is „per rij één kengetal, per kolom één
    variant”, dus precies zoals de tabel ook in de editor eronder verschijnt.
@@ -32,20 +34,20 @@ stappen gelden mutatis mutandis voor de overige drie typen.
    vier de typen hetzelfde.
 5. In het raster is **elke rij een as** en **elke kolom rechts een
    reeks** — bij het cirkeldiagram toont het raster **alleen de eerste
-   reeks-kolom**; een opmerking eronder maakt duidelijk dat er nog meer reeksen
+   reekskolom**; een opmerking eronder maakt duidelijk dat er nog meer reeksen
    opgeslagen blijven, maar niet worden weergegeven, zodat het niet lijkt alsof
    er gegevens verloren zijn gegaan. Bovenaan elke reekskolom staan de naam, de kleur en
    de pijltjes om de volgorde te wijzigen; aan het einde van elke asregel staan de pijltjes en het
-   kruisje voor deze as.
+   kruisje voor die as.
 6. Voer per as de **eenheid** in (bijv. „kWh“). Een **regeleinde in de
    asnaam** — met de Enter-toets — wordt in de grafiek overgenomen en
-   zorgt ervoor dat lange labels leesbaar blijven. Bij het cirkeldiagram kun je
-   bovendien per as een eigen **segmentkleur** instellen.
+   zorgt ervoor dat lange labels leesbaar blijven. Bij het cirkeldiagram kan
+   bovendien per as een eigen **segmentkleur** worden ingesteld.
 7. Alleen bij het netwerkdiagram: bij assen waarbij een **lagere waarde
    beter** is — gewicht, verbruik, oplaadtijd —, schakel in de kolom **Richting**
-   de schakelaar **„lager is beter“** in. Zonder deze instelling zou de
+   de schakelaar **„lager is beter“** in. Zonder deze schakelaar zou de
    slechtere (grotere) waarde verder naar buiten liggen, en zou de afbeelding precies het
-   tegenovergestelde aangeven van wat bedoeld is.
+   tegenovergestelde weergeven van wat bedoeld is.
 8. **Decimalen** per as worden ingesteld via de schakelaar
    **„Fijnafstelling per as“**; **Minimum** en **Maximum** verschijnen daar
    alleen bij het netwerkdiagram, omdat balken en lijnen een gemeenschappelijke,

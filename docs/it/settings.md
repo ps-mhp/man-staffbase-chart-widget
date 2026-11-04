@@ -15,7 +15,7 @@ impostazioni.
 
 ## La finestra di dialogo dell’editor
 
-In alto è presente una barra di controllo con **Salva**, **Aiuto** e **Chiudi**;
+Nella parte superiore è presente una barra di controllo con **Salva**, **Aiuto** e **Chiudi**;
 rimane fissa durante lo scorrimento, in modo che il salvataggio rimanga accessibile anche in caso di un lungo
 griglia di dati. Finché la bozza differisce dallo stato salvato,
 accanto ad essa compare la dicitura «Modifiche non salvate». Il pulsante Aiuto apre
@@ -32,29 +32,38 @@ La selezione nella parte superiore dell’editor determina il tipo di grafico:
 
 | Tipo | Adatto per |
 | --- | --- |
-| Grafico a rete (radar / a ragnatela) | Confronto di poche varianti su più valori caratteristici con unità potenzialmente diverse. |
+| Grafico a rete (radar / a ragnatela) | Confronto di poche varianti su più valori caratteristici con unità eventualmente diverse. |
 | Grafico a barre (colonne) | Confronto di valori su poche categorie con unità comune. |
 | Grafico a linee (andamento) | Andamento su una serie ordinata, ad es. anni. |
-| Grafico a torta (a torta / ad anello) | Suddivisione di un insieme in segmenti; traccia solo la prima serie. |
+| Grafico a torta (a torta / ad anello) | Suddivisione di un insieme in segmenti; disegna solo la prima serie. |
 
-Cambiando il tipo non si perdono dati: titolo, nota a piè di pagina, legenda, assi e
-serie rimangono invariati. Anche le impostazioni specifiche del tipo salvate (ad es.
-minimo/massimo nel grafico a radar) vengono anch’esse mantenute e tornano ad essere attive
-non appena viene selezionato nuovamente il tipo corrispondente — non vengono quindi
-cancellate, ma solo nascoste.
+Cambiando il tipo di grafico non si perdono i **dati**: titolo, nota a piè di pagina, legenda, assi e
+serie rimangono invariati. Ciò vale anche per le informazioni associate a un asse
+— minimo, massimo, «più piccolo è meglio» e il colore del segmento. Queste
+vengono semplicemente nascoste nel tipo diverso e tornano attive non appena viene
+selezionato nuovamente il tipo corrispondente.
+
+Le **impostazioni di visualizzazione** di un tipo, invece, non sopravvivono a un cambio
+di tipo. Chi, nel diagramma a rete, ha impostato «Linee guida nella rete» e «Riempi aree»
+, passa al diagramma a barre e salva, al prossimo
+cambio ritroverà le impostazioni predefinite. Lo stesso vale per l’impilamento
+e la direzione nel grafico a barre, per la smussatura, l’area e i punti nel grafico a linea
+, nonché per il raggio interno e l’etichetta del segmento nel grafico a torta. Un grafico
+conserva sempre e solo un insieme di impostazioni di visualizzazione, ovvero quello del
+tipo attualmente selezionato.
 
 ## Quali campi compaiono in base al tipo
 
-| Campo | Radar | Barra | Linea | Torta |
+| Campo | Radar | A barre | Linea | A torta |
 | --- | :-: | :-: | :-: | :-: |
 | Unità, cifre decimali | ✓ | ✓ | ✓ | ✓ |
 | Minimo, Massimo | ✓ | – | – | – |
 | Direzione («più piccolo è meglio») | ✓ | – | – | – |
-| Colore per asse (colore del segmento) | – | – | – | ✓ |
+| Colore per asse (colore segmento) | – | – | – | ✓ |
 | Colonne della serie nella griglia | tutte | tutte | tutte | solo la prima |
 
-**Perché il minimo, il massimo e «più piccolo è meglio» compaiono solo nel grafico radar
-:** sono definiti per ciascun asse e, in presenza di un’asse dei valori comune
+**Perché il minimo, il massimo e «più piccolo è meglio» compaiono solo nel grafico a radar
+:** sono definiti per ciascun asse e, in presenza di un'asse dei valori comune
 asse dei valori — come quelli utilizzati per i grafici a barre e a linee — non sono visualizzabili. Nei grafici a torta
 non c’è alcun asse. «Più piccolo è meglio» è inoltre un
 concetto proprio del grafico a radar: in presenza di un vero asse dei valori non si inverte l’asse, ma
@@ -117,43 +126,43 @@ non vengono visualizzate.
 
 | Tipo | Campi | Descrizione |
 | --- | --- | --- |
-| Radar | Linee ausiliarie nella griglia | Numero di anelli ausiliari concentrici. Impostazione predefinita: 5. Solo a scopo visivo, non modifica i valori. |
-| Radar | Riempi aree | Riempie l’area dietro ogni linea della serie in modo semitrasparente con il colore della stessa. Impostazione predefinita: disattivato. |
-| Barre | Impila | Disegna le serie una sopra l’altra anziché una accanto all’altra. Impostazione predefinita: disattivato. |
+| Radar | Linee ausiliarie nella rete | Numero di anelli ausiliari concentrici. Impostazione predefinita: 5. Solo a scopo visivo, non modifica i valori. |
+| Radar | Riempi area | Riempie l’area dietro ogni linea della serie in modo semitrasparente con il colore della stessa. Impostazione predefinita: disattivato. |
+| Barra | Impila | Disegna le serie una sopra l’altra anziché affiancate. Impostazione predefinita: disattivato. |
 | Barra | Direzione | «verticale» (categorie in basso) o «orizzontale» (categorie a sinistra). Impostazione predefinita: verticale. |
-| Linea | Smussare le linee | Arrotonda il tracciato delle linee invece di tracciarle dritte tra i punti di supporto. Impostazione predefinita: disattivato. |
-| Linea | Riempi area | Riempie l’area sotto la linea con il suo colore. Impostazione predefinita: disattivata. |
-| Linea | Mostra punti | Mostra un punto in corrispondenza di ogni punto di controllo. Impostazione predefinita: attivata. |
-| Grafico a torta | Raggio interno | Percentuale del foro nella torta. 0 corrisponde a un cerchio completo, un valore maggiore (ad es. 45) a un anello/ciambella. Impostazione predefinita: 0. |
+| Linea | Smussare linee | Arrotonda il tracciato della linea invece di tracciarlo dritto tra i punti di controllo. Impostazione predefinita: disattivato. |
+| Linea | Riempi area | Riempie l’area sotto la linea con il suo colore. Impostazione predefinita: disattivato. |
+| Linea | Mostra punti | Visualizza un punto in corrispondenza di ogni punto di controllo. Impostazione predefinita: attiva. |
+| Grafico a torta | Raggio interno | Percentuale del foro nel grafico a torta. 0 corrisponde a un cerchio completo, un valore maggiore (ad es. 45) a un anello/ciambella. Impostazione predefinita: 0. |
 | Grafico a torta | Etichetta segmento | «Percentuale», «Valore assoluto», «Entrambi» o «Nascondi». Impostazione predefinita: «Percentuale». |
 
-## Scalatura automatica
+## Ridimensionamento automatico
 
 **Nel grafico a radar** gli assi non presentano una scala numerica visibile — non è infatti possibile rappresentarla in modo sensato in presenza di
-più assi con unità diverse. In assenza di
-specifiche, ogni asse parte invece da **zero** e arriva fino al
-suo valore massimo presente. La lunghezza di un raggio si comporta quindi
+più assi con unità diverse. Se non
+viene specificato diversamente, ogni asse parte invece da **zero** e arriva fino al
+suo valore massimo. La lunghezza di un raggio si comporta quindi
 come il valore stesso: metà della distanza verso l’esterno corrisponde anche alla metà della quantità.
 
-Se su un asse sono presenti valori negativi, esso parte dal più piccolo di essi —
+Se su un asse sono presenti valori negativi, esso inizia dal più piccolo di essi —
 altrimenti il punto si troverebbe al di fuori della griglia.
 
 Chi desidera evidenziare maggiormente le differenze tra le serie, imposta
 manualmente il minimo e il massimo dell’asse in questione — ad es. 400 e 600 invece di
-0 e 600. Ciò aumenta le distanze visibili, ma fa anche apparire grandi anche piccole
+0 e 600. Ciò aumenta le distanze visibili, ma fa anche apparire grandi le piccole
 differenze, insignificanti nella pratica.
 
 Un minimo o un massimo impostato manualmente limita anche la rappresentazione:
 un valore al di fuori di questi limiti viene visualizzato esattamente sul bordo, invece di
 sporgere oltre la griglia. Il numero sul punto dati e nella tabella rimane
-quello inserito: il limite modifica solo la visualizzazione, mai il valore. Chi
+quello inserito: il limite modifica solo l’immagine, mai il valore. Chi
 quindi imposta un asse da 0 a 600 e inserisce 700, vedrà il punto all’estremo
 periferico e il 700 accanto ad esso.
 
-**Nei grafici a barre e a linee**, ECharts disegna automaticamente un asse dei valori con
-scala visibile; esso è ancorato a zero e non può essere limitato manualmente
-. **Nel grafico a torta** non c’è un asse dei valori: ogni segmento mostra
-la propria quota rispetto al totale. Un valore negativo non rappresenta un
-problema di visualizzazione, ma un errore nei dati: il grafico mostra quindi un
-avviso sull’asse interessato, invece di disegnare una torta
+**Nel caso di grafici a barre e a linee**, ECharts disegna automaticamente un asse dei valori con
+scala visibile; è fissato a zero e non può essere limitato manualmente
+. **Nel grafico a torta** non esiste un asse dei valori: ogni segmento mostra
+la propria quota rispetto al totale. Un valore negativo non rappresenta in questo caso un
+problema di visualizzazione, bensì un errore nei dati: il grafico mostra quindi un
+avviso relativo all’asse interessato, invece di disegnare una torta
 errata.

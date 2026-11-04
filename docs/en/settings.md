@@ -34,14 +34,23 @@ The selection at the very top of the editor determines the type of chart:
 | --- | --- |
 | Network Chart (Radar / Spider) | Comparing a few variants across multiple metrics with potentially different units. |
 | Bar Chart (Columns) | Comparing values across a few categories with a common unit. |
-| Line Chart (Trend) | Trends over an ordered series, e.g., years. |
-| Pie chart (pie / ring) | Division of a whole into segments; plots only the first series. |
+| Line Chart (Trend) | Trend over an ordered series, e.g., years. |
+| Pie chart (circle / ring) | Division of a whole into segments; plots only the first series. |
 
-Changing the chart type does not result in any data loss: the title, footnote, legend, axes, and
-series are retained. Saved type-specific settings (e.g.,
-minimum/maximum for radar charts) are also retained and take effect again
-as soon as the corresponding chart type is selected again—they are not
-deleted, but merely hidden.
+Changing chart types does not lose any **data**: the title, footnote, legend, axes, and
+series are preserved. This also applies to the information associated with an axis
+— minimum, maximum, “lower is better,” and the segment color. These
+are simply hidden when switching to a different chart type and become active again as soon as the
+original chart type is selected.
+
+The **display settings** for a chart type, however, do not survive a change.
+If you have set “Gridlines” and “Fill Areas” for a grid chart,
+switch to a bar chart, and save, you will find the default settings restored
+the next time you switch back. The same applies to stacking
+and direction for bar charts, to smoothing, area, and points for line charts,
+and to inner radius and segment labels for pie charts. A chart
+always carries only one set of display settings—namely, those of the
+currently selected type.
 
 ## Which fields appear for which chart type
 
@@ -53,8 +62,8 @@ deleted, but merely hidden.
 | Color per axis (segment color) | – | – | – | ✓ |
 | Series columns in the grid | all | all | all | only the first |
 
-**Why minimum, maximum, and “smaller is better” only appear for radar charts:**
-They are defined per axis and cannot be mapped on a shared
+**Why minimum, maximum, and “smaller is better” only appear for radar
+charts:** They are defined per axis and cannot be mapped on a shared
 value axis—as used in bar and line charts—they cannot be displayed. In pie charts,
 there is no axis at all. “Smaller is better” is also a
 radar-specific concept: With a true value axis, you do not reverse the axis, but rather
@@ -65,7 +74,7 @@ sort or label the data.
 | Setting | Description |
 | --- | --- |
 | Paste Field | Imports a table copied from Excel, PowerPoint, or Word. Recognizes tabs, semicolons, and commas as column delimiters. |
-| How is your table oriented? | Sets the reading direction. The default is “one metric per row, one variant per column”—just as the table appears in the grid below. Selecting the other option flips the table orientation when importing. |
+| How is your table oriented? | Sets the reading direction. The default is “one metric per row, one variant per column”—just as the table appears in the grid below. Selecting the other option flips the orientation when importing. |
 | Import Table | Replaces axes, series, and values. Axes and series with the same name retain their units, axis direction, and color. |
 
 Pasting from Excel is type-neutral and works the same for all four types.
@@ -112,28 +121,28 @@ are not plotted.
 | Footnote | Additional text in small print below the title, e.g., for source citations. |
 | Legend | “Above the chart,” “Below the chart,” or “Hide.” For pie charts, the legend lists the axes (slices); for other chart types, it lists the series. |
 
-### Display Options by Type
+### Display Options by Chart Type
 
 | Type | Fields | Description |
 | --- | --- | --- |
-| Radar | Guide lines in the grid | Number of concentric guide rings. Default is 5. Purely visual; does not change any values. |
-| Radar | Fill Areas | Fills the area behind each series line with its color in a semi-transparent manner. Default: off. |
+| Radar | Gridlines | Number of concentric grid rings. Default is 5. Purely visual; does not change any values. |
+| Radar | Fill Areas | Fills the area behind each series line semi-transparently in its color. Default: off. |
 | Bar | Stack | Plots series on top of each other instead of side by side. Default: off. |
-| Bar | Orientation | “Vertical” (categories at the bottom) or “Horizontal” (categories on the left). Default: vertical. |
+| Bar | Orientation | “Portrait” (categories at the bottom) or “Landscape” (categories on the left). Default: portrait. |
 | Line | Smooth Lines | Rounds the line path instead of drawing it straight between the control points. Default: off. |
 | Line | Fill Area | Fills the area under the line with its color. Default: off. |
-| Line | Show Points | Displays a point at each control point. Default: on. |
-| Pie | Inner Radius | Percentage of the pie’s hole. 0 results in a full circle; a larger value (e.g., 45) results in a ring or donut. Default: 0. |
+| Line | Show Points | Displays a point at each control point. Default: On. |
+| Pie | Inner Radius | Percentage of the pie chart’s area occupied by the hole. 0 results in a full circle; a larger value (e.g., 45) results in a ring or donut. Default: 0. |
 | Pie | Segment Label | “Percentage,” “Absolute Value,” “Both,” or “Hide.” Default is “Percentage.” |
 
 ## Automatic Scaling
 
 **In radar charts**, the axes do not have a visible numerical scale—it cannot be
-meaningfully displayed when there are
-multiple axes with different units. Unless
+meaningfully displayed when
+there are multiple axes with different units. Unless
 otherwise specified, each axis instead starts at **zero** and extends to
 its largest occurring value. The length of a ray thus behaves
-like the value itself: halfway out is also half the amount.
+like the value itself: half the distance outward also represents half the quantity.
 
 If negative values occur on an axis, it starts at the smallest of them—
 otherwise, the point would lie outside the grid.
@@ -144,16 +153,15 @@ the minimum and maximum of the relevant axis manually—e.g., 400 and 600 instea
 practically insignificant differences appear large.
 
 A manually set minimum or maximum also limits the plot:
-A value outside these limits is displayed exactly at the edge, rather than
+A value outside these limits is displayed exactly on the edge, rather than
 extending beyond the grid. The number at the data point and in the table remains
-the one you entered—the limit only changes the appearance, never the value. So if
-you set an axis to 0 to 600 and enter 700, you’ll see the point all
-the way at the edge and the 700 next to it.
+the one entered—the limit only changes the appearance, never the value. So if
+you set an axis to 0 to 600 and enter 700, you’ll see the point all the
+way at the edge and the 700 next to it.
 
 **For bar and line charts**, ECharts automatically draws a value axis with
-a visible scale; it is anchored at zero and cannot be manually
-limited. **For pie charts**, there is no value axis—each segment shows
-its share of the whole. A negative value is not a
-display issue here, but a data error: The chart then displays a
-note on the affected axis instead of drawing a distorted pie
+a visible scale; It is anchored at zero and cannot be limited manually. **In a pie chart**, there is no value axis—each segment shows
+its proportion of the whole. A negative value is not a
+display issue here, but rather a data error: The chart then displays a
+note regarding the affected axis instead of drawing a distorted pie
 chart.

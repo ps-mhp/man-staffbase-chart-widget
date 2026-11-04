@@ -18,7 +18,7 @@ paramètres sont regroupés.
 En haut se trouve une barre de contrôle avec **Enregistrer**, **Aide** et **Fermer** ;
 elle reste fixe lors du défilement, afin que l’enregistrement reste accessible même en cas de
 grille de données. Tant que le brouillon diffère de la version enregistrée,
-la mention « Modifications non enregistrées » s’affiche à côté. Le bouton Aide ouvre
+la mention « Modifications non enregistrées » s'affiche à côté. Le bouton Aide ouvre
 un volet contenant les mêmes explications que sur cette page, directement dans
 la boîte de dialogue ; il se ferme à l’aide du bouton ou de la touche « Échap ».
 
@@ -37,15 +37,24 @@ La sélection tout en haut de l’éditeur détermine le type de graphique :
 | Diagramme linéaire (courbe) | Évolution sur une série ordonnée, par exemple des années. |
 | Diagramme circulaire (tourte / anneau) | Répartition d’un tout en segments ; ne trace que la première série. |
 
-Un changement de type n’entraîne aucune perte de données : le titre, les notes de bas de page, la légende, les axes et
-les séries sont conservés. Les paramètres spécifiques au type enregistrés (par exemple,
-minimum/maximum pour le graphique en radar) sont également conservés et s’appliquent à nouveau
-dès que le type correspondant est sélectionné — ils ne sont donc pas
-supprimés, mais simplement masqués.
+Un changement de type n’entraîne aucune perte de **données** : le titre, la note de bas de page, la légende, les axes et
+les séries sont conservés. Cela vaut également pour les informations associées à un axe
+— minimum, maximum, « plus c’est petit, mieux c’est » et la couleur des segments. Elles
+sont simplement masquées lors du passage à un autre type et réapparaissent dès que le
+type d’origine est à nouveau sélectionné.
+
+En revanche, les **paramètres d’affichage** d’un type ne sont pas conservés lors d’un changement
+. Si vous avez activé « Lignes auxiliaires dans la grille » et « Remplir les zones »
+pour un diagramme en réseau, que vous passez ensuite au diagramme à barres et que vous enregistrez, vous retrouverez les paramètres par défaut lors du prochain
+changement. Il en va de même pour l’empilement
+et la direction dans le graphique à barres, pour le lissage, la surface et les points dans le graphique linéaire,
+ainsi que pour le rayon intérieur et l’étiquetage des segments dans le graphique circulaire. Un graphique
+ne conserve toujours qu’un seul jeu de paramètres d’affichage, à savoir celui du
+type actuellement sélectionné.
 
 ## Quels champs apparaissent pour quel type ?
 
-| Champ | Radar | Barres | Ligne | Circulaire |
+| Champ | Radar | Barres | Ligne | Camembert |
 | --- | :-: | :-: | :-: | :-: |
 | Unité, décimales | ✓ | ✓ | ✓ | ✓ |
 | Minimum, maximum | ✓ | – | – | – |
@@ -53,7 +62,7 @@ supprimés, mais simplement masqués.
 | Couleur par axe (couleur du segment) | – | – | – | ✓ |
 | Colonnes de séries dans la grille | toutes | toutes | toutes | uniquement la première |
 
-**Pourquoi les valeurs minimales, maximales et « plus c’est petit, mieux c’est » n’apparaissent que dans le graphique radar
+**Pourquoi les valeurs minimales, maximales et « plus c’est petit, mieux c’est » n’apparaissent que dans le radar
 :** elles sont définies par axe et, dans le cas d’un
 — comme c’est le cas pour les graphiques à barres et les graphiques linéaires —. Dans les graphiques circulaires,
 il n’y a pas d’axe du tout. « Plus petit, mieux c’est » est d’ailleurs un
@@ -109,7 +118,7 @@ ne sont pas représentées.
 
 | Paramètre | Description |
 | --- | --- |
-| Titre | En-tête au-dessus du graphique. Si le champ reste vide, aucun en-tête n’apparaît. |
+| Titre | Titre au-dessus du graphique. Si le champ reste vide, aucun titre n’apparaît. |
 | Note de bas de page | Texte supplémentaire en petits caractères sous le titre, par exemple pour les références. |
 | Légende | « au-dessus du graphique », « sous le graphique » ou « masquer ». Pour les graphiques circulaires, la légende répertorie les axes (segments) ; pour les autres types, elle répertorie les séries. |
 
@@ -117,43 +126,43 @@ ne sont pas représentées.
 
 | Type | Champs | Description |
 | --- | --- | --- |
-| Radar | Lignes auxiliaires dans le réseau | Nombre d’anneaux auxiliaires concentriques. Valeur par défaut : 5. À visée purement esthétique, ne modifie aucune valeur. |
-| Radar | Remplir les zones | Remplit la zone derrière chaque ligne de série de manière semi-transparente dans la couleur de celle-ci. Désactivé par défaut. |
-| Barres | Empiler | Dessine les séries les unes au-dessus des autres plutôt que les unes à côté des autres. Désactivé par défaut. |
-| Barres | Orientation | « verticale » (catégories en bas) ou « horizontale » (catégories à gauche). Par défaut : verticale. |
-| Ligne | Lisser les lignes | Arrondit le tracé des lignes au lieu de les tracer en ligne droite entre les points d'appui. Par défaut : désactivé. |
+| Radar | Lignes auxiliaires dans le réseau | Nombre d’anneaux auxiliaires concentriques. Valeur par défaut : 5. À but purement visuel, ne modifie aucune valeur. |
+| Radar | Remplir les zones | Remplit la zone derrière chaque ligne de série de manière semi-transparente dans sa couleur. Désactivé par défaut. |
+| Barre | Empiler | Dessine les séries les unes au-dessus des autres plutôt que les unes à côté des autres. Désactivé par défaut. |
+| Barre | Orientation | « verticale » (catégories en bas) ou « horizontale » (catégories à gauche). Par défaut : verticale. |
+| Ligne | Lisser les lignes | Arrondit le tracé des lignes au lieu de les tracer en ligne droite entre les points d'appui. Désactivé par défaut. |
 | Ligne | Remplir la zone | Remplit la zone sous la ligne avec sa couleur. Désactivé par défaut. |
-| Ligne | Afficher les points | Affiche un point à chaque point d’appui. Activé par défaut. |
-| Camembert | Rayon intérieur | Pourcentage du trou dans le camembert. 0 correspond à un cercle complet, une valeur supérieure (par exemple 45) à un anneau/beignet. Par défaut : 0. |
+| Ligne | Afficher les points | Affiche un point à chaque point d’appui. Par défaut : activé. |
+| Camembert | Rayon intérieur | Pourcentage du trou dans le camembert. 0 donne un cercle complet, une valeur plus grande (par ex. 45) donne un anneau/beignet. Par défaut : 0. |
 | Camembert | Libellé des segments | « Pourcentage », « Valeur absolue », « Les deux » ou « Masquer ». Par défaut : « Pourcentage ». |
 
 ## Mise à l'échelle automatique
 
-**Dans le graphique radar**, les axes ne comportent pas d’échelle numérique visible — celle-ci ne peut en effet pas être représentée de manière pertinente lorsque
+**Dans le graphique en radar**, les axes ne comportent pas d’échelle numérique visible — celle-ci ne peut en effet pas être représentée de manière pertinente lorsque
 plusieurs axes ont des unités différentes. Sans
 spécification particulière, chaque axe commence donc à **zéro** et s’étend jusqu’à
-sa valeur maximale. La longueur d’un rayon se comporte ainsi
-comme la valeur elle-même : la moitié de la distance vers l’extérieur correspond également à la moitié de la quantité.
+sa valeur maximale. La longueur d’un rayon se comporte donc
+comme la valeur elle-même : la moitié du trajet vers l’extérieur correspond également à la moitié de la quantité.
 
 Si des valeurs négatives apparaissent sur un axe, celui-ci commence par la plus petite d’entre elles —
 sinon, le point se trouverait en dehors de la grille.
 
-Si l’on souhaite mettre davantage en évidence les différences entre les séries, on définit
-manuellement le minimum et le maximum de l’axe concerné — par exemple 400 et 600 au lieu de
+Si l’on souhaite mettre davantage en évidence les différences entre les séries, il faut
+définir manuellement le minimum et le maximum de l’axe concerné — par exemple 400 et 600 au lieu de
 0 et 600. Cela augmente les écarts visibles, mais amplifie également les petites
 différences, insignifiantes dans la pratique.
 
 Un minimum ou un maximum défini manuellement limite également le tracé :
 une valeur située en dehors de ces limites est représentée exactement sur le bord, au lieu de
-dépasser de la grille. Le chiffre au niveau du point de données et dans le tableau reste
-celui qui a été saisi — la limite ne modifie que l’affichage, jamais la valeur. Ainsi, si
-vous définissez un axe de 0 à 600 et que vous saisissez 700, vous verrez le point tout
-à l’extérieur et le 700 à côté.
+dépasser la grille. Le chiffre associé au point de données et figurant dans le tableau reste
+celui qui a été saisi — la limite ne modifie que l’affichage, jamais la valeur. Ainsi,
+si l'on définit un axe de 0 à 600 et que l'on saisit 700, le point apparaît tout
+à l'extérieur et le 700 est affiché à côté.
 
 **Pour les graphiques à barres et les graphiques linéaires**, ECharts trace lui-même un axe des valeurs avec
-une échelle visible ; celui-ci est ancré à zéro et ne peut pas être limité manuellement
-. **Dans le cas d’un graphique circulaire**, il n’y a pas d’axe des valeurs — chaque segment indique
+une échelle visible ; Elle est ancrée à zéro et ne peut pas être limitée manuellement
+. **Dans le cas d’un diagramme circulaire**, il n’y a pas d’axe des valeurs — chaque segment indique
 sa part dans l’ensemble. Une valeur négative ne constitue pas ici un
-problème d’affichage, mais une erreur de données : le graphique affiche alors une
-remarque concernant l’axe concerné, au lieu de dessiner un graphique circulaire
-faussé.
+problème d’affichage, mais une erreur de données : le diagramme affiche alors une
+remarque concernant l’axe concerné, au lieu de dessiner un diagramme circulaire erroné
+.

@@ -16,30 +16,32 @@ six indicateurs avec différentes unités, sous forme de diagramme en réseau ; 
    araignée)**, **graphique à barres (colonnes)**, **graphique linéaire (courbe)** ou
    **diagramme circulaire (tarte / anneau)** ; le texte situé en dessous indique à quoi sert le
    type sélectionné. Un changement ultérieur de type n’entraîne aucune perte de
-   données — les axes, les séries, le titre et la légende sont conservés ; seuls les
-   champs spécifiques au type (par exemple, minimum/maximum pour le radar) sont
-   masqués jusqu’à ce que ce type soit à nouveau sélectionné.
+   données : les axes, les séries, le titre et la légende sont conservés, tout comme les
+   indications sur les axes (par exemple, minimum/maximum pour le radar) sont simplement
+   masquées jusqu’à ce que ce type soit à nouveau sélectionné. Les
+   **paramètres d’affichage** de l’ancien type sont toutefois perdus ;
+   pour en savoir plus, consultez la section « Paramètres ».
 3. Tant qu’il n’y a pas encore de données, la section **« Axes et
-   séries »** propose deux options : **« Charger un exemple »** remplit un exemple adapté au
+   séries »** propose deux options : **« Charger un exemple »** remplit le graphique avec un exemple adapté au
    type sélectionné, que l’on peut simplement écraser, et
-   **« Créer un tableau vide »** crée des axes et des séries à remplir.
+   **« Créer un tableau vide »** crée les axes et les séries à remplir.
 4. La méthode recommandée est toutefois **« Importer des données depuis un tableau »** tout
    en haut : sélectionnez le tableau comparatif dans Excel, PowerPoint ou Word,
-   copiez-le et collez-le dans le champ. Indiquez ensuite **comment le tableau
-   doit être orienté** — le réglage par défaut est « un indicateur par ligne, une
-   variante par colonne », c’est-à-dire tel que le tableau apparaît également dans l’éditeur en dessous.
+   copiez-le et collez-le dans le champ. Indiquez en dessous **comment le tableau
+   est structuré** — la valeur par défaut est « un indicateur par ligne, une
+   variante », c’est-à-dire exactement comme le tableau apparaît dans l’éditeur situé en dessous.
    Cliquez ensuite sur **« Importer le tableau »**. Cette étape est identique pour les
    quatre types.
-5. Dans la grille, **chaque ligne correspond à un axe** et **chaque colonne de droite à une
+5. Dans la grille, **chaque ligne correspond à un axe** et **chaque colonne à droite à une
    série** — dans le diagramme circulaire, la grille n’affiche **que la première
    colonne de série** ; une note en dessous précise que d’autres séries
    restent enregistrées, mais ne sont pas tracées, afin que cela ne ressemble pas à
    une perte de données. En haut de chaque colonne de série figurent le nom, la couleur et
-   les flèches permettant de réorganiser l’ordre ; à la fin de chaque ligne d’axe, les flèches et la
+   les flèches permettant de réorganiser l'ordre ; à la fin de chaque ligne d'axe, les flèches et la
    croix correspondant à cet axe.
-6. Saisir l’**unité** pour chaque axe (par exemple « kWh »). Un **saut de ligne dans le
+6. Saisir l'**unité** pour chaque axe (par exemple « kWh »). Un **saut de ligne dans le
    nom de l’axe** — à l’aide de la touche Entrée — est repris dans le graphique et
-   permet de conserver la lisibilité des libellés longs. Dans le diagramme circulaire, il est
+   permet de conserver la lisibilité des libellés longs. Dans le graphique circulaire, il est
    également possible de définir une **couleur de segment** distincte pour chaque axe.
 7. Uniquement pour le diagramme en réseau : pour les axes où une **valeur plus petite
    est préférable** — poids, consommation, temps de charge —, activez dans la colonne **Direction**
@@ -52,13 +54,13 @@ six indicateurs avec différentes unités, sous forme de diagramme en réseau ; 
    calculé par ECharts. Dans le cas normal, ils ne sont
    pas nécessaires ; la case vide signifie « dérivé des valeurs ».
 9. Sous **« Titre, légende et affichage »**, saisir le titre et la note de bas de page,
-   placer ou masquer la **légende** (pour les camemberts, elle répertorie les
+   placer ou masquer la **légende** (pour les graphiques circulaires, elle répertorie les
    axes, sinon les séries) et configurer les options d’affichage adaptées au type de graphique
    : pour le graphique radar, **lignes auxiliaires dans la grille** et **remplir les zones**,
    pour le graphique à barres, **empiler** et **orientation** (verticale/horizontale), pour le graphique linéaire,
    **lisser les lignes**, **Remplir la zone** et **Afficher les points**, pour le graphique circulaire
    **Rayon intérieur** (0 = cercle complet, valeur supérieure = anneau) et
-   **Étiquette de segment** (pourcentage, valeur absolue, les deux ou désactivée).
+   **Étiquette de segment** (pourcentage, valeur absolue, les deux ou désactivé).
 10. L’**aperçu** montre en permanence à quoi ressemble le diagramme sur la page
     et reste figé lors du défilement. Si la boîte de dialogue est suffisamment large
     (à partir d’environ 900 pixels), elle se trouve à côté du champ de saisie ; en dessous de cette largeur, elle se déplace

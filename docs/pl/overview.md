@@ -18,7 +18,7 @@ minutach, kilowatach. Tylko w przypadku wykresu radarowego dostępne są wartoś
 i wypełniania obszarów.
 
 **Wykres słupkowy (słupki).** Porównuje wartości w ramach kilku kategorii.
-Wszystkie słupki dzielą wspólną oś wartości, którą ECharts samodzielnie
+Wszystkie słupki mają wspólną oś wartości, którą ECharts samodzielnie
 oblicza i opisuje — w przeciwieństwie do wykresu radarowego oś ta ma zatem
 sens tylko wtedy, gdy wszystkie kategorie mają tę samą jednostkę miary. Jako
 opcje wyświetlania dostępne są: układanie w stosy (serie jedna nad drugą zamiast obok siebie) oraz
@@ -47,7 +47,7 @@ dla danego typu — po prostu nie działają, dopóki wybrany jest inny typ.
 ## Co widzą czytelnicy
 
 - Sam wykres z dowolną liczbą osi i serii.
-- Wartości są wyświetlane bezpośrednio na wykresie (w przypadku `pie`, w zależności od ustawień, jako
+- Wartości są wyświetlane bezpośrednio na wykresie (w przypadku typu `pie`, w zależności od ustawień, jako
   udział, wartość bezwzględna lub obie), dodatkowo po najechaniu kursorem
   na punkt lub segment pojawia się podpowiedź z odpowiednimi wartościami.
 - Legenda powyżej lub poniżej wykresu, w zależności od ustawień.
@@ -58,7 +58,7 @@ dla danego typu — po prostu nie działają, dopóki wybrany jest inny typ.
   pod wykresem umożliwiające pobranie go jako obraz.
 - W przypadku czytników ekranu dodatkowo pełna tabela danych pod
   wykresu. Jest ona ukryta wizualnie, ale istnieje — dzięki temu z wykresu można
-  korzystać nawet bez percepcji wzrokowej.
+  korzystać również bez percepcji wzrokowej.
 
 ## Eksport obrazu
 
@@ -69,8 +69,8 @@ dokładnie tak, jak są one aktualnie wyświetlane, na białym tle (nawet jeśli
 sama strona ma przezroczyste lub ciemne tło). Plik SVG można
 powiększać bez utraty jakości, natomiast plik PNG nadaje się do miejsc, w których nie można osadzić pliku SVG
 (np. w większości programów do prezentacji) i jest generowany w
-podwójnej rozdzielczości. Eksport działa tak samo w przypadku wszystkich czterech typów
-— opiera się na narysowanym obrazie i nie rozpoznaje typu wykresu.
+podwójnej rozdzielczości. Eksport działa tak samo dla wszystkich czterech typów
+— opiera się na narysowanym obrazie i nie rozróżnia typu wykresu.
 
 ## Tłumaczenie
 
@@ -81,7 +81,7 @@ kolory i wszystkie pozostałe ustawienia pozostają niezmienione, ponieważ nie 
 charakteru językowego: przetłumaczona jednostka byłaby błędna („t” nie staje się „ton”),
 a przetłumaczona liczba nie miałaby sensu.
 
-## Co widzisz w edytorze CMS
+## Co widać w edytorze CMS
 
 Po wstawieniu modułu automatycznie otwiera się **edytor wykresów**
 z paskiem narzędzi u góry (Zapisz, Pomoc, Zamknij) zamiast
@@ -101,7 +101,7 @@ podgląd przesuwa się poniżej siatki, a — przy szerokości poniżej około 7
 siatka zamienia się w sekwencję wykresów, po jednym na każdą oś. Okno dialogowe
 nigdy nie przewija się w poziomie.
 
-Ważna cecha charakterystyczna radaru: jego osie nie mają **widocznej
+Ważna cecha charakterystyczna radaru: jego osie **nie mają widocznej
 skali liczbowej**. Kilka osi o różnych jednostkach miary (np.
 kilometry i minuty) nie da się sensownie przedstawić na jednej wspólnej skali
 . Dlatego każda oś jest wewnętrznie rozciągana niezależnie: od zera do

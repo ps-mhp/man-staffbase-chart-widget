@@ -9,41 +9,43 @@ passos aplicam-se, por analogia, aos restantes três tipos.
 1. Coloque o widget **Diagrama** na página. As definições do widget
    abrem-se e, nelas, aparece imediatamente o **Editor de diagramas** por cima do
    próprio campo. Na parte superior encontra-se uma barra de controlo com **Guardar**,
-   **Ajuda** (abre um painel deslizante com as mesmas explicações que nesta
-   documentação) e **Fechar**; esta permanece fixa durante a navegação, mesmo
+   **Ajuda** (abre um painel deslizante com as mesmas explicações que constam nesta
+   documentação) e **Fechar**; esta barra permanece fixa durante a navegação, mesmo
    numa grelha de dados extensa.
 2. Na parte superior do editor encontra-se o **tipo de gráfico**: **gráfico de rede (radar /
    aranha)**, **gráfico de barras (colunas)**, **gráfico de linhas (tendência)** ou
    **gráfico circular (torta / anel)**; o texto abaixo indica para que serve o
    tipo selecionado. Uma alteração posterior do tipo não implica a perda de
-   dados — os eixos, as séries, o título e a legenda são mantidos; apenas os
-   campos específicos do tipo (por exemplo, mínimo/máximo no radar) são
-   ocultados até que o tipo seja novamente selecionado.
+   dados — os eixos, séries, título e legenda são mantidos, e também as
+   informações nos eixos (por exemplo, mínimo/máximo no radar) são apenas
+   ocultadas até que o tipo seja novamente selecionado. No entanto, as
+   **configurações de visualização** do tipo anterior perdem-se;
+   mais informações em «Configurações».
 3. Enquanto ainda não houver dados, a secção **«Eixos e
-   séries»** duas opções: **«Carregar exemplo»** preenche um exemplo adequado ao
-   tipo selecionado, que pode ser facilmente substituído, e
+   séries»** oferece duas opções: **«Carregar exemplo»** preenche um exemplo adequado ao
+   tipo selecionado, que pode ser simplesmente substituído, e
    **«Criar tabela vazia»** cria eixos e séries para preencher.
-4. No entanto, o método recomendado é **«Importar dados de uma tabela»**, na parte
-   superior: selecione a tabela de comparação no Excel, PowerPoint ou Word,
+4. No entanto, o método recomendado é **«Importar dados de uma tabela»**,
+   acima: selecione a tabela comparativa no Excel, PowerPoint ou Word,
    copie-a e cole-a no campo. Indique abaixo **como a tabela
-   se apresenta** — a predefinição é «um indicador por linha, uma
-   variante por coluna», ou seja, tal como a tabela aparece no editor abaixo.
+   está organizada** — a predefinição é «um indicador por linha, uma
+   variante», ou seja, tal como a tabela também aparece no editor abaixo.
    Em seguida, clique em **«Importar tabela»**. Este passo é igual para todos os
    quatro tipos.
 5. Na grelha, **cada linha é um eixo** e **cada coluna à direita é uma
    série** — no gráfico circular, a grelha mostra **apenas a primeira
-   coluna da série**; uma nota abaixo esclarece que outras séries
+   coluna de série**; uma nota abaixo esclarece que outras séries
    permanecem guardadas, mas não são representadas, para que isso não pareça
    uma perda de dados. Na parte superior de cada coluna de série encontram-se o nome, a cor e
-   as setas para reordenar; no final de cada linha de eixo, as setas e a
+   as setas para reordenar; no final de cada linha do eixo, as setas e a
    cruz para esse eixo.
 6. Introduza a **unidade** para cada eixo (por exemplo, «kWh»). Uma **quebra de linha no
-   nome do eixo** — com a tecla Enter — é aplicada no gráfico e
+   nome do eixo** — com a tecla Enter — é reproduzida no gráfico e
    mantém as legendas longas legíveis. No gráfico circular, é possível
    definir adicionalmente uma **cor de segmento** específica para cada eixo.
-7. Apenas no gráfico de rede: nos eixos em que um **valor menor
+7. Apenas no gráfico de rede: para eixos em que um **valor menor
    é melhor** — peso, consumo, tempo de carregamento —, na coluna **Direção**
-   ative o botão **«menor é melhor»**. Sem isso, o
+   ative o botão **«menor é melhor»**. Sem esta opção, o
    valor pior (maior) ficaria mais afastado, e o gráfico indicaria exatamente o
    contrário do que se pretende.
 8. As **decimais** por eixo encontram-se atrás do botão
@@ -55,9 +57,9 @@ passos aplicam-se, por analogia, aos restantes três tipos.
    coloque ou oculte a **legenda** (no gráfico circular, esta enumera os
    eixos; nos outros, as séries) e defina as opções de visualização adequadas ao tipo
    : no gráfico de radar, **Linhas auxiliares na grelha** e **Preencher áreas**,
-   no gráfico de barras, **Empilhar** e **Orientação** (vertical/horizontal), no gráfico de linha,
+   no gráfico de barras, **Empilhar** e **Orientação** (vertical/horizontal), no gráfico de linha
    **Suavizar linhas**, **preencher a área** e **mostrar pontos**; no gráfico circular,
-   **raio interior** (0 = círculo completo, valor maior = anel) e
+   **raio interno** (0 = círculo completo, valor maior = anel) e
    **legenda dos segmentos** (percentagem, valor absoluto, ambos ou desativado).
 10. A **Pré-visualização** mostra sempre como o gráfico fica na página
     e mantém-se fixa durante a navegação. Se a caixa de diálogo for suficientemente larga

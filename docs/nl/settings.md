@@ -9,7 +9,7 @@ instellingen te vinden zijn.
 
 | Instelling | Beschrijving |
 | --- | --- |
-| Diagram | Bevat de volledige, technisch gecodeerde diagramdefinitie. Wordt uitsluitend via de diagram-editor bewerkt, nooit met de hand. |
+| Diagram | Bevat de volledige, technisch gecodeerde diagramdefinitie. Wordt uitsluitend via de diagram-editor bewerkt, nooit handmatig. |
 | Hoogte in pixels | Hoogte van de grafiek op de pagina. Toegestane waarden zijn 160 tot 1200 pixels, de standaardinstelling is 420. De breedte wordt altijd bepaald door de kolom. |
 | Downloaden toestaan | Toont onder de grafiek twee knoppen om de grafiek als afbeelding te downloaden. Het bestand bevat alleen de grafiek, niet de pagina. Standaard uitgeschakeld. |
 
@@ -17,7 +17,7 @@ instellingen te vinden zijn.
 
 Bovenaan bevindt zich een werkbalk met **Opslaan**, **Help** en **Sluiten**;
 deze blijft op zijn plaats tijdens het scrollen, zodat opslaan ook bij een lange
-gegevensraster toegankelijk blijft. Zolang het ontwerp afwijkt van de opgeslagen versie,
+gegevensraster toegankelijk blijft. Zolang het ontwerp afwijkt van de opgeslagen stand,
 staat ernaast „Niet-opgeslagen wijzigingen“. De Help-knop opent
 een schuifbalk met dezelfde uitleg als op deze pagina, direct in
 het dialoogvenster; het wordt gesloten via de knop of de toets „Escape“.
@@ -32,16 +32,25 @@ De selectie helemaal bovenaan in de editor bepaalt het type diagram:
 
 | Type | Geschikt voor |
 | --- | --- |
-| Netdiagram (radar / spin) | Vergelijking van enkele varianten op basis van meerdere kenmerken met mogelijk verschillende eenheden. |
+| Netwerkdiagram (radar / spin) | Vergelijking van enkele varianten op basis van meerdere kenmerken met mogelijk verschillende eenheden. |
 | Staafdiagram (kolommen) | Vergelijking van waarden over enkele categorieën met een gemeenschappelijke eenheid. |
 | Lijndiagram (verloop) | Ontwikkeling over een geordende reeks, bijv. jaren. |
 | Cirkeldiagram (taart / ring) | Verdeling van een geheel in segmenten; geeft alleen de eerste reeks weer. |
 
-Bij het wisselen van type gaan geen gegevens verloren: titel, voetnoot, legenda, assen en
-reeksen blijven behouden. Opgeslagen typespecifieke instellingen (bijv.
-minimum/maximum bij de radargrafiek) blijven eveneens behouden en worden weer toegepast,
-zodra het bijbehorende type opnieuw wordt geselecteerd — ze worden dus niet
-gewist, maar alleen verborgen.
+Bij een typewijziging gaan geen **gegevens** verloren: titel, voetnoot, legenda, assen en
+reeksen blijven behouden. Dit geldt ook voor de gegevens die aan een as
+zijn gekoppeld — minimum, maximum, „kleiner is beter“ en de segmentkleur. Deze
+worden bij het andere type alleen verborgen en werken weer zodra het
+bijbehorende type opnieuw wordt geselecteerd.
+
+De **weergave-instellingen** van een type blijven daarentegen niet behouden bij een wijziging.
+Wie bij het netdiagram „Hulplijnen in het net“ en „Vlakken vullen“
+heeft ingesteld, overschakelt naar staafdiagrammen en opslaat, treft bij de volgende
+wijziging weer de standaardinstellingen aan. Hetzelfde geldt voor stapelen
+en richting bij balkdiagrammen, voor afvlakken, vlak en punten bij lijndiagrammen
+en voor binnenradius en segmentlabels bij cirkeldiagrammen. Een diagram
+heeft altijd slechts één set weergave-instellingen, namelijk die van het
+huidige type.
 
 ## Welke velden verschijnen bij welk type
 
@@ -65,7 +74,7 @@ sorteer of label je.
 | Instelling | Beschrijving |
 | --- | --- |
 | Invoerveld | Neemt een uit Excel, PowerPoint of Word gekopieerde tabel op. Herkent tab, puntkomma en komma als kolomscheidingstekens. |
-| Hoe staat uw tabel? | Bepaalt de leesrichting. Standaard ingesteld op „één kengetal per rij, één variant per kolom“ — net zoals de tabel ook in het raster eronder staat. De andere keuze draait de tabel om bij het overnemen. |
+| Hoe staat uw tabel? | Bepaalt de leesrichting. Standaard ingesteld op „één kengetal per rij, één variant per kolom“ — precies zoals de tabel ook in het raster eronder staat. De andere keuze draait de tabel om bij het overnemen. |
 | Tabel overnemen | Vervangt assen, reeksen en waarden. Assen en reeksen met dezelfde naam behouden hun eenheid, asrichting en kleur. |
 
 Het invoegen vanuit Excel is typeneutraal en werkt bij alle vier de typen
@@ -84,7 +93,7 @@ en reeksen aan om in te vullen.
 
 | Instelling | Beschrijving |
 | --- | --- |
-| As | Naam van de as, zoals deze in de grafiek en in de gegevenstabel wordt weergegeven. Meerdere regels: de Enter-toets zorgt voor een regeleinde, dat ook in de grafiek wordt weergegeven. |
+| As | Naam van de as, zoals deze in de grafiek en in de gegevenstabel verschijnt. Meerdere regels: de Enter-toets zorgt voor een regeleinde, dat ook in de grafiek wordt weergegeven. |
 | Eenheid | Wordt aan elk getal van deze as toegevoegd (gegevenspunt, tooltip, tabel), bijv. „kWh“. Bij staaf- en lijngrafieken bevat de gemeenschappelijke waardeas de eenheid alleen als **alle** assen met waarden dezelfde eenheid hebben. |
 | Richting („minder is beter“) | Alleen bij radardiagrammen. Keert de as om: de kleinere waarde ligt dan verder naar buiten. Voor kengetallen waarbij minder beter is — gewicht, verbruik, laadtijd. |
 | Kleur | Alleen bij cirkeldiagrammen. Bepaalt de kleur van het bijbehorende segment en overschrijft daarvoor de automatisch toegewezen paletkleur. |
@@ -109,7 +118,7 @@ niet worden weergegeven.
 
 | Instelling | Beschrijving |
 | --- | --- |
-| Titel | Kop boven de grafiek. Als het veld leeg blijft, verschijnt er geen kop. |
+| Titel | Koptekst boven de grafiek. Als het veld leeg blijft, verschijnt er geen koptekst. |
 | Voetnoot | Aanvullende tekst in kleine letters onder de titel, bijvoorbeeld voor bronvermeldingen. |
 | Legenda | „boven de grafiek“, „onder de grafiek“ of „verbergen“. Bij cirkeldiagrammen geeft de legenda de assen (segmenten) weer, bij de overige typen de reeksen. |
 
@@ -119,12 +128,12 @@ niet worden weergegeven.
 | --- | --- | --- |
 | Radar | Hulp lijnen in het raster | Aantal concentrische hulpringen. Standaard ingesteld op 5. Puur visueel, verandert geen waarden. |
 | Radar | Vlakken vullen | Vult het vlak achter elke reekslijn halfdoorzichtig in de kleur van die reeks. Standaard uitgeschakeld. |
-| Staaf | Stapelen | Tekent reeksen boven elkaar in plaats van naast elkaar. Standaard uitgeschakeld. |
-| Balk | Richting | „staand“ (categorieën onderaan) of „liggend“ (categorieën links). Standaard: staand. |
+| Staafdiagram | Stapelen | Tekent reeksen boven elkaar in plaats van naast elkaar. Standaard uitgeschakeld. |
+| Staafdiagram | Richting | „staand“ (categorieën onderaan) of „liggend“ (categorieën links). Standaard staand. |
 | Lijn | Lijnen afvlakken | Rondt het verloop van de lijn af in plaats van deze recht tussen de steunpunten te trekken. Standaard uitgeschakeld. |
-| Lijn | Vlak vullen | Vult het vlak onder de lijn met dezelfde kleur. Standaard uitgeschakeld. |
+| Lijn | Vlak opvullen | Vult het vlak onder de lijn op in de kleur van de lijn. Standaard uitgeschakeld. |
 | Lijn | Punten weergeven | Geeft een punt weer bij elk steunpunt. Standaard ingeschakeld. |
-| Cirkeldiagram | Binnenstraal | Percentage van het gat in het cirkeldiagram. 0 resulteert in een volledige cirkel, een grotere waarde (bijv. 45) in een ring/donut. Standaard ingesteld op 0. |
+| Cirkeldiagram | Binnenstraal | Percentage van het gat in het cirkeldiagram. 0 resulteert in een volledige cirkel, een grotere waarde (bijv. 45) in een ring/donut. Standaard 0. |
 | Cirkeldiagram | Segmentlabel | „Percentage“, „Absolute waarde“, „Beide“ of „Verbergen“. Standaard ingesteld op „Percentage“. |
 
 ## Automatische schaalverdeling
@@ -132,8 +141,8 @@ niet worden weergegeven.
 **Bij de radargrafiek** hebben de assen geen zichtbare getallenschaal — deze is bij
 meerdere assen met verschillende eenheden niet zinvol weer te geven. Zonder
 eigen instelling begint elke as in plaats daarvan bij **nul** en loopt door tot
-de grootste waarde die voorkomt. De lengte van een straal gedraagt zich daarmee
-net als de waarde zelf: de helft van de weg naar buiten is ook de helft van de hoeveelheid.
+de grootste waarde die voorkomt. De lengte van een straal gedraagt zich dus
+net als de waarde zelf: de helft van de afstand naar buiten is ook de helft van de hoeveelheid.
 
 Als er op een as negatieve waarden voorkomen, begint deze bij de kleinste daarvan —
 anders zou het punt buiten het raster liggen.
@@ -146,14 +155,14 @@ in de praktijk onbeduidende verschillen groot lijken.
 Een handmatig ingesteld minimum of maximum beperkt ook de weergave:
 een waarde buiten deze grenzen wordt precies op de rand weergegeven, in plaats van
 buiten het raster uit te steken. Het getal bij het gegevenspunt en in de tabel blijft
-daarbij het ingevoerde getal — de grens verandert alleen de weergave, nooit de waarde. Wie
+daarbij hetzelfde als het ingevoerde — de grens verandert alleen de weergave, nooit de waarde. Wie
 dus een as instelt op 0 tot 600 en 700 invoert, ziet het punt helemaal
 aan de buitenkant staan en de 700 ernaast.
 
-**Bij staaf- en lijngrafieken** tekent ECharts zelf een waarde-as met
-een zichtbare schaal; deze begint bij nul en kan niet handmatig
-worden beperkt. **Bij cirkeldiagrammen** is er geen waarde-as — elk segment geeft
+**Bij staaf- en lijngrafieken** tekent ECharts zelf een waardeas met
+een zichtbare schaal; het is vastgezet op nul en kan niet handmatig
+worden beperkt. **Bij de cirkeldiagrammen** is er geen waarde-as — elk segment geeft
 zijn aandeel in het geheel weer. Een negatieve waarde is daar geen
-weergaveprobleem, maar een gegevensfout: het diagram toont dan een
-vermelding op de betreffende as, in plaats van een vertekend cirkeldiagram te
+weergaveprobleem, maar een gegevensfout: het diagram geeft dan een
+vermelding van de betreffende as weer, in plaats van een vertekend cirkeldiagram te
 tekenen.

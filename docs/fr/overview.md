@@ -29,7 +29,7 @@ série ordonnée, par exemple sur les années de construction. L’ordre des axe
 l’ordre sur la courbe. Options d’affichage : lisser les courbes, remplir la zone sous
 la courbe, afficher les points aux points d’appui.
 
-**Diagramme circulaire (tarte / anneau).** Affiche la répartition d’un tout :
+**Diagramme circulaire (tourte / anneau).** Affiche la répartition d’un tout :
 les segments correspondent aux axes (catégories), leurs valeurs déterminent la taille des segments.
 **Seule la première série est tracée** — les autres séries
 restent enregistrées et réapparaissent dès qu’on passe à un autre type
@@ -49,7 +49,7 @@ la légende, les axes et les séries sont conservés, tout comme les valeurs des
 - Le graphique lui-même, avec autant d’axes et de séries que souhaité.
 - Les valeurs apparaissent directement sur le graphique (pour `pie`, selon le paramétrage, sous forme de
   pourcentage, de valeur absolue ou des deux) ; de plus, lorsque l’on survole
-  un point ou un segment, une infobulle s’affiche avec les valeurs correspondantes.
+  un point ou un segment, une info-bulle s’affiche avec les valeurs correspondantes.
 - Une légende au-dessus ou en dessous du graphique, selon les paramètres.
   Pour le type `pie`, la légende répertorie les catégories (segments) ; pour les autres
   types, elle répertorie les séries.
@@ -65,7 +65,7 @@ la légende, les axes et les séries sont conservés, tout comme les valeurs des
 Lorsque le téléchargement est activé, deux boutons apparaissent sous le graphique :
 « Au format SVG » et « Au format PNG ». Le fichier téléchargé ne contient **que le
 diagramme**, et non le reste de la page — titre, légende, axes et valeurs
-tels qu’ils s’affichent actuellement, sur fond blanc (même si
+tels qu’ils s’affichent à l’écran, sur fond blanc (même si
 la page elle-même est transparente ou sur fond sombre). Le fichier SVG peut être
 agrandi sans perte de qualité, tandis que le PNG convient aux environnements qui ne peuvent pas intégrer de SVG
 (par exemple, la plupart des logiciels de présentation) et est généré en
@@ -85,15 +85,15 @@ un chiffre traduit n’aurait aucun sens.
 
 Lorsque vous insérez le module, l’**éditeur de graphique** s’ouvre automatiquement
 avec une barre de contrôle en haut (Enregistrer, Aide, Fermer) à la place d’un
-pied de page — ainsi, la fonction Enregistrer reste accessible même avec un tableau de données long,
+pied de page — ainsi, la fonction d’enregistrement reste accessible même avec un tableau de données long,
 car la barre reste fixe lors du défilement. En haut, le choix du type de graphique
 et un champ dans lequel insérer un tableau copié depuis Excel ; en dessous,
 une grille avec **une ligne par axe** et **une colonne par série**
-(pour `pie`, une seule colonne de séries), à côté un aperçu en temps réel qui montre exactement
+(pour `pie`, une seule colonne de séries), à côté une prévisualisation en temps réel qui montre exactement
 comment le graphique apparaîtra ensuite sur la page. Tant que rien
 n’a encore été créé, l’éditeur explique les termes et propose « Charger un exemple »
-ainsi que « Créer un tableau vide » — avec, selon le type sélectionné, un exemple différent
-et adapté. Le champ de texte situé derrière n’affiche que la forme techniquement
+ainsi que « Créer un tableau vide » — avec, selon le type sélectionné, un autre
+exemple adapté. Le champ de texte situé derrière n’affiche que la forme techniquement
 enregistrée et codée des données et n’est jamais modifié manuellement.
 
 Si la boîte de dialogue est étroite (par exemple sur de petits écrans), l’

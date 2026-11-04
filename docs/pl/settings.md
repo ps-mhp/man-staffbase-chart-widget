@@ -33,30 +33,39 @@ Wybór u góry edytora określa rodzaj wykresu:
 | Typ | Nadaje się do |
 | --- | --- |
 | Wykres siatkowy (radar / pajęczyna) | Porównanie kilku wariantów na podstawie kilku parametrów o potencjalnie różnych jednostkach miary. |
-| Wykres słupkowy | Porównanie wartości w kilku kategoriach o tej samej jednostce miary. |
+| Wykres słupkowy | Porównanie wartości w kilku kategoriach o wspólnej jednostce miary. |
 | Wykres liniowy (przebieg) | Zmiany w uporządkowanej serii, np. w latach. |
 | Wykres kołowy (tort / pierścień) | Podział całości na segmenty; rysuje tylko pierwszą serię. |
 
-Zmiana typu nie powoduje utraty danych: tytuł, przypis, legenda, osie i
-serie pozostają zachowane. Zapisane ustawienia specyficzne dla danego typu (np.
-minimum/maksimum w wykresie radarowym) również pozostają zachowane i zaczynają ponownie działać,
-gdy tylko ponownie wybierze się odpowiedni typ — nie są więc
-usuwane, a jedynie ukrywane.
+Zmiana typu nie powoduje utraty **danych**: tytuł, przypis, legenda, osie i
+serie pozostają zachowane. Dotyczy to również informacji przypisanych do osi
+— minimum, maksimum, „im mniejsze, tym lepsze” oraz kolor segmentu. Są one
+po prostu ukrywane w przypadku innego typu wykresu i ponownie stają się widoczne, gdy tylko
+ponownie wybierze się odpowiedni typ.
 
-## Jakie pola pojawiają się w poszczególnych typach wykresów
+Natomiast **ustawienia wyświetlania** danego typu nie są zachowywane po zmianie
+typu. Jeśli w wykresie siatkowym ustawiono opcje „Linie pomocnicze w siatce” i „Wypełnij obszary”,
+a następnie przełączono na wykres słupkowy i zapisano zmiany, przy następnej
+zmianie typu ponownie pojawią się ustawienia domyślne. To samo dotyczy układania w stosy
+i kierunku w przypadku wykresu słupkowego, wygładzania, obszaru i punktów w przypadku wykresu liniowego,
+a także promienia wewnętrznego i etykiet segmentów w przypadku wykresu kołowego. Wykres
+zawiera zawsze tylko jeden zestaw ustawień wyświetlania, a mianowicie ten
+odpowiadający aktualnie wybranemu typowi.
 
-| Pole | Radar | Słupkowy | Liniowy | Kołowy |
+## Jakie pola pojawiają się w poszczególnych typach
+
+| Pole | Radar | Słupkowy | Linia | Tort |
 | --- | :-: | :-: | :-: | :-: |
 | Jednostka, miejsca po przecinku | ✓ | ✓ | ✓ | ✓ |
 | Minimum, maksimum | ✓ | – | – | – |
-| Kierunek („im mniejsza, tym lepiej”) | ✓ | – | – | – |
+| Kierunek („im mniejsza wartość, tym lepiej”) | ✓ | – | – | – |
 | Kolor dla każdej osi (kolor segmentu) | – | – | – | ✓ |
 | Kolumny serii w siatce | wszystkie | wszystkie | wszystkie | tylko pierwsza |
 
-**Dlaczego wartości minimalne, maksymalne i „im mniejsza, tym lepiej” pojawiają się tylko w wykresie radarowym
+**Dlaczego wartości minimalne, maksymalne i „im mniejsza, tym lepiej” pojawiają się tylko w przypadku wykresu radarowego
 :** Są one definiowane dla każdej osi i w przypadku wspólnej
 osi wartości — takiej, na której rysowane są wykresy słupkowe i liniowe — nie można ich wyświetlić. W przypadku wykresów kołowych
-nie ma w ogóle żadnej osi. „Im mniejsza, tym lepiej” jest ponadto koncepcją
+nie ma w ogóle osi. „Im mniejsza, tym lepsza” jest ponadto koncepcją
 charakterystyczną dla wykresów radarowych: w przypadku prawdziwej osi wartości nie odwraca się osi, lecz
 sortuje lub opisuje.
 
@@ -76,7 +85,7 @@ Wstawianie z programu Excel jest niezależne od typu i działa tak samo dla wszy
 Dopóki nie utworzono ani osi, ani serii, edytor wyjaśnia
 pojęcia i udostępnia dwa przyciski: **„Załaduj przykład”** wypełnia
 przykładem pasującym do wybranego typu (np. w przypadku wykresu radarowego — porównanie MAN
-eTGX z Mercedes-Benz eActros 600, w przypadku wykresu kołowego – podział kosztów floty
+eTGX z Mercedes-Benz eActros 600, a w przypadku wykresu kołowego – podział kosztów floty
 ), który można nadpisać; **„Utwórz pustą tabelę”** tworzy osie
 i serie do wypełnienia.
 
@@ -102,7 +111,7 @@ nie są wyświetlane.
 | Ustawienie | Opis |
 | --- | --- |
 | Nazwa serii | Nazwa wyświetlana w legendzie (z wyjątkiem wykresów kołowych, patrz poniżej), podpowiedzi i tabeli danych. |
-| Kolor | Zastępuje automatycznie przypisany kolor z palety MAN dla tej jednej serii. W przypadku wykresów kołowych nie ma to wpływu — tam kolor jest przypisywany osobno dla każdej osi (patrz wyżej). |
+| Kolor | Zastępuje automatycznie przypisany kolor z palety MAN dla tej konkretnej serii. W przypadku wykresów kołowych nie ma to wpływu — tam kolor jest przypisywany dla każdej osi (patrz wyżej). |
 | ← → ✕ | Przesuwa serię — kolejność określa kolor z palety oraz kolejność w legendzie — lub ją usuwa. |
 
 ## Tytuł, legenda i wygląd
@@ -118,42 +127,42 @@ nie są wyświetlane.
 | Typ | Pola | Opis |
 | --- | --- | --- |
 | Radar | Linie pomocnicze w siatce | Liczba koncentrycznych pierścieni pomocniczych. Domyślnie 5. Ma charakter wyłącznie wizualny, nie zmienia wartości. |
-| Radar | Wypełnianie obszarów | Wypełnia obszar za każdą linią serii półprzezroczystym kolorem tej linii. Domyślnie wyłączone. |
+| Radar | Wypełnij obszar | Wypełnia obszar za każdą linią serii półprzezroczystym kolorem tej linii. Domyślnie wyłączone. |
 | Słupki | Układanie w stosy | Rysuje serie jedna nad drugą zamiast obok siebie. Domyślnie wyłączone. |
 | Słupki | Kierunek | „pionowy” (kategorie na dole) lub „poziomy” (kategorie po lewej). Domyślnie pionowy. |
-| Linia | Wygładzanie linii | Zaokrągla przebieg linii zamiast rysowania jej prosto między punktami podparcia. Domyślnie wyłączone. |
-| Linia | Wypełnij obszar | Wypełnia obszar pod linią jej kolorem. Domyślnie wyłączone. |
-| Linia | Pokaż punkty | Wyświetla punkt w każdym punkcie kontrolnym. Domyślnie włączone. |
-| Wykres kołowy | Promień wewnętrzny | Procentowy udział otworu w wykresie kołowym. Wartość 0 oznacza pełne koło, a większa wartość (np. 45) – pierścień/pączek. Domyślnie 0. |
-| Wykres kołowy | Etykiety segmentów | „Udział w procentach”, „Wartość bezwzględna”, „Oba” lub „Ukryj”. Domyślnie „Odsetek w procentach”. |
+| Linia | Wygładzanie linii | Zaokrągla przebieg linii zamiast rysować ją prosto między punktami podparcia. Domyślnie wyłączone. |
+| Linia | Wypełnianie obszaru | Wypełnia obszar pod linią jej kolorem. Domyślnie wyłączone. |
+| Linia | Pokaż punkty | Wyświetla punkt w każdym punkcie podparcia. Domyślnie włączone. |
+| Wykres kołowy | Promień wewnętrzny | Procentowy udział otworu w wykresie kołowym. Wartość 0 daje pełne koło, większa wartość (np. 45) – pierścień/pączek. Domyślnie 0. |
+| Wykres kołowy | Etykiety segmentów | „Odsetek”, „Wartość bezwzględna”, „Oba” lub „Ukryj”. Domyślnie „Odsetek”. |
 
 ## Automatyczne skalowanie
 
 **W przypadku wykresu radarowego** osie nie posiadają widocznej skali liczbowej — nie da się jej sensownie przedstawić w przypadku
 kilku osi o różnych jednostkach miary. Bez
-własnego określenia każda oś zaczyna się zamiast tego od **zera** i sięga aż do
+oddzielnego określenia każda oś zaczyna się zamiast tego od **zera** i sięga do
 największej występującej wartości. Długość promienia zachowuje się zatem
-tak samo jak sama wartość: połowa odległości na zewnątrz to również połowa wielkości.
+tak samo jak sama wartość: połowa odległości na zewnątrz odpowiada również połowie wielkości.
 
 Jeśli na osi występują wartości ujemne, zaczyna się ona od najmniejszej z nich —
 w przeciwnym razie punkt znalazłby się poza siatką.
 
-Kto chce silniej podkreślić różnice między seriami, ustawia
-ręcznie minimum i maksimum danej osi — np. 400 i 600 zamiast
+Kto chce silniej podkreślić różnice między seriami, powinien
+ręcznie ustawić minimum i maksimum danej osi — np. 400 i 600 zamiast
 0 i 600. Zwiększa to widoczne odstępy, ale sprawia również, że niewielkie,
-w praktyce nieistotne różnice wydają się większe.
+w praktyce nieistotne różnice wydają się duże.
 
-Ręcznie ustawiona wartość minimalna lub maksymalna ogranicza również zakres rysunku:
-wartość wykraczająca poza te granice jest wyświetlana dokładnie na krawędzi, zamiast
+Ręcznie ustawiona wartość minimalna lub maksymalna ogranicza również obszar rysunku:
+wartość wykraczająca poza te granice zostanie wyświetlona dokładnie na krawędzi, zamiast
 wystawać poza siatkę. Liczba przy punkcie danych i w tabeli pozostaje
-przy tym taka, jaka została wprowadzona — ograniczenie zmienia jedynie wygląd, nigdy wartość. Kto
-zatem ustawi oś w zakresie od 0 do 600 i wprowadzi wartość 700, zobaczy punkt na samym
+przy tym taka sama jak wprowadzona — granica zmienia jedynie wygląd, nigdy samą wartość. Kto
+więc ustawi oś w zakresie od 0 do 600 i wprowadzi wartość 700, zobaczy punkt na samym
 skraju, a liczbę 700 obok niego.
 
-**W przypadku wykresów słupkowych i liniowych** ECharts sam rysuje oś wartości z
-widoczną skalą; jest ona zakotwiczona w punkcie zerowym i nie można jej ręcznie
-ograniczyć. **W przypadku wykresu kołowego** nie ma osi wartości — każdy segment pokazuje
-swój udział w całości. Wartość ujemna nie stanowi tam
+**W przypadku wykresów słupkowych i liniowych** ECharts samodzielnie rysuje oś wartości z
+widoczną skalą; ustawia się ją na zero i nie można jej ręcznie
+ograniczyć. **W przypadku wykresu kołowego** nie ma osi wartości — każdy segment przedstawia
+swój udział w całości. Ujemna wartość nie stanowi tutaj
 problemu z wyświetlaniem, lecz błąd w danych: wykres wyświetla wówczas
 wskazówkę dotyczącą danej osi, zamiast rysować zniekształcony wykres kołowy
 .

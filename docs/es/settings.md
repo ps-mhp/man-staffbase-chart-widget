@@ -10,13 +10,13 @@ ajustes.
 | Ajuste | Descripción |
 | --- | --- |
 | Diagrama | Contiene la definición completa del diagrama, codificada técnicamente. Se edita exclusivamente a través del editor de diagramas, nunca a mano. |
-| Altura en píxeles | Altura del diagrama en la página. Se admiten valores entre 160 y 1200 píxeles; el valor predeterminado es 420. La anchura siempre se ajusta a la columna. |
+| Altura en píxeles | Altura del diagrama en la página. Se admiten valores entre 160 y 1200 píxeles; el valor predeterminado es 420. El ancho siempre se adapta a la columna. |
 | Permitir descarga | Muestra debajo del diagrama dos botones para descargarlo como imagen. El archivo solo contiene el diagrama, no la página. Desactivado por defecto. |
 
 ## El cuadro de diálogo del editor
 
 En la parte superior hay una barra de control con **Guardar**, **Ayuda** y **Cerrar**;
-esta permanece fija al desplazarse, para que se pueda guardar incluso cuando el
+esta permanece fija al desplazarse, para que se pueda guardar incluso cuando se
 cuadro de datos. Mientras el borrador difiera de la versión guardada,
 aparecerá junto a él «Cambios no guardados». El botón de Ayuda abre
 un panel deslizante con las mismas explicaciones que en esta página, directamente en
@@ -33,19 +33,28 @@ La selección situada en la parte superior del editor determina el tipo de gráf
 | Tipo | Adecuado para |
 | --- | --- |
 | Gráfico de red (radar / araña) | Comparación de pocas variantes a través de varios valores característicos con unidades posiblemente diferentes. |
-| Diagrama de barras (columnas) | Comparación de valores en unas pocas categorías con una unidad común. |
-| Diagrama de líneas (tendencia) | Evolución a lo largo de una serie ordenada, p. ej., años. |
-| Diagrama circular (pastel / anillo) | División de un todo en segmentos; solo traza la primera serie. |
+| Gráfico de barras (columnas) | Comparación de valores en unas pocas categorías con una unidad común. |
+| Gráfico de líneas (evolución) | Evolución a lo largo de una serie ordenada, p. ej., años. |
+| Diagrama circular (pastel / anillo) | División de un todo en segmentos; solo dibuja la primera serie. |
 
-Al cambiar de tipo no se pierden datos: el título, la nota al pie, la leyenda, los ejes y
-las series se conservan. Los ajustes específicos de cada tipo que se hayan guardado (p. ej.,
-mínimo/máximo en el gráfico de radar) también se conservan y vuelven a aplicarse
-en cuanto se vuelve a seleccionar el tipo correspondiente; es decir, no se
-borran, sino que simplemente se ocultan.
+Al cambiar de tipo no se pierden **datos**: el título, la nota al pie, la leyenda, los ejes y
+las series se conservan. Esto también se aplica a la información asociada a un eje
+—mínimo, máximo, «cuanto menor, mejor» y el color del segmento—. Dicha información
+solo se oculta al cambiar a otro tipo de gráfico y vuelve a mostrarse en cuanto se
+vuelve a seleccionar el tipo original.
+
+En cambio, los **ajustes de visualización** de un tipo no se conservan tras un cambio.
+Quien haya configurado en el diagrama de red «Líneas auxiliares en la red» y «Rellenar áreas»,
+cambie a barras y guarde los ajustes, volverá a encontrar los ajustes predeterminados
+en el siguiente cambio. Lo mismo se aplica al apilamiento
+y a la dirección en el gráfico de barras, al suavizado, al área y a los puntos en el gráfico de líneas,
+así como al radio interior y a la etiqueta del segmento en el gráfico circular. Un gráfico
+solo lleva consigo un conjunto de ajustes de visualización, concretamente el del
+tipo que esté seleccionado en ese momento.
 
 ## Qué campos aparecen en cada tipo
 
-| Campo | Radar | Barra | Línea | Circular |
+| Campo | Radar | Barras | Línea | Circular |
 | --- | :-: | :-: | :-: | :-: |
 | Unidad, decimales | ✓ | ✓ | ✓ | ✓ |
 | Mínimo, máximo | ✓ | – | – | – |
@@ -53,7 +62,7 @@ borran, sino que simplemente se ocultan.
 | Color por eje (color del segmento) | – | – | – | ✓ |
 | Columnas de serie en la cuadrícula | todas | todas | todas | solo la primera |
 
-**Por qué el mínimo, el máximo y «cuanto menor, mejor» solo aparecen en el gráfico de radar
+**Por qué el mínimo, el máximo y «cuanto menor, mejor» solo aparecen en el radar
 :** Se definen por eje y, en un
 —como la que dibujan las gráficas de barras y de líneas— no se pueden representar. En los gráficos circulares
 no hay ningún eje. Además, «cuanto menor, mejor» es un
@@ -65,10 +74,10 @@ se ordena o se etiqueta.
 | Configuración | Descripción |
 | --- | --- |
 | Campo de inserción | Incorpora una tabla copiada de Excel, PowerPoint o Word. Reconoce el tabulador, el punto y coma y la coma como separadores de columnas. |
-| ¿Cómo está organizada su tabla? | Establece la dirección de lectura. La configuración predeterminada es «un indicador por fila, una variante por columna», tal y como aparece la tabla en la cuadrícula de abajo. La otra opción la invierte al importarla. |
+| ¿Cómo está organizada su tabla? | Establece la dirección de lectura. Por defecto, «una cifra por fila, una variante por columna», tal y como aparece la tabla en la cuadrícula de abajo. La otra opción la invierte al importarla. |
 | Aplicar tabla | Sustituye ejes, series y valores. Los ejes y series con el mismo nombre conservan la unidad, la dirección del eje y el color. |
 
-La inserción desde Excel es independiente del tipo y funciona igual con los cuatro tipos.
+La inserción desde Excel es independiente del tipo y funciona igual para los cuatro tipos.
 
 ## Introducción sin datos
 
@@ -86,7 +95,7 @@ y series para rellenar.
 | Eje | Nombre del eje, tal y como aparece en el gráfico y en la tabla de datos. Si ocupa varias líneas: la tecla Intro genera un salto de línea que también se muestra en el gráfico. |
 | Unidad | Se añade a cada número de este eje (punto de datos, información sobre herramientas, tabla), p. ej., «kWh». En los gráficos de barras y de líneas, el eje de valores común solo muestra la unidad si **todos** los ejes con valores tienen la misma unidad. |
 | Dirección («cuanto menor, mejor») | Solo en el gráfico de radar. Invierte el eje: el valor menor queda entonces más hacia el exterior. Para indicadores en los que un valor menor es mejor —peso, consumo, tiempo de carga—. |
-| Color | Solo en el gráfico de tarta. Establece el color del segmento correspondiente y anula el color de la paleta asignado automáticamente. |
+| Color | Solo en el gráfico circular. Establece el color del segmento correspondiente y anula el color de la paleta asignado automáticamente. |
 | Decimales | Solo si están activados los **ajustes avanzados por eje**: cuántos decimales se muestran. Si no se especifica, se utiliza el número de decimales introducido realmente. |
 | Mínimo | Solo en el gráfico de radar, con los ajustes precisos activados: límite inferior del eje. Si no se especifica, el eje comienza en cero; en el caso de valores negativos, en el menor de ellos. |
 | Máximo | Solo en el radar, con los ajustes de precisión activados: límite superior del eje. Si no se especifica, se utiliza el valor más alto que aparece en este eje. |
@@ -110,50 +119,50 @@ no se representan.
 | --- | --- |
 | Título | Encabezado sobre el gráfico. Si el campo se deja en blanco, no aparecerá ningún encabezado. |
 | Nota al pie | Texto adicional en letra pequeña debajo del título, p. ej., para referencias bibliográficas. |
-| Leyenda | «sobre el gráfico», «debajo del gráfico» o «ocultar». En los gráficos circulares, la leyenda enumera los ejes (segmentos); en los demás tipos, las series. |
+| Leyenda | «encima del gráfico», «debajo del gráfico» o «ocultar». En los gráficos circulares, la leyenda enumera los ejes (segmentos); en los demás tipos, las series. |
 
 ### Opciones de visualización por tipo
 
 | Tipo | Campos | Descripción |
 | --- | --- | --- |
-| Radar | Líneas auxiliares en la red | Número de anillos auxiliares concéntricos. El valor predeterminado es 5. Es puramente estético, no modifica los valores. |
-| Radar | Rellenar áreas | Rellena el área detrás de cada línea de serie con un color semitransparente. Desactivado por defecto. |
-| Barras | Apilar | Dibuja las series unas encima de otras en lugar de una al lado de otra. Desactivado por defecto. |
-| Barra | Orientación | «vertical» (categorías abajo) o «horizontal» (categorías a la izquierda). Por defecto: vertical. |
-| Línea | Suavizar líneas | Redondea el trazado de la línea en lugar de trazarla recta entre los puntos de apoyo. Por defecto: desactivado. |
+| Radar | Líneas auxiliares en la red | Número de anillos auxiliares concéntricos. Por defecto, 5. Es solo visual, no modifica los valores. |
+| Radar | Rellenar áreas | Rellena el área detrás de cada línea de serie con su color, de forma semitransparente. Desactivado por defecto. |
+| Barra | Apilar | Dibuja las series unas encima de otras en lugar de una al lado de otra. Desactivado por defecto. |
+| Barra | Orientación | «vertical» (categorías abajo) o «horizontal» (categorías a la izquierda). Por defecto, vertical. |
+| Línea | Suavizar líneas | Redondea el trazado de la línea en lugar de trazarla recta entre los puntos de apoyo. Desactivado por defecto. |
 | Línea | Rellenar área | Rellena el área debajo de la línea con su color. Desactivado por defecto. |
-| Línea | Mostrar puntos | Muestra un punto en cada punto de control. Activado por defecto. |
-| Circular | Radio interior | Porcentaje del agujero en el gráfico circular. 0 da como resultado un círculo completo; un valor mayor (p. ej., 45), un anillo o una rosquilla. Predeterminado: 0. |
-| Gráfico circular | Etiqueta de segmento | «Porcentaje», «Valor absoluto», «Ambos» o «Ocultar». Por defecto, «Porcentaje». |
+| Línea | Mostrar puntos | Muestra un punto en cada punto de apoyo. Predeterminado: activado. |
+| Gráfico circular | Radio interior | Porcentaje del agujero en el gráfico circular. 0 da como resultado un círculo completo; un valor mayor (p. ej., 45) da como resultado un anillo o una rosquilla. Predeterminado: 0. |
+| Gráfico circular | Etiqueta de segmento | «Porcentaje», «Valor absoluto», «Ambos» u «Ocultar». Por defecto, «Porcentaje». |
 
 ## Escalado automático
 
 **En el gráfico de radar**, los ejes no tienen una escala numérica visible, ya que
-no es posible representarla de forma significativa cuando hay
+no es posible representarla de forma adecuada cuando hay
 varios ejes con unidades diferentes. Si no
 se especifica lo contrario, cada eje comienza en **cero** y llega hasta
 su valor máximo. La longitud de un rayo se comporta, por tanto,
-como el propio valor: la mitad del recorrido hacia el exterior corresponde a la mitad de la cantidad.
+igual que el propio valor: la mitad del recorrido hacia el exterior corresponde también a la mitad de la cantidad.
 
-Si en un eje aparecen valores negativos, este comienza por el menor de ellos —
+Si en un eje hay valores negativos, este comienza por el más pequeño de ellos —
 de lo contrario, el punto quedaría fuera de la cuadrícula.
 
 Quien desee resaltar más las diferencias entre las series, debe establecer
 manualmente el mínimo y el máximo del eje en cuestión —por ejemplo, 400 y 600 en lugar de
-0 y 600. Esto aumenta las distancias visibles, pero también hace que las pequeñas
+0 y 600—. Esto aumenta las distancias visibles, pero también hace que las pequeñas
 diferencias, insignificantes en la práctica, parezcan grandes.
 
 Un mínimo o máximo establecido manualmente también limita el trazado:
 un valor fuera de estos límites se representa exactamente en el borde, en lugar de
-sobresalir de la cuadrícula. El número que aparece en el punto de datos y en la tabla sigue siendo
-el introducido; el límite solo modifica la imagen, nunca el valor. Así pues, quien
+sobresalir de la cuadrícula. La cifra del punto de datos y de la tabla sigue siendo
+la introducida; el límite solo modifica la imagen, nunca el valor. Así pues, quien
 establezca un eje de 0 a 600 e introduzca 700, verá el punto en el extremo
 más alejado y el 700 junto a él.
 
-**En los gráficos de barras y de líneas**, ECharts dibuja automáticamente un eje de valores con
-una escala visible; este se fija en cero y no se puede limitar manualmente
+**En el caso de las barras y las líneas**, ECharts dibuja automáticamente un eje de valores con
+una escala visible; Se fija en cero y no se puede limitar manualmente
 . **En el gráfico circular** no hay eje de valores: cada segmento muestra
 su proporción respecto al total. Un valor negativo no supone allí un
-problema de representación, sino un error en los datos: el gráfico muestra entonces una
+problema de representación, sino un error en los datos: en ese caso, el gráfico muestra una
 nota sobre el eje afectado, en lugar de dibujar un gráfico circular
-distorsionado.
+erróneo.

@@ -78,13 +78,13 @@ diferencia en el gráfico entre dos valores casi iguales?
 Respuesta: Si no se establece un máximo, cada eje se extiende hasta el valor más alto que
 aparece en él. Si hay dos valores muy próximos entre sí, pero muy alejados de cero,
 la parte superior del eje ocupa todo el espacio, por lo que la diferencia
-parece mayor de lo que es en realidad. Solución: En el editor de gráficos,
+parece mayor de lo que realmente es. Solución: En el editor de gráficos,
 establece manualmente el mínimo y el máximo para el eje en cuestión.
 
 **Pregunta:** ¿Por qué el valor peor se encuentra más alejado?
 
 Respuesta: En este eje falta el botón «Cuanto menor, mejor». Debe activarse en
-todos los indicadores en los que un valor menor suponga un mejor
+todos los indicadores en los que un valor más pequeño suponga un mejor
 resultado —por ejemplo, peso, consumo o tiempo de carga—. Actívalo en el editor de gráficos en
 el eje correspondiente.
 
@@ -98,7 +98,7 @@ botones solo aparecen cuando hay un gráfico disponible para descargar.
 fallado. Inténtalo de nuevo».
 
 Respuesta: La exportación no ha podido encontrar el gráfico dibujado —normalmente porque
-se está recargando en ese momento. Espera un momento y vuelve a hacer clic; si el problema
+se está recargando en ese momento—. Espera un momento y vuelve a hacer clic; si el problema
 persiste, actualiza la página.
 
 **Pregunta:** ¿Puedo mostrar más de seis series?

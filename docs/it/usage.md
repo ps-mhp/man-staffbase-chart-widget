@@ -1,8 +1,8 @@
 # Passo dopo passo
 
 Prendendo come esempio un confronto tra veicoli (MAN eTGX rispetto a un concorrente) basato su
-sei indicatori con unità diverse, rappresentato sotto forma di diagramma a rete; i
-passaggi si applicano, mutatis mutandis, anche agli altri tre tipi.
+sei indicatori con unità di misura diverse, rappresentato sotto forma di diagramma a rete; i
+passaggi descritti valgono, mutatis mutandis, anche per gli altri tre tipi.
 
 ## Configurazione del diagramma
 
@@ -15,36 +15,38 @@ passaggi si applicano, mutatis mutandis, anche agli altri tre tipi.
 2. Nella parte superiore dell’editor è indicato il **tipo di grafico**: **grafico a rete (radar /
    a ragnatela)**, **grafico a barre (colonne)**, **grafico a linee (andamento)** o
    **grafico a torta (torta / anello)**; il testo sottostante indica a cosa serve il
-   tipo selezionato. Se si cambia tipo in un secondo momento, non si perdono
-   dati: assi, serie, titolo e legenda vengono mantenuti, solo i
-   campi specifici del tipo (ad es. minimo/massimo nel grafico radar) vengono
-   nascosti, finché il tipo non viene selezionato nuovamente.
+   tipo selezionato. Una successiva modifica del tipo non comporta la perdita di
+   dati: assi, serie, titolo e legenda vengono mantenuti, così come le
+   indicazioni sugli assi (ad es. minimo/massimo nel grafico radar) vengono semplicemente
+   nascoste, finché il tipo non viene selezionato nuovamente. Le
+   **impostazioni di visualizzazione** del vecchio tipo vanno però perse;
+   maggiori informazioni alla voce «Impostazioni».
 3. Finché non ci sono ancora dati, la sezione **«Assi e
    serie»** offre due opzioni: **«Carica esempio»** inserisce un esempio adatto al
-   tipo selezionato, che si può semplicemente sovrascrivere, mentre
+   tipo selezionato, che può essere semplicemente sovrascritto, mentre
    **«Crea tabella vuota»** crea assi e serie da compilare.
-4. Il metodo consigliato è tuttavia **«Importa dati da una tabella»** in
-   alto: selezionare la tabella di confronto in Excel, PowerPoint o Word,
+4. Il metodo consigliato è tuttavia **«Importa dati da una tabella»** proprio
+   in alto: selezionare la tabella di confronto in Excel, PowerPoint o Word,
    copiarla e incollarla nel campo. Sotto, specificare **come è strutturata la tabella
-   deve essere disposta** — l’impostazione predefinita è «un indicatore per riga, una
-   variante per colonna», ovvero proprio come appare la tabella nell’editor sottostante.
+  ** — l’impostazione predefinita è «un indicatore per riga, una
+   variante», ovvero esattamente come appare la tabella nell’editor sottostante.
    Quindi fare clic su **«Importa tabella»**. Questo passaggio è uguale per tutti e
    quattro i tipi.
 5. Nella griglia **ogni riga è un asse** e **ogni colonna a destra è una
-   serie** — nel grafico a torta la griglia mostra **solo la prima
-   colonna della serie**; una nota sottostante chiarisce che altre serie
-   rimangono salvate, ma non vengono tracciate, in modo che ciò non sembri una
-   perdita di dati. In alto in ogni colonna della serie si trovano il nome, il colore e
-   le frecce per riordinare; alla fine di ogni riga dell’asse le frecce e la
+   serie** — nel grafico a torta, la griglia mostra **solo la prima
+   colonna della serie**; una nota sottostante chiarisce che le altre serie
+   rimangono salvate, ma non vengono disegnate, in modo che ciò non sembri una
+   perdita di dati. In alto in ogni colonna della serie sono riportati il nome, il colore e
+   le frecce per riordinare; alla fine di ogni riga dell’asse ci sono le frecce e la
    croce relative a quell’asse.
-6. Inserire l’**unità** per ciascun asse (ad es. «kWh»). Un **interruzione di riga nel
-   nome dell’asse** — con il tasto Invio — viene riportata nel grafico e
-   mantiene leggibili le etichette lunghe. Nel grafico a torta è possibile
-   inoltre impostare un proprio **colore del segmento** per ciascun asse.
-7. Solo nel grafico a rete: per gli assi in cui un **valore più piccolo
+6. Inserire l’**unità** per ciascun asse (ad es. «kWh»). Un **cambio di riga nel
+   nome dell’asse** — con il tasto Invio — viene riportato nel grafico e
+   mantiene leggibili le didascalie lunghe. Nel grafico a torta è possibile
+   impostare inoltre un proprio **colore del segmento** per ciascun asse.
+7. Solo per il diagramma a rete: per gli assi in cui un **valore più piccolo
    è migliore** — peso, consumo, tempo di ricarica —, nella colonna **Direzione**
    attivare l’opzione **«più piccolo è meglio»**. Senza di esso, il
-   valore peggiore (più grande) si troverebbe più all’esterno e il grafico indicherebbe esattamente il
+   valore peggiore (più grande) risulterebbe più esterno e il grafico indicherebbe esattamente il
    contrario di ciò che si intende.
 8. Le **cifre decimali** per ciascun asse si impostano tramite l’opzione
    **«Regolazioni di precisione per asse»**; **Minimo** e **Massimo** lì
@@ -53,7 +55,7 @@ passaggi si applicano, mutatis mutandis, anche agli altri tre tipi.
   ; se sono vuoti significa «derivati dai valori».
 9. In **«Titolo, legenda e rappresentazione»** inserire titolo e nota a piè di pagina,
    posizionare o nascondere la **legenda** (nei grafici a torta elenca gli
-   assi, altrimenti le serie) e impostare le opzioni di visualizzazione adeguate al tipo di grafico
+   assi, altrimenti le serie) e impostare le opzioni di visualizzazione adatte al tipo
    : per il grafico a radar **Linee ausiliarie nella griglia** e **Riempi area**,
    per il grafico a barre **Impila** e **Direzione** (verticale/orizzontale), per il grafico a linea
    **Smussa linee**, **riempire l’area** e **mostrare i punti**; per il grafico a torta
@@ -74,7 +76,7 @@ passaggi si applicano, mutatis mutandis, anche agli altri tre tipi.
     i dati vengono trasferiti nel widget; finché accanto ai pulsanti compare la scritta «Modifiche non salvate»,
     non è stato applicato nulla.
 
-## Modifiche successive
+## Modificare in un secondo momento
 
 1. Riaprire le impostazioni del widget: l’editor del grafico riappare
    con lo stato salvato per ultimo, compreso il tipo di grafico.

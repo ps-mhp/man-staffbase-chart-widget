@@ -33,31 +33,40 @@ A seleção na parte superior do editor determina o tipo de gráfico:
 | Tipo | Adequado para |
 | --- | --- |
 | Gráfico de rede (radar / aranha) | Comparação de poucas variantes através de vários valores característicos com unidades possivelmente diferentes. |
-| Gráfico de barras (colunas) | Comparação de valores em poucas categorias com uma unidade comum. |
+| Gráfico de barras (colunas) | Comparação de valores em poucas categorias com a mesma unidade. |
 | Gráfico de linhas (evolução) | Evolução ao longo de uma série ordenada, por exemplo, anos. |
 | Gráfico circular (torta / anel) | Divisão de um todo em segmentos; representa apenas a primeira série. |
 
-A alteração do tipo não implica a perda de dados: o título, a nota de rodapé, a legenda, os eixos e
-as séries são mantidos. As definições específicas do tipo guardadas (por exemplo,
-mínimo/máximo no gráfico de radar) também são mantidas e voltam a ter efeito
-assim que o tipo correspondente for selecionado novamente — ou seja, não são
-apagadas, mas apenas ocultadas.
+A mudança de tipo não implica a perda de **dados**: o título, a nota de rodapé, a legenda, os eixos e
+as séries são mantidos. O mesmo se aplica às informações associadas a um eixo
+— mínimo, máximo, «quanto menor, melhor» e a cor do segmento. Estas
+são apenas ocultadas no tipo diferente e voltam a estar visíveis assim que o
+tipo original for selecionado novamente.
 
-## Quais campos aparecem em cada tipo
+Por outro lado, as **configurações de visualização** de um tipo não sobrevivem a uma mudança.
+Quem tiver definido «Linhas auxiliares na grelha» e «Preencher áreas»
+no gráfico de rede, mudar para barras e guardar, encontrará as predefinições
+novamente na próxima mudança. O mesmo se aplica ao empilhamento
+e à direção nas barras, ao alisamento, à área e aos pontos na linha,
+bem como ao raio interior e à legenda dos segmentos no gráfico circular. Um gráfico
+traz sempre consigo apenas um conjunto de definições de visualização, nomeadamente o do
+tipo atualmente selecionado.
 
-| Campo | Radar | Barra | Linha | Circular |
+## Quais os campos que aparecem em cada tipo
+
+| Campo | Radar | Barras | Linha | Circular |
 | --- | :-: | :-: | :-: | :-: |
 | Unidade, casas decimais | ✓ | ✓ | ✓ | ✓ |
 | Mínimo, Máximo | ✓ | – | – | – |
-| Direção («quanto menor, melhor») | ✓ | – | – | – |
+| Direção («menor é melhor») | ✓ | – | – | – |
 | Cor por eixo (cor do segmento) | – | – | – | ✓ |
 | Colunas de séries na grelha | todas | todas | todas | apenas a primeira |
 
 **Por que razão o mínimo, o máximo e «quanto menor, melhor» só aparecem no radar
-:** São definidos por eixo e, numa
+:** São definidos por eixo e, no caso de um
 eixo de valores — como os que desenham barras e linhas — não podem ser representados. Nos gráficos circulares
-não existe qualquer eixo. Além disso, «quanto menor, melhor» é um
-conceito próprio do gráfico de radar: num eixo de valores verdadeiro, não se inverte nenhum eixo, mas sim
+não existe qualquer eixo. Além disso, «menor é melhor» é uma
+conceção própria do gráfico de radar: num eixo de valores real, não se inverte nenhum eixo, mas sim
 se ordena ou se rotula.
 
 ## Importar dados de uma tabela
@@ -73,9 +82,9 @@ A inserção a partir do Excel é independente do tipo e funciona da mesma forma
 
 ## Introdução sem dados
 
-Enquanto não forem criados eixos nem séries, o editor explica os
-conceitos e apresenta dois botões: **«Carregar exemplo»** preenche com um
-exemplo adequado ao tipo selecionado (por exemplo, no radar, a comparação entre o MAN
+Enquanto não estiverem criados nem eixos nem séries, o editor explica os
+conceitos e apresenta dois botões: **«Carregar exemplo»** preenche com um exemplo
+adequado ao tipo selecionado (por exemplo, no radar, a comparação entre o MAN
 eTGX com o Mercedes-Benz eActros 600; no gráfico circular, uma repartição dos custos da frota
 ), que pode ser substituído; **«Criar tabela vazia»** cria eixos
 e séries para preenchimento.
@@ -89,7 +98,7 @@ e séries para preenchimento.
 | Direção («menor é melhor») | Apenas no gráfico de radar. Inverte o eixo: o valor menor fica então mais afastado. Para indicadores em que quanto menor, melhor — peso, consumo, tempo de carregamento. |
 | Cor | Apenas no gráfico circular. Define a cor do segmento correspondente, substituindo a cor da paleta atribuída automaticamente. |
 | Decimais | Apenas com as **configurações avançadas por eixo** ativadas: quantas casas decimais são apresentadas. Se não for especificado, é utilizado o número de casas decimais efetivamente introduzido. |
-| Mínimo | Apenas no radar, com as «Ajustes finos por eixo» ativadas: limite inferior do eixo. Se não for especificado, o eixo começa em zero — no caso de valores negativos, no menor deles. |
+| Mínimo | Apenas no radar, com as «Ajustes finos por eixo» ativadas: limite inferior do eixo. Se não for especificado, o eixo começa em zero — no caso de valores negativos, no menor desses valores. |
 | Máximo | Apenas no radar, com as **ajustes finos por eixo** ativados: limite superior do eixo. Se não for especificado, é utilizado o maior valor existente nesse eixo. |
 | ↑ ↓ ✕ | Desloca o eixo ou remove-o juntamente com os seus valores. |
 
@@ -111,29 +120,29 @@ não são representadas.
 | --- | --- |
 | Título | Título acima do gráfico. Se o campo ficar em branco, não aparece nenhum título. |
 | Nota de rodapé | Texto adicional em letras pequenas abaixo do título, por exemplo, para referências bibliográficas. |
-| Legenda | «acima do gráfico», «abaixo do gráfico» ou «ocultar». Nos gráficos circulares, a legenda enumera os eixos (segmentos); nos restantes tipos, as séries. |
+| Legenda | «acima do gráfico», «abaixo do gráfico» ou «ocultar». Nos gráficos circulares, a legenda enumera os eixos (segmentos); nos restantes tipos, enumera as séries. |
 
 ### Opções de visualização por tipo
 
 | Tipo | Campos | Descrição |
 | --- | --- | --- |
 | Radar | Linhas auxiliares na rede | Número de anéis auxiliares concêntricos. Predefinição: 5. Puramente visual, não altera valores. |
-| Radar | Preencher áreas | Preenche a área por trás de cada linha da série com a respetiva cor, de forma semitransparente. Predefinição: desativado. |
+| Radar | Preencher áreas | Preenche a área por trás de cada linha da série com a cor da mesma, de forma semitransparente. Predefinição: desativado. |
 | Barra | Empilhar | Desenha as séries umas sobre as outras em vez de lado a lado. Predefinição: desativado. |
 | Barra | Orientação | «vertical» (categorias na parte inferior) ou «horizontal» (categorias à esquerda). Predefinição: vertical. |
-| Linha | Suavizar linhas | Arredonda o traçado da linha em vez de o traçar em linha reta entre os pontos de apoio. Predefinição: desativado. |
-| Linha | Preencher área | Preenche a área sob a linha com a sua cor. Predefinição: desativado. |
+| Linha | Suavizar linhas | Arredonda o traçado da linha em vez de o traçar em linha reta entre os pontos de apoio. Desativado por predefinição. |
+| Linha | Preencher área | Preenche a área por baixo da linha com a sua cor. Desativado por predefinição. |
 | Linha | Mostrar pontos | Mostra um ponto em cada ponto de apoio. Predefinição: ativado. |
 | Gráfico circular | Raio interior | Percentagem do buraco no gráfico circular. 0 resulta num círculo completo; um valor maior (por exemplo, 45) resulta num anel/donut. Predefinição: 0. |
-| Gráfico circular | Rotulagem de segmentos | «Percentagem», «Valor absoluto», «Ambos» ou «Ocultar». Predefinição: «Percentagem». |
+| Gráfico circular | Rotulagem do segmento | «Percentagem», «Valor absoluto», «Ambos» ou «Ocultar». Predefinição: «Percentagem». |
 
 ## Escalonamento automático
 
-**No gráfico de radar**, os eixos não apresentam uma escala numérica visível — esta não pode ser representada de forma significativa quando
+**No gráfico de radar**, os eixos não apresentam uma escala numérica visível — esta não pode ser representada de forma adequada quando
 existem vários eixos com unidades diferentes. Sem
-especificação própria, cada eixo começa, em vez disso, em **zero** e vai até
+uma especificação própria, cada eixo começa, em vez disso, em **zero** e vai até
 ao seu maior valor possível. O comprimento de um raio comporta-se, assim,
-como o próprio valor: metade do caminho para o exterior corresponde também a metade da quantidade.
+tal como o próprio valor: metade do percurso para o exterior corresponde também a metade da quantidade.
 
 Se houver valores negativos num eixo, este começa pelo menor deles —
 caso contrário, o ponto ficaria fora da grelha.
@@ -143,17 +152,17 @@ manualmente o mínimo e o máximo do eixo em questão — por exemplo, 400 e 600
 0 e 600. Isto aumenta as distâncias visíveis, mas também faz com que pequenas
 diferenças, insignificantes na prática, pareçam grandes.
 
-Um mínimo ou máximo definido manualmente também limita o traçado:
+Um mínimo ou máximo definido manualmente também limita o desenho:
 um valor fora destes limites é representado exatamente na borda, em vez de
 ultrapassar a grelha. O número no ponto de dados e na tabela permanece
 o mesmo que foi introduzido — o limite altera apenas a imagem, nunca o valor. Quem
 definir um eixo de 0 a 600 e introduzir 700, verá o ponto na
 extremidade e o 700 ao lado.
 
-**Nos gráficos de barras e de linhas**, o próprio ECharts desenha um eixo de valores com
-uma escala visível; este eixo tem o ponto zero fixo e não pode ser
-limitado manualmente. **No gráfico circular** não existe eixo de valores — cada segmento mostra
+**No caso de gráficos de barras e de linhas**, o ECharts desenha ele próprio um eixo de valores com
+uma escala visível; está fixado em zero e não pode ser limitado manualmente
+. **No gráfico circular** não existe um eixo de valores — cada segmento mostra
 a sua proporção em relação ao todo. Um valor negativo não constitui, neste caso,
-um problema de representação, mas sim um erro de dados: o gráfico apresenta então uma
-nota de aviso no eixo em questão, em vez de desenhar um gráfico circular
+um problema de representação, mas sim um erro nos dados: o gráfico apresenta então uma
+nota de aviso relativa ao eixo em questão, em vez de desenhar um gráfico circular
 distorcido.

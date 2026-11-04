@@ -14,7 +14,7 @@ Por favor, reconfigure-o nas definições.»
 
 Resposta: Os dados guardados estão danificados ou foram alterados manualmente.
 Abra as definições do widget e reconfigure o diagrama no editor —
-se necessário, através de uma tabela inserida de novo.
+se necessário, através de uma tabela recém-inserida.
 
 **Pergunta:** Vejo a mensagem «O tipo de gráfico «…» não é reconhecido por esta versão do
 módulo. Por favor, atualize o módulo.» (ou, sem

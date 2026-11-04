@@ -57,7 +57,7 @@ editor del grafico impostando un valore diverso da zero — oppure passare a un
 L’avviso blocca intenzionalmente l’intero grafico, invece di omettere solo il
 segmento negativo: un grafico a torta distribuisce i valori rimanenti sul
 cerchio completo, quindi si otterrebbe un grafico che appare completo con
-percentuali implicitamente aumentate.
+valori percentuali implicitamente aumentati.
 
 **Domanda:** Vedo il messaggio «Impossibile caricare il grafico.
 Si prega di ricaricare la pagina.»
@@ -84,7 +84,7 @@ impostare manualmente il minimo e il massimo per l’asse in questione.
 
 **Domanda:** Perché il valore peggiore si trova più all’esterno?
 
-Risposta: Su questo asse manca l’opzione «Più piccolo è meglio». Deve essere attivato per
+Risposta: su questo asse manca l’opzione «Più piccolo è meglio». Deve essere attivato per
 tutti gli indicatori in cui un valore più basso rappresenta il risultato migliore
 — ad esempio peso, consumo o tempo di ricarica. Attivarlo nell’editor dei grafici per
 l’asse corrispondente.

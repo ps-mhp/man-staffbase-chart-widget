@@ -35,8 +35,8 @@ ou « Créer un tableau vide ».
 **Question :** Après l’insertion, mes indicateurs apparaissent comme des séries et mes
 variantes comme des axes — tout est inversé.
 
-Réponse : Le sens de lecture sélectionné sous la zone d’insertion était incorrect. Choisissez l’
-autre réponse dans « Comment se présente votre tableau ? » et cliquez à nouveau sur
+Réponse : Le sens de lecture incorrect était sélectionné sous la zone d’insertion. Passez à l’
+autre réponse sous « Comment se présente votre tableau ? » et cliquez à nouveau sur
 « Appliquer le tableau ».
 
 **Question :** Le libellé de mon axe est si long qu’il
@@ -79,7 +79,7 @@ différence dans le graphique ?
 Réponse : Sans limite maximale définie, chaque axe s'étend jusqu’à la plus grande valeur qui
 y apparaît. Si deux valeurs sont proches l’une de l’autre mais éloignées de zéro,
 la partie supérieure de l’axe utilise toute la plage — la différence
-semble ainsi plus grande qu’elle ne l’est en réalité. Solution : dans l’éditeur de graphique,
+semble ainsi plus importante qu’elle ne l’est en réalité. Solution : dans l’éditeur de graphique,
 définissez manuellement les valeurs minimale et maximale pour l’axe concerné.
 
 **Question :** Pourquoi la valeur la moins bonne se trouve-t-elle plus à l’extérieur ?

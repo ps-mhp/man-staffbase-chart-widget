@@ -69,7 +69,7 @@ blijft bestaan, controleer dan de netwerkverbinding.
 **Vraag:** Waarom is mijn diagram leeg, terwijl er gegevens zijn ingevoerd?
 
 Antwoord: Meestal staat het bouwsteen in een zeer smalle kolom of in een
-ingeklapt element, waardoor de container een hoogte van 0 heeft. De grafiek
+ingeklapt element, waardoor de container de hoogte 0 heeft. De grafiek
 blijft dan permanent leeg, omdat er geen ruimte is om te tekenen. Verplaats het
 bouwsteen naar een bredere kolom of vouw het element uit.
 
@@ -78,8 +78,8 @@ verschil in de grafiek?
 
 Antwoord: Zonder ingestelde maximumwaarde reikt elke as tot de grootste waarde die
 erop voorkomt. Als twee waarden dicht bij elkaar liggen, maar ver van nul
-af, beslaat het bovenste deel van de as het hele bereik — het verschil
-lijkt daardoor groter dan het in werkelijkheid is. Oplossing: Stel in de diagram-editor voor de
+af, gebruikt het bovenste deel van de as het hele bereik — het verschil
+lijkt daardoor groter dan het is. Oplossing: Stel in de diagram-editor voor de
 betrokken as handmatig een minimum en maximum in.
 
 **Vraag:** Waarom ligt de slechtere waarde verder naar buiten?

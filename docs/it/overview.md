@@ -1,6 +1,6 @@
 # Grafico
 
-Il widget Grafico presenta gli indicatori in quattro tipologie: **grafico a ragnatela
+Il widget Grafico rappresenta gli indicatori in quattro tipologie: **grafico a ragnatela
 (radar), a barre, a linee e a torta**. Ogni tipo viene configurato tramite
 lo stesso editor, che si apre direttamente nelle impostazioni del widget; una
 tabella copiata da Excel può essere importata con un clic, vedi
@@ -10,11 +10,11 @@ tabella copiata da Excel può essere importata con un clic, vedi
 
 **Diagramma a ragnatela (Radar / Ragnatela).** Diversi assi si irradiano a forma di stella
 da un punto centrale e ogni serie — ad esempio un veicolo a confronto —
-collega i propri valori su questi assi formando un’area. In questo modo è possibile
+collega i propri valori su questi assi formando un'area. In questo modo è possibile
 confrontare a colpo d’occhio diversi indicatori di più serie, anche se
 misurati in unità completamente diverse — chilometri, tonnellate,
 minuti, kilowatt. Solo nel grafico radar sono disponibili i valori minimo e massimo e l’opzione
-«più piccolo è meglio» per ciascun asse, oltre alle opzioni di visualizzazione «linee guida nella rete»
+«più piccolo è meglio» per ciascun asse, oltre alle opzioni di visualizzazione «linee ausiliarie nella rete»
 e «riempimento delle aree».
 
 **Grafico a barre (colonne).** Confronta i valori tra poche categorie.
@@ -24,8 +24,8 @@ significativo solo se tutte le categorie utilizzano la stessa unità di misura. 
 opzioni di visualizzazione sono disponibili l’impilamento (serie una sopra l’altra anziché affiancate) e
 la direzione (verticale o orizzontale).
 
-**Grafico a linee (andamento).** Mostra un andamento nel corso di una
-serie ordinata, ad esempio per anno di costruzione. L’ordine degli assi nella griglia corrisponde
+**Grafico a linee (andamento).** Mostra un andamento nel corso di una serie ordinata,
+ad esempio in base agli anni di costruzione. L’ordine degli assi nella griglia corrisponde
 all’ordine sulla linea. Opzioni di visualizzazione: smussare le linee, riempire l’area sotto
 la linea, mostrare i punti nei punti di supporto.
 

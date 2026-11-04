@@ -1,7 +1,7 @@
 # Step by Step
 
 Using the example of a vehicle comparison (MAN eTGX vs. a competitor) based on
-six key metrics with different units, presented as a network diagram; the
+six metrics with different units, presented as a network diagram; the
 steps apply mutatis mutandis to the other three types.
 
 ## Setting Up the Chart
@@ -15,30 +15,32 @@ steps apply mutatis mutandis to the other three types.
 2. At the top of the editor is the **chart type**: **Network Chart (Radar /
    Spider)**, **Bar Chart (Columns)**, **Line Chart (Trend)**, or
    **pie chart (pie / ring)**; the text below explains what the
-   selected type is intended for. Changing the type later does not lose any
-   data—axes, series, titles, and legends are preserved; only the
-   type-specific fields (e.g., minimum/maximum for the radar chart) are
-   hidden until that type is selected again.
-3. As long as no data has been entered yet, the **“Axes and
-   Series”** offers two options: **“Load Example”** populates the chart with an example
-   suited to the selected chart type, which you can simply overwrite, and
-   **“Create Empty Table”** sets up axes and series for you to fill in.
-4. However, the recommended method is **“Import Data from a Table”** at the very
-   top: Select the comparison table in Excel, PowerPoint, or Word,
+   selected type is intended for. Changing the type later does not result in any
+   data loss—axes, series, titles, and legends are preserved, and the
+   axis labels (e.g., minimum/maximum for the radar chart) are simply
+   hidden until the chart type is selected again. However, the
+   **display settings** for the old chart type are lost in the process;
+   see “Settings” for more information.
+3. As long as no data is present yet, the **“Axes and
+   Series”** section offers two options: **“Load Example”** populates the chart with an
+   example suited to the selected chart type, which you can simply overwrite, and
+   **“Create Empty Table”** creates axes and series for you to fill in.
+4. The recommended method, however, is **“Import Data from a Table”** at the very
+   at the top: Select the comparison table in Excel, PowerPoint, or Word,
    copy it, and paste it into the field. Below that, specify **how the table
-   is oriented**—the default is “one metric per row, one
-   variant per column,” which is how the table also appears in the editor below.
+   is formatted**—the default is “one metric per row, one
+   variant,” which is exactly how the table appears in the editor below.
    Then click **“Import Table”**. This step is the same for all
    four types.
 5. In the grid, **each row is an axis** and **each column on the right is a
-   series** — for the pie chart, the grid shows **only the first
+   series**—for the pie chart, the grid shows **only the first
    series column**; a note below makes it clear that additional series
-   are saved but not plotted, so it doesn’t look like
+   remain saved but are not plotted, so that this does not appear to be
    data loss. At the top of each series column are the name, color, and
    the arrows for reordering; at the end of each axis row are the arrows and the
    cross for that axis.
 6. Enter the **unit** for each axis (e.g., “kWh”). A **line break in the
-   axis label**—using the Enter key—is carried over to the chart and
+   axis name**—using the Enter key—is carried over to the chart and
    keeps long labels readable. For pie charts, you can
    also set a separate **segment color** for each axis.
 7. For network diagrams only: For axes where a **smaller value
@@ -47,7 +49,7 @@ steps apply mutatis mutandis to the other three types.
    worse (larger) value would be farther out, and the chart would convey exactly the
    opposite of what is intended.
 8. **Decimal places** per axis are set via the
-   **“Fine adjustments per axis”** toggle; **Minimum** and **Maximum** there
+   **“Fine-tuning per axis”** switch; **Minimum** and **Maximum** there
    appear only in the network diagram because bars and lines share a common
    value axis calculated by ECharts. In most cases, they are not needed;
    leaving them blank means “derived from the values.”
@@ -60,7 +62,7 @@ steps apply mutatis mutandis to the other three types.
    **Inner radius** (0 = full circle, larger = ring) and
    **Segment label** (percentage, absolute value, both, or off).
 10. The **Preview** shows what the chart looks like on the page
-    at all times and stays in place while scrolling. If the dialog is wide enough
+    at all times and remains in place while scrolling. If the dialog is wide enough
     (starting at about 900 pixels), it appears next to the input field; below that, it moves
     below the grid, and below about 700 pixels, the grid becomes
     a sequence of cards, one per axis. The dialog never scrolls
