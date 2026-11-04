@@ -46,6 +46,17 @@ $bar-height: chrome.$control-height-sm + 2 * $space-s;
   // bei `position: sticky` ignoriert — am Bild geprüft, nicht nur gelesen.
   padding: 0 $space-l $space-l;
   overflow-y: auto;
+  // `overflow-y: auto` allein macht diesen Rahmen auch waagerecht
+  // scrollbar: Die Berechnung setzt die andere Achse dann auf `auto`
+  // statt auf `visible`. Der zugeschobene Hilfe-Schieber zaehlt trotz
+  // `translateX(100%)` in die scrollbare Flaeche und erzeugte so eine
+  // waagerechte Bildlaufleiste in leeren Raum hinein.
+  //
+  // `clip` statt `hidden`: `hidden` blendet nur die Bildlaufleiste aus,
+  // der Bereich bleibt per Tastatur und Skript scrollbar. `clip` nimmt
+  // ihn ganz heraus. Nachgemessen in Chromium: `scrollLeft` bleibt bei
+  // 380, 560, 784 und 1100 px auf 0 — offen wie geschlossen.
+  overflow-x: clip;
   font-size: 13px;
   color: chrome.$text;
   background: chrome.$surface;
@@ -419,10 +430,21 @@ $bar-height: chrome.$control-height-sm + 2 * $space-s;
     // Zugeschoben statt ausgehaengt: Der Inhalt bleibt montiert, damit das
     // Zuschieben ueberhaupt animierbar ist.
     transform: translateX(100%);
-    transition: transform 160ms ease;
+    // `visibility` zusaetzlich zur Verschiebung: Ohne sie bleibt der
+    // zugeschobene Schieber mit der Tastatur erreichbar, obwohl er nicht
+    // zu sehen ist. Verzoegert geschaltet, damit das Zuschieben sichtbar
+    // bleibt; beim Oeffnen greift sie sofort.
+    visibility: hidden;
+    transition:
+      transform 160ms ease,
+      visibility 0s linear 160ms;
 
     &--open {
       transform: translateX(0);
+      visibility: visible;
+      transition:
+        transform 160ms ease,
+        visibility 0s;
     }
   }
 

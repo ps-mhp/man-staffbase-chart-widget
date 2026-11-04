@@ -84,6 +84,7 @@ import {
 } from "./editor-operations";
 import { exampleSpec, starterSpec } from "./example-spec";
 import { EditorBar } from "./editor-bar";
+import { CHART_TYPE_INFO } from "./chart-type-info";
 import { HelpDrawer } from "./help-drawer";
 import { applyGrid, parseGrid, readNumber, transposeGrid } from "./grid-import";
 import css from "./chart-editor.scss";
@@ -96,32 +97,6 @@ const STYLE_ELEMENT_ID = "man-chart-editor-styles";
 /** Höhe der Vorschau — genug, um ein Radar mit sechs Achsen zu lesen. */
 const PREVIEW_HEIGHT = 320;
 
-/**
- * Was in der Typ-Auswahl steht.
- *
- * Der Klammerzusatz nennt den Fachbegriff, unter dem die Redaktion die
- * Vorlage aus der Präsentation kennt; der Satz dahinter sagt, wofür der Typ
- * taugt. Beides fehlte, und deshalb war am Dialog nicht zu erkennen, welche
- * Art Diagramm man überhaupt gerade baut.
- */
-export const CHART_TYPE_INFO: Record<ChartType, { label: string; hint: string }> = {
-  radar: {
-    label: "Netzdiagramm (Radar / Spinne)",
-    hint: "Vergleicht wenige Varianten über mehrere Kennwerte hinweg. Jede Achse darf eine eigene Einheit haben.",
-  },
-  bar: {
-    label: "Balkendiagramm (Säulen)",
-    hint: "Vergleicht Werte über wenige Kategorien. Alle Balken teilen sich eine Werteachse — nur bei gleicher Einheit sinnvoll.",
-  },
-  line: {
-    label: "Liniendiagramm (Verlauf)",
-    hint: "Zeigt eine Entwicklung über eine geordnete Reihe hinweg — etwa über Jahre. Die Reihenfolge der Achsen ist die Reihenfolge im Raster.",
-  },
-  pie: {
-    label: "Kuchendiagramm (Torte / Ring)",
-    hint: "Zeigt die Aufteilung eines Ganzen. Es wird nur die erste Serie gezeichnet, und alle Werte sollten dieselbe Einheit haben.",
-  },
-};
 
 /** Beschreibt, wie eine eingefügte Tabelle herum steht. */
 type PasteOrientation = "axes-in-rows" | "axes-in-columns";

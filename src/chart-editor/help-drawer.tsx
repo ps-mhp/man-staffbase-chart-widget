@@ -25,7 +25,7 @@
 import * as React from "react";
 import { useEffect } from "react";
 
-import { CHART_TYPE_INFO } from "./chart-editor";
+import { CHART_TYPE_INFO } from "./chart-type-info";
 import { IconClose } from "./icons";
 
 export interface HelpDrawerProps {
