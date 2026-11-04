@@ -40,9 +40,9 @@ type BarOption = {
   xAxis: BarAxis;
   yAxis: BarAxis;
   series: BarSeriesEntry[];
-  grid: { containLabel: boolean };
+  grid: { containLabel: boolean; top: number; bottom: number };
   tooltip: { trigger: string };
-  legend: { show: boolean; data: string[] };
+  legend: { show: boolean; data: string[]; top?: number; bottom?: number };
   title: { text?: string; subtext?: string };
 };
 
@@ -120,18 +120,18 @@ describe("barOption", () => {
   it("schiebt Legende und Raster unter eine vorhandene Fussnote", () => {
     const withFootnote = build({ title: "Reichweite", footnote: "Herstellerangaben." });
     const without = build({ title: "Reichweite" });
-    expect((withFootnote.legend as { top: number }).top).toBeGreaterThan(
-      (without.legend as { top: number }).top,
+    expect(withFootnote.legend.top ?? 0).toBeGreaterThan(
+      without.legend.top ?? 0,
     );
-    expect((withFootnote.grid as { top: number }).top).toBeGreaterThan(
-      (without.grid as { top: number }).top,
+    expect(withFootnote.grid.top).toBeGreaterThan(
+      without.grid.top,
     );
   });
 
   it("haelt das Raster unter der Legende, wenn diese oben steht", () => {
     const option = build({ title: "Reichweite", legend: { show: true, position: "top" } });
-    expect((option.grid as { top: number }).top).toBeGreaterThan(
-      (option.legend as { top: number }).top,
+    expect(option.grid.top).toBeGreaterThan(
+      option.legend.top ?? 0,
     );
   });
 
@@ -140,8 +140,8 @@ describe("barOption", () => {
   it("haelt Platz fuer eine untenstehende Legende frei", () => {
     const shown = build({ legend: { show: true, position: "bottom" } });
     const hidden = build({ legend: { show: false, position: "bottom" } });
-    expect((shown.grid as { bottom: number }).bottom).toBeGreaterThan(
-      (hidden.grid as { bottom: number }).bottom,
+    expect(shown.grid.bottom).toBeGreaterThan(
+      hidden.grid.bottom,
     );
   });
 

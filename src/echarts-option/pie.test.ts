@@ -40,7 +40,7 @@ type PieSeriesEntry = {
 };
 type PieOption = {
   series: PieSeriesEntry[];
-  legend: { show: boolean; data: string[] };
+  legend: { show: boolean; data: string[]; top?: number; bottom?: number };
 };
 
 // Getippte Rueckgabe statt des im Plan vorgegebenen `Record<string, any>`:
@@ -149,7 +149,7 @@ describe("pieOption", () => {
   // 12-Uhr-Position in den Legendentext.
   it("schiebt die Legende unter eine vorhandene Fussnote", () => {
     const top = (patch: Partial<ChartSpec>): number =>
-      (build(patch).legend as unknown as { top: number }).top;
+      build(patch).legend.top ?? 0;
     expect(top({ title: "Anteile", footnote: "Acht Jahre Haltedauer." })).toBeGreaterThan(
       top({ title: "Anteile" }),
     );

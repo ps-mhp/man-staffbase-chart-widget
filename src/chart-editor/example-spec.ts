@@ -59,9 +59,6 @@ const exampleSpecs: Record<ChartType, () => ChartSpec> = {
   bar: () => ({
     version: 1,
     type: "bar",
-    // Ohne Fußnote: `cartesianOption` reserviert für die Legende nur dann
-    // Platz, wenn ein Titel steht, nicht zusätzlich für eine Fußnote
-    // darunter — mit beidem überlappen Legende und Fußnote sichtbar.
     title: "Reichweite nach Fahrzeug",
     footnote: "Herstellerangaben unter Normbedingungen.",
     legend: { show: true, position: "top" },
@@ -96,8 +93,6 @@ const exampleSpecs: Record<ChartType, () => ChartSpec> = {
     type: "pie",
     title: "Flottenkosten nach Anteil",
     footnote: "Gesamtkosten über acht Jahre Haltedauer.",
-    // Ohne Fußnote: `pieOption` setzt den Legenden-Abstand nur nach dem
-    // Titel, nicht zusätzlich nach einer Fußnote darunter — siehe `bar`.
     legend: { show: true, position: "top" },
     display: { type: "pie", innerRadius: 0, label: "percent" },
     categories: [
