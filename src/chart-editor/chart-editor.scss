@@ -32,6 +32,11 @@ $space-l: 16px;
 $bar-height: chrome.$control-height-sm + 2 * $space-s;
 
 .chart-editor {
+  // Alle Umbrüche (Spalten, Raster-Kartenmodus) hängen an der Breite
+  // *dieses* Dialogs, nicht an der des Fensters: Der Dialog ist schmaler
+  // als der Bildschirm, und `@media` hat deshalb zu spät umgebrochen.
+  container-type: inline-size;
+  container-name: chart-editor;
   // Verankert den Hilfe-Schieber (`&__help`), der sich mit `position: absolute`
   // an diesem Rahmen ausrichtet statt am Dokument.
   position: relative;
@@ -71,7 +76,7 @@ $bar-height: chrome.$control-height-sm + 2 * $space-s;
     gap: $space-l;
     align-items: start;
 
-    @media (max-width: 1100px) {
+    @container chart-editor (max-width: 900px) {
       grid-template-columns: minmax(0, 1fr);
     }
   }
@@ -224,10 +229,26 @@ $bar-height: chrome.$control-height-sm + 2 * $space-s;
   &__grid {
     display: grid;
     gap: 1px;
-    overflow-x: auto;
+    // Kein `overflow-x: auto` mehr: Bei vier Serien und Feineinstellungen
+    // wurde das Raster rund 1100px breit und scrollte waagerecht. Unter
+    // 700px Containerbreite bricht es stattdessen in den Kartenmodus um
+    // (siehe unten) — dort braucht es keine eigene Bildlaufleiste mehr.
     background: chrome.$border;
     border: 1px solid chrome.$border;
     border-radius: chrome.$radius-control;
+
+    // Unter 700px wird aus jeder Rasterzeile eine Karte. Die Spaltenköpfe
+    // verschwinden, und jede Zelle trägt ihre Beschriftung selbst (siehe
+    // `&__cell::before` unten).
+    @container chart-editor (max-width: 700px) {
+      display: flex;
+      flex-direction: column;
+      gap: $space-m;
+      // Die Spaltenbreiten kommen inline aus `columnTemplate` (siehe
+      // Komponente); im Kartenmodus muss das weg, sonst bleibt das Raster
+      // so breit wie die Summe seiner Spalten.
+      grid-template-columns: none !important;
+    }
   }
 
   &__row {
@@ -246,6 +267,46 @@ $bar-height: chrome.$control-height-sm + 2 * $space-s;
   &__head {
     justify-content: flex-start;
     background: chrome.$surface-header;
+  }
+
+  // Die Überschreibung von `&__row` (`display: contents`) und `&__head`
+  // muss *nach* den Grundregeln oben stehen: Gleiche Spezifität, also
+  // entscheidet die Reihenfolge im Stylesheet — vor den Grundregeln hätte
+  // die Container-Abfrage hier gegen die spätere, bedingungslose Regel
+  // verloren.
+  @container chart-editor (max-width: 700px) {
+    &__row {
+      display: flex;
+      flex-direction: column;
+      gap: $space-s;
+      padding: $space-m;
+      background: chrome.$surface;
+      border: 1px solid chrome.$border-soft;
+      border-radius: chrome.$radius-panel;
+    }
+
+    // Gleiche Spezifität wie `&__row` oben (eine Klasse), aber danach
+    // notiert: Die Kopfzeile trägt *beide* Klassen (`&__row` und
+    // `&__head-row--grid`), und ohne diese Reihenfolge hätte `display: flex`
+    // von `&__row` das `display: none` hier wieder aufgehoben — am Bild
+    // beobachtet, nicht nur gelesen: Die Kopfzeile blieb trotz dieser Regel
+    // sichtbar.
+    //
+    // Die Kopfzeile des Rasters hat eine eigene Klasse statt der des
+    // Abschnitts "Titel, Legende und Darstellung" (`&__head-row`): Nur sie
+    // soll verschwinden, wenn die Spaltenköpfe durch `&__cell::before`
+    // ersetzt werden.
+    &__head-row--grid {
+      display: none;
+    }
+
+    &__cell::before {
+      display: block;
+      margin-bottom: 2px;
+      font-size: 11px;
+      color: chrome.$text-muted;
+      content: attr(data-label);
+    }
   }
 
   // Die Spaltenüberschrift. Sie trägt die Bedeutung der Felder darunter —

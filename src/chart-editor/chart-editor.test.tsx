@@ -74,7 +74,7 @@ function renderEditor(partial: Pick<ChartSpec, "type" | "categories" | "series">
       />,
     );
   }
-  return { latest: () => current };
+  return { latest: () => current, container: view.container };
 }
 
 beforeEach(() => {
@@ -338,5 +338,33 @@ describe("Kuchendiagramm im Editor", () => {
     renderEditor(pieSpec);
     expect(screen.getByLabelText("Innenradius")).toBeInTheDocument();
     expect(screen.getByLabelText("Segmentbeschriftung")).toBeInTheDocument();
+  });
+});
+
+// Container-Abfragen greifen in jsdom nicht (kein Layout, keine
+// Containergröße) — geprüft wird deshalb, dass die Beschriftungen im DOM
+// stehen, aus denen der per CSS zugeschaltete Kartenmodus seinen Inhalt
+// zieht. Ob er unter 700px tatsächlich erscheint, prüft die Sichtprüfung
+// am Bild (siehe Spezifikation, Abschnitt 9).
+describe("Kartenmodus", () => {
+  it("beschriftet jede Rasterzelle, damit sie ohne Kopfzeile lesbar bleibt", () => {
+    const { container } = renderEditor({
+      type: "radar",
+      categories: [{ label: "Reichweite" }],
+      series: [{ name: "eTGX", values: [740] }],
+    });
+    const cells = container.querySelectorAll(".chart-editor__cell");
+    expect(cells.length).toBeGreaterThan(0);
+    for (const cell of cells) expect(cell.getAttribute("data-label")).toBeTruthy();
+  });
+
+  it("nennt in der Wertzelle den Serienname", () => {
+    const { container } = renderEditor({
+      type: "radar",
+      categories: [{ label: "Reichweite" }],
+      series: [{ name: "eTGX", values: [740] }],
+    });
+    const labels = [...container.querySelectorAll(".chart-editor__cell")].map((c) => c.getAttribute("data-label"));
+    expect(labels).toContain("eTGX");
   });
 });

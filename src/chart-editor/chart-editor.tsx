@@ -399,41 +399,45 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
                 </p>
 
                 <div className="chart-editor__grid" style={{ gridTemplateColumns: columnTemplate }}>
-                  {/* Kopfzeile: Achsenspalten links, danach je Serie ein Kopf */}
-                  <div className="chart-editor__row">
-                    <div className="chart-editor__cell chart-editor__head">
+                  {/* Kopfzeile: Achsenspalten links, danach je Serie ein Kopf.
+                      Eigene Klasse `chart-editor__head-row--grid`, damit im
+                      Kartenmodus nur sie verschwindet und nicht die
+                      gleichnamige Kopfzeile im Abschnitt "Titel, Legende und
+                      Darstellung". */}
+                  <div className="chart-editor__row chart-editor__head-row--grid">
+                    <div className="chart-editor__cell chart-editor__head" data-label="Achse">
                       <span className="chart-editor__col-head">Achse</span>
                     </div>
-                    <div className="chart-editor__cell chart-editor__head">
+                    <div className="chart-editor__cell chart-editor__head" data-label="Einheit">
                       <span className="chart-editor__col-head">Einheit</span>
                     </div>
                     {showAdvanced ? (
-                      <div className="chart-editor__cell chart-editor__head">
+                      <div className="chart-editor__cell chart-editor__head" data-label="Nachkomma">
                         <span className="chart-editor__col-head">Nachkomma</span>
                       </div>
                     ) : null}
                     {showBounds ? (
                       <>
-                        <div className="chart-editor__cell chart-editor__head">
+                        <div className="chart-editor__cell chart-editor__head" data-label="Minimum">
                           <span className="chart-editor__col-head">Minimum</span>
                         </div>
-                        <div className="chart-editor__cell chart-editor__head">
+                        <div className="chart-editor__cell chart-editor__head" data-label="Maximum">
                           <span className="chart-editor__col-head">Maximum</span>
                         </div>
                       </>
                     ) : null}
                     {showInverted ? (
-                      <div className="chart-editor__cell chart-editor__head">
+                      <div className="chart-editor__cell chart-editor__head" data-label="Richtung">
                         <span className="chart-editor__col-head">Richtung</span>
                       </div>
                     ) : null}
                     {showSegmentColor ? (
-                      <div className="chart-editor__cell chart-editor__head">
+                      <div className="chart-editor__cell chart-editor__head" data-label="Farbe">
                         <span className="chart-editor__col-head">Farbe</span>
                       </div>
                     ) : null}
                     {shownSeries.map((series, seriesIndex) => (
-                      <div className="chart-editor__cell chart-editor__head" key={seriesIndex}>
+                      <div className="chart-editor__cell chart-editor__head" key={seriesIndex} data-label={`Serie ${seriesIndex + 1}`}>
                         <span className="chart-editor__col-head">Serie {seriesIndex + 1}</span>
                         <input
                           className="chart-editor__input"
@@ -484,13 +488,13 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
                         </div>
                       </div>
                     ))}
-                    <div className="chart-editor__cell chart-editor__head" />
+                    <div className="chart-editor__cell chart-editor__head" data-label="Aktionen" />
                   </div>
 
                   {/* Je Achse eine Zeile */}
                   {value.categories.map((category, index) => (
                     <div className="chart-editor__row" key={index}>
-                      <div className="chart-editor__cell">
+                      <div className="chart-editor__cell" data-label="Achse">
                         <textarea
                           className="chart-editor__input chart-editor__input--multiline"
                           // Wächst mit den Zeilen des Namens, damit ein Umbruch
@@ -502,7 +506,7 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
                           onChange={(event) => updateCategoryAt(index, { label: event.target.value })}
                         />
                       </div>
-                      <div className="chart-editor__cell">
+                      <div className="chart-editor__cell" data-label="Einheit">
                         <input
                           className="chart-editor__input"
                           type="text"
@@ -513,7 +517,7 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
                         />
                       </div>
                       {showAdvanced ? (
-                        <div className="chart-editor__cell">
+                        <div className="chart-editor__cell" data-label="Nachkomma">
                           <NumberField
                             id={`chart-editor-decimals-${index}`}
                             label={`Nachkommastellen: ${categoryName(category, index)}`}
@@ -525,7 +529,7 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
                       ) : null}
                       {showBounds ? (
                         <>
-                          <div className="chart-editor__cell">
+                          <div className="chart-editor__cell" data-label="Minimum">
                             <NumberField
                               id={`chart-editor-min-${index}`}
                               label={`Minimum: ${categoryName(category, index)}`}
@@ -534,7 +538,7 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
                               onCommit={(next) => updateCategoryAt(index, { min: next ?? undefined })}
                             />
                           </div>
-                          <div className="chart-editor__cell">
+                          <div className="chart-editor__cell" data-label="Maximum">
                             <NumberField
                               id={`chart-editor-max-${index}`}
                               label={`Maximum: ${categoryName(category, index)}`}
@@ -546,7 +550,7 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
                         </>
                       ) : null}
                       {showInverted ? (
-                        <div className="chart-editor__cell">
+                        <div className="chart-editor__cell" data-label="Skala">
                           <label className="chart-editor__check">
                             <input
                               type="checkbox"
@@ -561,7 +565,7 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
                         </div>
                       ) : null}
                       {showSegmentColor ? (
-                        <div className="chart-editor__cell">
+                        <div className="chart-editor__cell" data-label="Farbe">
                           <input
                             type="color"
                             aria-label={`Segmentfarbe: ${categoryName(category, index)}`}
@@ -579,7 +583,7 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
                         </div>
                       ) : null}
                       {shownSeries.map((series, seriesIndex) => (
-                        <div className="chart-editor__cell" key={seriesIndex}>
+                        <div className="chart-editor__cell" key={seriesIndex} data-label={seriesName(series, seriesIndex)}>
                           <NumberField
                             id={`chart-editor-value-${seriesIndex}-${index}`}
                             label={`${seriesName(series, seriesIndex)}, ${categoryName(category, index)}`}
@@ -589,7 +593,7 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
                           />
                         </div>
                       ))}
-                      <div className="chart-editor__cell">
+                      <div className="chart-editor__cell" data-label="Aktionen">
                         <div className="chart-editor__row-actions">
                           <button
                             type="button"
