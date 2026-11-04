@@ -310,6 +310,10 @@ $space-l: 16px;
     color: chrome.$text-warning;
   }
 
+  &__hint--warning {
+    color: chrome.$text-warning;
+  }
+
   // Die Vorschau zeigt echte Markenfarben — ihr Rahmen hier bleibt neutral.
   &__preview {
     padding: $space-m;

@@ -39,6 +39,44 @@ function setup(value: ChartSpec = spec) {
   return { onChange };
 }
 
+/**
+ * Rendert mit einer kurzen Teildefinition (nur `type`, `categories`,
+ * `series`) und hält selbst den letzten Stand nach — die Testfälle wollen
+ * nicht bei jeder Änderung `version` und `legend` mitschreiben, und ein
+ * `onChange`, der nicht neu rendert, würde eine zweite Änderung auf dem
+ * alten Stand aufsetzen lassen.
+ */
+function renderEditor(partial: Pick<ChartSpec, "type" | "categories" | "series">) {
+  let current: ChartSpec = { version: 1, legend: { show: true, position: "top" }, ...partial };
+  const view = render(
+    <ChartEditor
+      value={current}
+      onChange={(next) => {
+        current = next;
+        rerender();
+      }}
+      onSave={jest.fn()}
+      onClose={jest.fn()}
+      dirty={false}
+    />,
+  );
+  function rerender(): void {
+    view.rerender(
+      <ChartEditor
+        value={current}
+        onChange={(next) => {
+          current = next;
+          rerender();
+        }}
+        onSave={jest.fn()}
+        onClose={jest.fn()}
+        dirty={false}
+      />,
+    );
+  }
+  return { latest: () => current };
+}
+
 beforeEach(() => {
   (global as unknown as { ResizeObserver: unknown }).ResizeObserver = StubResizeObserver;
 });
@@ -253,5 +291,52 @@ describe("Feldsichtbarkeit je Typ", () => {
     expect(screen.queryByLabelText("Linien glätten")).not.toBeInTheDocument();
     expect(screen.queryByLabelText("Fläche füllen")).not.toBeInTheDocument();
     expect(screen.queryByLabelText("Punkte zeigen")).not.toBeInTheDocument();
+  });
+});
+
+describe("Kuchendiagramm im Editor", () => {
+  const pieSpec: Pick<ChartSpec, "type" | "categories" | "series"> = {
+    type: "pie",
+    categories: [{ label: "Antrieb" }, { label: "Aufbau" }],
+    series: [
+      { name: "Anteil", values: [60, 40] },
+      { name: "Zweite", values: [1, 2] },
+    ],
+  };
+
+  it("zeigt nur die erste Serienspalte", () => {
+    renderEditor(pieSpec);
+    expect(screen.getByLabelText("Anteil, Antrieb")).toBeInTheDocument();
+    expect(screen.queryByLabelText("Zweite, Antrieb")).not.toBeInTheDocument();
+  });
+
+  it("sagt, dass weitere Serien erhalten bleiben", () => {
+    // Der Typ-Hinweis über dem Raster enthält ebenfalls die Wendung "nur die
+    // erste Serie" (er beschreibt den Typ allgemein) — deshalb hier auf eine
+    // Formulierung geprüft, die nur im Warn-Hinweis unter dem Raster steht.
+    renderEditor(pieSpec);
+    expect(screen.getByText(/Die weiteren bleiben gespeichert/i)).toBeInTheDocument();
+  });
+
+  it("zeigt den Hinweis nicht, wenn es nur eine Serie gibt", () => {
+    renderEditor({ ...pieSpec, series: [pieSpec.series[0]] });
+    expect(screen.queryByText(/Die weiteren bleiben gespeichert/i)).not.toBeInTheDocument();
+  });
+
+  it("bietet eine Segmentfarbe je Kategorie", () => {
+    const { latest } = renderEditor(pieSpec);
+    fireEvent.change(screen.getByLabelText("Segmentfarbe: Antrieb"), { target: { value: "#ff0000" } });
+    expect(latest().categories[0].color).toBe("#ff0000");
+  });
+
+  it("zeigt die Segmentfarbe bei keinem anderen Typ", () => {
+    renderEditor({ ...pieSpec, type: "bar" });
+    expect(screen.queryByLabelText(/Segmentfarbe/)).not.toBeInTheDocument();
+  });
+
+  it("zeigt Innenradius und Segmentbeschriftung", () => {
+    renderEditor(pieSpec);
+    expect(screen.getByLabelText("Innenradius")).toBeInTheDocument();
+    expect(screen.getByLabelText("Segmentbeschriftung")).toBeInTheDocument();
   });
 });

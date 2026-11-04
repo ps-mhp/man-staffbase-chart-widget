@@ -64,11 +64,13 @@ import {
   CHART_TYPES,
   DisplayOptions,
   LineDisplay,
+  PieDisplay,
   RadarDisplay,
   Series,
   serializeChartSpec,
 } from "../chart-model";
 import { ChartWidget } from "../chart-widget";
+import { useChartTheme } from "../use-chart-theme";
 import {
   addCategory,
   addSeries,
@@ -113,12 +115,9 @@ const CHART_TYPE_INFO: Record<ChartType, { label: string; hint: string }> = {
     label: "Liniendiagramm (Verlauf)",
     hint: "Zeigt eine Entwicklung über eine geordnete Reihe hinweg — etwa über Jahre. Die Reihenfolge der Achsen ist die Reihenfolge im Raster.",
   },
-  // Nur der Eintrag, den `Record<ChartType, …>` erzwingt — die eigentliche
-  // Editor-Arbeit für `pie` (Innenradius, Beschriftung, Segmentfarbe je
-  // Zeile) ist nicht Teil dieser Aufgabe und folgt in Aufgabe 5.
   pie: {
     label: "Kuchendiagramm (Torte / Ring)",
-    hint: "Zeigt die Aufteilung einer einzelnen Serie in Segmente. Nur die erste Serie der Tabelle wird gezeichnet.",
+    hint: "Zeigt die Aufteilung eines Ganzen. Es wird nur die erste Serie gezeichnet, und alle Werte sollten dieselbe Einheit haben.",
   },
 };
 
@@ -218,6 +217,10 @@ function lineDisplay(spec: ChartSpec): LineDisplay {
     : { type: "line", smooth: false, area: false, showPoints: true };
 }
 
+function pieDisplay(spec: ChartSpec): PieDisplay {
+  return spec.display?.type === "pie" ? spec.display : { type: "pie", innerRadius: 0, label: "percent" };
+}
+
 /** Benennt eine Achse für Hilfstexte, auch solange sie noch keinen Namen hat. */
 const categoryName = (category: Category, index: number): string =>
   category.label.replace(/\n/g, " ") || `Achse ${index + 1}`;
@@ -227,6 +230,7 @@ const seriesName = (series: Series, index: number): string => series.name || `Se
 
 export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEditorProps): React.JSX.Element {
   const rootRef = useRef<HTMLDivElement | null>(null);
+  const theme = useChartTheme(rootRef);
   const [pasteText, setPasteText] = useState("");
   const [pasteError, setPasteError] = useState(false);
   const [pasteOrientation, setPasteOrientation] = useState<PasteOrientation>("axes-in-rows");
@@ -247,6 +251,7 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
     if (type === "radar") return radarDisplay(value);
     if (type === "bar") return barDisplay(value);
     if (type === "line") return lineDisplay(value);
+    if (type === "pie") return pieDisplay(value);
     return undefined;
   };
 
@@ -274,6 +279,12 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
 
   const showBounds = showAdvanced && value.type === "radar";
   const showInverted = value.type === "radar";
+  const showSegmentColor = value.type === "pie";
+
+  // Bei `pie` wird nur die erste Serie gezeichnet. Die weiteren bleiben in
+  // der Definition erhalten; der Hinweis unter dem Raster sagt das, damit es
+  // nicht wie Datenverlust aussieht und niemand die Spalten löscht.
+  const shownSeries = value.type === "pie" ? value.series.slice(0, 1) : value.series;
 
   const columnTemplate = [
     "minmax(150px, 1.6fr)",
@@ -281,7 +292,8 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
     ...(showAdvanced ? ["minmax(70px, 88px)"] : []),
     ...(showBounds ? ["minmax(70px, 88px)", "minmax(70px, 88px)"] : []),
     ...(showInverted ? ["minmax(120px, 150px)"] : []),
-    `repeat(${Math.max(value.series.length, 1)}, minmax(96px, 1fr))`,
+    ...(showSegmentColor ? ["minmax(60px, 72px)"] : []),
+    `repeat(${Math.max(shownSeries.length, 1)}, minmax(96px, 1fr))`,
     "minmax(84px, 96px)",
   ].join(" ");
 
@@ -432,7 +444,12 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
                         <span className="chart-editor__col-head">Richtung</span>
                       </div>
                     ) : null}
-                    {value.series.map((series, seriesIndex) => (
+                    {showSegmentColor ? (
+                      <div className="chart-editor__cell chart-editor__head">
+                        <span className="chart-editor__col-head">Farbe</span>
+                      </div>
+                    ) : null}
+                    {shownSeries.map((series, seriesIndex) => (
                       <div className="chart-editor__cell chart-editor__head" key={seriesIndex}>
                         <span className="chart-editor__col-head">Serie {seriesIndex + 1}</span>
                         <input
@@ -560,7 +577,25 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
                           </label>
                         </div>
                       ) : null}
-                      {value.series.map((series, seriesIndex) => (
+                      {showSegmentColor ? (
+                        <div className="chart-editor__cell">
+                          <input
+                            type="color"
+                            aria-label={`Segmentfarbe: ${categoryName(category, index)}`}
+                            className="chart-editor__color"
+                            // Eine leere Palette gibt es praktisch nicht (der Fallback des
+                            // Themes liefert immer Farben), aber ein `<input type="color">`
+                            // ohne gueltigen Wert zeigt sonst Schwarz und meldet im Test
+                            // eine leere Zeichenkette statt eines nutzbaren Werts.
+                            value={
+                              category.color ??
+                              (theme.palette.length > 0 ? theme.palette[index % theme.palette.length] : "#000000")
+                            }
+                            onChange={(event) => updateCategoryAt(index, { color: event.target.value })}
+                          />
+                        </div>
+                      ) : null}
+                      {shownSeries.map((series, seriesIndex) => (
                         <div className="chart-editor__cell" key={seriesIndex}>
                           <NumberField
                             id={`chart-editor-value-${seriesIndex}-${index}`}
@@ -629,6 +664,12 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
                     <strong>Nachkomma</strong> legt die angezeigten Nachkommastellen fest. <strong>Minimum</strong> und{" "}
                     <strong>Maximum</strong> begrenzen die Zeichnung der Achse: Werte außerhalb werden auf den Rand
                     gezeichnet, aber weiterhin mit ihrer echten Zahl beschriftet. Leer heißt: aus den Werten abgeleitet.
+                  </p>
+                ) : null}
+                {value.type === "pie" && value.series.length > 1 ? (
+                  <p className="chart-editor__hint chart-editor__hint--warning">
+                    Ein Kuchendiagramm zeichnet <strong>nur die erste Serie</strong>. Die weiteren bleiben
+                    gespeichert und erscheinen wieder, sobald du zu einem anderen Diagrammtyp wechselst.
                   </p>
                 ) : null}
               </>
@@ -790,6 +831,40 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
                       />
                       Punkte zeigen
                     </label>
+                  </div>
+                </>
+              ) : null}
+              {value.type === "pie" ? (
+                <>
+                  <div className="chart-editor__field">
+                    <label className="chart-editor__label" htmlFor="chart-editor-inner-radius">
+                      Innenradius
+                    </label>
+                    <NumberField
+                      id="chart-editor-inner-radius"
+                      label="Innenradius"
+                      placeholder="0"
+                      value={pieDisplay(value).innerRadius}
+                      onCommit={(next) => setDisplay({ innerRadius: next ?? 0 })}
+                    />
+                    <span className="chart-editor__hint">0 ergibt einen Vollkreis, 45 einen Ring.</span>
+                  </div>
+                  <div className="chart-editor__field">
+                    <label className="chart-editor__label" htmlFor="chart-editor-pie-label">
+                      Segmentbeschriftung
+                    </label>
+                    <select
+                      id="chart-editor-pie-label"
+                      aria-label="Segmentbeschriftung"
+                      className="chart-editor__input"
+                      value={pieDisplay(value).label}
+                      onChange={(event) => setDisplay({ label: event.target.value })}
+                    >
+                      <option value="percent">Anteil in Prozent</option>
+                      <option value="value">Absolutwert</option>
+                      <option value="both">beides</option>
+                      <option value="none">ausblenden</option>
+                    </select>
                   </div>
                 </>
               ) : null}
