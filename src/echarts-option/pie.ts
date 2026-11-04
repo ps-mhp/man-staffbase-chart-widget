@@ -26,30 +26,104 @@
 import { PreparedSpec } from "../chart-prepare";
 import { formatMeasure } from "../format";
 import { ChartTheme } from "../man-chart-theme";
+import { lineCount, textWidth } from "./text-layout";
 import { ChartSize } from "../use-echarts";
 
-/** Außenradius; der Rest der Fläche trägt Legende und Beschriftungen. */
-const OUTER_RADIUS = "70%";
+/**
+ * Weite, die eine Außenbeschriftung über den Kuchenrand hinaus braucht:
+ * die beiden Abschnitte der Führungslinie und die Zeile selbst.
+ */
+const LABEL_REACH = 44;
+/** Luft zwischen Beschriftung und dem, was darüber oder darunter steht. */
+const LABEL_GAP = 8;
+/** Kleinster Radius, bei dem ein Kuchen noch ablesbar ist. */
+const MIN_RADIUS = 40;
+
+// Dieselben Maße wie in `radar.ts`, damit beide Typen gleich aussehen.
+const TITLE_FONT = 16;
+const TITLE_LINE = 22;
+const FOOTNOTE_FONT = 12;
+const FOOTNOTE_LINE = 16;
+/** Abstand zwischen Titel und Fußnote. */
+const TITLE_GAP = 6;
+/** Luft zwischen dem Kopfbereich und dem, was darunter folgt. */
+const HEADER_PAD = 10;
+const LEGEND_FONT = 12;
+const LEGEND_LINE = 22;
+/** Breite eines Legendensymbols samt Abstand zu seinem Text. */
+const LEGEND_SYMBOL = 32;
+/** Abstand zwischen zwei Legendeneinträgen. */
+const LEGEND_GAP = 10;
+
+interface PieLayout {
+  /** Mittelpunkt senkrecht, in Pixeln vom oberen Rand. */
+  centerY: number;
+  /** Außenradius in Pixeln. */
+  radius: number;
+}
 
 /**
- * Mittelpunkt senkrecht — rutscht mit Titel nach unten.
+ * Teilt die Höhe des Containers auf.
  *
- * Gefunden bei der Bildprüfung, nicht am Test: Bei einem sehr kleinen
- * Segment liegt dessen Außenlabel nahe der 12-Uhr-Position direkt unter der
- * Legende, und mit Titel reicht der Standard-Mittelpunkt (50 %) nicht, um
- * das zu vermeiden — das Label überlappte den Legendentext. `radius` bleibt
- * unverändert (und bleibt deshalb mit den Testwerten "70%" vergleichbar);
- * nur der Mittelpunkt weicht nach unten aus.
+ * Ein Kuchen genau in der Mitte des Containers ignoriert, dass Titel und
+ * Legende oben oder unten bereits Platz wegnehmen. Bei einem sehr kleinen
+ * Segment stieß dessen Außenlabel nahe der 12-Uhr-Position deshalb in den
+ * Legendentext — gefunden bei der Bildprüfung, nicht am Test.
+ *
+ * Feste Prozentwerte lösen das nicht: Wie hoch die Legende ausfällt, hängt
+ * an der Zahl der Kategorien, der Länge ihrer Namen und der Breite des
+ * Containers. Bei acht langen Namen bricht ECharts sie auf zwei Zeilen um,
+ * und jede angenommene Bandhöhe liegt daneben. Gerechnet wird deshalb aus
+ * den echten Maßen, nach demselben Muster wie `radarLayout` in `radar.ts`.
  */
-const CENTER_Y = { withTitle: "58%", withoutTitle: "52%" } as const;
+function pieLayout(p: PreparedSpec, size: ChartSize): PieLayout {
+  const { spec } = p;
+  const headerWidth = Math.max(80, size.width - 16);
+
+  const titleHeight = spec.title ? lineCount(spec.title, headerWidth, TITLE_FONT) * TITLE_LINE : 0;
+  const footnoteHeight = spec.footnote ? lineCount(spec.footnote, headerWidth, FOOTNOTE_FONT) * FOOTNOTE_LINE : 0;
+  const headerHeight =
+    titleHeight +
+    (titleHeight > 0 && footnoteHeight > 0 ? TITLE_GAP : 0) +
+    footnoteHeight +
+    (titleHeight + footnoteHeight > 0 ? HEADER_PAD : 0);
+
+  // Die Legende bricht bei ECharts selbst um, sobald die Einträge nicht mehr
+  // nebeneinander passen. Für die Höhe wird derselbe Umbruch geschätzt.
+  // Anders als bei den übrigen Typen stehen hier die Kategorien darin.
+  const legendWidth = spec.categories.reduce(
+    (total, category) => total + textWidth(category.label, LEGEND_FONT) + LEGEND_SYMBOL + LEGEND_GAP,
+    0,
+  );
+  const legendHeight = spec.legend.show
+    ? Math.max(1, Math.ceil(legendWidth / Math.max(1, size.width))) * LEGEND_LINE
+    : 0;
+
+  const top = headerHeight + (spec.legend.position === "top" ? legendHeight : 0);
+  const bottom = spec.legend.position === "bottom" ? legendHeight : 0;
+
+  const free = Math.max(0, size.height - top - bottom);
+  // Die Mitte der freien Fläche, nicht die Mitte des Containers.
+  const centerY = top + free / 2;
+
+  // Ein fester Prozentwert als Radius misst sich am ganzen Container und
+  // weiß nichts davon, dass die Legende Höhe weggenommen hat. Genau daran
+  // scheiterte der erste Versuch: Der Kuchen blieb groß, der Mittelpunkt
+  // rückte nach unten, und die Beschriftung des kleinsten Segments stieß
+  // oben trotzdem in die Legende. Der Radius muss deshalb mitschrumpfen.
+  const vertical = free / 2 - LABEL_REACH - LABEL_GAP;
+  const horizontal = size.width / 2 - LABEL_REACH - LABEL_GAP;
+  return { centerY, radius: Math.max(MIN_RADIUS, Math.min(vertical, horizontal)) };
+}
 
 export function pieOption(
   p: PreparedSpec,
   theme: ChartTheme,
   locale: string,
-  _size: ChartSize,
+  size: ChartSize,
 ): Record<string, unknown> {
   const { spec } = p;
+  const layout = pieLayout(p, size);
   const display = spec.display?.type === "pie" ? spec.display : undefined;
   const innerRadius = display?.innerRadius ?? 0;
   const labelMode = display?.label ?? "percent";
@@ -116,8 +190,11 @@ export function pieOption(
       {
         type: "pie",
         name: p.series[0]?.name ?? "",
-        center: ["50%", spec.title === undefined ? CENTER_Y.withoutTitle : CENTER_Y.withTitle],
-        radius: [`${String(innerRadius)}%`, OUTER_RADIUS],
+        center: ["50%", layout.centerY],
+        // `innerRadius` ist der Anteil des Lochs am Kuchen. Als Anteil statt
+        // als Containerprozent bleibt das Loch bei jeder Größe gleich breit
+        // und kann den mitschrumpfenden Außenrand nie überholen.
+        radius: [(layout.radius * innerRadius) / 100, layout.radius],
         data,
         label: {
           show: labelMode !== "none",

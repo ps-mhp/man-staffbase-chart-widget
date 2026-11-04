@@ -65,25 +65,14 @@ function noticeFor(problems: ChartProblem[]): string | null {
   // Anfuehrungszeichen waeren fuer die Redaktion nur verwirrend.
   if (unknown) return unknown.detail ? MESSAGES.unknownType(unknown.detail) : MESSAGES.unknownTypeUnnamed;
   if (problems.some((problem) => problem.code === "empty")) return MESSAGES.empty;
-  return null;
-}
-
-/**
- * Hinweise, die den Chart begleiten statt ihn zu ersetzen.
- *
- * Abweichung vom Brief: Dort stand der Text als weiterer Zweig in
- * `noticeFor`, was `negative-share` zu einer blockierenden Meldung machen
- * würde — wie "empty"/"unreadable"/"unknown-type", die den Chart durch die
- * Meldung ersetzen. Das widerspricht aber `pieOption`: Die zeichnet die
- * übrigen, gültigen Segmente bewusst weiter und lässt nur das negative
- * Segment weg (siehe Kommentar dort). Ein negativer Anteil macht die
- * restlichen Daten nicht ungültig, und das Blockieren würde den sonst
- * sichtbaren Teil des Diagramms grundlos verstecken. Der Hinweis erscheint
- * deshalb zusätzlich zum weiterhin gezeichneten Diagramm.
- */
-function warningFor(problems: ChartProblem[]): string | null {
+  // Blockierend, obwohl `pieOption` die übrigen Segmente zeichnen könnte:
+  // Ein Kuchen verteilt die verbleibenden Werte auf den vollen Kreis. Fiele
+  // nur das negative Segment heraus, stünde ein vollständig wirkender Kuchen
+  // mit stillschweigend hochskalierten Prozentwerten da — eine Verfälschung,
+  // die auch die Live-Anzeige träfe, nicht bloß die Vorschau.
   const negative = problems.find((problem) => problem.code === "negative-share");
-  return negative ? MESSAGES.negativeShare(negative.detail) : null;
+  if (negative) return MESSAGES.negativeShare(negative.detail);
+  return null;
 }
 
 export function ChartWidget({ chart, height, contentLanguage, allowExport }: ChartViewProps): React.JSX.Element {
@@ -105,7 +94,6 @@ export function ChartWidget({ chart, height, contentLanguage, allowExport }: Cha
     return { spec: parsed.spec, problems: [...parsed.problems, ...validateSpec(parsed.spec)] };
   }, [chart]);
   const notice = noticeFor(problems);
-  const warning = warningFor(problems);
   const hasData = spec.categories.length > 0 && spec.series.length > 0;
 
   const prepared = useMemo(
@@ -132,7 +120,6 @@ export function ChartWidget({ chart, height, contentLanguage, allowExport }: Cha
         </p>
       ) : (
         <>
-          {warning ? <p className="man-chart__notice man-chart__notice--error">{warning}</p> : null}
           {status === "failed" ? (
             <p className="man-chart__notice man-chart__notice--error">{MESSAGES.loadFailed}</p>
           ) : null}

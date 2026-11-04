@@ -120,7 +120,7 @@ describe("ChartWidget", () => {
     expect(screen.getByRole("button", { name: "Als PNG" })).toBeInTheDocument();
   });
 
-  it("weist bei einem negativen Anteil auf den Fehler hin, zeichnet aber weiter", async () => {
+  it("ersetzt den Kuchen bei einem negativen Anteil durch den Hinweis", async () => {
     const pie: ChartSpec = {
       version: 1,
       type: "pie",
@@ -130,9 +130,9 @@ describe("ChartWidget", () => {
     };
     render(<ChartWidget chart={serializeChartSpec(pie)} height={420} />);
     expect(await screen.findByText(/„Aufbau“ hat einen negativen Wert/)).toBeInTheDocument();
-    // Weiterhin gezeichnet statt ersetzt: Die restlichen Segmente bleiben
-    // gueltig, siehe Begruendung bei `warningFor` in `chart-widget.tsx`.
-    await waitFor(() => expect(mockedLoad).toHaveBeenCalledWith("pie"));
-    expect(screen.queryByText(/Noch kein Diagramm eingerichtet/)).not.toBeInTheDocument();
+    // Blockierend: Ein Kuchen ohne das negative Segment verteilt die Reste
+    // auf den vollen Kreis und zeigt verfaelschte Prozentwerte.
+    expect(document.querySelector(".man-chart__canvas")).toBeNull();
+    expect(mockedLoad).not.toHaveBeenCalledWith("pie");
   });
 });
