@@ -11,7 +11,33 @@
  * limitations under the License.
  */
 
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+
 import { loadECharts } from "./echarts-modules";
+
+/**
+ * Die Einzelmodule, die der Lader für ein Radar anfasst.
+ *
+ * Jedes davon reicht genau einen Export `install` heraus — anders als die
+ * Sammelmodule `echarts/charts` und `echarts/components`, die benannte
+ * Exporte liefern.
+ */
+function mockRadarModules(core: unknown): void {
+  jest.doMock("echarts/core", () => core);
+  for (const path of [
+    "echarts/lib/component/title/install.js",
+    "echarts/lib/component/legend/install.js",
+    "echarts/lib/component/tooltip/install.js",
+    "echarts/lib/component/aria/install.js",
+    "echarts/lib/renderer/installSVGRenderer.js",
+    "echarts/lib/chart/radar/install.js",
+    "echarts/lib/component/radar/install.js",
+    "echarts/lib/component/graphic/install.js",
+  ]) {
+    jest.doMock(path, () => ({ install: {} }));
+  }
+}
 
 describe("loadECharts", () => {
   it("liefert den Kern mit registriertem Radar", async () => {
@@ -35,16 +61,7 @@ describe("loadECharts", () => {
     // Daher zählen wir Aufrufe über ein eigenes Modul-Mock statt über
     // einen Spion auf dem echten Kern.
     jest.resetModules();
-    jest.doMock("echarts/core", () => ({ init: jest.fn(), use: jest.fn() }));
-    jest.doMock("echarts/components", () => ({
-      TitleComponent: {},
-      LegendComponent: {},
-      TooltipComponent: {},
-      AriaComponent: {},
-      RadarComponent: {},
-    }));
-    jest.doMock("echarts/renderers", () => ({ SVGRenderer: {} }));
-    jest.doMock("echarts/charts", () => ({ RadarChart: {} }));
+    mockRadarModules({ init: jest.fn(), use: jest.fn() });
 
     const { loadECharts: loadEchartsWithMocks } = await import("./echarts-modules");
     const core = (await loadEchartsWithMocks("radar")) as unknown as { use: jest.Mock };
@@ -56,31 +73,19 @@ describe("loadECharts", () => {
     // schlucken, aber wir wollen den Lader nicht jedes Mal durchlaufen.
     expect(core.use.mock.calls.length).toBe(callsAfterFirstLoad);
 
-    jest.dontMock("echarts/core");
-    jest.dontMock("echarts/components");
-    jest.dontMock("echarts/renderers");
-    jest.dontMock("echarts/charts");
     jest.resetModules();
   });
 
   it("merkt sich keinen gescheiterten Kern, sondern versucht es erneut", async () => {
     jest.resetModules();
     let attempt = 0;
+    mockRadarModules(undefined);
     jest.doMock("echarts/core", () => {
       attempt += 1;
       // Nur der erste Zugriff scheitert — wie ein abgebrochener Netzzugriff.
       if (attempt === 1) throw new Error("Netzwerk weg");
       return { init: jest.fn(), use: jest.fn() };
     });
-    jest.doMock("echarts/components", () => ({
-      TitleComponent: {},
-      LegendComponent: {},
-      TooltipComponent: {},
-      AriaComponent: {},
-      RadarComponent: {},
-    }));
-    jest.doMock("echarts/renderers", () => ({ SVGRenderer: {} }));
-    jest.doMock("echarts/charts", () => ({ RadarChart: {} }));
 
     const { loadECharts: loadFlaky } = await import("./echarts-modules");
     await expect(loadFlaky("radar")).rejects.toThrow("Netzwerk weg");
@@ -88,10 +93,25 @@ describe("loadECharts", () => {
     const core = await loadFlaky("radar");
     expect(typeof core.use).toBe("function");
 
-    jest.dontMock("echarts/core");
-    jest.dontMock("echarts/components");
-    jest.dontMock("echarts/renderers");
-    jest.dontMock("echarts/charts");
     jest.resetModules();
+  });
+});
+
+describe("Chunk-Trennung", () => {
+  // Webpack schneidet Chunks je Modul. Die Sammelmodule `echarts/charts`
+  // und `echarts/components` sind je eine einzige Datei — nennen zwei
+  // `import()`-Stellen sie, landen alle Diagrammtypen in einem Chunk, und
+  // ein Balkendiagramm lädt den Radar-Code mit. `webpackExports` verhindert
+  // das nicht, denn es wirkt nur innerhalb eines Chunks. Dieser Test hält
+  // die Rückkehr zu den Sammelmodulen auf, die sich sonst nur an der
+  // Größe der gebauten Dateien zeigen würde.
+  it("laedt keine Sammelmodule von ECharts", () => {
+    // Die Blockkommentare müssen zuerst weg: `webpackChunkName: "echarts-…"`
+    // steht zwischen `import(` und dem Modulpfad und sähe sonst wie einer aus.
+    const source = readFileSync(join(__dirname, "echarts-modules.ts"), "utf8").replace(/\/\*[\s\S]*?\*\//g, "");
+    const imports = [...source.matchAll(/\bimport\(\s*"([^"]+)"\s*\)/g)].map((match) => match[1]);
+
+    expect(imports.length).toBeGreaterThan(0);
+    expect(imports.filter((name) => /^echarts\/(charts|components|renderers)(\.js)?$/.test(name))).toEqual([]);
   });
 });

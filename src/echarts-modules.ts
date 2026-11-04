@@ -18,10 +18,18 @@
  * Also zuerst nur der Kern mit dem, was jedes Diagramm braucht, und dann je
  * Typ ein eigener Nachschlag.
  *
- * Die `webpackExports`-Kommentare sind nicht kosmetisch: Ohne sie zieht
- * `import("echarts/charts")` jeden Diagrammtyp in denselben Chunk, und das
- * typweise Nachladen wäre wirkungslos. Jeder Typ braucht deshalb ein eigenes
- * `import()` mit eigener Export-Liste.
+ * Geladen werden die Einzelmodule unter `echarts/lib/…`, nicht die
+ * Sammelmodule `echarts/charts` und `echarts/components`. Das ist für die
+ * Aufteilung entscheidend: Webpack schneidet Chunks je Modul, nicht je
+ * Export. Ein Sammelmodul, das zwei `import()`-Stellen nennen, landet
+ * vollständig in einem gemeinsamen Chunk — ein Balkendiagramm hätte den
+ * Radar-Code mitgeladen. `webpackExports` hilft dagegen nicht, denn es
+ * steuert nur das Tree-Shaking innerhalb eines Chunks.
+ *
+ * Die Einzelmodule sind getrennte Dateien und damit auch getrennte Chunks.
+ * Sie tragen keine Typdeklarationen; die liefert `echarts-lib.d.ts` nach.
+ * Die `.js`-Endung ist nötig, weil die `exports`-Tabelle von ECharts diese
+ * Pfade nur über ihren Auffang-Eintrag freigibt.
  */
 
 import { ChartType } from "./chart-model";
@@ -34,58 +42,43 @@ let corePromise: Promise<EChartsCore> | null = null;
 const loaded = new Set<ChartType>();
 
 async function loadCore(): Promise<EChartsCore> {
-  const [core, components, renderers] = await Promise.all([
+  const [core, title, legend, tooltip, aria, svg] = await Promise.all([
     import(/* webpackChunkName: "echarts-core" */ "echarts/core"),
-    import(
-      /* webpackChunkName: "echarts-core" */
-      /* webpackExports: ["TitleComponent", "LegendComponent", "TooltipComponent", "AriaComponent"] */
-      "echarts/components"
-    ),
-    import(/* webpackChunkName: "echarts-core" */ /* webpackExports: ["SVGRenderer"] */ "echarts/renderers"),
+    import(/* webpackChunkName: "echarts-core" */ "echarts/lib/component/title/install.js"),
+    import(/* webpackChunkName: "echarts-core" */ "echarts/lib/component/legend/install.js"),
+    import(/* webpackChunkName: "echarts-core" */ "echarts/lib/component/tooltip/install.js"),
+    import(/* webpackChunkName: "echarts-core" */ "echarts/lib/component/aria/install.js"),
+    import(/* webpackChunkName: "echarts-core" */ "echarts/lib/renderer/installSVGRenderer.js"),
   ]);
 
   // SVG statt Canvas: scharf im Druck und bei jedem Zoom, im Browser
   // inspizierbar — und in jsdom überhaupt testbar, weil kein
   // Canvas-Kontext gebraucht wird.
-  core.use([
-    components.TitleComponent,
-    components.LegendComponent,
-    components.TooltipComponent,
-    components.AriaComponent,
-    renderers.SVGRenderer,
-  ]);
+  core.use([title.install, legend.install, tooltip.install, aria.install, svg.install]);
   return core;
 }
 
 const TYPE_LOADERS: Record<ChartType, (core: EChartsCore) => Promise<void>> = {
   radar: async (core) => {
-    const [charts, components] = await Promise.all([
-      import(/* webpackChunkName: "echarts-radar" */ /* webpackExports: ["RadarChart"] */ "echarts/charts"),
-      // `RadarComponent` ist das Koordinatensystem, nicht die Serie. Ohne es
-      // zeichnet ECharts nichts und meldet eine fehlende Komponente.
-      // `GraphicComponent` trägt die Wertelabels, die das Radar selbst setzt
+    const [chart, coordinateSystem, graphic] = await Promise.all([
+      import(/* webpackChunkName: "echarts-radar" */ "echarts/lib/chart/radar/install.js"),
+      // Das Radar-Koordinatensystem, nicht die Serie. Ohne es zeichnet
+      // ECharts nichts und meldet eine fehlende Komponente.
+      import(/* webpackChunkName: "echarts-radar" */ "echarts/lib/component/radar/install.js"),
+      // Trägt die Wertelabels, die das Radar selbst setzt
       // (siehe `echarts-option/radar-labels.ts`).
-      import(
-        /* webpackChunkName: "echarts-radar" */
-        /* webpackExports: ["RadarComponent", "GraphicComponent"] */
-        "echarts/components"
-      ),
+      import(/* webpackChunkName: "echarts-radar" */ "echarts/lib/component/graphic/install.js"),
     ]);
-    core.use([charts.RadarChart, components.RadarComponent, components.GraphicComponent]);
+    core.use([chart.install, coordinateSystem.install, graphic.install]);
   },
   bar: async (core) => {
-    const [charts, components] = await Promise.all([
-      import(/* webpackChunkName: "echarts-cartesian" */ /* webpackExports: ["BarChart"] */ "echarts/charts"),
-      // `GridComponent` ist das kartesische Koordinatensystem. Derselbe Chunk
-      // wie bei `line`: Beide brauchen dieses Raster, zwei Chunks lieferten
-      // es doppelt aus.
-      import(
-        /* webpackChunkName: "echarts-cartesian" */
-        /* webpackExports: ["GridComponent"] */
-        "echarts/components"
-      ),
+    const [chart, grid] = await Promise.all([
+      import(/* webpackChunkName: "echarts-cartesian" */ "echarts/lib/chart/bar/install.js"),
+      // Das kartesische Koordinatensystem. Derselbe Chunk wie bei `line`:
+      // Beide brauchen dieses Raster, zwei Chunks lieferten es doppelt aus.
+      import(/* webpackChunkName: "echarts-cartesian" */ "echarts/lib/component/grid/install.js"),
     ]);
-    core.use([charts.BarChart, components.GridComponent]);
+    core.use([chart.install, grid.install]);
   },
 };
 
