@@ -19,6 +19,7 @@ import { ensureStyleElement } from "@shared/style-root";
 import { ChartTable } from "./chart-table";
 import { ChartProblem, parseChartSpec } from "./chart-model";
 import { prepareSpec } from "./chart-prepare";
+import { validateSpec } from "./chart-validate";
 import { buildOption } from "./echarts-option";
 import { ExportButtons } from "./export-button";
 import { intlLocale } from "./format";
@@ -50,6 +51,10 @@ const MESSAGES = {
     "Der eingerichtete Diagrammtyp ist dieser Version des Bausteins nicht bekannt. Bitte aktualisieren Sie den Baustein.",
   noData: "Noch keine Daten im Diagramm. Legen Sie in den Einstellungen Achsen und Serien an.",
   loadFailed: "Das Diagramm konnte nicht geladen werden. Bitte laden Sie die Seite neu.",
+  negativeShare: (detail: string | undefined) =>
+    detail === undefined
+      ? "Ein Kuchendiagramm kann keine negativen Anteile darstellen."
+      : `„${detail}“ hat einen negativen Wert. Ein Kuchendiagramm kann keine negativen Anteile darstellen.`,
 } as const;
 
 function noticeFor(problems: ChartProblem[]): string | null {
@@ -61,6 +66,24 @@ function noticeFor(problems: ChartProblem[]): string | null {
   if (unknown) return unknown.detail ? MESSAGES.unknownType(unknown.detail) : MESSAGES.unknownTypeUnnamed;
   if (problems.some((problem) => problem.code === "empty")) return MESSAGES.empty;
   return null;
+}
+
+/**
+ * Hinweise, die den Chart begleiten statt ihn zu ersetzen.
+ *
+ * Abweichung vom Brief: Dort stand der Text als weiterer Zweig in
+ * `noticeFor`, was `negative-share` zu einer blockierenden Meldung machen
+ * würde — wie "empty"/"unreadable"/"unknown-type", die den Chart durch die
+ * Meldung ersetzen. Das widerspricht aber `pieOption`: Die zeichnet die
+ * übrigen, gültigen Segmente bewusst weiter und lässt nur das negative
+ * Segment weg (siehe Kommentar dort). Ein negativer Anteil macht die
+ * restlichen Daten nicht ungültig, und das Blockieren würde den sonst
+ * sichtbaren Teil des Diagramms grundlos verstecken. Der Hinweis erscheint
+ * deshalb zusätzlich zum weiterhin gezeichneten Diagramm.
+ */
+function warningFor(problems: ChartProblem[]): string | null {
+  const negative = problems.find((problem) => problem.code === "negative-share");
+  return negative ? MESSAGES.negativeShare(negative.detail) : null;
 }
 
 export function ChartWidget({ chart, height, contentLanguage, allowExport }: ChartViewProps): React.JSX.Element {
@@ -75,8 +98,14 @@ export function ChartWidget({ chart, height, contentLanguage, allowExport }: Cha
     ensureStyleElement(rootRef.current, STYLE_ELEMENT_ID, css);
   }, []);
 
-  const { spec, problems } = useMemo(() => parseChartSpec(chart), [chart]);
+  const { spec, problems } = useMemo(() => {
+    const parsed = parseChartSpec(chart);
+    // Die Prüfung läuft neben dem Lesen, nicht darin: Ob ein Wert ein Fehler
+    // ist, hängt am Typ, und `parseChartSpec` beurteilt nicht.
+    return { spec: parsed.spec, problems: [...parsed.problems, ...validateSpec(parsed.spec)] };
+  }, [chart]);
   const notice = noticeFor(problems);
+  const warning = warningFor(problems);
   const hasData = spec.categories.length > 0 && spec.series.length > 0;
 
   const prepared = useMemo(
@@ -103,6 +132,7 @@ export function ChartWidget({ chart, height, contentLanguage, allowExport }: Cha
         </p>
       ) : (
         <>
+          {warning ? <p className="man-chart__notice man-chart__notice--error">{warning}</p> : null}
           {status === "failed" ? (
             <p className="man-chart__notice man-chart__notice--error">{MESSAGES.loadFailed}</p>
           ) : null}

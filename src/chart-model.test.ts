@@ -192,3 +192,60 @@ describe("Liniendiagramm", () => {
     expect(spec.categories[0]).toMatchObject({ min: 2, max: 8, inverted: true });
   });
 });
+
+describe("Kuchendiagramm", () => {
+  const raw = (spec: Record<string, unknown>): string => JSON.stringify(spec);
+
+  it("nimmt pie als Typ an", () => {
+    const { spec, problems } = parseChartSpec(
+      raw({ type: "pie", categories: [{ label: "A" }], series: [{ name: "x", values: [1] }] }),
+    );
+    expect(spec.type).toBe("pie");
+    expect(problems).toEqual([]);
+  });
+
+  it("liest die Anzeigeoptionen von pie", () => {
+    const { spec } = parseChartSpec(
+      raw({ type: "pie", categories: [], series: [], display: { type: "pie", innerRadius: 45, label: "value" } }),
+    );
+    expect(spec.display).toEqual({ type: "pie", innerRadius: 45, label: "value" });
+  });
+
+  it("faellt auf den Vollkreis mit Prozentbeschriftung zurueck", () => {
+    const { spec } = parseChartSpec(raw({ type: "pie", categories: [], series: [], display: { type: "pie" } }));
+    expect(spec.display).toEqual({ type: "pie", innerRadius: 0, label: "percent" });
+  });
+
+  it("begrenzt den Innenradius auf 0 bis 90 Prozent", () => {
+    const zuGross = parseChartSpec(
+      raw({ type: "pie", categories: [], series: [], display: { type: "pie", innerRadius: 150 } }),
+    );
+    expect(zuGross.spec.display).toMatchObject({ innerRadius: 90 });
+
+    const negativ = parseChartSpec(
+      raw({ type: "pie", categories: [], series: [], display: { type: "pie", innerRadius: -20 } }),
+    );
+    expect(negativ.spec.display).toMatchObject({ innerRadius: 0 });
+  });
+
+  it("verwirft Anzeigeoptionen eines anderen Typs", () => {
+    const { spec } = parseChartSpec(
+      raw({ type: "pie", categories: [], series: [], display: { type: "radar", gridLevels: 7, filled: true } }),
+    );
+    expect(spec.display).toBeUndefined();
+  });
+
+  it("liest die Segmentfarbe einer Kategorie", () => {
+    const { spec } = parseChartSpec(
+      raw({ type: "pie", categories: [{ label: "A", color: "#f00" }], series: [] }),
+    );
+    expect(spec.categories[0].color).toBe("#f00");
+  });
+
+  it("behaelt die Segmentfarbe auch nach einem Typwechsel", () => {
+    const { spec } = parseChartSpec(
+      raw({ type: "radar", categories: [{ label: "A", color: "#f00" }], series: [] }),
+    );
+    expect(spec.categories[0].color).toBe("#f00");
+  });
+});

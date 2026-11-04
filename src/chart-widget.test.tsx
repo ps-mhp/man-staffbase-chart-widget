@@ -119,4 +119,20 @@ describe("ChartWidget", () => {
     expect(await screen.findByRole("button", { name: "Als SVG" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Als PNG" })).toBeInTheDocument();
   });
+
+  it("weist bei einem negativen Anteil auf den Fehler hin, zeichnet aber weiter", async () => {
+    const pie: ChartSpec = {
+      version: 1,
+      type: "pie",
+      legend: { show: true, position: "top" },
+      categories: [{ label: "Antrieb" }, { label: "Aufbau" }],
+      series: [{ name: "Anteil", values: [60, -5] }],
+    };
+    render(<ChartWidget chart={serializeChartSpec(pie)} height={420} />);
+    expect(await screen.findByText(/„Aufbau“ hat einen negativen Wert/)).toBeInTheDocument();
+    // Weiterhin gezeichnet statt ersetzt: Die restlichen Segmente bleiben
+    // gueltig, siehe Begruendung bei `warningFor` in `chart-widget.tsx`.
+    await waitFor(() => expect(mockedLoad).toHaveBeenCalledWith("pie"));
+    expect(screen.queryByText(/Noch kein Diagramm eingerichtet/)).not.toBeInTheDocument();
+  });
 });

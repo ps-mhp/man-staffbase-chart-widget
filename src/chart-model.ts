@@ -24,9 +24,9 @@ import { decodePayload, isPayload } from "@shared/payload";
 import { encodePayload } from "@shared/payload";
 
 /** Die unterstützten Diagrammtypen. Wächst mit jedem Übersetzer in `echarts-option/`. */
-export type ChartType = "radar" | "bar" | "line";
+export type ChartType = "radar" | "bar" | "line" | "pie";
 
-export const CHART_TYPES: readonly ChartType[] = ["radar", "bar", "line"];
+export const CHART_TYPES: readonly ChartType[] = ["radar", "bar", "line", "pie"];
 
 /**
  * Eine Achse beziehungsweise Kategorie.
@@ -48,6 +48,13 @@ export interface Category {
   unit?: string;
   /** Nachkommastellen; ohne Angabe aus dem Wert abgeleitet. */
   decimals?: number;
+  /**
+   * Nur `pie`: Farbe des Segments.
+   *
+   * Nicht über `Series.color` zu lösen: Ein Kuchen färbt nach Segment, und
+   * Segmente sind Kategorien — `Series.color` träfe alle Segmente auf einmal.
+   */
+  color?: string;
 }
 
 export interface Series {
@@ -86,12 +93,20 @@ export interface LineDisplay {
   showPoints: boolean;
 }
 
+/** Was nur das Kuchendiagramm kennt. */
+export interface PieDisplay {
+  type: "pie";
+  /** Anteil des Lochs in Prozent; `0` ergibt den Vollkreis. */
+  innerRadius: number;
+  label: "percent" | "value" | "both" | "none";
+}
+
 /**
  * Über `type` diskriminiert. Hier steht nur, was ein einzelner Typ kennt —
  * alles Geteilte (Titel, Fußnote, Legende, Farben) steht an `ChartSpec`,
  * damit es einen Typwechsel im Editor überlebt.
  */
-export type DisplayOptions = RadarDisplay | BarDisplay | LineDisplay;
+export type DisplayOptions = RadarDisplay | BarDisplay | LineDisplay | PieDisplay;
 
 export interface Legend {
   show: boolean;
@@ -109,7 +124,7 @@ export interface ChartSpec {
   display?: DisplayOptions;
 }
 
-export type ChartProblemCode = "empty" | "unreadable" | "unknown-type" | "short-series";
+export type ChartProblemCode = "empty" | "unreadable" | "unknown-type" | "short-series" | "negative-share";
 
 export interface ChartProblem {
   code: ChartProblemCode;
@@ -163,6 +178,7 @@ function readCategory(value: unknown): Category {
     inverted: value.inverted === true ? true : undefined,
     unit: readText(value.unit),
     decimals: readOptionalNumber(value.decimals),
+    color: readText(value.color),
   };
 }
 
@@ -193,6 +209,16 @@ function readDisplay(value: unknown, type: ChartType): DisplayOptions | undefine
       // Punkte sind die Vorgabe: Ohne sie ist bei wenigen Kategorien nicht zu
       // erkennen, wo ein Wert liegt und wo nur interpoliert wird.
       showPoints: value.showPoints !== false,
+    };
+  }
+  if (type === "pie") {
+    const label = value.label;
+    return {
+      type: "pie",
+      // Begrenzen statt übernehmen: Über 90 % bliebe vom Ring nichts übrig,
+      // unter 0 ist keine Größe.
+      innerRadius: Math.min(90, Math.max(0, readNumber(value.innerRadius) ?? 0)),
+      label: label === "value" || label === "both" || label === "none" ? label : "percent",
     };
   }
   return undefined;

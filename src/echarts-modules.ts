@@ -90,6 +90,12 @@ const TYPE_LOADERS: Record<ChartType, (core: EChartsCore) => Promise<void>> = {
     ]);
     core.use([chart.install, grid.install]);
   },
+  pie: async (core) => {
+    // Eigener Chunk: Ein Kuchen braucht kein Koordinatensystem und soll die
+    // GridComponent des kartesischen Chunks nicht mitschleppen.
+    const chart = await import(/* webpackChunkName: "echarts-pie" */ "echarts/lib/chart/pie/install.js");
+    core.use([chart.install]);
+  },
 };
 
 /**

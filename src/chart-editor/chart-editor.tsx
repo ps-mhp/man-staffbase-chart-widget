@@ -113,6 +113,13 @@ const CHART_TYPE_INFO: Record<ChartType, { label: string; hint: string }> = {
     label: "Liniendiagramm (Verlauf)",
     hint: "Zeigt eine Entwicklung über eine geordnete Reihe hinweg — etwa über Jahre. Die Reihenfolge der Achsen ist die Reihenfolge im Raster.",
   },
+  // Nur der Eintrag, den `Record<ChartType, …>` erzwingt — die eigentliche
+  // Editor-Arbeit für `pie` (Innenradius, Beschriftung, Segmentfarbe je
+  // Zeile) ist nicht Teil dieser Aufgabe und folgt in Aufgabe 5.
+  pie: {
+    label: "Kuchendiagramm (Torte / Ring)",
+    hint: "Zeigt die Aufteilung einer einzelnen Serie in Segmente. Nur die erste Serie der Tabelle wird gezeichnet.",
+  },
 };
 
 /** Beschreibt, wie eine eingefügte Tabelle herum steht. */
