@@ -26,7 +26,16 @@
 import { PreparedSpec } from "../chart-prepare";
 import { formatMeasure } from "../format";
 import { ChartTheme } from "../man-chart-theme";
-import { lineCount, textWidth } from "./text-layout";
+import {
+  FOOTNOTE_FONT,
+  FOOTNOTE_LINE,
+  TITLE_FONT,
+  TITLE_GAP,
+  TITLE_LINE,
+  headerHeight,
+  headerWidth,
+  textWidth,
+} from "./text-layout";
 import { ChartSize } from "../use-echarts";
 
 /**
@@ -39,15 +48,6 @@ const LABEL_GAP = 8;
 /** Kleinster Radius, bei dem ein Kuchen noch ablesbar ist. */
 const MIN_RADIUS = 40;
 
-// Dieselben Maße wie in `radar.ts`, damit beide Typen gleich aussehen.
-const TITLE_FONT = 16;
-const TITLE_LINE = 22;
-const FOOTNOTE_FONT = 12;
-const FOOTNOTE_LINE = 16;
-/** Abstand zwischen Titel und Fußnote. */
-const TITLE_GAP = 6;
-/** Luft zwischen dem Kopfbereich und dem, was darunter folgt. */
-const HEADER_PAD = 10;
 const LEGEND_FONT = 12;
 const LEGEND_LINE = 22;
 /** Breite eines Legendensymbols samt Abstand zu seinem Text. */
@@ -60,6 +60,8 @@ interface PieLayout {
   centerY: number;
   /** Außenradius in Pixeln. */
   radius: number;
+  /** Oberkante der Legende, wenn sie oben steht. */
+  legendTop: number;
 }
 
 /**
@@ -78,15 +80,7 @@ interface PieLayout {
  */
 function pieLayout(p: PreparedSpec, size: ChartSize): PieLayout {
   const { spec } = p;
-  const headerWidth = Math.max(80, size.width - 16);
-
-  const titleHeight = spec.title ? lineCount(spec.title, headerWidth, TITLE_FONT) * TITLE_LINE : 0;
-  const footnoteHeight = spec.footnote ? lineCount(spec.footnote, headerWidth, FOOTNOTE_FONT) * FOOTNOTE_LINE : 0;
-  const headerHeight =
-    titleHeight +
-    (titleHeight > 0 && footnoteHeight > 0 ? TITLE_GAP : 0) +
-    footnoteHeight +
-    (titleHeight + footnoteHeight > 0 ? HEADER_PAD : 0);
+  const header = headerHeight(spec.title, spec.footnote, size.width);
 
   // Die Legende bricht bei ECharts selbst um, sobald die Einträge nicht mehr
   // nebeneinander passen. Für die Höhe wird derselbe Umbruch geschätzt.
@@ -99,7 +93,7 @@ function pieLayout(p: PreparedSpec, size: ChartSize): PieLayout {
     ? Math.max(1, Math.ceil(legendWidth / Math.max(1, size.width))) * LEGEND_LINE
     : 0;
 
-  const top = headerHeight + (spec.legend.position === "top" ? legendHeight : 0);
+  const top = header + (spec.legend.position === "top" ? legendHeight : 0);
   const bottom = spec.legend.position === "bottom" ? legendHeight : 0;
 
   const free = Math.max(0, size.height - top - bottom);
@@ -113,7 +107,7 @@ function pieLayout(p: PreparedSpec, size: ChartSize): PieLayout {
   // oben trotzdem in die Legende. Der Radius muss deshalb mitschrumpfen.
   const vertical = free / 2 - LABEL_REACH - LABEL_GAP;
   const horizontal = size.width / 2 - LABEL_REACH - LABEL_GAP;
-  return { centerY, radius: Math.max(MIN_RADIUS, Math.min(vertical, horizontal)) };
+  return { centerY, radius: Math.max(MIN_RADIUS, Math.min(vertical, horizontal)), legendTop: header };
 }
 
 export function pieOption(
@@ -157,14 +151,32 @@ export function pieOption(
       ? {}
       : {
           title: {
-            text: spec.title,
+            text: spec.title ?? "",
             subtext: spec.footnote,
             left: "center",
-            // `text` statt des im Brief genannten `textStrong`: Dieses Feld
-            // gibt es auf `ChartTheme` nicht, siehe `cartesian.ts` für
-            // dieselbe Abweichung.
-            textStyle: { color: theme.text, fontFamily: theme.fontFamily },
-            subtextStyle: { color: theme.textMuted, fontFamily: theme.fontFamily },
+            // Gepinnt wie in `radar.ts`: Ohne `top: 0` setzt ECharts den
+            // Block mit eigenem Versatz, und ohne feste Schriftmaße weicht
+            // seine Höhe von der Schätzung ab — die Legende landete dann
+            // auf der Fußnote. `width`/`overflow` halten eine lange Fußnote
+            // zudem im Container statt über seinen Rand hinaus.
+            top: 0,
+            itemGap: TITLE_GAP,
+            textStyle: {
+              color: theme.text,
+              fontFamily: theme.fontFamily,
+              fontSize: TITLE_FONT,
+              lineHeight: TITLE_LINE,
+              width: headerWidth(size.width),
+              overflow: "break",
+            },
+            subtextStyle: {
+              color: theme.textMuted,
+              fontFamily: theme.fontFamily,
+              fontSize: FOOTNOTE_FONT,
+              lineHeight: FOOTNOTE_LINE,
+              width: headerWidth(size.width),
+              overflow: "break",
+            },
           },
         }),
     tooltip: {
@@ -182,7 +194,10 @@ export function pieOption(
       show: spec.legend.show,
       // Kategorien, nicht Serien — siehe Modulkommentar.
       data: spec.categories.map((category) => category.label),
-      [spec.legend.position]: spec.legend.position === "top" ? (spec.title === undefined ? 8 : 40) : 0,
+      // Unter dem Kopfbereich, nicht auf ihm: Ein fester Wert je nachdem, ob
+      // ein Titel gesetzt ist, übersieht eine Fußnote und einen Titel, der
+      // auf schmalen Bausteinen umbricht.
+      [spec.legend.position]: spec.legend.position === "top" ? layout.legendTop : 0,
       textStyle: { color: theme.text, fontFamily: theme.fontFamily },
     },
     aria: { enabled: true },

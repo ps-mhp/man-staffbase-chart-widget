@@ -34,6 +34,16 @@
  */
 const AVERAGE_GLYPH_RATIO = 0.55;
 
+/** Maße des Kopfbereichs; geteilt von allen Übersetzern, damit sie gleich aussehen. */
+export const TITLE_FONT = 16;
+export const TITLE_LINE = 22;
+export const FOOTNOTE_FONT = 12;
+export const FOOTNOTE_LINE = 16;
+/** Abstand zwischen Titel und Fußnote. */
+export const TITLE_GAP = 6;
+/** Luft zwischen dem Kopfbereich und dem, was darunter folgt. */
+const HEADER_PAD = 10;
+
 /** Geschätzte Breite einer Textzeile in Pixeln. */
 export function textWidth(text: string, fontSize: number): number {
   return text.length * fontSize * AVERAGE_GLYPH_RATIO;
@@ -73,4 +83,37 @@ export function lineCount(text: string, maxWidth: number, fontSize: number): num
 /** Begrenzt einen Wert auf eine Spanne. */
 export function clamp(value: number, low: number, high: number): number {
   return Math.min(high, Math.max(low, value));
+}
+
+/**
+ * Höhe des Kopfbereichs aus Titel und Fußnote, in Pixeln.
+ *
+ * ECharts setzt Titel und Fußnote als einen Block, reserviert dafür aber
+ * keinen Platz: Eine Legende mit `top: 0` landet darüber statt darunter.
+ * Jeder Übersetzer muss den Abstand deshalb selbst kennen.
+ *
+ * Feste Werte je nachdem, *ob* ein Titel gesetzt ist, reichen dafür nicht.
+ * Sie übersehen eine vorhandene Fußnote und ebenso einen Titel, der auf
+ * schmalen Bausteinen umbricht — die Legende legt sich dann über den Text.
+ * Gerechnet wird darum aus den echten Zeilenhöhen.
+ */
+/** Breite, auf die Titel und Fußnote umbrochen werden. */
+export function headerWidth(width: number): number {
+  return Math.max(80, width - 16);
+}
+
+export function headerHeight(
+  title: string | undefined,
+  footnote: string | undefined,
+  width: number,
+): number {
+  const available = headerWidth(width);
+  const titleHeight = title ? lineCount(title, available, TITLE_FONT) * TITLE_LINE : 0;
+  const footnoteHeight = footnote ? lineCount(footnote, available, FOOTNOTE_FONT) * FOOTNOTE_LINE : 0;
+  if (titleHeight + footnoteHeight === 0) return 0;
+  // ECharts setzt zwischen Titel und Fußnote seinen `itemGap`; der steht
+  // deshalb hier als Konstante und nicht auf dem Standardwert.
+  return (
+    titleHeight + (titleHeight > 0 && footnoteHeight > 0 ? TITLE_GAP : 0) + footnoteHeight + HEADER_PAD
+  );
 }

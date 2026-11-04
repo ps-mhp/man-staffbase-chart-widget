@@ -114,6 +114,37 @@ describe("barOption", () => {
     expect(build().grid).toMatchObject({ containLabel: true });
   });
 
+  // Der Legendenabstand war ein fester Wert je nachdem, ob ein Titel gesetzt
+  // ist. Eine Fussnote wurde dabei uebersehen, und die Legende lag auf ihrem
+  // Text - bei der Sichtpruefung von Aufgabe 6 gefunden.
+  it("schiebt Legende und Raster unter eine vorhandene Fussnote", () => {
+    const withFootnote = build({ title: "Reichweite", footnote: "Herstellerangaben." });
+    const without = build({ title: "Reichweite" });
+    expect((withFootnote.legend as { top: number }).top).toBeGreaterThan(
+      (without.legend as { top: number }).top,
+    );
+    expect((withFootnote.grid as { top: number }).top).toBeGreaterThan(
+      (without.grid as { top: number }).top,
+    );
+  });
+
+  it("haelt das Raster unter der Legende, wenn diese oben steht", () => {
+    const option = build({ title: "Reichweite", legend: { show: true, position: "top" } });
+    expect((option.grid as { top: number }).top).toBeGreaterThan(
+      (option.legend as { top: number }).top,
+    );
+  });
+
+  // Spiegelbildlich zum Kopfbereich: Auf schmalen Bausteinen bricht die
+  // Legende um, und die Achsenbeschriftungen lagen auf ihrem Text.
+  it("haelt Platz fuer eine untenstehende Legende frei", () => {
+    const shown = build({ legend: { show: true, position: "bottom" } });
+    const hidden = build({ legend: { show: false, position: "bottom" } });
+    expect((shown.grid as { bottom: number }).bottom).toBeGreaterThan(
+      (hidden.grid as { bottom: number }).bottom,
+    );
+  });
+
   it("zeigt alle Serien einer Kategorie im Tooltip", () => {
     expect(build().tooltip).toMatchObject({ trigger: "axis" });
   });

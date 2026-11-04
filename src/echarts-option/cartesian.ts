@@ -30,6 +30,26 @@ import { PreparedSpec } from "../chart-prepare";
 import { formatMeasure } from "../format";
 import { ChartTheme } from "../man-chart-theme";
 import { ChartSize } from "../use-echarts";
+import {
+  FOOTNOTE_FONT,
+  FOOTNOTE_LINE,
+  TITLE_FONT,
+  TITLE_GAP,
+  TITLE_LINE,
+  headerHeight,
+  headerWidth,
+  textWidth,
+} from "./text-layout";
+
+/** Höhe einer Legendenzeile. */
+const LEGEND_LINE = 22;
+const LEGEND_FONT = 12;
+/** Breite eines Legendensymbols samt Abstand zu seinem Text. */
+const LEGEND_SYMBOL = 32;
+/** Abstand zwischen zwei Legendeneinträgen. */
+const LEGEND_GAP = 10;
+/** Luft zwischen dem Kopfbereich und der Zeichenfläche. */
+const GRID_PAD = 8;
 
 type CartesianKind = "bar" | "line";
 
@@ -60,6 +80,7 @@ export function cartesianOption(
   p: PreparedSpec,
   theme: ChartTheme,
   locale: string,
+  size: ChartSize,
   kind: CartesianKind,
 ): Record<string, unknown> {
   const { spec } = p;
@@ -105,6 +126,27 @@ export function cartesianOption(
     ...(kind === "bar" && bar?.stacked === true ? { stack: "total" } : {}),
   }));
 
+  // Der Kopfbereich wird aus den echten Zeilenhöhen gerechnet, nicht danach
+  // geschätzt, *ob* ein Titel gesetzt ist. Feste Werte übersahen eine
+  // vorhandene Fußnote: Die Legende legte sich dann über deren Text.
+  const header = headerHeight(spec.title, spec.footnote, size.width);
+
+  // ECharts bricht die Legende selbst um, sobald die Einträge nicht mehr
+  // nebeneinander passen. Für die Höhe wird derselbe Umbruch geschätzt —
+  // auf schmalen Bausteinen legten sich sonst die Achsenbeschriftungen auf
+  // eine untenstehende Legende.
+  const legendWidth = p.series.reduce(
+    (total, entry) => total + textWidth(entry.name, LEGEND_FONT) + LEGEND_SYMBOL + LEGEND_GAP,
+    0,
+  );
+  const legendHeight = spec.legend.show
+    ? Math.max(1, Math.ceil(legendWidth / Math.max(1, size.width))) * LEGEND_LINE
+    : 0;
+  const legendAtTop = spec.legend.show && spec.legend.position === "top";
+  const legendTop = legendAtTop ? header + legendHeight : header;
+  const gridBottom =
+    GRID_PAD + (spec.legend.show && spec.legend.position === "bottom" ? legendHeight : 0);
+
   return {
     animation: false,
     backgroundColor: "transparent",
@@ -113,21 +155,38 @@ export function cartesianOption(
       ? {}
       : {
           title: {
-            text: spec.title,
+            text: spec.title ?? "",
             subtext: spec.footnote,
             left: "center",
-            // `text` statt des im Brief genannten `textStrong`: Dieses Feld
-            // gibt es auf `ChartTheme` nicht. `radar.ts` zeichnet seine
-            // Achsennamen ebenfalls mit `theme.text` — dieselbe Stelle wird
-            // hier für den kräftigeren Titeltext verwendet.
-            textStyle: { color: theme.text, fontFamily: theme.fontFamily },
-            subtextStyle: { color: theme.textMuted, fontFamily: theme.fontFamily },
+            // Gepinnt wie in `radar.ts`: Ohne `top: 0` setzt ECharts den
+            // Block mit eigenem Versatz, und ohne feste Schriftmaße weicht
+            // seine Höhe von der Schätzung ab — die Legende landete dann
+            // auf der Fußnote. `width`/`overflow` halten eine lange Fußnote
+            // zudem im Container statt über seinen Rand hinaus.
+            top: 0,
+            itemGap: TITLE_GAP,
+            textStyle: {
+              color: theme.text,
+              fontFamily: theme.fontFamily,
+              fontSize: TITLE_FONT,
+              lineHeight: TITLE_LINE,
+              width: headerWidth(size.width),
+              overflow: "break",
+            },
+            subtextStyle: {
+              color: theme.textMuted,
+              fontFamily: theme.fontFamily,
+              fontSize: FOOTNOTE_FONT,
+              lineHeight: FOOTNOTE_LINE,
+              width: headerWidth(size.width),
+              overflow: "break",
+            },
           },
         }),
     // `containLabel` statt eigener Rechnung: ECharts kennt die Breite der
     // Achsenbeschriftungen erst beim Zeichnen, und genau dann rückt es das
     // Raster ein.
-    grid: { containLabel: true, left: 8, right: 16, top: spec.title === undefined ? 48 : 72, bottom: 8 },
+    grid: { containLabel: true, left: 8, right: 16, top: legendTop + GRID_PAD, bottom: gridBottom },
     // `axis` statt `item`: Beim Vergleich zweier Fahrzeuge will man beide
     // Werte einer Kategorie nebeneinander sehen, nicht einen einzelnen Balken.
     tooltip: {
@@ -152,7 +211,7 @@ export function cartesianOption(
     legend: {
       show: spec.legend.show,
       data: p.series.map((entry) => entry.name),
-      [spec.legend.position]: spec.legend.position === "top" ? (spec.title === undefined ? 8 : 40) : 0,
+      [spec.legend.position]: spec.legend.position === "top" ? header : 0,
       textStyle: { color: theme.text, fontFamily: theme.fontFamily },
     },
     aria: { enabled: true },
@@ -166,12 +225,12 @@ export const barOption = (
   p: PreparedSpec,
   theme: ChartTheme,
   locale: string,
-  _size: ChartSize,
-): Record<string, unknown> => cartesianOption(p, theme, locale, "bar");
+  size: ChartSize,
+): Record<string, unknown> => cartesianOption(p, theme, locale, size, "bar");
 
 export const lineOption = (
   p: PreparedSpec,
   theme: ChartTheme,
   locale: string,
-  _size: ChartSize,
-): Record<string, unknown> => cartesianOption(p, theme, locale, "line");
+  size: ChartSize,
+): Record<string, unknown> => cartesianOption(p, theme, locale, size, "line");

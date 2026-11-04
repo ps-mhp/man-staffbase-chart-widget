@@ -11,7 +11,7 @@
  * limitations under the License.
  */
 
-import { lineCount } from "./text-layout";
+import { headerHeight, lineCount } from "./text-layout";
 
 /** Bei dieser Schriftgröße passen rund zehn Zeichen in 66 Pixel. */
 const FONT = 12;
@@ -37,5 +37,27 @@ describe("lineCount", () => {
 
   it("belegt mindestens eine Zeile, auch wenn gar keine Breite da ist", () => {
     expect(lineCount("Energie", 0, FONT)).toBeGreaterThanOrEqual(1);
+  });
+});
+
+describe("headerHeight", () => {
+  it("bleibt bei null, wenn weder Titel noch Fussnote gesetzt sind", () => {
+    expect(headerHeight(undefined, undefined, 400)).toBe(0);
+  });
+
+  // Der Fehler, der dazu gefuehrt hat: Feste Werte je nachdem, ob ein Titel
+  // gesetzt ist, uebersahen die Fussnote - die Legende lag auf ihrem Text.
+  it("zaehlt eine Fussnote mit, auch wenn kein Titel gesetzt ist", () => {
+    expect(headerHeight(undefined, "Herstellerangaben.", 400)).toBeGreaterThan(0);
+  });
+
+  it("wird hoeher, wenn zur Ueberschrift eine Fussnote tritt", () => {
+    const withBoth = headerHeight("Reichweite", "Herstellerangaben.", 400);
+    expect(withBoth).toBeGreaterThan(headerHeight("Reichweite", undefined, 400));
+  });
+
+  it("waechst, wenn ein Titel auf schmalem Baustein umbricht", () => {
+    const long = "Reichweite der schweren Sattelzugmaschinen im Vergleich";
+    expect(headerHeight(long, undefined, 200)).toBeGreaterThan(headerHeight(long, undefined, 800));
   });
 });

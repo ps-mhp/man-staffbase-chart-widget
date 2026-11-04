@@ -147,6 +147,14 @@ describe("pieOption", () => {
   // Der Mittelpunkt weicht dem aus, was Titel und Legende an Platz belegen.
   // Ohne diese Rechnung stiess das Label eines sehr kleinen Segments an der
   // 12-Uhr-Position in den Legendentext.
+  it("schiebt die Legende unter eine vorhandene Fussnote", () => {
+    const top = (patch: Partial<ChartSpec>): number =>
+      (build(patch).legend as unknown as { top: number }).top;
+    expect(top({ title: "Anteile", footnote: "Acht Jahre Haltedauer." })).toBeGreaterThan(
+      top({ title: "Anteile" }),
+    );
+  });
+
   describe("Mittelpunkt", () => {
     const center = (patch: Partial<ChartSpec>): number => build(patch).series[0].center[1];
     const bare = { legend: { show: false, position: "top" } } as const;
