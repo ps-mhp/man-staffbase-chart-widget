@@ -13,7 +13,7 @@ Otwórz ustawienia widżetu, wypełnij edytor wykresów i zapisz.
 Proszę skonfigurować go ponownie w ustawieniach.”
 
 Odpowiedź: Zapisane dane są uszkodzone lub zostały zmienione ręcznie.
-Należy otworzyć ustawienia widżetu i ponownie skonfigurować wykres w edytorze —
+Otwórz ustawienia widżetu i skonfiguruj wykres ponownie w edytorze —
 w razie potrzeby za pomocą nowo wstawionej tabeli.
 
 **Pytanie:** Wyświetla się komunikat „Typ wykresu „…“ nie jest rozpoznawany przez tę wersję
@@ -82,7 +82,7 @@ włączona w ustawieniach, albo wykres nie został jeszcze w pełni wygenerowany
 przyciski pojawiają się dopiero wtedy, gdy grafika jest gotowa do pobrania.
 
 **Pytanie:** Po kliknięciu „Jako SVG” lub „Jako PNG” pojawia się komunikat „Eksport
-nie powiódł się. Spróbuj ponownie.”
+nie powiódł się. Proszę spróbować ponownie.”
 
 Odpowiedź: Eksport nie mógł znaleźć narysowanego wykresu — najczęściej dlatego, że
 właśnie się on ponownie ładuje. Należy chwilę poczekać i kliknąć ponownie; jeśli problem
@@ -112,5 +112,5 @@ oddzielacz tysięcy, a przecinek jako oddzielacz dziesiętny. Zatem `1.234` staj
 przed wstawieniem dostosować do formatu niemieckiego, w przeciwnym razie np. „1.234” (tysiąc)
 zostanie odczytane jako „1,234” (jeden przecinek dwa trzy cztery). Jeśli w liczbie występuje zarówno
 kropek, jak i przecinek, niezależnie od sposobu zapisu za znak oddzielający dziesiętne uznaje się ostatni
-znak — `1.234,5` i `1,234.5` dają
-w obu przypadkach wynik `1234,5`.
+znak — zarówno `1.234,5`, jak i `1,234.5` dają
+wynik `1234,5`.

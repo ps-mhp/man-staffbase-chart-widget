@@ -22,8 +22,8 @@ the type name specified: “The configured chart type is not recognized by this 
 module. Please update the module.”)
 
 Answer: The chart was set up using a newer version of the module
-that supports a chart type not yet supported by this version.
-Update the module to the latest version.
+that recognizes a chart type not yet
+supported by this version. Update the module to the latest version.
 
 **Question:** I see the message “No data in the chart yet. Create axes and series in
 the settings.”

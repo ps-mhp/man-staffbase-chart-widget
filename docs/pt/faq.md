@@ -1,4 +1,4 @@
-# Perguntas frequentes
+# Perguntas Frequentes
 
 Cada mensagem que o diagrama possa apresentar em vez do gráfico, como uma pergunta —
 com o texto exato, para que possa ser encontrada através da pesquisa.
@@ -49,7 +49,7 @@ Por favor, atualize a página.»
 
 Resposta: Não foi possível recarregar a biblioteca de gráficos, na maioria das vezes devido a
 uma ligação à Internet interrompida. Atualize a página; se o problema
-persistir, verifique a ligação à rede.
+persistir, verifique a ligação de rede.
 
 **Pergunta:** Por que razão o meu diagrama está vazio, apesar de terem sido introduzidos dados?
 
@@ -111,5 +111,5 @@ o separador de milhares e a vírgula, o separador decimal. Assim, `1.234` torna-
 formato alemão antes de os inserir; caso contrário, por exemplo, «1.234» (mil)
 será interpretado como «1,234» (um vírgula dois três quatro). Se um número contiver tanto
 o ponto como a vírgula, independentemente da notação, o último
-símbolo é considerado o separador decimal — `1.234,5` e `1,234.5` resultam
+caractere é considerado o separador decimal — `1.234,5` e `1,234.5` resultam
 ambos em `1234,5`.

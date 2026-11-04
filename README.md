@@ -1,6 +1,9 @@
 # chart-widget
 
-Staffbase-Custom-Widget für ein konfigurierbares **Radar-/Netzdiagramm**.
+Staffbase-Custom-Widget für konfigurierbare Diagramme: **Netzdiagramm
+(Radar), Balken, Linie und Kuchen** — je nach Fragestellung passt ein
+anderer Typ, und der Editor-Dialog zeigt bei jedem Typ nur die Felder, die
+für ihn Sinn ergeben.
 Entwickelt, gebaut und released wird es aus dem Meta-Repo
 [`ps-mhp/man-staffbase-cms-extensions`](https://github.com/ps-mhp/man-staffbase-cms-extensions);
 dieses Repo enthält nur Quellcode und das ausgelieferte Bundle unter `dist/`.
@@ -8,7 +11,9 @@ dieses Repo enthält nur Quellcode und das ausgelieferte Bundle unter `dist/`.
 Redaktionsdokumentation (Übersicht, Schritt für Schritt, Einstellungen, FAQ)
 liegt unter [`docs/`](docs/) und erscheint im Staffbase-Hilfebereich. Die
 fachliche Spezifikation liegt im Meta-Repo unter
-[`docs/superpowers/specs/2026-11-02-chart-widget-design.md`](https://github.com/ps-mhp/man-staffbase-cms-extensions/blob/main/docs/superpowers/specs/2026-11-02-chart-widget-design.md).
+[`docs/superpowers/specs/2026-11-03-chart-widget-weitere-typen-design.md`](https://github.com/ps-mhp/man-staffbase-cms-extensions/blob/main/docs/superpowers/specs/2026-11-03-chart-widget-weitere-typen-design.md)
+(Vorgänger:
+[`docs/superpowers/specs/2026-11-02-chart-widget-design.md`](https://github.com/ps-mhp/man-staffbase-cms-extensions/blob/main/docs/superpowers/specs/2026-11-02-chart-widget-design.md)).
 
 ## Einbindung
 
@@ -43,9 +48,8 @@ einem echten Browser.
 
 ## Architektur: einen weiteren Diagrammtyp ergänzen
 
-Das Widget ist für weitere Diagrammtypen vorbereitet, auch wenn aktuell nur
-`"radar"` existiert (`CHART_TYPES` in `src/chart-model.ts`). Ein neuer Typ
-braucht:
+Das Widget kennt vier Typen — `"radar"`, `"bar"`, `"line"`, `"pie"`
+(`CHART_TYPES` in `src/chart-model.ts`). Ein weiterer Typ braucht:
 
 1. **Datenmodell** (`src/chart-model.ts`): `ChartType` um den Wert erweitern,
    `CHART_TYPES` ergänzen, bei Bedarf eine eigene `DisplayOptions`-Variante
@@ -64,8 +68,9 @@ braucht:
    trägt jeder Typ rund 500 KiB Duplikat mit sich. Zur Einordnung: Mit
    gemeinsamem Chunk kostet der Radar-Typ selbst nur noch etwa 9 KiB.
 3. **Options-Übersetzer** (`src/echarts-option/`): eine neue Datei analog zu
-   `radar.ts`, die eine `NormalizedSpec` in eine ECharts-Option übersetzt, und
-   ein Eintrag in `OPTION_BUILDERS` (`src/echarts-option/index.ts`) — dieses
+   `radar.ts` (oder `cartesian.ts` für `bar`/`line`), die eine `PreparedSpec`
+   in eine ECharts-Option übersetzt, und ein Eintrag in `OPTION_BUILDERS`
+   (`src/echarts-option/index.ts`) — dieses
    Record ist vollständig über `ChartType` getypt, ein vergessener Eintrag
    wird vom Compiler gemeldet. Alles typübergreifende Styling (Schrift,
    Farben, Legende, Tooltip) kommt aus `echartsTheme()`
@@ -105,6 +110,11 @@ nur `resize()` zu rufen.
 
 ### Beschriftungen am Radar (`echarts-option/radar-labels.ts`)
 
+Dieser Abschnitt gilt **ausschließlich für das Radar**. Bei `bar` und `line`
+reserviert `grid: { containLabel: true }` den Platz für Achsenbeschriftungen
+selbstständig, und `pie` kennt keine Achsen — beide Übersetzer brauchen
+`radar-labels.ts` nicht und verwenden es auch nicht.
+
 Zwei Dinge kann ECharts am Radar nicht, und beide werden hier als
 `graphic`-Textelemente selbst gesetzt (`axisName: { show: false }`,
 `series.label: { show: false }`):
@@ -138,13 +148,17 @@ eine Box fester Breite hängt und per Puppeteer ein Bild schießt; geprüft wird
 bei mindestens drei Breiten (340, 520, 760 px). Ein gestrichelter Rahmen um
 die Box macht jeden Überlauf sofort sichtbar.
 
-Die Normalisierung (`src/chart-normalize.ts`) rechnet alle Achsenwerte
-unabhängig von ihrer Einheit auf eine gemeinsame Skala 0–100 und löst dabei
-auch invertierte Achsen auf („kleiner ist besser“) — ECharts selbst kann keine
-Achse umdrehen. Ein neuer Diagrammtyp, der dieselbe Achsenlogik braucht, kann
-`normalizeSpec` direkt wiederverwenden.
+**`chart-prepare.ts` löst nur noch Farben auf** (eigene Serienfarbe oder
+Palette) und reicht Rohwerte unverändert durch (`PreparedSpec`). Die
+Umrechnung auf eine gemeinsame Skala 0–100 — nötig, weil das Radar nur eine
+gemeinsame Achse kennt — und die Auflösung invertierter Achsen („kleiner ist
+besser“) stecken seit der Aufteilung in `echarts-option/radar-scale.ts` und
+werden ausschließlich von `radar.ts` gerufen. Kartesische Typen (`bar`,
+`line`) zeichnen eine echte, von ECharts berechnete Werteachse und brauchen
+diese Umrechnung nicht — eine Beschriftung von 0 bis 100 statt „600 kWh“
+wäre dort unbrauchbar. `pie` kennt ohnehin keine Achse.
 
-Eine Achse ohne eigenes Minimum beginnt dabei bei **null**, nicht beim
+Eine Radar-Achse ohne eigenes Minimum beginnt dabei bei **null**, nicht beim
 kleinsten vorkommenden Wert. Sonst läge die schwächere von zwei Serien auf
 jeder Achse exakt im Mittelpunkt und sähe aus wie null — das Bild behauptete
 etwas, das die Daten nicht hergeben. Nur wenn negative Werte vorkommen,

@@ -3,11 +3,11 @@
 Ogni messaggio che il diagramma può visualizzare al posto del grafico, sotto forma di domanda —
 con il testo esatto, in modo che sia reperibile tramite la ricerca.
 
-**Domanda:** Vedo il messaggio «Grafico non ancora configurato. Aprire
+**Domanda:** Vedo il messaggio «Diagramma non ancora configurato. Aprire
 le impostazioni del widget.»
 
 Risposta: Per questo widget non è stata ancora salvata alcuna configurazione.
-Aprire le impostazioni del widget, compilare l’editor del grafico e salvare.
+Aprire le impostazioni del widget, compilare l’editor del diagramma e salvare.
 
 **Domanda:** Vedo il messaggio «Impossibile leggere il grafico.
 Si prega di configurarlo nuovamente nelle impostazioni.»
@@ -70,7 +70,7 @@ impostare manualmente il minimo e il massimo per l’asse in questione.
 
 **Domanda:** Perché il valore peggiore si trova più all’esterno?
 
-Risposta: su questo asse manca l’opzione «Più piccolo è meglio». Deve essere attivato per
+Risposta: Su questo asse manca l’opzione «Più piccolo è meglio». Deve essere attivato per
 tutti gli indicatori in cui un valore più basso rappresenta il risultato migliore
 — ad esempio peso, consumo o tempo di ricarica. Attivarlo nell’editor dei grafici per
 l’asse corrispondente.
