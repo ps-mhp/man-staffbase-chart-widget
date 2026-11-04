@@ -63,6 +63,7 @@ import {
   ChartType,
   CHART_TYPES,
   DisplayOptions,
+  LineDisplay,
   RadarDisplay,
   Series,
   serializeChartSpec,
@@ -107,6 +108,10 @@ const CHART_TYPE_INFO: Record<ChartType, { label: string; hint: string }> = {
   bar: {
     label: "Balkendiagramm (Säulen)",
     hint: "Vergleicht Werte über wenige Kategorien. Alle Balken teilen sich eine Werteachse — nur bei gleicher Einheit sinnvoll.",
+  },
+  line: {
+    label: "Liniendiagramm (Verlauf)",
+    hint: "Zeigt eine Entwicklung über eine geordnete Reihe hinweg — etwa über Jahre. Die Reihenfolge der Achsen ist die Reihenfolge im Raster.",
   },
 };
 
@@ -200,6 +205,12 @@ function barDisplay(spec: ChartSpec): BarDisplay {
   return spec.display?.type === "bar" ? spec.display : { type: "bar", stacked: false, orientation: "vertical" };
 }
 
+function lineDisplay(spec: ChartSpec): LineDisplay {
+  return spec.display?.type === "line"
+    ? spec.display
+    : { type: "line", smooth: false, area: false, showPoints: true };
+}
+
 /** Benennt eine Achse für Hilfstexte, auch solange sie noch keinen Namen hat. */
 const categoryName = (category: Category, index: number): string =>
   category.label.replace(/\n/g, " ") || `Achse ${index + 1}`;
@@ -228,6 +239,7 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
   const displayDefaults = (type: ChartType): DisplayOptions | undefined => {
     if (type === "radar") return radarDisplay(value);
     if (type === "bar") return barDisplay(value);
+    if (type === "line") return lineDisplay(value);
     return undefined;
   };
 
@@ -728,6 +740,49 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
                       <option value="vertical">stehend</option>
                       <option value="horizontal">liegend</option>
                     </select>
+                  </div>
+                </>
+              ) : null}
+              {value.type === "line" ? (
+                <>
+                  <div className="chart-editor__field">
+                    <span className="chart-editor__label">Verlauf</span>
+                    <label className="chart-editor__check" htmlFor="chart-editor-smooth">
+                      <input
+                        id="chart-editor-smooth"
+                        type="checkbox"
+                        aria-label="Linien glätten"
+                        checked={lineDisplay(value).smooth}
+                        onChange={(event) => setDisplay({ smooth: event.target.checked })}
+                      />
+                      Linien glätten
+                    </label>
+                  </div>
+                  <div className="chart-editor__field">
+                    <span className="chart-editor__label">Fläche</span>
+                    <label className="chart-editor__check" htmlFor="chart-editor-area">
+                      <input
+                        id="chart-editor-area"
+                        type="checkbox"
+                        aria-label="Fläche füllen"
+                        checked={lineDisplay(value).area}
+                        onChange={(event) => setDisplay({ area: event.target.checked })}
+                      />
+                      Fläche füllen
+                    </label>
+                  </div>
+                  <div className="chart-editor__field">
+                    <span className="chart-editor__label">Stützstellen</span>
+                    <label className="chart-editor__check" htmlFor="chart-editor-show-points">
+                      <input
+                        id="chart-editor-show-points"
+                        type="checkbox"
+                        aria-label="Punkte zeigen"
+                        checked={lineDisplay(value).showPoints}
+                        onChange={(event) => setDisplay({ showPoints: event.target.checked })}
+                      />
+                      Punkte zeigen
+                    </label>
                   </div>
                 </>
               ) : null}

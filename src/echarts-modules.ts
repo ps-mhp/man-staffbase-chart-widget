@@ -80,6 +80,16 @@ const TYPE_LOADERS: Record<ChartType, (core: EChartsCore) => Promise<void>> = {
     ]);
     core.use([chart.install, grid.install]);
   },
+  line: async (core) => {
+    const [chart, grid] = await Promise.all([
+      // Derselbe Chunk wie `bar`: Lädt jemand erst das eine und dann das
+      // andere, ist der Chunk bereits da und dieser Lader registriert nur
+      // noch die Serie.
+      import(/* webpackChunkName: "echarts-cartesian" */ "echarts/lib/chart/line/install.js"),
+      import(/* webpackChunkName: "echarts-cartesian" */ "echarts/lib/component/grid/install.js"),
+    ]);
+    core.use([chart.install, grid.install]);
+  },
 };
 
 /**

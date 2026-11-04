@@ -14,7 +14,7 @@
 import { ChartSpec } from "../chart-model";
 import { prepareSpec } from "../chart-prepare";
 import { readChartTheme } from "../man-chart-theme";
-import { barOption } from "./cartesian";
+import { barOption, lineOption } from "./cartesian";
 
 const theme = readChartTheme(document.createElement("div"));
 const SIZE = { width: 640, height: 360 };
@@ -50,6 +50,13 @@ const build = (patch: Partial<ChartSpec> = {}): BarOption => {
   const given = spec(patch);
   return barOption(prepareSpec(given, theme.palette), theme, "de-DE", SIZE) as unknown as BarOption;
 };
+
+type LineSeriesEntry = BarSeriesEntry & {
+  smooth?: boolean;
+  symbol?: string;
+  areaStyle?: { color: string };
+};
+type LineOption = Omit<BarOption, "series"> & { series: LineSeriesEntry[] };
 
 describe("barOption", () => {
   it("setzt die Kategorien auf die x-Achse", () => {
@@ -128,5 +135,55 @@ describe("barOption", () => {
   it("reicht Luecken als null durch, statt sie zu Null zu machen", () => {
     const option = build({ series: [{ name: "x", values: [null, 5] }] });
     expect(option.series[0].data[0]).toBeNull();
+  });
+});
+
+describe("lineOption", () => {
+  // Getippte Rueckgabe statt des im Plan vorgegebenen `Record<string, any>`:
+  // Das Projekt verbietet `any` per ESLint, der Plantext widersprach dieser
+  // bestehenden Regel.
+  const buildLine = (display?: ChartSpec["display"]): LineOption => {
+    const given = spec({ type: "line", display });
+    return lineOption(prepareSpec(given, theme.palette), theme, "de-DE", SIZE) as unknown as LineOption;
+  };
+
+  it("macht Linienserien", () => {
+    expect(buildLine().series[0]).toMatchObject({ type: "line", name: "eTGX" });
+  });
+
+  it("glaettet auf Wunsch", () => {
+    expect(buildLine({ type: "line", smooth: true, area: false, showPoints: true }).series[0].smooth).toBe(true);
+  });
+
+  it("fuellt die Flaeche auf Wunsch", () => {
+    const option = buildLine({ type: "line", smooth: false, area: true, showPoints: true });
+    expect(option.series[0].areaStyle?.color).toBe(theme.palette[0]);
+  });
+
+  it("laesst die Flaeche standardmaessig weg", () => {
+    expect(buildLine().series[0].areaStyle).toBeUndefined();
+  });
+
+  it("blendet die Punkte aus", () => {
+    expect(buildLine({ type: "line", smooth: false, area: false, showPoints: false }).series[0].symbol).toBe("none");
+  });
+
+  it("zeigt die Punkte standardmaessig", () => {
+    expect(buildLine().series[0].symbol).toBe("circle");
+  });
+
+  it("stapelt nie, auch nicht mit Balkenoptionen", () => {
+    const given = spec({ type: "line", display: { type: "bar", stacked: true, orientation: "vertical" } });
+    // `lineOption` direkt aufgerufen (nicht über `buildLine`) liefert laut Signatur
+    // `Record<string, unknown>`; der Cast ist hier noetig, weil der Plan diesen Test ohne
+    // ihn vorgab und `option.series` sonst als `unknown` indiziert wuerde.
+    const option = lineOption(prepareSpec(given, theme.palette), theme, "de-DE", SIZE) as unknown as LineOption;
+    expect(option.series[0].stack).toBeUndefined();
+  });
+
+  it("kippt nie, auch nicht mit Balkenoptionen", () => {
+    const given = spec({ type: "line", display: { type: "bar", stacked: false, orientation: "horizontal" } });
+    const option = lineOption(prepareSpec(given, theme.palette), theme, "de-DE", SIZE) as unknown as LineOption;
+    expect(option.xAxis).toMatchObject({ type: "category" });
   });
 });

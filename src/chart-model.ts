@@ -24,9 +24,9 @@ import { decodePayload, isPayload } from "@shared/payload";
 import { encodePayload } from "@shared/payload";
 
 /** Die unterstützten Diagrammtypen. Wächst mit jedem Übersetzer in `echarts-option/`. */
-export type ChartType = "radar" | "bar";
+export type ChartType = "radar" | "bar" | "line";
 
-export const CHART_TYPES: readonly ChartType[] = ["radar", "bar"];
+export const CHART_TYPES: readonly ChartType[] = ["radar", "bar", "line"];
 
 /**
  * Eine Achse beziehungsweise Kategorie.
@@ -76,12 +76,22 @@ export interface BarDisplay {
   orientation: "vertical" | "horizontal";
 }
 
+/** Was nur das Liniendiagramm kennt. */
+export interface LineDisplay {
+  type: "line";
+  smooth: boolean;
+  /** Fläche unter der Linie füllen. */
+  area: boolean;
+  /** Punkte an den Stützstellen zeigen. */
+  showPoints: boolean;
+}
+
 /**
  * Über `type` diskriminiert. Hier steht nur, was ein einzelner Typ kennt —
  * alles Geteilte (Titel, Fußnote, Legende, Farben) steht an `ChartSpec`,
  * damit es einen Typwechsel im Editor überlebt.
  */
-export type DisplayOptions = RadarDisplay | BarDisplay;
+export type DisplayOptions = RadarDisplay | BarDisplay | LineDisplay;
 
 export interface Legend {
   show: boolean;
@@ -173,6 +183,16 @@ function readDisplay(value: unknown, type: ChartType): DisplayOptions | undefine
       // erwartete Form, und ein verschriebener Wert soll kein gekipptes
       // Diagramm ergeben.
       orientation: value.orientation === "horizontal" ? "horizontal" : "vertical",
+    };
+  }
+  if (type === "line") {
+    return {
+      type: "line",
+      smooth: value.smooth === true,
+      area: value.area === true,
+      // Punkte sind die Vorgabe: Ohne sie ist bei wenigen Kategorien nicht zu
+      // erkennen, wo ein Wert liegt und wo nur interpoliert wird.
+      showPoints: value.showPoints !== false,
     };
   }
   return undefined;

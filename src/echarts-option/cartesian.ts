@@ -64,16 +64,7 @@ export function cartesianOption(
 ): Record<string, unknown> {
   const { spec } = p;
   const bar = spec.display?.type === "bar" ? spec.display : undefined;
-  // `DisplayOptions` kennt "line" erst ab Aufgabe 3 (eigene LineDisplay);
-  // bis dahin ist dieser Zweig totes Gleis, weil `kind` hier nur "bar" sein
-  // kann. Der Umweg über `unknown` hält den Vergleich tippbar, ohne dem
-  // Union-Typ jetzt schon eine Variante vorzugreifen, die noch nicht
-  // spezifiziert ist.
-  const displayType = (spec.display as { type?: string } | undefined)?.type;
-  const line =
-    displayType === "line"
-      ? (spec.display as unknown as { smooth?: boolean; showPoints?: boolean; area?: boolean })
-      : undefined;
+  const line = spec.display?.type === "line" ? spec.display : undefined;
   const horizontal = kind === "bar" && bar?.orientation === "horizontal";
 
   const categoryAxis = {
@@ -177,3 +168,10 @@ export const barOption = (
   locale: string,
   _size: ChartSize,
 ): Record<string, unknown> => cartesianOption(p, theme, locale, "bar");
+
+export const lineOption = (
+  p: PreparedSpec,
+  theme: ChartTheme,
+  locale: string,
+  _size: ChartSize,
+): Record<string, unknown> => cartesianOption(p, theme, locale, "line");

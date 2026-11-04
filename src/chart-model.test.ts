@@ -154,3 +154,41 @@ describe("Balkendiagramm", () => {
     expect(spec.categories[0]).toMatchObject({ min: 2, max: 8, inverted: true });
   });
 });
+
+describe("Liniendiagramm", () => {
+  const raw = (spec: Record<string, unknown>): string => JSON.stringify(spec);
+
+  it("nimmt line als Typ an", () => {
+    const { spec, problems } = parseChartSpec(
+      raw({ type: "line", categories: [{ label: "A" }], series: [{ name: "x", values: [1] }] }),
+    );
+    expect(spec.type).toBe("line");
+    expect(problems).toEqual([]);
+  });
+
+  it("liest die Anzeigeoptionen von line", () => {
+    const { spec } = parseChartSpec(
+      raw({ type: "line", categories: [], series: [], display: { type: "line", smooth: true, area: true, showPoints: false } }),
+    );
+    expect(spec.display).toEqual({ type: "line", smooth: true, area: true, showPoints: false });
+  });
+
+  it("faellt auf eckig, ohne Flaeche und mit Punkten zurueck", () => {
+    const { spec } = parseChartSpec(raw({ type: "line", categories: [], series: [], display: { type: "line" } }));
+    expect(spec.display).toEqual({ type: "line", smooth: false, area: false, showPoints: true });
+  });
+
+  it("verwirft Anzeigeoptionen eines anderen Typs", () => {
+    const { spec } = parseChartSpec(
+      raw({ type: "line", categories: [], series: [], display: { type: "radar", gridLevels: 7, filled: true } }),
+    );
+    expect(spec.display).toBeUndefined();
+  });
+
+  it("behaelt min, max und inverted auch wenn line sie nicht zeichnet", () => {
+    const { spec } = parseChartSpec(
+      raw({ type: "line", categories: [{ label: "A", min: 2, max: 8, inverted: true }], series: [] }),
+    );
+    expect(spec.categories[0]).toMatchObject({ min: 2, max: 8, inverted: true });
+  });
+});

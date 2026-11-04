@@ -228,4 +228,30 @@ describe("Feldsichtbarkeit je Typ", () => {
     const next = onChange.mock.lastCall[0] as ChartSpec;
     expect(next.categories[0].min).toBe(2);
   });
+
+  it("blendet kleiner-ist-besser bei der Linie aus", () => {
+    setup(typeSpec("line", [{ label: "A" }]));
+    expect(screen.queryByLabelText(/Kleiner ist besser/)).not.toBeInTheDocument();
+  });
+
+  it("blendet Minimum und Maximum bei der Linie aus, auch mit Feineinstellungen", () => {
+    setup(typeSpec("line", [{ label: "A" }]));
+    fireEvent.click(screen.getByRole("checkbox", { name: /Feineinstellungen je Achse/ }));
+    expect(screen.queryByLabelText(/^Minimum/)).not.toBeInTheDocument();
+    expect(screen.getByLabelText(/^Nachkomma/)).toBeInTheDocument();
+  });
+
+  it("zeigt die Linienfelder nur bei der Linie", () => {
+    setup(typeSpec("line"));
+    expect(screen.getByLabelText("Linien glätten")).toBeInTheDocument();
+    expect(screen.getByLabelText("Fläche füllen")).toBeInTheDocument();
+    expect(screen.getByLabelText("Punkte zeigen")).toBeInTheDocument();
+  });
+
+  it("blendet die Linienfelder beim Balken aus", () => {
+    setup(typeSpec("bar"));
+    expect(screen.queryByLabelText("Linien glätten")).not.toBeInTheDocument();
+    expect(screen.queryByLabelText("Fläche füllen")).not.toBeInTheDocument();
+    expect(screen.queryByLabelText("Punkte zeigen")).not.toBeInTheDocument();
+  });
 });
