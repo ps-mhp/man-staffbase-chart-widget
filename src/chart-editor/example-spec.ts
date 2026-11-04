@@ -12,27 +12,31 @@
  */
 
 /**
- * Die Beispielvorlage hinter „Beispiel laden".
+ * Die Beispielvorlage hinter „Beispiel laden" und "Leere Tabelle anlegen".
  *
- * Ein leeres Raster erklärt niemandem, was Achse, Serie und Richtung
- * bedeuten — ein ausgefülltes schon. Deshalb genau der Vergleich, für den
- * dieses Widget gebaut wurde: Er zeigt alle Eigenheiten auf einmal, also
- * unterschiedliche Einheiten je Achse, zwei Serien mit eigenen Farben und
- * Achsen, auf denen der kleinere Wert der bessere ist.
+ * Je Typ ein eigenes, plausibles Beispiel aus demselben Themenfeld: Eine
+ * Radar-Vorlage in einem Kuchendiagramm hilft niemandem — drei Achsen mit
+ * verschiedenen Einheiten ergeben als Kuchen Unsinn.
  *
- * Als Funktion und nicht als Konstante, aus demselben Grund wie
+ * Als Funktionen und nicht als Konstanten, aus demselben Grund wie
  * `emptySpec()`: Ein geteiltes Objekt könnte der Editor verändern und die
  * Vorlage damit dauerhaft verfälschen.
+ *
+ * `Record<ChartType, () => ChartSpec>` statt eines `switch`: Ein künftiger
+ * Diagrammtyp ohne eigenen Eintrag wird so zum Compilerfehler statt zu einer
+ * stillschweigend falschen Vorlage.
  */
 
-import { ChartSpec } from "../chart-model";
+import { ChartSpec, ChartType } from "../chart-model";
 
 /** MAN-Blau und MAN-Rot — dieselbe Zuordnung wie in der Quellgrafik. */
 const MAN_BLUE = "#3875b2";
 const COMPETITOR_RED = "#e40045";
+/** MAN-Orange — dritte Farbe für Vergleiche mit mehr als zwei Serien. */
+const MAN_ORANGE = "#eb690b";
 
-export function exampleSpec(): ChartSpec {
-  return {
+const exampleSpecs: Record<ChartType, () => ChartSpec> = {
+  radar: () => ({
     version: 1,
     type: "radar",
     title: "MAN eTGX vs. Mercedes-Benz eActros 600",
@@ -51,17 +55,69 @@ export function exampleSpec(): ChartSpec {
       { name: "MAN eTGX", color: MAN_BLUE, values: [1, 1.8, 3.7, 240, 480, 750] },
       { name: "Mercedes-Benz eActros 600", color: COMPETITOR_RED, values: [5, 4.4, 4.4, 600, 600, 1000] },
     ],
-  };
+  }),
+  bar: () => ({
+    version: 1,
+    type: "bar",
+    // Ohne Fußnote: `cartesianOption` reserviert für die Legende nur dann
+    // Platz, wenn ein Titel steht, nicht zusätzlich für eine Fußnote
+    // darunter — mit beidem überlappen Legende und Fußnote sichtbar.
+    title: "Reichweite nach Fahrzeug",
+    legend: { show: true, position: "top" },
+    display: { type: "bar", stacked: false, orientation: "vertical" },
+    categories: [
+      { label: "MAN eTGX", unit: "km", decimals: 0 },
+      { label: "MAN eTGM", unit: "km", decimals: 0 },
+      { label: "MAN eTGS", unit: "km", decimals: 0 },
+    ],
+    series: [
+      { name: "Sommer", color: MAN_BLUE, values: [330, 280, 310] },
+      { name: "Winter", color: MAN_ORANGE, values: [260, 220, 240] },
+    ],
+  }),
+  line: () => ({
+    version: 1,
+    type: "line",
+    title: "Reichweite über die Baujahre",
+    legend: { show: true, position: "top" },
+    display: { type: "line", smooth: false, area: false, showPoints: true },
+    categories: [
+      { label: "2023", unit: "km", decimals: 0 },
+      { label: "2024", unit: "km", decimals: 0 },
+      { label: "2025", unit: "km", decimals: 0 },
+      { label: "2026", unit: "km", decimals: 0 },
+    ],
+    series: [{ name: "MAN eTGX", color: MAN_BLUE, values: [280, 300, 320, 330] }],
+  }),
+  pie: () => ({
+    version: 1,
+    type: "pie",
+    title: "Flottenkosten nach Anteil",
+    // Ohne Fußnote: `pieOption` setzt den Legenden-Abstand nur nach dem
+    // Titel, nicht zusätzlich nach einer Fußnote darunter — siehe `bar`.
+    legend: { show: true, position: "top" },
+    display: { type: "pie", innerRadius: 0, label: "percent" },
+    categories: [
+      { label: "Energie", unit: "%", decimals: 0, color: MAN_BLUE },
+      { label: "Wartung", unit: "%", decimals: 0, color: MAN_ORANGE },
+      { label: "Versicherung", unit: "%", decimals: 0, color: COMPETITOR_RED },
+      { label: "Sonstiges", unit: "%", decimals: 0, color: "#8a8a8a" },
+    ],
+    series: [{ name: "Anteil", values: [45, 25, 20, 10] }],
+  }),
+};
+
+export function exampleSpec(type: ChartType): ChartSpec {
+  return exampleSpecs[type]();
 }
 
 /**
- * Eine leere, aber bediente Tabelle: drei Achsen und zwei Serien.
- *
- * `emptySpec()` hat gar keine Zeilen, und eine Tabelle ohne Zeilen ist für
- * den Einstieg nutzlos — es gäbe nichts zu sehen und nichts zu tippen.
+ * Eine leere, aber bediente Tabelle: dieselben Achsennamen wie das
+ * Beispiel, nur ohne Werte — sie ist der Startpunkt für eigene Daten, nicht
+ * die Vorführung.
  */
-export function starterSpec(): ChartSpec {
-  return {
+const starterSpecs: Record<ChartType, () => ChartSpec> = {
+  radar: () => ({
     version: 1,
     type: "radar",
     legend: { show: true, position: "top" },
@@ -71,5 +127,41 @@ export function starterSpec(): ChartSpec {
       { name: "", values: [null, null, null] },
       { name: "", values: [null, null, null] },
     ],
-  };
+  }),
+  bar: () => ({
+    version: 1,
+    type: "bar",
+    legend: { show: true, position: "top" },
+    display: { type: "bar", stacked: false, orientation: "vertical" },
+    categories: [{ label: "", unit: "km" }, { label: "", unit: "km" }, { label: "", unit: "km" }],
+    series: [
+      { name: "", values: [null, null, null] },
+      { name: "", values: [null, null, null] },
+    ],
+  }),
+  line: () => ({
+    version: 1,
+    type: "line",
+    legend: { show: true, position: "top" },
+    display: { type: "line", smooth: false, area: false, showPoints: true },
+    categories: [
+      { label: "", unit: "km" },
+      { label: "", unit: "km" },
+      { label: "", unit: "km" },
+      { label: "", unit: "km" },
+    ],
+    series: [{ name: "", values: [null, null, null, null] }],
+  }),
+  pie: () => ({
+    version: 1,
+    type: "pie",
+    legend: { show: true, position: "top" },
+    display: { type: "pie", innerRadius: 0, label: "percent" },
+    categories: [{ label: "", unit: "%" }, { label: "", unit: "%" }, { label: "", unit: "%" }, { label: "", unit: "%" }],
+    series: [{ name: "", values: [null, null, null, null] }],
+  }),
+};
+
+export function starterSpec(type: ChartType): ChartSpec {
+  return starterSpecs[type]();
 }

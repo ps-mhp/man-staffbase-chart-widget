@@ -394,17 +394,21 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
                   <button
                     type="button"
                     className="chart-editor__button chart-editor__button--primary"
-                    onClick={() => onChange(exampleSpec())}
+                    onClick={() => onChange(exampleSpec(value.type))}
                   >
                     Beispiel laden
                   </button>
-                  <button type="button" className="chart-editor__button" onClick={() => onChange(starterSpec())}>
+                  <button
+                    type="button"
+                    className="chart-editor__button"
+                    onClick={() => onChange(starterSpec(value.type))}
+                  >
                     Leere Tabelle anlegen
                   </button>
                 </div>
                 <p className="chart-editor__hint">
-                  „Beispiel laden“ füllt den Vergleich MAN eTGX gegen Mercedes-Benz eActros 600 ein. Überschreiben Sie
-                  ihn einfach mit Ihren eigenen Zahlen.
+                  „Beispiel laden“ füllt ein zum gewählten Diagrammtyp passendes Beispiel ein. Überschreiben Sie es
+                  einfach mit Ihren eigenen Zahlen.
                 </p>
               </div>
             ) : (
