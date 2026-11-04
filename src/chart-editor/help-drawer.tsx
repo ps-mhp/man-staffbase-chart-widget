@@ -23,7 +23,7 @@
  */
 
 import * as React from "react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 import { CHART_TYPE_INFO } from "./chart-type-info";
 import { IconClose } from "./icons";
@@ -34,6 +34,31 @@ export interface HelpDrawerProps {
 }
 
 export function HelpDrawer({ open, onClose }: HelpDrawerProps): React.JSX.Element {
+  const closeRef = useRef<HTMLButtonElement | null>(null);
+  // Wohin der Fokus beim Schliessen zurueckgeht. Das ist in aller Regel der
+  // Hilfe-Knopf in der Leiste, von dem aus geoeffnet wurde.
+  const returnRef = useRef<HTMLElement | null>(null);
+
+  // Fokus mitfuehren: Der Schieber ist das letzte Kind des Dialogs. Ohne
+  // dieses Nachziehen bliebe der Fokus nach dem Oeffnen auf dem Knopf in der
+  // Leiste, und der Weg zum Schieberinhalt fuehrte mit der Tabulatortaste
+  // durch das gesamte Formular. Beim Schliessen - auch per Escape - landet
+  // der Fokus wieder dort, wo er herkam, statt an den Anfang zu springen.
+  useEffect(() => {
+    if (open) {
+      returnRef.current = document.activeElement as HTMLElement | null;
+      closeRef.current?.focus();
+      return;
+    }
+    const back = returnRef.current;
+    returnRef.current = null;
+    // Nur zurueckholen, wenn der Fokus noch im Schieber steht: Hat die
+    // Redaktion inzwischen anderswo geklickt, waere ein Sprung uebergriffig.
+    if (back && closeRef.current?.parentElement?.parentElement?.contains(document.activeElement)) {
+      back.focus();
+    }
+  }, [open]);
+
   // Der Escape-Listener haengt nur am Dokument, solange der Schieber offen
   // ist — sonst wuerde ein Escape anderswo im Dialog (etwa im Raster) den
   // Schieber unbemerkt wieder zumachen.
@@ -56,7 +81,13 @@ export function HelpDrawer({ open, onClose }: HelpDrawerProps): React.JSX.Elemen
     >
       <div className="chart-editor__help-header">
         <h2 className="chart-editor__help-title">Hilfe</h2>
-        <button type="button" className="chart-editor__ctl" aria-label="Hilfe schließen" onClick={onClose}>
+        <button
+          type="button"
+          className="chart-editor__ctl"
+          aria-label="Hilfe schließen"
+          onClick={onClose}
+          ref={closeRef}
+        >
           <IconClose />
         </button>
       </div>
@@ -87,7 +118,11 @@ export function HelpDrawer({ open, onClose }: HelpDrawerProps): React.JSX.Elemen
           Minimum, Maximum und „kleiner ist besser" erscheinen nur beim Typ Netz. Die Segmentfarbe erscheint nur
           beim Typ Kuchen; dort wird zudem nur die erste Serie gezeichnet.
         </p>
-        <p>Ausgeblendete Felder sind nicht gelöscht — die dahinterliegenden Werte bleiben erhalten.</p>
+        <p>
+          Diese ausgeblendeten Felder sind nicht gelöscht — die dahinterliegenden Werte bleiben erhalten. Die
+          Anzeigeeinstellungen weiter unten gelten dagegen immer nur für den gerade eingestellten Typ und gehen
+          bei einem Wechsel verloren.
+        </p>
       </section>
     </div>
   );

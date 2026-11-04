@@ -16,9 +16,11 @@ Schritte gelten für die übrigen drei Typen sinngemäß.
    Spinne)**, **Balkendiagramm (Säulen)**, **Liniendiagramm (Verlauf)** oder
    **Kuchendiagramm (Torte / Ring)**; der Text darunter sagt, wofür der
    gewählte Typ gedacht ist. Ein späterer Wechsel des Typs verliert keine
-   Daten — Achsen, Serien, Titel und Legende bleiben erhalten, nur die
-   typspezifischen Felder (z. B. Minimum/Maximum beim Radar) werden
-   ausgeblendet, bis der Typ wieder gewählt wird.
+   Daten — Achsen, Serien, Titel und Legende bleiben erhalten, und auch die
+   Angaben an den Achsen (z. B. Minimum/Maximum beim Radar) werden nur
+   ausgeblendet, bis der Typ wieder gewählt wird. Die
+   **Anzeigeeinstellungen** des alten Typs gehen dabei allerdings verloren;
+   mehr dazu unter „Einstellungen".
 3. Solange noch keine Daten da sind, bietet der Abschnitt **„Achsen und
    Serien“** zwei Einstiege an: **„Beispiel laden“** füllt ein zum
    gewählten Typ passendes Beispiel ein, den man einfach überschreibt, und

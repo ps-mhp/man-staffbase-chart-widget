@@ -277,8 +277,14 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
 
   return (
     <div className="chart-editor" ref={rootRef}>
-      <EditorBar onSave={onSave} onClose={onClose} onOpenHelp={() => setHelpOpen(true)} dirty={dirty} />
-      <div className="chart-editor__columns">
+      {/* Gescrollt wird dieser Kasten, nicht `.chart-editor` selbst: Der
+          Hilfe-Schieber richtet sich mit `position: absolute` am Rahmen aus
+          und wuerde sonst mit dem Inhalt nach oben wegscrollen — nach ein
+          paar Zeilen Raster waere er ausserhalb des Sichtbaren, und der
+          Hilfe-Knopf in der Leiste schiene wirkungslos. */}
+      <div className="chart-editor__scroll">
+        <EditorBar onSave={onSave} onClose={onClose} onOpenHelp={() => setHelpOpen(true)} dirty={dirty} />
+        <div className="chart-editor__columns">
         <div className="chart-editor__main">
           {/* --- Diagrammtyp: beantwortet "Was baue ich hier gerade?" --- */}
           <section className="chart-editor__section">
@@ -471,7 +477,13 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
                             className="chart-editor__button chart-editor__button--icon"
                             aria-label={`Serie nach rechts: ${seriesName(series, seriesIndex)}`}
                             title="Nach rechts"
-                            disabled={seriesIndex === value.series.length - 1}
+                            // Gegen `shownSeries`, nicht gegen `value.series`:
+                            // Bei `pie` ist nur die erste Serie zu sehen. Ein
+                            // aktiver Pfeil an dieser einzigen Spalte haette
+                            // sie mit einer verborgenen getauscht - Kopf,
+                            // Werte und Kuchen zeigten dann andere Daten,
+                            // waehrend die Ueberschrift gleich bliebe.
+                            disabled={seriesIndex === shownSeries.length - 1}
                             onClick={() => onChange(moveSeries(value, seriesIndex, 1))}
                           >
                             →
@@ -550,7 +562,7 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
                         </>
                       ) : null}
                       {showInverted ? (
-                        <div className="chart-editor__cell" data-label="Skala">
+                        <div className="chart-editor__cell" data-label="Richtung">
                           <label className="chart-editor__check">
                             <input
                               type="checkbox"
@@ -868,7 +880,8 @@ export function ChartEditor({ value, onChange, onSave, onClose, dirty }: ChartEd
               <ChartWidget chart={serializeChartSpec(value)} height={PREVIEW_HEIGHT} />
             </div>
           </div>
-        </aside>
+          </aside>
+        </div>
       </div>
 
       <HelpDrawer open={helpOpen} onClose={() => setHelpOpen(false)} />

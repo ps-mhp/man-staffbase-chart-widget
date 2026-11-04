@@ -37,11 +37,20 @@ Die Auswahl ganz oben im Editor bestimmt die Art des Diagramms:
 | Liniendiagramm (Verlauf) | Entwicklung über eine geordnete Reihe, z. B. Jahre. |
 | Kuchendiagramm (Torte / Ring) | Aufteilung eines Ganzen in Segmente; zeichnet nur die erste Serie. |
 
-Ein Typwechsel verliert keine Daten: Titel, Fußnote, Legende, Achsen und
-Serien bleiben erhalten. Gespeicherte typspezifische Einstellungen (z. B.
-Minimum/Maximum beim Radar) bleiben ebenfalls erhalten und wirken wieder,
-sobald der zugehörige Typ erneut gewählt wird — sie werden also nicht
-gelöscht, sondern nur ausgeblendet.
+Ein Typwechsel verliert keine **Daten**: Titel, Fußnote, Legende, Achsen und
+Serien bleiben erhalten. Das gilt auch für die Angaben, die an einer Achse
+hängen — Minimum, Maximum, „kleiner ist besser" und die Segmentfarbe. Sie
+werden beim fremden Typ nur ausgeblendet und wirken wieder, sobald der
+zugehörige Typ erneut gewählt wird.
+
+Die **Anzeigeeinstellungen** eines Typs überleben einen Wechsel dagegen
+nicht. Wer beim Netzdiagramm „Hilfslinien im Netz" und „Flächen füllen"
+eingestellt hat, auf Balken umstellt und speichert, findet beim nächsten
+Wechsel zurück wieder die Voreinstellungen vor. Dasselbe gilt für Stapeln
+und Richtung beim Balken, für Glätten, Fläche und Punkte bei der Linie
+sowie für Innenradius und Segmentbeschriftung beim Kuchen. Ein Diagramm
+führt immer nur einen Satz Anzeigeeinstellungen mit sich, nämlich den des
+gerade eingestellten Typs.
 
 ## Welche Felder bei welchem Typ erscheinen
 

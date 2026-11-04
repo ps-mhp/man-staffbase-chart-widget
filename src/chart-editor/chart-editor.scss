@@ -40,32 +40,36 @@ $bar-height: chrome.$control-height-sm + 2 * $space-s;
   // Verankert den Hilfe-Schieber (`&__help`), der sich mit `position: absolute`
   // an diesem Rahmen ausrichtet statt am Dokument.
   position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: $space-l;
   width: 100%;
   height: 100%;
-  // Kein Polster oben: Die Leiste ist das erste Kind und soll flush am
-  // Rand des scrollenden Rahmens kleben (siehe `&__bar`). Ein negativer
-  // Rand auf der Leiste hätte dasselbe Ziel gehabt, wird aber von Chromium
-  // bei `position: sticky` ignoriert — am Bild geprüft, nicht nur gelesen.
-  padding: 0 $space-l $space-l;
-  overflow-y: auto;
-  // `overflow-y: auto` allein macht diesen Rahmen auch waagerecht
-  // scrollbar: Die Berechnung setzt die andere Achse dann auf `auto`
-  // statt auf `visible`. Der zugeschobene Hilfe-Schieber zaehlt trotz
-  // `translateX(100%)` in die scrollbare Flaeche und erzeugte so eine
-  // waagerechte Bildlaufleiste in leeren Raum hinein.
-  //
-  // `clip` statt `hidden`: `hidden` blendet nur die Bildlaufleiste aus,
-  // der Bereich bleibt per Tastatur und Skript scrollbar. `clip` nimmt
-  // ihn ganz heraus. Nachgemessen in Chromium: `scrollLeft` bleibt bei
-  // 380, 560, 784 und 1100 px auf 0 — offen wie geschlossen.
-  overflow-x: clip;
+  // Dieser Rahmen scrollt selbst NICHT — das tut `&__scroll` darin. Nur so
+  // bleibt der Hilfe-Schieber, der sich hier verankert, beim Scrollen
+  // stehen. `clip` statt `hidden`: `hidden` blendet nur die Bildlaufleiste
+  // aus, der Bereich bliebe per Tastatur und Skript scrollbar.
+  overflow: clip;
   font-size: 13px;
   color: chrome.$text;
   background: chrome.$surface;
   box-sizing: border-box;
+
+  // Der scrollende Teil. Traegt die Masse, die vorher am Rahmen hingen.
+  &__scroll {
+    display: flex;
+    flex-direction: column;
+    gap: $space-l;
+    height: 100%;
+    // Kein Polster oben: Die Leiste ist das erste Kind und soll flush am
+    // Rand des scrollenden Kastens kleben (siehe `&__bar`). Ein negativer
+    // Rand auf der Leiste hätte dasselbe Ziel gehabt, wird aber von
+    // Chromium bei `position: sticky` ignoriert — am Bild geprüft.
+    padding: 0 $space-l $space-l;
+    overflow-y: auto;
+    // `overflow-y: auto` allein macht diesen Kasten auch waagerecht
+    // scrollbar: Die Berechnung setzt die andere Achse dann implizit auf
+    // `auto` statt auf `visible`.
+    overflow-x: clip;
+    box-sizing: border-box;
+  }
 
   // Eingabe links, Vorschau rechts. Unter 1100px fällt die Vorschau unter
   // die Eingabe — nebeneinander bliebe für beides zu wenig Breite, und ein

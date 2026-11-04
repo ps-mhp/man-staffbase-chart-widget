@@ -55,6 +55,18 @@ const LEGEND_SYMBOL = 32;
 /** Abstand zwischen zwei Legendeneinträgen. */
 const LEGEND_GAP = 10;
 
+/**
+ * Prozentzahl in der Inhaltssprache.
+ *
+ * ECharts liefert `percent` als Rohzahl mit Dezimal*punkt*. Uebernaehme man
+ * sie unveraendert, stuende auf einer deutschen Seite im selben Diagramm
+ * "45,0 t" neben "16.67 %" — jede andere Zahl im Baustein laeuft ueber
+ * `formatMeasure` und damit ueber die Inhaltssprache.
+ */
+function formatPercent(percent: number | undefined, locale: string): string {
+  return new Intl.NumberFormat(locale, { maximumFractionDigits: 2 }).format(percent ?? 0);
+}
+
 interface PieLayout {
   /** Mittelpunkt senkrecht, in Pixeln vom oberen Rand. */
   centerY: number;
@@ -187,7 +199,7 @@ export function pieOption(
         const entry = params as { dataIndex?: number; name?: string; percent?: number };
         const matched = filtered[entry.dataIndex ?? -1];
         const measure = formatMeasure(matched?.value ?? null, matched?.category, locale);
-        return `${entry.name ?? ""}<br/>${measure} (${String(entry.percent ?? 0)} %)`;
+        return `${entry.name ?? ""}<br/>${measure} (${formatPercent(entry.percent, locale)} %)`;
       },
     },
     legend: {
@@ -218,7 +230,7 @@ export function pieOption(
           formatter: (params: unknown): string => {
             const entry = params as { dataIndex?: number; name?: string; percent?: number };
             const matched = filtered[entry.dataIndex ?? -1];
-            const percent = `${String(entry.percent ?? 0)} %`;
+            const percent = `${formatPercent(entry.percent, locale)} %`;
             const measure = formatMeasure(matched?.value ?? null, matched?.category, locale);
             if (labelMode === "percent") return percent;
             if (labelMode === "value") return measure;

@@ -67,6 +67,14 @@ export function useECharts({ type, makeOption, theme: incomingTheme }: UseEChart
   const containerRef = useRef<HTMLDivElement | null>(null);
   const chartRef = useRef<ChartInstance | null>(null);
   const [core, setCore] = useState<EChartsCore | null>(null);
+  // Welcher Typ bereits registriert ist. `loadECharts` liefert modulweit
+  // dasselbe Core-Objekt zurück, `setCore` ist nach dem ersten Laden deshalb
+  // eine Zuweisung desselben Werts — React steigt aus und rendert nicht neu.
+  // Ohne diesen eigenen Zustand liefe `setOption` beim Typwechsel einmal mit
+  // der neuen Option, bevor das Modul registriert ist, und danach nie wieder:
+  // Die Vorschau im Editor bliebe leer, die nächste Änderung ließe ECharts
+  // auf dem halb gesetzten Zustand stolpern.
+  const [loadedType, setLoadedType] = useState<ChartType | null>(null);
   const [size, setSize] = useState<ChartSize | null>(null);
   const [status, setStatus] = useState<ChartStatus>("loading");
   const hasSize = size !== null;
@@ -115,7 +123,9 @@ export function useECharts({ type, makeOption, theme: incomingTheme }: UseEChart
 
     loadECharts(type)
       .then((loaded) => {
-        if (!cancelled) setCore(loaded);
+        if (cancelled) return;
+        setCore(loaded);
+        setLoadedType(type);
       })
       .catch(() => {
         if (!cancelled) setStatus("failed");
@@ -129,7 +139,8 @@ export function useECharts({ type, makeOption, theme: incomingTheme }: UseEChart
   // 3. Instanz anlegen oder die Option nachführen.
   useEffect(() => {
     const element = containerRef.current;
-    if (!core || !element || !size) return;
+    // `loadedType === type` statt bloß `core`: siehe `loadedType` oben.
+    if (!core || !element || !size || loadedType !== type) return;
 
     if (!chartRef.current) {
       chartRef.current = core.init(element, echartsTheme(theme), {
@@ -139,15 +150,27 @@ export function useECharts({ type, makeOption, theme: incomingTheme }: UseEChart
     // `notMerge`: Weniger Serien als zuvor blieben sonst als Reste stehen.
     chartRef.current.setOption(makeOption(size), true);
     setStatus("ready");
-  }, [core, makeOption, size, theme]);
+  }, [core, loadedType, type, makeOption, size, theme]);
 
-  // Theme-Wechsel: alte Instanz weg, die nächste nimmt das neue Theme.
+  // Theme- oder Typwechsel: alte Instanz weg, die nächste baut frisch auf.
+  //
+  // Beim Theme, weil ECharts es nur beim `init` entgegennimmt. Beim Typ,
+  // weil ECharts den Serientyp einer bestehenden Instanz nicht zuverlässig
+  // austauscht: Ein `setOption` von `bar` auf `pie` ließ die Kuchen-Ansicht
+  // mit „Cannot read properties of undefined (reading 'width')" abstürzen,
+  // und das `<svg>` verschwand ganz. Im Browser gegen das gebaute Bündel
+  // nachgestellt, nicht nur gelesen.
+  //
+  // React räumt vor dem Lauf der Effektrümpfe erst alle Aufräumer ab, deren
+  // Abhängigkeiten sich geändert haben. Dieser hier steht nach dem
+  // `setOption`-Effekt, sein Aufräumer läuft also davor — die Instanz ist
+  // weg, bevor die neue Option gesetzt wird, und Effekt 3 legt sie neu an.
   useEffect(() => {
     return () => {
       chartRef.current?.dispose();
       chartRef.current = null;
     };
-  }, [core, theme]);
+  }, [core, loadedType, theme]);
 
   return { containerRef, status };
 }

@@ -14,6 +14,7 @@
 import { act, render, screen, waitFor } from "@testing-library/react";
 import * as React from "react";
 
+import { ChartType } from "./chart-model";
 import { readChartTheme } from "./man-chart-theme";
 import { useECharts } from "./use-echarts";
 
@@ -49,11 +50,13 @@ function Probe({
   size,
   theme,
   onSize,
+  type,
 }: {
   option: Record<string, unknown>;
   size: number;
   theme?: ReturnType<typeof readChartTheme>;
   onSize?: (measured: { width: number; height: number }) => void;
+  type?: ChartType;
 }): React.JSX.Element {
   // Der Hook erwartet eine stabile Funktion; die Tests reichen weiterhin
   // eine fertige Option herein und merken sich nur, mit welcher Größe sie
@@ -66,7 +69,7 @@ function Probe({
     [option, onSize],
   );
   const { containerRef, status } = useECharts({
-    type: "radar",
+    type: type ?? "radar",
     makeOption,
     theme: theme ?? readChartTheme(null),
   });
@@ -171,5 +174,44 @@ describe("useECharts", () => {
     await new Promise((resolve) => setTimeout(resolve, 20));
     expect(init).toHaveBeenCalledTimes(1);
     expect(instance.dispose).not.toHaveBeenCalled();
+  });
+
+  it("setzt die Option erst, wenn das Modul des neuen Typs registriert ist", async () => {
+    // Der Editor wechselt den Typ an einer bereits montierten Instanz. Lief
+    // `setOption` dabei schon mit der neuen Option los, bekam ECharts eine
+    // Serie, deren Typ es noch nicht kannte, und zeichnete nichts. Erholen
+    // konnte sich das nicht: `loadECharts` liefert modulweit dasselbe
+    // Core-Objekt, `setCore` war also eine Zuweisung desselben Werts, und
+    // der Effekt lief nach dem Registrieren nie erneut.
+    const { rerender } = render(<Probe option={option} size={400} type="radar" />);
+    await waitFor(() => expect(screen.getByTestId("status")).toHaveTextContent("ready"));
+    expect(instance.setOption).toHaveBeenCalledTimes(1);
+
+    let registerBar: (() => void) | null = null;
+    mockedLoad.mockImplementationOnce(
+      () =>
+        new Promise((resolve) => {
+          registerBar = () => resolve({ init } as unknown as Awaited<ReturnType<typeof loadECharts>>);
+        }),
+    );
+
+    const barOption = { series: [{ type: "bar" }] };
+    rerender(<Probe option={barOption} size={400} type="bar" />);
+    await new Promise((resolve) => setTimeout(resolve, 20));
+    // Solange das Balkenmodul laedt, darf die neue Option nicht gesetzt sein.
+    expect(instance.setOption).toHaveBeenCalledTimes(1);
+
+    await act(async () => {
+      registerBar?.();
+    });
+    await waitFor(() => expect(instance.setOption).toHaveBeenCalledTimes(2));
+    expect(instance.setOption).toHaveBeenLastCalledWith(barOption, true);
+
+    // Und zwar an einer FRISCHEN Instanz: ECharts tauscht den Serientyp
+    // einer bestehenden Instanz nicht zuverlaessig aus. Im Browser gegen
+    // das gebaute Buendel nachgestellt: Ein `setOption` von `bar` auf `pie`
+    // liess die Kuchen-Ansicht abstuerzen und das `<svg>` verschwinden.
+    expect(instance.dispose).toHaveBeenCalledTimes(1);
+    expect(init).toHaveBeenCalledTimes(2);
   });
 });
