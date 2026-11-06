@@ -27,6 +27,7 @@ import { useEffect, useRef } from "react";
 
 import { CHART_TYPE_INFO } from "./chart-type-info";
 import { IconClose } from "./icons";
+import { activeElementOf, eventRootOf } from "@shared/shadow-dom";
 
 export interface HelpDrawerProps {
   open: boolean;
@@ -46,7 +47,9 @@ export function HelpDrawer({ open, onClose }: HelpDrawerProps): React.JSX.Elemen
   // der Fokus wieder dort, wo er herkam, statt an den Anfang zu springen.
   useEffect(() => {
     if (open) {
-      returnRef.current = document.activeElement as HTMLElement | null;
+      // In der Wurzel des Schiebers gefragt: im Shadow Root des Config-Modals
+      // wäre `document.activeElement` nur der Host.
+      returnRef.current = (closeRef.current === null ? document.activeElement : activeElementOf(closeRef.current)) as HTMLElement | null;
       closeRef.current?.focus();
       return;
     }
@@ -54,21 +57,24 @@ export function HelpDrawer({ open, onClose }: HelpDrawerProps): React.JSX.Elemen
     returnRef.current = null;
     // Nur zurueckholen, wenn der Fokus noch im Schieber steht: Hat die
     // Redaktion inzwischen anderswo geklickt, waere ein Sprung uebergriffig.
-    if (back && closeRef.current?.parentElement?.parentElement?.contains(document.activeElement)) {
+    const drawer = closeRef.current?.parentElement?.parentElement;
+    if (back && drawer && drawer.contains(activeElementOf(drawer))) {
       back.focus();
     }
   }, [open]);
 
-  // Der Escape-Listener haengt nur am Dokument, solange der Schieber offen
+  // Der Escape-Listener haengt nur an der Wurzel, solange der Schieber offen
   // ist — sonst wuerde ein Escape anderswo im Dialog (etwa im Raster) den
-  // Schieber unbemerkt wieder zumachen.
+  // Schieber unbemerkt wieder zumachen. Die Wurzel, nicht das Dokument: im
+  // Config-Modal endet jede Taste am Host.
   useEffect(() => {
     if (!open) return;
     const onKeyDown = (event: KeyboardEvent): void => {
       if (event.key === "Escape") onClose();
     };
-    document.addEventListener("keydown", onKeyDown);
-    return () => document.removeEventListener("keydown", onKeyDown);
+    const root = eventRootOf(closeRef.current);
+    root.addEventListener("keydown", onKeyDown as EventListener);
+    return () => root.removeEventListener("keydown", onKeyDown as EventListener);
   }, [open, onClose]);
 
   return (
