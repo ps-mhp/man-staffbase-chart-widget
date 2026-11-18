@@ -15,6 +15,7 @@ import { ChartSpec } from "../chart-model";
 import {
   addCategory,
   addSeries,
+  duplicateCategory,
   moveSeries,
   removeCategory,
   removeSeries,
@@ -114,5 +115,37 @@ describe("editor-operations", () => {
   it("lässt eine Verschiebung über den Rand hinaus wirkungslos", () => {
     expect(moveSeries(base, 0, -1).series.map((s) => s.name)).toEqual(["S1", "S2"]);
     expect(moveSeries(base, 1, 1).series.map((s) => s.name)).toEqual(["S1", "S2"]);
+  });
+});
+
+describe("duplicateCategory", () => {
+  const base: ChartSpec = {
+    version: 1,
+    type: "radar",
+    legend: { show: true, position: "top" },
+    categories: [{ label: "A", unit: "kW", min: 1 }, { label: "B" }],
+    series: [
+      { name: "X", values: [1, 2] },
+      { name: "Y", values: [3, null] },
+    ],
+  };
+
+  it("setzt die Kopie samt Werten direkt hinter die Achse", () => {
+    const next = duplicateCategory(base, 0);
+    expect(next.categories).toEqual([{ label: "A", unit: "kW", min: 1 }, { label: "A", unit: "kW", min: 1 }, { label: "B" }]);
+    expect(next.series.map((series) => series.values)).toEqual([
+      [1, 1, 2],
+      [3, 3, null],
+    ]);
+  });
+
+  it("verändert die Vorlage nicht", () => {
+    const next = duplicateCategory(base, 1);
+    expect(base.categories).toHaveLength(2);
+    expect(next.categories[2]).not.toBe(base.categories[1]);
+  });
+
+  it("lässt eine unbekannte Stelle unverändert", () => {
+    expect(duplicateCategory(base, 5)).toBe(base);
   });
 });

@@ -119,3 +119,20 @@ export function moveCategory(spec: ChartSpec, index: number, delta: number): Cha
     series: spec.series.map((series) => ({ ...series, values: swap(series.values) })),
   };
 }
+
+/**
+ * Setzt eine Kopie der Achse samt ihrer Werte direkt dahinter.
+ *
+ * Für Achsen, die sich nur in einer Kleinigkeit unterscheiden – dieselbe
+ * Einheit, dieselben Grenzen –, damit nicht alles neu einzutragen ist.
+ */
+export function duplicateCategory(spec: ChartSpec, index: number): ChartSpec {
+  const category = spec.categories[index];
+  if (category === undefined) return spec;
+  const insert = <T>(list: T[], item: T): T[] => [...list.slice(0, index + 1), item, ...list.slice(index + 1)];
+  return {
+    ...spec,
+    categories: insert(spec.categories, { ...category }),
+    series: spec.series.map((series) => ({ ...series, values: insert(series.values, series.values[index] ?? null) })),
+  };
+}
