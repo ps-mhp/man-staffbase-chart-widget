@@ -1,168 +1,210 @@
 # Einstellungen
 
-Im Konfigurationsdialog gibt es technisch nur zwei Felder: **Diagramm** und
-**Höhe in Pixeln**. „Diagramm“ wird nicht direkt bearbeitet — stattdessen
-öffnet sich automatisch der **Diagramm-Editor**, in dem alle übrigen
-Einstellungen stecken.
+Alle Einstellungen stecken im **Diagramm-Editor**, der sich beim Öffnen der
+Widget-Einstellungen von selbst im Vollbild öffnet. Im Staffbase-Dialog
+dahinter steht nur noch das Feld **Diagramm** mit der technisch kodierten
+Definition; es wird nie von Hand bearbeitet.
 
-## Feld im Konfigurationsdialog
+## Der Editor
+
+Oben steht der Kopf, wie bei allen MAN-Widgets: Name und Titel links, in der
+Mitte die Ansicht **Editor · Desktop · Tablet · Mobil**, rechts
+**Rückgängig**, **Wiederholen**, **Hilfe**, **Abbrechen** und
+**Übernehmen**. Daneben steht, was sich geändert hat – etwa „Diagrammtyp
+geändert“ oder „Daten geändert“ – oder, warum sich der Stand noch nicht
+übernehmen lässt.
+
+Darunter zwei Bereiche:
+
+- **Links das Datenraster** mit einer Leiste darüber.
+- **Rechts das Panel „Diagramm“** mit vier Reitern: **Daten**,
+  **Gestaltung**, **Achse** und **Verhalten**.
+
+In den Ansichten Desktop, Tablet und Mobil tritt an die Stelle des Rasters
+die Vorschau in Gerätebreite; das Panel rechts bleibt stehen, sodass jede
+Einstellung gleich daneben wirkt.
+
+„Übernehmen“ überträgt den Stand in den Staffbase-Dialog; dauerhaft
+gespeichert wird er erst mit **Speichern** im Studio. Ohne Änderung bleibt
+„Übernehmen“ aus.
+
+| Taste | Wirkung |
+| --- | --- |
+| ⌘/Strg S | Übernehmen |
+| ⌘/Strg ↵ | Übernehmen und schließen |
+| ⌘/Strg Z, ⇧⌘/Strg Z | Rückgängig, Wiederholen (außerhalb von Textfeldern) |
+| F1 | Hilfe |
+| Esc | Schließen, mit Rückfrage bei offenen Änderungen |
+
+## Datenraster
+
+Jede **Zeile** ist eine **Achse** (eine Kennzahl, beim Kuchen ein Segment),
+jede **Spalte** rechts eine **Reihe** (eine Variante; frühere Fassungen
+sagten „Serie“). Im Kopf jeder Reihenspalte stehen Farbpunkt und Name.
+
+| Spalte | Beschreibung |
+| --- | --- |
+| Nr. | Wählt die Achse. Ein Klick in irgendein Feld der Zeile tut dasselbe. |
+| Achse | Name der Achse, wie er am Diagramm und in der Datentabelle erscheint. Die Eingabetaste erzeugt einen Zeilenumbruch, der auch im Diagramm steht. |
+| Einheit | Wird an jede Zahl dieser Achse angehängt (Datenpunkt, Tooltip, Tabelle), z. B. „kWh“. Bei Balken und Linie trägt die gemeinsame Werteachse die Einheit nur, wenn **alle** Achsen mit Werten dieselbe Einheit tragen. |
+| je Reihe | Die Werte, deutsch geschrieben: Komma vor den Nachkommastellen, Punkt zwischen den Tausendern. |
+
+Beim Kuchendiagramm zeigt das Raster **nur die erste Reihe** – ein Hinweis
+darunter sagt, dass weitere Reihen gespeichert bleiben, aber nicht
+gezeichnet werden.
+
+**Werte aus Excel:** Zellen in Excel kopieren, im Raster ein Feld wählen,
+⌘ V (Strg V). Der Block landet ab diesem Feld; fehlende Achsen und Reihen
+kommen dazu. Beim Kuchen füllt er nur die eine sichtbare Reihe.
+
+## Leiste über dem Raster
+
+| Element | Beschreibung |
+| --- | --- |
+| Achse 2 von 5 · Name | Die gewählte Achse. |
+| ↑ ↓ | Verschiebt die gewählte Achse samt ihrer Werte. Beim Radar bestimmt die Reihenfolge den Platz im Kreis, beim Balken die Reihenfolge auf der Grundlinie. |
+| Duplizieren | Setzt eine Kopie der Achse samt Werten und Einstellungen direkt dahinter. |
+| Löschen | Entfernt die Achse samt ihrer Werte. Rückgängig mit ⌘/Strg Z. |
+| + Achse | Hängt eine leere Achse an und setzt den Cursor in ihren Namen. |
+| + Reihe | Hängt eine leere Reihe an. |
+| Aus Excel einfügen | Öffnet rechts eine Leiste, um eine ganze Tabelle zu übernehmen (siehe unten). |
+| Beispiel laden | Ersetzt die Daten durch ein Beispiel zum gewählten Typ. Höhe und Download bleiben. Rückgängig mit ⌘/Strg Z. |
+
+## Aus Excel einfügen
 
 | Einstellung | Beschreibung |
 | --- | --- |
-| Diagramm | Enthält die komplette, technisch kodierte Diagrammdefinition. Wird ausschließlich über den Diagramm-Editor bearbeitet, nie von Hand. |
-| Höhe in Pixeln | Höhe des Diagramms auf der Seite. Erlaubt sind 160 bis 1200 Pixel, voreingestellt sind 420. Die Breite richtet sich immer nach der Spalte. |
-| Download erlauben | Zeigt unter dem Diagramm zwei Knöpfe zum Herunterladen als Bild. Die Datei enthält nur das Diagramm, nicht die Seite. Voreingestellt aus. |
-
-## Der Editor-Dialog
-
-Oben steht eine Steuerleiste mit **Speichern**, **Hilfe** und **Schließen**;
-sie bleibt beim Scrollen stehen, damit Speichern auch bei einem langen
-Datenraster erreichbar bleibt. Solange der Entwurf vom gespeicherten Stand
-abweicht, steht daneben „Ungespeicherte Änderungen“. Der Hilfe-Knopf öffnet
-einen Schieber mit denselben Erklärungen wie auf dieser Seite, direkt im
-Dialog; er schließt über den Knopf oder die Taste „Escape“.
-
-Ist der Dialog schmal, wandert die Vorschau unter das Eingaberaster, und
-unterhalb von rund 700 Pixeln Containerbreite wird aus dem Raster eine Karte
-je Achse. Der Dialog scrollt dabei nie waagerecht.
-
-## Diagrammtyp
-
-Die Auswahl ganz oben im Editor bestimmt die Art des Diagramms:
-
-| Typ | Taugt für |
-| --- | --- |
-| Netzdiagramm (Radar / Spinne) | Vergleich weniger Varianten über mehrere Kennwerte mit möglicherweise unterschiedlichen Einheiten. |
-| Balkendiagramm (Säulen) | Vergleich von Werten über wenige Kategorien mit gemeinsamer Einheit. |
-| Liniendiagramm (Verlauf) | Entwicklung über eine geordnete Reihe, z. B. Jahre. |
-| Kuchendiagramm (Torte / Ring) | Aufteilung eines Ganzen in Segmente; zeichnet nur die erste Serie. |
-
-Ein Typwechsel verliert keine **Daten**: Titel, Fußnote, Legende, Achsen und
-Serien bleiben erhalten. Das gilt auch für die Angaben, die an einer Achse
-hängen — Minimum, Maximum, „kleiner ist besser" und die Segmentfarbe. Sie
-werden beim fremden Typ nur ausgeblendet und wirken wieder, sobald der
-zugehörige Typ erneut gewählt wird.
-
-Die **Anzeigeeinstellungen** eines Typs überleben einen Wechsel dagegen
-nicht. Wer beim Netzdiagramm „Hilfslinien im Netz" und „Flächen füllen"
-eingestellt hat, auf Balken umstellt und speichert, findet beim nächsten
-Wechsel zurück wieder die Voreinstellungen vor. Dasselbe gilt für Stapeln
-und Richtung beim Balken, für Glätten, Fläche und Punkte bei der Linie
-sowie für Innenradius und Segmentbeschriftung beim Kuchen. Ein Diagramm
-führt immer nur einen Satz Anzeigeeinstellungen mit sich, nämlich den des
-gerade eingestellten Typs.
-
-## Welche Felder bei welchem Typ erscheinen
-
-| Feld | Radar | Balken | Linie | Kuchen |
-| --- | :-: | :-: | :-: | :-: |
-| Einheit, Nachkommastellen | ✓ | ✓ | ✓ | ✓ |
-| Minimum, Maximum | ✓ | – | – | – |
-| Richtung („kleiner ist besser“) | ✓ | – | – | – |
-| Farbe je Achse (Segmentfarbe) | – | – | – | ✓ |
-| Serienspalten im Raster | alle | alle | alle | nur die erste |
-
-**Warum Minimum, Maximum und „kleiner ist besser“ nur beim Radar
-erscheinen:** Sie sind je Achse definiert und bei einer gemeinsamen
-Werteachse — wie sie Balken und Linie zeichnen — nicht abbildbar. Bei Kuchen
-gibt es überhaupt keine Achse. „Kleiner ist besser“ ist außerdem eine
-Radar-Idee: Bei einer echten Werteachse dreht man keine Achse um, sondern
-sortiert oder beschriftet.
-
-## Daten aus einer Tabelle übernehmen
-
-| Einstellung | Beschreibung |
-| --- | --- |
-| Einfügefeld | Nimmt eine aus Excel, PowerPoint oder Word kopierte Tabelle auf. Erkennt Tabulator, Semikolon und Komma als Spaltentrenner. |
-| Wie steht Ihre Tabelle? | Legt die Leserichtung fest. Voreingestellt „je Zeile eine Kennzahl, je Spalte eine Variante“ — so, wie die Tabelle auch im Raster darunter steht. Die andere Wahl kippt sie beim Übernehmen. |
-| Tabelle übernehmen | Ersetzt Achsen, Serien und Werte. Gleichnamige Achsen und Serien behalten Einheit, Achsenrichtung und Farbe. |
-
-Das Einfügen aus Excel ist typneutral und funktioniert bei allen vier Typen
-gleich.
+| Tabelle | Nimmt eine aus Excel, PowerPoint oder Word kopierte Tabelle auf. Erste Zeile und erste Spalte sind Überschriften. Erkennt Tabulator, Semikolon und Komma als Spaltentrenner. |
+| Wie steht die Tabelle? | **Achsen in Zeilen** (voreingestellt): je Zeile eine Kennzahl, je Spalte eine Variante – wie im Raster. **Achsen in Spalten**: umgekehrt; die Tabelle wird beim Übernehmen gekippt. |
+| Tabelle übernehmen | Ersetzt Achsen, Reihen und Werte. Gleichnamige Achsen und Reihen behalten Einheit, Grenzen, Richtung und Farbe. |
 
 ## Einstieg ohne Daten
 
-Solange weder Achsen noch Serien angelegt sind, erklärt der Editor die
+Solange weder Achsen noch Reihen angelegt sind, erklärt das Raster die
 Begriffe und bietet zwei Knöpfe an: **„Beispiel laden“** füllt ein zum
 gewählten Typ passendes Beispiel ein (z. B. beim Radar den Vergleich MAN
 eTGX gegen Mercedes-Benz eActros 600, beim Kuchen eine Flottenkosten-
-Aufteilung), den man überschreibt; **„Leere Tabelle anlegen“** legt Achsen
-und Serien zum Ausfüllen an.
+Aufteilung), **„Leere Tabelle anlegen“** legt Achsen und Reihen zum
+Ausfüllen an.
 
-## Je Achse (eine Zeile im Raster)
+## Reiter „Daten“
 
-| Einstellung | Beschreibung |
-| --- | --- |
-| Achse | Name der Achse, wie er am Diagramm und in der Datentabelle erscheint. Mehrzeilig: Die Eingabetaste erzeugt einen Zeilenumbruch, der auch im Diagramm steht. |
-| Einheit | Wird an jede Zahl dieser Achse angehängt (Datenpunkt, Tooltip, Tabelle), z. B. „kWh“. Bei Balken und Linie trägt die gemeinsame Werteachse die Einheit nur, wenn **alle** Achsen mit Werten dieselbe Einheit tragen. |
-| Richtung („kleiner ist besser“) | Nur beim Radar. Kehrt die Achse um: Der kleinere Wert liegt dann weiter außen. Für Kennzahlen, bei denen weniger besser ist — Gewicht, Verbrauch, Ladezeit. |
-| Farbe | Nur beim Kuchen. Legt die Farbe des zugehörigen Segments fest und überschreibt dafür die automatisch zugewiesene Palettenfarbe. |
-| Nachkomma | Nur bei eingeschalteten **Feineinstellungen je Achse**: Wie viele Nachkommastellen angezeigt werden. Ohne Angabe wird die Zahl der tatsächlich eingegebenen Nachkommastellen übernommen. |
-| Minimum | Nur beim Radar, bei eingeschalteten Feineinstellungen: Untere Grenze der Achse. Ohne Angabe beginnt die Achse bei null — bei negativen Werten beim kleinsten davon. |
-| Maximum | Nur beim Radar, bei eingeschalteten Feineinstellungen: Obere Grenze der Achse. Ohne Angabe wird der größte vorkommende Wert dieser Achse verwendet. |
-| ↑ ↓ ✕ | Verschiebt die Achse beziehungsweise entfernt sie samt ihrer Werte. |
-
-## Je Serie (eine Spalte im Raster)
-
-Beim Kuchendiagramm zeigt das Raster **nur die erste Serienspalte** — ein
-Hinweis darunter macht deutlich, dass weitere Serien gespeichert bleiben und
-nicht gezeichnet werden.
+Die Reihen als Liste; ein Klick klappt eine auf.
 
 | Einstellung | Beschreibung |
 | --- | --- |
-| Serienname | Name, wie er in Legende (außer bei Kuchen, siehe unten), Tooltip und Datentabelle erscheint. |
-| Farbe | Überschreibt die automatisch zugewiesene Farbe aus der MAN-Palette für diese eine Serie. Bei Kuchen ohne Wirkung — dort färbt die Farbe je Achse (siehe oben). |
-| ← → ✕ | Verschiebt die Serie — die Reihenfolge bestimmt Palettenfarbe und Legendenreihenfolge — beziehungsweise entfernt sie. |
+| ← → | Verschiebt die Reihe. Die Reihenfolge bestimmt Palettenfarbe und Legende; beim Kuchen wird die vorderste gezeichnet. |
+| Löschen | Entfernt die Reihe samt ihrer Werte. |
+| Name | Wie er in Legende (außer beim Kuchen), Tooltip und Datentabelle erscheint. |
+| Farbe | Überschreibt die Palettenfarbe für diese Reihe; „Palette“ nimmt die eigene Farbe zurück. Beim Kuchen nicht angeboten – dort färbt die Segmentfarbe je Achse. |
+| + Reihe hinzufügen | Hängt eine leere Reihe an und klappt sie auf. |
 
-## Titel, Legende und Darstellung
+## Reiter „Gestaltung“
 
 | Einstellung | Beschreibung |
 | --- | --- |
-| Titel | Überschrift über dem Diagramm. Bleibt das Feld leer, erscheint keine Überschrift. |
-| Fußnote | Kleingedruckter Zusatztext unter dem Titel, z. B. für Quellenangaben. |
-| Legende | „über dem Diagramm“, „unter dem Diagramm“ oder „ausblenden“. Bei Kuchen listet die Legende die Achsen (Segmente), bei den übrigen Typen die Serien. |
+| Typ | **Netz**, **Balken**, **Linie** oder **Kuchen**. Der Satz darunter sagt, wofür der Typ taugt. |
+| Titel | Überschrift über dem Diagramm. Leer: keine Überschrift. |
+| Fußnote | Kleingedruckter Zusatztext, z. B. für Quellenangaben. |
+| Legende | **Über**, **Unter** oder **Ausblenden**. Beim Kuchen listet die Legende die Achsen (Segmente), sonst die Reihen. |
+| Abschnitt des Typs | Was nur der gewählte Typ kennt, siehe unten. |
+| Höhe in px | Höhe des Diagramms auf der Seite, 160 bis 1200 Pixel, voreingestellt 420. Die Breite folgt immer der Spalte. Eine Höhe außerhalb dieser Grenzen lässt sich nicht übernehmen. |
 
-### Anzeigeoptionen je Typ
-
-| Typ | Felder | Beschreibung |
+| Typ | Einstellung | Beschreibung |
 | --- | --- | --- |
-| Radar | Hilfslinien im Netz | Anzahl der konzentrischen Hilfsringe. Voreingestellt 5. Rein optisch, ändert keine Werte. |
-| Radar | Flächen füllen | Füllt die Fläche hinter jeder Serienlinie halbtransparent in deren Farbe. Voreingestellt aus. |
-| Balken | Stapeln | Zeichnet Serien übereinander statt nebeneinander. Voreingestellt aus. |
-| Balken | Richtung | „stehend“ (Kategorien unten) oder „liegend“ (Kategorien links). Voreingestellt stehend. |
-| Linie | Linien glätten | Rundet den Linienverlauf statt ihn gerade zwischen den Stützstellen zu ziehen. Voreingestellt aus. |
-| Linie | Fläche füllen | Füllt die Fläche unter der Linie in ihrer Farbe. Voreingestellt aus. |
-| Linie | Punkte zeigen | Zeigt einen Punkt an jeder Stützstelle. Voreingestellt an. |
-| Kuchen | Innenradius | Anteil des Lochs am Kuchen in Prozent. 0 ergibt einen Vollkreis, ein größerer Wert (z. B. 45) einen Ring/Donut. Voreingestellt 0. |
-| Kuchen | Segmentbeschriftung | „Anteil in Prozent“, „Absolutwert“, „beides“ oder „ausblenden“. Voreingestellt „Anteil in Prozent“. |
+| Netz | Hilfslinien | Anzahl der konzentrischen Ringe. Voreingestellt 5. Rein optisch. |
+| Netz | Flächen füllen | Füllt die Fläche hinter jeder Linie halbtransparent in ihrer Farbe. Voreingestellt aus. |
+| Balken | Richtung | **Senkrecht** (Kategorien unten) oder **Waagerecht** (Kategorien links). Voreingestellt senkrecht. |
+| Balken | Gestapelt | Reihen übereinander statt nebeneinander. Voreingestellt aus. |
+| Linie | Geglättet | Rundet den Verlauf, statt gerade zwischen den Werten zu ziehen. Voreingestellt aus. |
+| Linie | Fläche füllen | Füllt die Fläche unter jeder Linie. Voreingestellt aus. |
+| Linie | Punkte zeigen | Markiert jeden Wert. Voreingestellt an. |
+| Kuchen | Innenradius in % | 0 ergibt einen Vollkreis, ein größerer Wert (z. B. 45) einen Ring. Voreingestellt 0. |
+| Kuchen | Beschriftung der Segmente | **Prozent**, **Wert**, **Beides** oder **Keine**. Voreingestellt Prozent. |
+
+Ein Typwechsel verliert keine **Daten**: Titel, Fußnote, Legende, Achsen und
+Reihen bleiben, ebenso die Angaben an den Achsen. Die **Einstellungen des
+Typs** gelten dagegen nur für ihn: Ein Diagramm führt immer nur einen Satz
+davon mit, den des gerade gewählten Typs. Wer beim Netz Hilfslinien
+einstellt, auf Balken umstellt, dort etwas ändert und zurückwechselt, findet
+beim Netz wieder die Voreinstellungen.
+
+## Reiter „Achse“
+
+Die Feineinstellungen der im Raster gewählten Achse.
+
+| Einstellung | Typ | Beschreibung |
+| --- | --- | --- |
+| Bezeichnung | alle | Der Name der Achse, mehrzeilig. |
+| Einheit | alle | Wie im Raster. |
+| Nachkommastellen | alle | Wie viele Nachkommastellen angezeigt werden. Leer: so viele, wie eingegeben wurden. |
+| Minimum, Maximum | Netz | Grenzen der Achse. Leer: aus den Werten abgeleitet (ab null bis zum größten Wert). Das Maximum muss größer als das Minimum sein, sonst lässt sich der Stand nicht übernehmen. |
+| Kleiner ist besser | Netz | Kehrt die Achse um: Der kleinere Wert liegt außen. Für Gewicht, Verbrauch, Ladezeit. |
+| Segmentfarbe | Kuchen | Farbe des Segments dieser Achse; „Palette“ nimmt sie zurück. |
+
+**Warum Minimum, Maximum und „Kleiner ist besser“ nur beim Netz
+erscheinen:** Sie sind je Achse definiert und bei einer gemeinsamen
+Werteachse – wie sie Balken und Linie zeichnen – nicht abbildbar. Beim
+Kuchen gibt es überhaupt keine Achse. Ausgeblendete Werte bleiben
+gespeichert und wirken wieder, sobald der Typ wieder gewählt wird.
+
+## Reiter „Verhalten“
+
+| Einstellung | Beschreibung |
+| --- | --- |
+| Download erlauben | Zeigt unter dem Diagramm zwei Knöpfe, „Als SVG“ und „Als PNG“. Die Datei enthält nur das Diagramm, nicht die Seite. Voreingestellt aus. |
+
+Unten steht die Version des Widgets – wer einen Fehler meldet, findet sie
+hier.
+
+## Prüfung
+
+„Übernehmen“ verweigert einen Stand, den die Seite nicht so zeigen könnte.
+Der Kopf nennt den Grund, der Reiter trägt eine rote Marke, die betroffene
+Achse ist im Raster markiert, und das Feld sagt, was zu tun ist.
+
+| Meldung | Ursache |
+| --- | --- |
+| Achse „…“: Maximum zu klein | Beim Netz ist das Maximum nicht größer als das Minimum. |
+| „…“: negativer Anteil im Kuchen | Ein Wert der ersten Reihe ist negativ; ein Kuchen zeigt nur Anteile ab null. |
+| Höhe: erlaubt sind 160 bis 1200 Pixel | Die Höhe liegt außerhalb der Grenzen. |
+
+## Bestehende Diagramme
+
+Bis Version 0.3 standen **Höhe** und **Download erlauben** als eigene Felder
+im Staffbase-Dialog. Diese Felder sind jetzt ausgeblendet; ihre Werte gelten
+weiter, bis im Editor etwas anderes eingestellt wird. Beim Öffnen übernimmt
+der Editor sie als Ausgangsstand – ein bestehendes Diagramm sieht nach dem
+Öffnen und Übernehmen genauso aus wie vorher. Ließ sich der alte Haken nicht
+lesen, sagt der Reiter „Verhalten“ das unter dem Schalter.
 
 ## Automatische Skalierung
 
-**Beim Radar** tragen die Achsen keine sichtbare Zahlenskala — sie ist bei
+**Beim Radar** tragen die Achsen keine sichtbare Zahlenskala – sie ist bei
 mehreren Achsen unterschiedlicher Einheit nicht sinnvoll darstellbar. Ohne
 eigene Angabe beginnt jede Achse stattdessen bei **null** und reicht bis zu
 ihrem größten vorkommenden Wert. Die Länge eines Strahls verhält sich damit
 wie der Wert selbst: Der halbe Weg nach außen ist auch die halbe Menge.
 
-Kommen auf einer Achse negative Werte vor, beginnt sie beim kleinsten davon —
+Kommen auf einer Achse negative Werte vor, beginnt sie beim kleinsten davon –
 sonst läge der Punkt außerhalb des Netzes.
 
-Wer die Unterschiede zwischen den Serien stärker herausstellen möchte, setzt
-Minimum und Maximum der betroffenen Achse von Hand — z. B. 400 und 600 statt
+Wer die Unterschiede zwischen den Reihen stärker herausstellen möchte, setzt
+Minimum und Maximum der betroffenen Achse von Hand – z. B. 400 und 600 statt
 0 und 600. Das vergrößert die sichtbaren Abstände, lässt aber auch kleine,
 in der Praxis unbedeutende Unterschiede groß wirken.
 
 Ein von Hand gesetztes Minimum oder Maximum begrenzt auch die Zeichnung:
 Ein Wert außerhalb dieser Grenzen wird genau auf dem Rand dargestellt, statt
 über das Netz hinauszuragen. Die Zahl am Datenpunkt und in der Tabelle bleibt
-dabei die eingegebene — die Grenze verändert nur das Bild, nie den Wert. Wer
+dabei die eingegebene – die Grenze verändert nur das Bild, nie den Wert. Wer
 also eine Achse auf 0 bis 600 festlegt und 700 einträgt, sieht den Punkt ganz
 außen und die 700 daneben stehen.
 
 **Bei Balken und Linie** zeichnet ECharts selbst eine Werteachse mit
 sichtbarer Skala; sie verankert bei null und lässt sich nicht von Hand
-begrenzen. **Beim Kuchen** gibt es keine Werteachse — jedes Segment zeigt
+begrenzen. **Beim Kuchen** gibt es keine Werteachse – jedes Segment zeigt
 seinen Anteil am Ganzen. Ein negativer Wert ist dort kein
-Darstellungsproblem, sondern ein Datenfehler: Das Diagramm zeigt dann einen
-Hinweis auf die betroffene Achse, statt einen verfälschten Kuchen zu
-zeichnen.
+Darstellungsproblem, sondern ein Datenfehler: Der Editor lässt ihn nicht
+übernehmen, und ein älteres Diagramm zeigt auf der Seite einen Hinweis auf
+die betroffene Achse, statt einen verfälschten Kuchen zu zeichnen.

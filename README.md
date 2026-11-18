@@ -2,8 +2,8 @@
 
 Staffbase-Custom-Widget für konfigurierbare Diagramme: **Netzdiagramm
 (Radar), Balken, Linie und Kuchen** — je nach Fragestellung passt ein
-anderer Typ, und der Editor-Dialog zeigt bei jedem Typ nur die Felder, die
-für ihn Sinn ergeben.
+anderer Typ, und der Diagramm-Editor (Vollbild-Rahmen von `@man/config-ui`)
+zeigt bei jedem Typ nur die Felder, die für ihn Sinn ergeben.
 Entwickelt, gebaut und released wird es aus dem Meta-Repo
 [`ps-mhp/man-staffbase-cms-extensions`](https://github.com/ps-mhp/man-staffbase-cms-extensions);
 dieses Repo enthält nur Quellcode und das ausgelieferte Bundle unter `dist/`.
@@ -22,9 +22,36 @@ Das Widget registriert den Web-Component-Tag `chart-widget` (siehe
 
 | Attribut | Typ | Beschreibung |
 | --- | --- | --- |
-| `chart` | `string` | Die komplette Diagrammdefinition, kodiert. Wird ausschließlich über den Diagramm-Editor im Konfigurationsdialog geschrieben (siehe `src/chart-model.ts`, `src/chart-editor/`). |
-| `height` | `string \| number` | Höhe des Diagramms in Pixeln, 160–1200, Vorgabe 420 (`src/configuration-schema.ts`). |
-| `allow-export` | `boolean` | Zeigt unter dem Diagramm zwei Knöpfe zum Herunterladen als SVG oder PNG. Vorgabe aus (`src/chart-export.ts`). |
+| `chart` | `string` | Die komplette Diagrammdefinition, kodiert – seit 0.4 samt Höhe (`height`) und Download (`allowExport`). Wird ausschließlich über den Diagramm-Editor geschrieben (siehe `src/chart-model.ts`, `src/chart-editor/`). |
+| `height` | `string \| number` | Bis 0.3 die Höhe in Pixeln, 160–1200, Vorgabe 420. Gilt nur noch, wo `chart` keine Höhe trägt; im Dialog ausgeblendet. |
+| `allow-export` | `boolean` | Bis 0.3 der Schalter für die Download-Knöpfe (SVG, PNG). Gilt nur noch, wo `chart` nichts dazu sagt; im Dialog ausgeblendet. |
+
+Höhe und Download werden je Schlüssel gemischt: Wert in `chart`, sonst das
+alte Attribut, sonst die Vorgabe (`readChartSettings` in
+`src/chart-settings.ts`). Ein Block der Fassung 0.3 rendert damit
+unverändert. Der Editor übernimmt beim Öffnen, was die alten Felder lesbar
+tragen (`readLegacyFromDialog`, `adoptLegacySettings`); was sich nicht lesen
+ließ, bleibt in `chart` offen, und das Attribut gilt weiter.
+`startHiddenLegacyFields` (`src/legacy-fields.ts`) blendet die beiden Felder
+nur im eigenen Dialog aus – `height` hat auch der Hero-Slider,
+`allow-export` die Projekt-Zeitleiste.
+
+## Editor (`src/chart-editor/`)
+
+Der Editor hängt über `startFieldModalInjector` mit `shell` am Feld `chart`
+(`chart-editor-injector.ts`) und wird mit seiner Hilfe nachgeladen
+(`React.lazy`); im Seitenbündel bleiben nur Injektor, Prüfung und Status
+(`editor-rules.ts`). Aufbau wie im Screen „Diagramm“:
+
+- `data-bar.tsx` – Leiste mit gewählter Achse, `ItemActions`, + Achse,
+  + Reihe, „Aus Excel einfügen“ (`paste-panel.tsx`, als `useSidePanel`),
+  „Beispiel laden“.
+- `data-grid.tsx` – Raster: Zeile je Achse, Spalte je Reihe; Einfügen eines
+  Excel-Blocks ab dem gewählten Feld (`grid-paste.ts`).
+- `chart-inspector.tsx` – Panel „Diagramm“ mit den Reitern Daten
+  (`inspector-series.tsx`), Gestaltung (`inspector-design.tsx`), Achse
+  (`inspector-axis.tsx`) und Verhalten.
+- `chart-preview.tsx` – die echte Leseansicht in den Geräteansichten, `inert`.
 
 Das Datenformat hinter `chart` ist `ChartSpec` aus `src/chart-model.ts` —
 die einzige Schnittstelle, über die Daten ins Widget gelangen. Gelesen wird
@@ -82,10 +109,13 @@ Das Widget kennt vier Typen — `"radar"`, `"bar"`, `"line"`, `"pie"`
    Ein kartesischer Typ (Balken, Linie) kommt in aller Regel ohne sie aus,
    weil `grid` mit `containLabel: true` den Platz für Achsenbeschriftungen
    selbst reserviert.
-4. **Editor-UI** (`src/chart-editor/chart-editor.tsx`): bei Bedarf
-   typspezifische Felder ergänzen, analog zu „Hilfslinien im Netz“ und
-   „Flächen füllen“ beim Radar. Der Editor zeigt immer nur die Felder des
-   gewählten Typs; die Typauswahl steht ganz oben im Dialog.
+4. **Editor-UI** (`src/chart-editor/`): Kurzname, Fachbegriff und Hinweis in
+   `CHART_TYPE_INFO` (`chart-type-info.ts`), Vorgaben der Anzeige in
+   `display-defaults.ts` und ein Eintrag in `TYPE_SETTINGS`
+   (`inspector-design.tsx`) mit den Feldern des Typs, analog zu
+   „Hilfslinien“ und „Flächen füllen“ beim Netz. Beide Records sind über
+   `ChartType` getypt; der Editor zeigt immer nur die Felder des gewählten
+   Typs.
 
 ### Flächenaufteilung: warum das Radar selbst rechnet
 

@@ -84,22 +84,22 @@ eine übersetzte Zahl wäre Unsinn.
 ## Was Sie im CMS-Editor sehen
 
 Beim Einfügen des Bausteins öffnet sich automatisch der **Diagramm-Editor**
-mit einer Steuerleiste oben (Speichern, Hilfe, Schließen) statt einer
-Fußzeile — so bleibt Speichern auch bei einem langen Datenraster erreichbar,
-weil die Leiste beim Scrollen stehen bleibt. Oben die Wahl des Diagrammtyps
-und ein Feld, in das eine aus Excel kopierte Tabelle eingefügt wird, darunter
-ein Raster mit **einer Zeile je Achse** und **einer Spalte je Serie**
-(bei `pie` nur eine Serienspalte), daneben eine Live-Vorschau, die genau
-zeigt, wie das Diagramm später auf der Seite erscheint. Solange noch nichts
-angelegt ist, erklärt der Editor die Begriffe und bietet „Beispiel laden“
-sowie „Leere Tabelle anlegen“ an — je nach gewähltem Typ mit einem anderen,
-dazu passenden Beispiel. Das Textfeld dahinter zeigt nur die technisch
-gespeicherte, kodierte Form der Daten und wird nie von Hand bearbeitet.
+im Vollbild, mit demselben Kopf wie bei allen MAN-Widgets: Übernehmen,
+Abbrechen, Rückgängig, Hilfe und der Umschalter **Editor · Desktop · Tablet ·
+Mobil**. Links steht ein Raster mit **einer Zeile je Achse** und **einer
+Spalte je Reihe** (beim Kuchen nur die erste Reihe), darüber eine Leiste mit
+der gewählten Achse und ihren Aktionen, „Aus Excel einfügen“ und „Beispiel
+laden“. Rechts das Panel **„Diagramm“** mit den Reitern Daten, Gestaltung,
+Achse und Verhalten. In den Geräteansichten zeigt der Editor statt des
+Rasters die echte Vorschau in Gerätebreite; das Panel bleibt daneben stehen.
+Solange noch nichts angelegt ist, erklärt der Editor die Begriffe und bietet
+„Beispiel laden“ sowie „Leere Tabelle anlegen“ an – je nach Typ mit einem
+anderen, passenden Beispiel.
 
-Ist der Dialog schmal (z. B. auf kleinen Bildschirmen), wandert die
-Vorschau unter das Raster und — unterhalb von rund 700 Pixeln Breite — wird
-aus dem Raster eine Abfolge von Karten, eine je Achse. Der Dialog scrollt
-dabei nie waagerecht.
+Im Staffbase-Dialog dahinter bleibt nur das Feld „Diagramm“ mit der technisch
+kodierten Form der Daten; es wird nie von Hand bearbeitet. Die früheren
+Felder „Höhe in Pixeln“ und „Download erlauben“ sind dort ausgeblendet – beides
+steht jetzt im Editor, und ältere Diagramme behalten ihre Werte.
 
 Eine wichtige Besonderheit beim Radar: Seine Achsen tragen **keine sichtbare
 Zahlenskala**. Mehrere Achsen mit unterschiedlichen Einheiten (z. B.

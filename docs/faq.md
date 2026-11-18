@@ -28,22 +28,24 @@ unterstützt. Den Baustein auf die neueste Version aktualisieren.
 **Frage:** Ich sehe die Meldung „Noch keine Daten im Diagramm. Legen Sie in
 den Einstellungen Achsen und Serien an.“
 
-Antwort: Es wurden weder Achsen noch Serien im Diagramm-Editor angelegt. Im
-Editor eine Tabelle einfügen oder einen der beiden Knöpfe „Beispiel laden“
-beziehungsweise „Leere Tabelle anlegen“ verwenden.
+Antwort: Es wurden weder Achsen noch Reihen im Diagramm-Editor angelegt. Im
+Editor über „Aus Excel einfügen“ eine Tabelle übernehmen oder einen der
+beiden Knöpfe „Beispiel laden“ beziehungsweise „Leere Tabelle anlegen“
+verwenden.
 
-**Frage:** Nach dem Einfügen stehen meine Kennzahlen als Serien und meine
+**Frage:** Nach dem Einfügen stehen meine Kennzahlen als Reihen und meine
 Varianten als Achsen — alles vertauscht.
 
-Antwort: Unter dem Einfügefeld war die falsche Leserichtung gewählt. Auf die
-andere Antwort bei „Wie steht Ihre Tabelle?“ umstellen und erneut auf
-„Tabelle übernehmen“ klicken.
+Antwort: In der Leiste „Aus Excel einfügen“ war die falsche Leserichtung
+gewählt. Bei „Wie steht die Tabelle?“ auf die andere Wahl umstellen und
+erneut auf „Tabelle übernehmen“ klicken.
 
 **Frage:** Meine Achsenbeschriftung ist so lang, dass sie das Diagramm
 zusammendrückt.
 
-Antwort: Im Feld der Achse an der gewünschten Stelle die Eingabetaste
-drücken. Der Zeilenumbruch wird ins Diagramm übernommen.
+Antwort: Im Namen der Achse – im Raster oder unter „Achse“ bei
+„Bezeichnung“ – an der gewünschten Stelle die Eingabetaste drücken. Der
+Zeilenumbruch wird ins Diagramm übernommen.
 
 **Frage:** Ich sehe die Meldung „„…“ hat einen negativen Wert. Ein
 Kuchendiagramm kann keine negativen Anteile darstellen.“ (bzw. ohne genannte
@@ -52,7 +54,9 @@ Kategorie: „Ein Kuchendiagramm kann keine negativen Anteile darstellen.“)
 Antwort: Ein Kuchendiagramm zeigt die Aufteilung eines Ganzen; ein negativer
 Anteil hat darin keine Entsprechung. Die genannte Kategorie im
 Diagramm-Editor auf einen Wert ab null korrigieren — oder auf
-**Balkendiagramm** umstellen, das negative Werte darstellen kann.
+**Balken** umstellen, das negative Werte darstellen kann. Der Editor lässt
+einen negativen Anteil im Kuchen gar nicht erst übernehmen; die Meldung
+kann nur ein Diagramm aus einer älteren Fassung zeigen.
 
 Der Hinweis blockiert absichtlich die ganze Grafik, statt nur das negative
 Segment wegzulassen: Ein Kuchen verteilt die verbleibenden Werte auf den
@@ -79,20 +83,21 @@ Unterschied im Diagramm?
 Antwort: Ohne gesetztes Maximum reicht jede Achse bis zum größten Wert, der
 auf ihr vorkommt. Liegen zwei Werte dicht beieinander, aber weit von null
 entfernt, nutzt der obere Teil der Achse die ganze Strecke — der Unterschied
-wirkt dadurch größer, als er ist. Abhilfe: Im Diagramm-Editor für die
-betroffene Achse Minimum und Maximum von Hand setzen.
+wirkt dadurch größer, als er ist. Abhilfe: Im Diagramm-Editor die
+betroffene Achse wählen und unter „Achse“ Minimum und Maximum von Hand
+setzen.
 
 **Frage:** Warum liegt der schlechtere Wert weiter außen?
 
 Antwort: Bei dieser Achse fehlt der Schalter „Kleiner ist besser“. Er muss bei
 allen Kennzahlen gesetzt werden, bei denen ein kleinerer Wert das bessere
-Ergebnis ist — etwa Gewicht, Verbrauch oder Ladezeit. Im Diagramm-Editor bei
-der jeweiligen Achse einschalten.
+Ergebnis ist — etwa Gewicht, Verbrauch oder Ladezeit. Im Diagramm-Editor die
+Achse wählen und unter „Achse“ einschalten.
 
 **Frage:** Ich sehe keine Knöpfe zum Herunterladen unterhalb des Diagramms.
 
-Antwort: Entweder ist „Download erlauben“ in den Einstellungen nicht
-eingeschaltet, oder das Diagramm ist noch nicht fertig gezeichnet — die
+Antwort: Entweder ist „Download erlauben“ im Diagramm-Editor unter
+„Verhalten“ nicht eingeschaltet, oder das Diagramm ist noch nicht fertig gezeichnet — die
 Knöpfe erscheinen erst, sobald eine Grafik zum Herunterladen vorhanden ist.
 
 **Frage:** Beim Klick auf „Als SVG“ oder „Als PNG“ erscheint „Der Export ist
@@ -102,12 +107,13 @@ Antwort: Der Export konnte das gezeichnete Diagramm nicht finden — meist, weil
 es gerade neu lädt. Kurz warten und erneut klicken; besteht das Problem
 weiter, die Seite neu laden.
 
-**Frage:** Kann ich mehr als sechs Serien zeigen?
+**Frage:** Kann ich mehr als sechs Reihen zeigen?
 
-Antwort: Ja. Die MAN-Farbpalette hat sechs Farben; ab der siebten Serie
-wiederholen sich die Farben. Die Serien bleiben trotzdem eindeutig
+Antwort: Ja. Die MAN-Farbpalette hat sechs Farben; ab der siebten Reihe
+wiederholen sich die Farben. Die Reihen bleiben trotzdem eindeutig
 unterscheidbar, weil jeder Datenpunkt seinen Wert als Beschriftung trägt und
-Name sowie Werte jeder Serie in Tooltip und Legende stehen.
+Name sowie Werte jeder Reihe in Tooltip und Legende stehen. Unter „Daten“
+lässt sich jeder Reihe auch eine eigene Farbe geben.
 
 **Frage:** Was passiert mit meinem Diagramm bei der automatischen
 Übersetzung der Seite?
@@ -119,7 +125,8 @@ Einstellungen bleiben unverändert erhalten.
 **Frage:** Eine eingefügte Zahl ist plötzlich um den Faktor 1000 zu groß oder
 zu klein.
 
-Antwort: Der Diagramm-Editor liest Zahlen deutsch: Ein Punkt gilt als
+Antwort: Der Diagramm-Editor liest Zahlen deutsch – beim Tippen, beim
+Einfügen ins Raster und bei „Aus Excel einfügen“: Ein Punkt gilt als
 Tausendertrennzeichen, ein Komma als Dezimaltrennzeichen. Aus `1.234` wird
 also `1234` und nicht `1,234`. Wer eine Tabelle mit englischer Schreibweise
 einfügt (Punkt als Dezimaltrennzeichen), muss die betroffenen Zahlen vor dem
@@ -128,3 +135,18 @@ als „1,234“ (eins Komma zwei drei vier) gelesen. Stehen in einer Zahl sowohl
 Punkt als auch Komma, gilt unabhängig von der Schreibweise das zuletzt
 stehende Zeichen als Dezimaltrennzeichen — `1.234,5` und `1,234.5` ergeben
 beide `1234,5`.
+
+**Frage:** Wo sind die Felder „Höhe in Pixeln“ und „Download erlauben“ im
+Staffbase-Dialog geblieben?
+
+Antwort: Beide stehen jetzt im Diagramm-Editor: die Höhe unter
+„Gestaltung“, der Download unter „Verhalten“. Die alten Felder sind
+ausgeblendet. Ältere Diagramme behalten ihre Werte; der Editor übernimmt sie
+beim Öffnen, und ohne Änderung bleibt das Diagramm auf der Seite, wie es war.
+
+**Frage:** „Übernehmen“ tut nichts, oben steht „Achse „…“: Maximum zu klein“.
+
+Antwort: Beim Netz ist für diese Achse ein Maximum eingetragen, das nicht
+größer als das Minimum ist. Die Achse ist im Raster markiert; unter „Achse“
+das Maximum erhöhen oder das Feld leeren – leer heißt „aus den Werten
+abgeleitet“.
