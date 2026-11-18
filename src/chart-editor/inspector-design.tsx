@@ -200,7 +200,7 @@ export function DesignTab({ value, onChange, issuesVisible }: DesignTabProps): R
       <FormSection title={CHART_TYPE_INFO[value.type].label}>
         <TypeSettings value={value} onChange={onChange} />
       </FormSection>
-      <Field label="Höhe in px" hint={`${MIN_HEIGHT} bis ${MAX_HEIGHT}. Die Breite folgt der Spalte.`} error={heightError}>
+      <Field label="Höhe in px" hint={`${MIN_HEIGHT} bis ${MAX_HEIGHT}. Leer: wie bisher, sonst ${DEFAULT_HEIGHT}.`} error={heightError}>
         <NumberInput
           value={value.height}
           placeholder={String(DEFAULT_HEIGHT)}
