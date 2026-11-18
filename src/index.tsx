@@ -27,10 +27,9 @@ import {
   EXPORT_ATTRIBUTE,
   HEIGHT_ATTRIBUTE,
   configurationSchema,
-  readHeightAttribute,
   uiSchema,
 } from "./configuration-schema";
-import { readExportAttribute } from "./chart-export";
+import { readChartSettings } from "./chart-settings";
 import icon from "../resources/chart-widget.svg";
 import pkg from "../package.json";
 
@@ -39,9 +38,11 @@ import { ChartWidget } from "./chart-widget";
 import { chartTranslationProvider } from "./translation-provider";
 
 /**
- * Die Attribute, wie `parseAttributes` sie liefert. Die Höhe ist weit
- * getypt, weil das SDK sie je nach Weg als Zeichenkette oder als Zahl
- * übergibt — gelesen wird deshalb über `readHeightAttribute`, nie direkt.
+ * Die Attribute, wie `parseAttributes` sie liefert. Höhe und Download sind
+ * die Felder bis 0.3: Seit dem Vollbild-Editor stehen beide im Diagramm, die
+ * Attribute gelten nur noch, wo dort nichts steht (`chart-settings.ts`).
+ * Die Höhe ist weit getypt, weil das SDK sie je nach Weg als Zeichenkette
+ * oder als Zahl übergibt.
  */
 export type ChartWidgetProps = BlockAttributes & {
   [CHART_ATTRIBUTE]?: string;
@@ -66,12 +67,13 @@ const factory: BlockFactory = (BaseBlockClass, _widgetApi) => {
     public renderBlock(container: HTMLElement): void {
       this._root ??= ReactDOM.createRoot(container);
       const props = this.props;
+      const settings = readChartSettings(props[CHART_ATTRIBUTE], props);
       this._root.render(
         <ChartWidget
           chart={props[CHART_ATTRIBUTE]}
-          height={readHeightAttribute(props[HEIGHT_ATTRIBUTE])}
+          height={settings.height}
           contentLanguage={props.contentLanguage}
-          allowExport={readExportAttribute(props[EXPORT_ATTRIBUTE])}
+          allowExport={settings.allowExport}
         />,
       );
     }

@@ -249,3 +249,42 @@ describe("Kuchendiagramm", () => {
     expect(spec.categories[0].color).toBe("#f00");
   });
 });
+
+describe("Höhe und Download im Diagramm", () => {
+  const raw = (value: unknown): string => JSON.stringify(value);
+  const base = { type: "bar", categories: [], series: [] };
+
+  it("liest Höhe und Download, wenn sie im Diagramm stehen", () => {
+    const { spec } = parseChartSpec(raw({ ...base, height: 520, allowExport: true }));
+    expect(spec.height).toBe(520);
+    expect(spec.allowExport).toBe(true);
+  });
+
+  it("lässt beide weg, wenn ein älteres Diagramm sie nicht kennt", () => {
+    // Dann gelten die Attribute `height` und `allow-export` wie bisher.
+    const { spec } = parseChartSpec(raw(base));
+    expect(spec.height).toBeUndefined();
+    expect(spec.allowExport).toBeUndefined();
+    expect(JSON.parse(JSON.stringify(spec))).not.toHaveProperty("height");
+    expect(JSON.parse(JSON.stringify(spec))).not.toHaveProperty("allowExport");
+  });
+
+  it("verwirft Unbrauchbares, statt es als Wert zu nehmen", () => {
+    const { spec } = parseChartSpec(raw({ ...base, height: "hoch", allowExport: "ja" }));
+    expect(spec.height).toBeUndefined();
+    expect(spec.allowExport).toBeUndefined();
+  });
+
+  it("behält ein ausdrückliches Nein beim Download", () => {
+    // `false` ist eine Wahl, kein fehlender Wert: sie muss das Attribut schlagen.
+    const { spec } = parseChartSpec(raw({ ...base, allowExport: false }));
+    expect(spec.allowExport).toBe(false);
+  });
+
+  it("übersteht den Weg durch serializeChartSpec", () => {
+    const { spec } = parseChartSpec(raw({ ...base, height: 300, allowExport: false }));
+    const again = parseChartSpec(serializeChartSpec(spec)).spec;
+    expect(again.height).toBe(300);
+    expect(again.allowExport).toBe(false);
+  });
+});

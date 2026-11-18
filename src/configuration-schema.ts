@@ -38,8 +38,11 @@ export const MAX_HEIGHT = 1200;
  * Textfeld sichtbar und die Konfiguration damit reparierbar statt
  * unerreichbar.
  *
- * Die Höhe ist bewusst ein echtes Feld und nicht Teil des JSON: Sie ist das
- * einzige, was sich ohne den Editor sinnvoll von Hand ändern lässt.
+ * Höhe und Download waren bis 0.3 eigene Felder. Seither stehen beide im
+ * Diagramm (`ChartSpec.height`, `ChartSpec.allowExport`), denn der Editor
+ * bekommt nur das Feld `chart`. Die Felder bleiben im Schema, damit alte
+ * Blöcke ihre Werte behalten: Sie gelten, wo das Diagramm nichts sagt
+ * (`chart-settings.ts`).
  *
  * @see https://rjsf-team.github.io/react-jsonschema-form/docs/
  */

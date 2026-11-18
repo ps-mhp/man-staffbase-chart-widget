@@ -122,6 +122,14 @@ export interface ChartSpec {
   categories: Category[];
   series: Series[];
   display?: DisplayOptions;
+  /**
+   * Höhe auf der Seite in Pixeln. Fehlt sie, gilt das Attribut `height` der
+   * Fassungen bis 0.3 (`chart-settings.ts`) – so rendert ein alter Block
+   * unverändert, bis jemand die Höhe im Editor ändert.
+   */
+  height?: number;
+  /** Download als Bild erlauben. Fehlt es, gilt das Attribut `allow-export`. */
+  allowExport?: boolean;
 }
 
 export type ChartProblemCode = "empty" | "unreadable" | "unknown-type" | "short-series" | "negative-share";
@@ -289,6 +297,10 @@ export function parseChartSpec(raw: string | null | undefined): {
       categories,
       series,
       display: readDisplay(parsed.display, type as ChartType),
+      height: readOptionalNumber(parsed.height),
+      // Nur ein echtes `boolean`: ein ausdrückliches Nein muss das Attribut
+      // schlagen, alles andere bleibt offen und lässt es gelten.
+      allowExport: typeof parsed.allowExport === "boolean" ? parsed.allowExport : undefined,
     },
     problems,
   };
