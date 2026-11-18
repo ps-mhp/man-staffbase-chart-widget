@@ -13,12 +13,38 @@
 
 import { ExternalBlockDefinition } from "widget-sdk";
 
+const mockStartWidget = jest.fn().mockResolvedValue(false);
+
+jest.mock("@shared/dev-mode/start-widget", () => ({ startWidget: mockStartWidget }));
+
 describe("Registrierung", () => {
+  // Ohne startWidget schaltete das Diagramm nie auf einen lokalen
+  // Entwicklungsserver um: Im Studio lief immer die installierte Fassung.
+  it("meldet sich über startWidget an, damit der Entwicklungsmodus greift", async () => {
+    const defineBlock = jest.fn();
+    (window as unknown as { defineBlock: unknown }).defineBlock = defineBlock;
+
+    jest.resetModules();
+    mockStartWidget.mockClear();
+    await import("./index");
+
+    expect(mockStartWidget).toHaveBeenCalledTimes(1);
+    const options = mockStartWidget.mock.calls[0][0] as { name: string; register: () => void };
+    expect(options.name).toBe("chart-widget");
+    expect(defineBlock).not.toHaveBeenCalled();
+
+    options.register();
+    expect(defineBlock).toHaveBeenCalledTimes(1);
+  });
+
   it("meldet den Baustein mit genau den Attributen des Schemas an", async () => {
     const defineBlock = jest.fn();
     (window as unknown as { defineBlock: unknown }).defineBlock = defineBlock;
 
+    jest.resetModules();
+    mockStartWidget.mockClear();
     await import("./index");
+    (mockStartWidget.mock.calls[0][0] as { register: () => void }).register();
 
     expect(defineBlock).toHaveBeenCalledTimes(1);
     const external = defineBlock.mock.calls[0][0] as ExternalBlockDefinition;

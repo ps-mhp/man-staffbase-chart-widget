@@ -11,6 +11,7 @@
  * limitations under the License.
  */
 
+import { startWidget } from "@shared/dev-mode/start-widget";
 import { setPublicPathFromBundle } from "@shared/public-path";
 
 // Must run before any dynamic `import()`, so that lazily loaded chunks come
@@ -107,9 +108,25 @@ const externalBlockDefinition: ExternalBlockDefinition = {
   version: pkg.version,
 };
 
-// Nach dem Muster von `project-timeline-widget`: Der Editor hängt am Laden
-// des Bausteins im Content-Designer, nicht am bloßen Import dieser Datei.
-startChartEditorInjector();
-window.defineBlock(externalBlockDefinition);
-
-export const stopTranslationProvider = getTranslationRegistry().register(chartTranslationProvider);
+/**
+ * Anmelden über `startWidget`: Läuft ein lokaler Entwicklungsserver mit
+ * diesem Widget, übernimmt dessen Bundle und meldet an seiner Stelle an;
+ * sonst meldet die installierte Fassung sofort an. Editor und Übersetzung
+ * hängen am Anmelden, nicht am Laden, sonst belegte der Beobachter der
+ * installierten Fassung das Feld, bevor der lokale Server übernimmt (siehe
+ * `project-timeline-widget`).
+ *
+ * Die Abfrage davor lässt das Modul in Jest laden, wo es keine Wirtsseite
+ * gibt.
+ */
+if (typeof window.defineBlock === "function") {
+  void startWidget({
+    name: "chart-widget",
+    version: pkg.version,
+    register: () => {
+      startChartEditorInjector();
+      getTranslationRegistry().register(chartTranslationProvider);
+      window.defineBlock(externalBlockDefinition);
+    },
+  });
+}
