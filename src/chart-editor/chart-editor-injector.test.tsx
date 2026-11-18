@@ -22,11 +22,13 @@ import { act, fireEvent, render } from "@testing-library/react";
 import Form from "@rjsf/mui";
 import validator from "@rjsf/validator-ajv8";
 
-import { modalRoot, settleModal } from "@shared/ui/config-modal.testing";
+import { modalRoot, settleModal, clickElement, settleEditor } from "@shared/ui/config-modal.testing";
 import { ChartSpec, parseChartSpec, serializeChartSpec } from "../chart-model";
 import { readChartSettings } from "../chart-settings";
 import { configurationSchema, uiSchema } from "../configuration-schema";
 import { chartEditorShell, startChartEditorInjector } from "./chart-editor-injector";
+
+const EDITOR_SELECTOR = '[data-testid="chart-editor"]';
 
 const mockEditorLoaded = jest.fn();
 jest.mock("./chart-editor", () => {
@@ -60,20 +62,6 @@ const buttonNamed = (name: string): HTMLElement | null =>
     (button) => button.getAttribute("aria-label") === name || button.textContent?.trim() === name,
   ) ?? null;
 
-async function click(element: Element | null): Promise<void> {
-  if (element === null) throw new Error("Nichts zum Klicken gefunden");
-  await act(async () => {
-    (element as HTMLElement).click();
-  });
-}
-
-/** Das Modal lädt nach, der Editor darin noch einmal: so oft warten, bis er da ist. */
-async function settleEditor(): Promise<void> {
-  for (let round = 0; round < 8 && inModal('[data-testid="chart-editor"]') === null; round += 1) {
-    await settleModal();
-  }
-}
-
 async function open(formData: Record<string, unknown>): Promise<{ container: HTMLElement; stop: () => void }> {
   const { container } = render(
     <Form schema={configurationSchema} uiSchema={uiSchema} validator={validator} formData={formData} />,
@@ -82,7 +70,7 @@ async function open(formData: Record<string, unknown>): Promise<{ container: HTM
   await act(async () => {
     stop = startChartEditorInjector(container);
   });
-  await settleEditor();
+  await settleEditor(EDITOR_SELECTOR);
   return { container, stop };
 }
 
@@ -138,7 +126,7 @@ describe("startChartEditorInjector", () => {
     const { container, stop } = await open(formData);
 
     // Die alten Werte stehen im Editor …
-    await click(Array.from(modalRoot()!.querySelectorAll('[role="tab"]')).find((tab) => tab.textContent === "Verhalten") ?? null);
+    await clickElement(Array.from(modalRoot()!.querySelectorAll('[role="tab"]')).find((tab) => tab.textContent === "Verhalten") ?? null);
     expect(inModal('[data-testid="chart-allow-export"]')).toHaveAttribute("aria-checked", "true");
     // … sind aber keine Änderung: Übernehmen bleibt aus, das Feld unberührt.
     expect(inModal('[data-testid="config-shell-apply"]')).toBeDisabled();
@@ -155,7 +143,7 @@ describe("startChartEditorInjector", () => {
     await act(async () => {
       fireEvent.change(inModal('[aria-label="Ist, Werkzeuge"]')!, { target: { value: "4" } });
     });
-    await click(inModal('[data-testid="config-shell-apply"]'));
+    await clickElement(inModal('[data-testid="config-shell-apply"]'));
 
     const written = parseChartSpec(chartField(container).value).spec;
     expect(written.series[0].values).toEqual([3, 4]);
@@ -167,7 +155,7 @@ describe("startChartEditorInjector", () => {
   it("öffnet „Aus Excel einfügen“ als Leiste über dem Panel", async () => {
     const { stop } = await open({ chart: serializeChartSpec(legacySpec) });
 
-    await click(buttonNamed("Aus Excel einfügen"));
+    await clickElement(buttonNamed("Aus Excel einfügen"));
     await settleModal();
     expect(inModal('[data-testid="chart-paste-panel"]')).not.toBeNull();
 
