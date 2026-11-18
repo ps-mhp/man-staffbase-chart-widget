@@ -28,6 +28,7 @@
 import { ChartSpec, parseChartSpec } from "./chart-model";
 import { readExportAttribute } from "./chart-export";
 import { readHeightAttribute } from "./configuration-schema";
+import type { LegacyDialogValues } from "./legacy-fields";
 
 export interface ChartSettings {
   height: number;
@@ -55,4 +56,24 @@ export function resolveChartSettings(
 /** Wie {@link resolveChartSettings}, aber aus dem gespeicherten Attribut `chart`. */
 export function readChartSettings(chart: string | undefined, legacy: LegacyChartAttributes): ChartSettings {
   return resolveChartSettings(parseChartSpec(chart).spec, legacy);
+}
+
+/**
+ * Was der Editor beim Öffnen aus den alten Feldern übernimmt: nur, wo das
+ * Diagramm selbst nichts sagt, und nur, was sich lesen ließ.
+ *
+ * Ein nicht lesbarer Schlüssel bleibt offen statt zur Vorgabe zu werden –
+ * sonst schriebe „Übernehmen“ ohne jede Änderung eine Vorgabe über den
+ * gespeicherten Wert, und der Block sähe danach anders aus. Die Höhe geht
+ * durch dieselben Grenzen wie beim Rendern; übernommen wird also genau, was
+ * die Seite gerade zeigt.
+ */
+export function adoptLegacySettings(spec: ChartSpec, legacy: LegacyDialogValues): ChartSpec {
+  const height = spec.height ?? (legacy.height === undefined ? undefined : readHeightAttribute(legacy.height));
+  const allowExport = spec.allowExport ?? legacy.allowExport;
+  return {
+    ...spec,
+    ...(height === undefined ? {} : { height }),
+    ...(allowExport === undefined ? {} : { allowExport }),
+  };
 }

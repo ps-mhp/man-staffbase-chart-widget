@@ -12,7 +12,7 @@
  */
 
 import { ChartSpec, emptySpec, serializeChartSpec } from "./chart-model";
-import { readChartSettings, resolveChartSettings } from "./chart-settings";
+import { adoptLegacySettings, readChartSettings, resolveChartSettings } from "./chart-settings";
 import { DEFAULT_HEIGHT, MAX_HEIGHT } from "./configuration-schema";
 
 const spec = (patch: Partial<ChartSpec> = {}): ChartSpec => ({ ...emptySpec(), ...patch });
@@ -70,5 +70,39 @@ describe("readChartSettings", () => {
       allowExport: true,
     });
     expect(readChartSettings("{kaputt", { height: "300" }).height).toBe(300);
+  });
+});
+
+describe("adoptLegacySettings", () => {
+  it("übernimmt lesbare Altwerte, wo das Diagramm nichts sagt", () => {
+    expect(adoptLegacySettings(spec(), { height: 560, allowExport: true })).toMatchObject({
+      height: 560,
+      allowExport: true,
+    });
+  });
+
+  it("lässt Werte im Diagramm vor den Altfeldern gelten", () => {
+    expect(adoptLegacySettings(spec({ height: 300, allowExport: false }), { height: 560, allowExport: true })).toMatchObject(
+      { height: 300, allowExport: false },
+    );
+  });
+
+  it("lässt nicht Lesbares offen, statt es mit der Vorgabe zu füllen", () => {
+    // Sonst schriebe „Übernehmen“ ohne Änderung die Vorgabe über den
+    // gespeicherten Haken, und der Block verlöre seinen Download.
+    const adopted = adoptLegacySettings(spec(), { height: 480 });
+    expect(adopted.height).toBe(480);
+    expect(JSON.parse(JSON.stringify(adopted))).not.toHaveProperty("allowExport");
+  });
+
+  it("übernimmt die Höhe so begrenzt, wie die Seite sie zeigt", () => {
+    expect(adoptLegacySettings(spec(), { height: 5000 }).height).toBe(MAX_HEIGHT);
+  });
+
+  it("ändert beim Rendern nichts: Öffnen und Übernehmen zeigt den Block wie zuvor", () => {
+    const legacy = { height: "560", "allow-export": "true" };
+    const before = readChartSettings(serializeChartSpec(spec()), legacy);
+    const adopted = adoptLegacySettings(spec(), { height: 560, allowExport: true });
+    expect(readChartSettings(serializeChartSpec(adopted), legacy)).toEqual(before);
   });
 });
