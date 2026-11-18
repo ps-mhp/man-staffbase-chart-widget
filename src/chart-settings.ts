@@ -28,7 +28,12 @@
 import { ChartSpec, parseChartSpec } from "./chart-model";
 import { readExportAttribute } from "./chart-export";
 import { readHeightAttribute } from "./configuration-schema";
-import type { LegacyDialogValues } from "./legacy-fields";
+
+/** Was sich aus den alten Feldern des Dialogs lesen ließ; ein fehlender Schlüssel war nicht lesbar. */
+export interface LegacyDialogValues {
+  height?: number;
+  allowExport?: boolean;
+}
 
 export interface ChartSettings {
   height: number;

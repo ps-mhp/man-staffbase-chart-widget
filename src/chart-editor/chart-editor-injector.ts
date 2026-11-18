@@ -29,12 +29,34 @@ import * as React from "react";
 import { ChartColumn } from "lucide-react";
 
 import { FieldModalShellOptions, startFieldModalInjector } from "@shared/config-modal";
+import { LegacyFieldSpec, readLegacyFields, startHiddenFields } from "@shared/legacy-fields";
 
 import { ChartSpec, emptySpec, parseChartSpec, serializeChartSpec } from "../chart-model";
-import { adoptLegacySettings } from "../chart-settings";
-import { CHART_ATTRIBUTE } from "../configuration-schema";
-import { readLegacyFromDialog, startHiddenLegacyFields } from "../legacy-fields";
+import { LegacyDialogValues, adoptLegacySettings } from "../chart-settings";
+import { CHART_ATTRIBUTE, EXPORT_ATTRIBUTE, HEIGHT_ATTRIBUTE } from "../configuration-schema";
 import { chartChangesStatus, validateChart } from "./editor-rules";
+
+/**
+ * Die alten Felder `height` und `allow-export`: seit 0.3 stehen beide im
+ * Diagramm. `height` hat auch der Hero-Slider, `allow-export` die
+ * Projekt-Zeitleiste – gelesen und ausgeblendet wird nur im eigenen Dialog.
+ */
+const LEGACY_FIELDS: Record<string, LegacyFieldSpec> = {
+  [HEIGHT_ATTRIBUTE]: { kind: "number" },
+  [EXPORT_ATTRIBUTE]: { kind: "boolean" },
+};
+const LEGACY_FIELD_KEYS = Object.keys(LEGACY_FIELDS);
+
+/** Was sich aus den alten Feldern lesen ließ; ein fehlender Schlüssel war nicht lesbar. */
+function readLegacyFromDialog(root: ParentNode): LegacyDialogValues {
+  const { values } = readLegacyFields(LEGACY_FIELDS, CHART_ATTRIBUTE, root);
+  const height = values[HEIGHT_ATTRIBUTE];
+  const allowExport = values[EXPORT_ATTRIBUTE];
+  return {
+    ...(typeof height === "number" ? { height } : {}),
+    ...(typeof allowExport === "boolean" ? { allowExport } : {}),
+  };
+}
 
 /**
  * Der Editor kommt erst, wenn ein Dialog ihn zeigt: er baut auf
@@ -97,7 +119,7 @@ export function startChartEditorInjector(root: ParentNode = document): () => voi
     // „Diagramm“ sagt niemandem, was zu tun ist.
     openInitially: () => true,
   });
-  const stopHiding = startHiddenLegacyFields(root);
+  const stopHiding = startHiddenFields(LEGACY_FIELD_KEYS, CHART_ATTRIBUTE, root);
   return () => {
     stopModal();
     stopHiding();
