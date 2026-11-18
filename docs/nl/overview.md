@@ -1,6 +1,6 @@
 # Diagram
 
-De diagramwidget geeft kengetallen weer in vier soorten: **netdiagram
+De diagramwidget geeft kengetallen weer in vier verschillende vormen: **netdiagram
 (radar), staafdiagram, lijndiagram en cirkeldiagram**. Elk type wordt ingesteld via
 dezelfde editor, die direct in de widgetinstellingen wordt geopend; een
 uit Excel gekopieerde tabel kan daar met één klik worden overgenomen, zie
@@ -34,7 +34,7 @@ segmenten zijn de assen (categorieën), hun waarden bepalen de grootte van de se
 **Alleen de eerste reeks wordt getekend** — verdere reeksen
 blijven opgeslagen en verschijnen weer zodra er naar een ander type
 wordt overgeschakeld; de editor wijst hier specifiek op. Elke categorie kan een
-eigen segmentkleur krijgen. Weergaveopties: binnenradius (0 geeft de
+eigen segmentkleur krijgen. Weergaveopties: binnenradius (0 geeft een
 volledige cirkel, een grotere waarde een ring/donut) en de segmentlabel
 (percentage, absolute waarde, beide of verborgen). Negatieve waarden
 vormen bij `pie` geen weergaveprobleem, maar een gegevensfout — het
@@ -83,29 +83,29 @@ een vertaald getal zou onzin zijn.
 
 ## Wat u in de CMS-editor ziet
 
-Bij het invoegen van het bouwsteen wordt automatisch de **diagram-editor** geopend
-met een bedieningsbalk bovenaan (Opslaan, Help, Sluiten) in plaats van een
-voettekst — zo blijft Opslaan ook bij een lange gegevensmatrix bereikbaar,
-omdat de balk tijdens het scrollen op zijn plaats blijft. Bovenaan de keuze van het diagramtype
-en een veld waarin een uit Excel gekopieerde tabel wordt ingevoegd, daaronder
-een raster met **één rij per as** en **één kolom per reeks**
-(bij `pie` slechts één reekskolom), daarnaast een live-voorbeeld dat precies
-laat zien hoe de grafiek later op de pagina zal verschijnen. Zolang er nog niets
-is aangemaakt, legt de editor de begrippen uit en biedt hij „Voorbeeld laden“
-en „Lege tabel aanmaken“ aan — afhankelijk van het gekozen type met een ander,
-bijpassend voorbeeld. Het tekstveld erachter toont alleen de technisch
-opgeslagen, gecodeerde vorm van de gegevens en wordt nooit handmatig bewerkt.
+Bij het invoegen van het bouwsteen wordt automatisch de **diagram-editor**
+in volledig scherm geopend, met dezelfde koptekst als bij alle MAN-widgets: Toepassen,
+Annuleren, Ongedaan maken, Help en de schakelaar **Editor · Desktop · Tablet ·
+Mobiel**. Links staat een raster met **één rij per as** en **één
+kolom per rij** (bij de cirkeldiagrammen alleen de eerste rij), daarboven een balk met
+de geselecteerde as en de bijbehorende acties, „Uit Excel invoegen“ en „Voorbeeld
+laden“. Rechts het paneel **„Diagram“** met de tabbladen Gegevens, Ontwerp,
+As en Gedrag. In de apparaatweergaven toont de editor in plaats van het
+raster het echte voorbeeld op apparaatbreedte; het paneel blijft ernaast staan.
+Zolang er nog niets is aangemaakt, legt de editor de begrippen uit en biedt
+‘Voorbeeld laden’ en ‘Lege tabel aanmaken’ aan – afhankelijk van het type met een
+ander, passend voorbeeld.
 
-Als het dialoogvenster smal is (bijv. op kleine schermen), verschuift het
-voorvertoning onder het raster en — bij een breedte van minder dan ongeveer 700 pixels — wordt
-het raster een reeks grafieken, één per as. Het dialoogvenster scrolt
-daarbij nooit horizontaal.
+In het Staffbase-dialoogvenster daarachter blijft alleen het veld ‘Diagram’ over met de technisch
+gecodeerde vorm van de gegevens; dit wordt nooit handmatig bewerkt. De vroegere
+velden „Hoogte in pixels“ en „Download toestaan“ zijn daar verborgen – beide
+staan nu in de editor, en oudere diagrammen behouden hun waarden.
 
 Een belangrijk bijzonderheid bij de radar: de assen hebben **geen zichtbare
-cijferlijke schaal**. Meerdere assen met verschillende eenheden (bijv.
+cijfer schaal**. Meerdere assen met verschillende eenheden (bijv.
 kilometers en minuten) kunnen niet op een zinvolle manier op één gemeenschappelijke schaal
 worden weergegeven. Elke as wordt daarom intern afzonderlijk uitgerekt: van nul tot
-de grootste waarde. De daadwerkelijke getallen staan bij de gegevenspunten,
+de hoogste waarde. De daadwerkelijke getallen staan bij de gegevenspunten,
 in de tooltip en in de gegevenstabel. Staaf- en lijngrafieken tonen
 daarentegen een echte, door ECharts berekende en gelabelde waardeas.
 Meer hierover onder [Instellingen](settings.md).

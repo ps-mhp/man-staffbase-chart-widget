@@ -58,7 +58,7 @@ dla danego typu — po prostu nie działają, dopóki wybrany jest inny typ.
   pod wykresem umożliwiające pobranie go jako obraz.
 - W przypadku czytników ekranu dodatkowo pełna tabela danych pod
   wykresu. Jest ona ukryta wizualnie, ale istnieje — dzięki temu z wykresu można
-  korzystać również bez percepcji wzrokowej.
+  korzystać nawet bez percepcji wzrokowej.
 
 ## Eksport obrazu
 
@@ -84,27 +84,27 @@ a przetłumaczona liczba nie miałaby sensu.
 ## Co widać w edytorze CMS
 
 Po wstawieniu modułu automatycznie otwiera się **edytor wykresów**
-z paskiem narzędzi u góry (Zapisz, Pomoc, Zamknij) zamiast
-stopki — dzięki temu opcja zapisywania pozostaje dostępna nawet w przypadku długiej siatki danych,
-ponieważ pasek pozostaje na miejscu podczas przewijania. U góry znajduje się wybór typu wykresu
-oraz pole, do którego wkleja się tabelę skopiowaną z Excela, a poniżej
-siatka z **jednym wierszem na każdą oś** i **jedną kolumną na każdą serię**
-(w przypadku `pie` tylko jedna kolumna serii), obok podgląd na żywo, który dokładnie
-pokazuje, jak wykres pojawi się później na stronie. Dopóki nic nie
-zostało jeszcze utworzone, edytor wyjaśnia pojęcia i oferuje opcje „Pobierz przykład”
-oraz „Utwórz pustą tabelę” — w zależności od wybranego typu z innym,
-odpowiednim przykładem. Pole tekstowe znajdujące się za nim wyświetla jedynie technicznie
-zapisaną, zakodowaną formę danych i nigdy nie jest edytowane ręcznie.
+w trybie pełnoekranowym, z tym samym nagłówkiem, co w przypadku wszystkich widżetów MAN: Zastosuj,
+Anuluj, Cofnij, Pomoc oraz przełącznik **Edytor · Komputer stacjonarny · Tablet ·
+Urządzenie mobilne**. Po lewej stronie znajduje się siatka z **jednym wierszem na każdą oś** i **jedną
+kolumną na każdy rząd** (w przypadku wykresu kołowego tylko pierwszy rząd), a nad nią pasek z
+wybraną osią i jej opcjami, „Wstaw z Excela” oraz „Pobierz przykład
+”. Po prawej stronie znajduje się panel **„Wykres”** z zakładkami Dane, Układ,
+Oś i Zachowanie. W widokach urządzeń edytor wyświetla zamiast
+siatki rzeczywisty podgląd w szerokości urządzenia; panel pozostaje obok.
+Dopóki nic nie zostało utworzone, edytor wyjaśnia pojęcia i oferuje
+opcje „Pobierz przykład” oraz „Utwórz pustą tabelę” – w zależności od typu z
+innym, odpowiednim przykładem.
 
-Jeśli okno dialogowe jest wąskie (np. na małych ekranach),
-podgląd przesuwa się poniżej siatki, a — przy szerokości poniżej około 700 pikseli —
-siatka zamienia się w sekwencję wykresów, po jednym na każdą oś. Okno dialogowe
-nigdy nie przewija się w poziomie.
+W oknie dialogowym Staffbase pozostaje tylko pole „Wykres” z technicznie
+zakodowaną formą danych; nigdy nie edytuje się go ręcznie. Poprzednie
+pola „Wysokość w pikselach” i „Zezwól na pobieranie” są tam ukryte – obie
+opcje znajdują się teraz w edytorze, a starsze wykresy zachowują swoje wartości.
 
-Ważna cecha charakterystyczna radaru: jego osie **nie mają widocznej
-skali liczbowej**. Kilka osi o różnych jednostkach miary (np.
-kilometry i minuty) nie da się sensownie przedstawić na jednej wspólnej skali
-. Dlatego każda oś jest wewnętrznie rozciągana niezależnie: od zera do
+Ważna cecha charakterystyczna wykresu radarowego: jego osie nie posiadają **widocznej
+skali liczbowej**. Nie da się sensownie przedstawić na jednej wspólnej skali
+kilku osi o różnych jednostkach miary (np.
+kilometrów i minut). Dlatego każda oś jest wewnętrznie rozciągana niezależnie: od zera do
 swojej największej wartości. Rzeczywiste wartości liczbowe znajdują się przy punktach danych,
 w podpowiedzi oraz w tabeli danych. Natomiast wykresy słupkowe i liniowe pokazują
 prawdziwą oś wartości, obliczoną i opatrzoną etykietami przez ECharts.

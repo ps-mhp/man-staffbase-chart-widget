@@ -29,13 +29,13 @@ série ordonnée, par exemple sur les années de construction. L’ordre des axe
 l’ordre sur la courbe. Options d’affichage : lisser les courbes, remplir la zone sous
 la courbe, afficher les points aux points d’appui.
 
-**Diagramme circulaire (tourte / anneau).** Affiche la répartition d’un tout :
+**Diagramme circulaire (tarte / anneau).** Affiche la répartition d’un tout :
 les segments correspondent aux axes (catégories), leurs valeurs déterminent la taille des segments.
 **Seule la première série est tracée** — les autres séries
 restent enregistrées et réapparaissent dès qu’on passe à un autre type
 de graphique ; l’éditeur le signale expressément. Chaque catégorie peut se voir attribuer une
 couleur de segment distincte. Options d’affichage : rayon intérieur (0 donne un
-cercle complet, une valeur plus grande donne un anneau/beignet) et l’étiquette du segment
+cercle complet, une valeur plus grande un anneau/beignet) et l’étiquette du segment
 (pourcentage, valeur absolue, les deux ou masquée). Les valeurs négatives
 ne posent pas de problème d’affichage avec `pie`, mais constituent une erreur de données — le
 diagramme affiche alors un message d’avertissement à la place d’un diagramme de type « tarte » erroné.
@@ -48,8 +48,8 @@ la légende, les axes et les séries sont conservés, tout comme les valeurs des
 
 - Le graphique lui-même, avec autant d’axes et de séries que souhaité.
 - Les valeurs apparaissent directement sur le graphique (pour `pie`, selon le paramétrage, sous forme de
-  pourcentage, de valeur absolue ou des deux) ; de plus, lorsque l’on survole
-  un point ou un segment, une info-bulle s’affiche avec les valeurs correspondantes.
+  pourcentage, de valeur absolue ou des deux) ; de plus, lorsque l’on passe la souris
+  sur un point ou un segment, une infobulle s’affiche avec les valeurs correspondantes.
 - Une légende au-dessus ou en dessous du graphique, selon les paramètres.
   Pour le type `pie`, la légende répertorie les catégories (segments) ; pour les autres
   types, elle répertorie les séries.
@@ -65,7 +65,7 @@ la légende, les axes et les séries sont conservés, tout comme les valeurs des
 Lorsque le téléchargement est activé, deux boutons apparaissent sous le graphique :
 « Au format SVG » et « Au format PNG ». Le fichier téléchargé ne contient **que le
 diagramme**, et non le reste de la page — titre, légende, axes et valeurs
-tels qu’ils s’affichent à l’écran, sur fond blanc (même si
+tels qu’ils s’affichent actuellement, sur fond blanc (même si
 la page elle-même est transparente ou sur fond sombre). Le fichier SVG peut être
 agrandi sans perte de qualité, tandis que le PNG convient aux environnements qui ne peuvent pas intégrer de SVG
 (par exemple, la plupart des logiciels de présentation) et est généré en
@@ -83,26 +83,26 @@ un chiffre traduit n’aurait aucun sens.
 
 ## Ce que vous voyez dans l’éditeur CMS
 
-Lorsque vous insérez le module, l’**éditeur de graphique** s’ouvre automatiquement
-avec une barre de contrôle en haut (Enregistrer, Aide, Fermer) à la place d’un
-pied de page — ainsi, la fonction d’enregistrement reste accessible même avec un tableau de données long,
-car la barre reste fixe lors du défilement. En haut, le choix du type de graphique
-et un champ dans lequel insérer un tableau copié depuis Excel ; en dessous,
-une grille avec **une ligne par axe** et **une colonne par série**
-(pour `pie`, une seule colonne de séries), à côté une prévisualisation en temps réel qui montre exactement
-comment le graphique apparaîtra ensuite sur la page. Tant que rien
-n’a encore été créé, l’éditeur explique les termes et propose « Charger un exemple »
-ainsi que « Créer un tableau vide » — avec, selon le type sélectionné, un autre
-exemple adapté. Le champ de texte situé derrière n’affiche que la forme techniquement
-enregistrée et codée des données et n’est jamais modifié manuellement.
+Lorsque vous insérez le module, l’**éditeur de diagramme** s’ouvre automatiquement
+en plein écran, avec la même barre de menu que pour tous les widgets MAN : Appliquer,
+Annuler, Retour, Aide et le bouton de basculement **Éditeur · Ordinateur de bureau · Tablette ·
+Mobile**. À gauche se trouve une grille avec **une ligne par axe** et **une
+colonne par série** (pour le graphique circulaire, uniquement la première série), au-dessus une barre indiquant
+l’axe sélectionné et ses actions, « Insérer depuis Excel » et « Charger un exemple
+». À droite, le panneau **« Graphique »** avec les onglets Données, Mise en forme,
+Axe et Comportement. Dans les vues par appareil, l’éditeur affiche, à la place de la
+grille, l’aperçu réel en largeur d’appareil ; le panneau reste affiché à côté.
+Tant que rien n’a encore été créé, l’éditeur explique les termes et propose
+« Charger un exemple » ainsi que « Créer un tableau vide » – avec, selon le type, un
+autre exemple adapté.
 
-Si la boîte de dialogue est étroite (par exemple sur de petits écrans), l’
-aperçu se déplace sous la grille et — à partir d’une largeur d’environ 700 pixels —
-la grille se transforme en une succession de graphiques, un par axe. La boîte de dialogue ne défile
-jamais horizontalement.
+Dans la boîte de dialogue Staffbase située derrière, seul le champ « Graphique » contenant la forme techniquement
+codée des données reste visible ; il n’est jamais modifié manuellement. Les anciens
+champs « Hauteur en pixels » et « Autoriser le téléchargement » y sont masqués – ces deux éléments
+se trouvent désormais dans l’éditeur, et les graphiques plus anciens conservent leurs valeurs.
 
-Une particularité importante du radar : ses axes ne comportent **aucune échelle numérique visible**
-**échelle numérique visible**. Il n’est pas possible de représenter de manière pertinente plusieurs axes avec des unités différentes (par exemple
+Une particularité importante du graphique en radar : ses axes ne comportent **aucune échelle numérique visible**.
+**Plusieurs axes avec des unités différentes (par exemple** Il n’est pas possible de représenter de manière pertinente plusieurs axes avec des unités différentes (par exemple
 des kilomètres et des minutes) sur une même échelle.
 Chaque axe est donc étiré en interne de manière indépendante : de zéro jusqu’à
 sa valeur maximale. Les chiffres réels apparaissent au niveau des points de données,

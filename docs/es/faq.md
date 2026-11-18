@@ -16,114 +16,137 @@ Respuesta: Los datos guardados están dañados o se han modificado manualmente.
 Abra los ajustes del widget y vuelva a configurar el diagrama en el editor,
 si es necesario, mediante una tabla recién insertada.
 
-**Pregunta:** Me aparece el mensaje «El tipo de gráfico «…» no es compatible con esta versión del
+**Pregunta:** Me aparece el mensaje «El tipo de gráfico «…» no es reconocido por esta versión del
 módulo. Actualice el módulo.» (o, sin
-mencionar el nombre del tipo: «El tipo de gráfico configurado no es compatible con esta versión del
+mencionar el nombre del tipo: «El tipo de gráfico configurado no es reconocido por esta versión del
 módulo. Actualice el módulo.»)
 
 Respuesta: El gráfico se ha configurado con una versión más reciente del módulo
 que reconoce un tipo de gráfico que esta versión aún no
 admite. Actualice el módulo a la última versión.
 
-**Pregunta:** Me aparece el mensaje «Aún no hay datos en el diagrama. Cree
+**Pregunta:** Me aparece el mensaje «Aún no hay datos en el gráfico. Cree
 ejes y series en la configuración».
 
-Respuesta: No se han creado ni ejes ni series en el editor de diagramas. En el
-editor, inserte una tabla o utilice uno de los dos botones «Cargar ejemplo»
-o «Crear tabla vacía».
+Respuesta: No se han creado ni ejes ni series en el editor de gráficos. En el
+editor, importe una tabla mediante «Insertar desde Excel» o utilice uno de los
+dos botones «Cargar ejemplo» o «Crear tabla vacía»
+.
 
-**Pregunta:** Tras la inserción, mis indicadores aparecen como series y mis
+**Pregunta:** Tras la importación, mis indicadores aparecen como series y mis
 variantes como ejes; todo está al revés.
 
-Respuesta: Debajo del campo de inserción se había seleccionado la dirección de lectura incorrecta. Cambie a la
-otra respuesta en «¿Cómo está orientada su tabla?» y vuelva a hacer clic en
-«Aplicar tabla».
+Respuesta: En la barra «Importar desde Excel» se había seleccionado la dirección de lectura
+incorrecta. En «¿Cómo está orientada la tabla?», cambie a la otra opción y
+vuelva a hacer clic en «Importar tabla».
 
-**Pregunta:** El texto de mi eje es tan largo que comprime el gráfico.
+**Pregunta:** El texto de mi eje es tan largo que comprime el gráfico
+.
 
-Respuesta: En el campo del eje, pulsa la tecla Intro en el lugar deseado.
-El salto de línea se aplicará al gráfico.
+Respuesta: En el nombre del eje —en la cuadrícula o en «Eje», en
+«Denominación»— pulsa la tecla Intro en el lugar deseado. El
+salto de línea se aplicará al gráfico.
 
 **Pregunta:** Me aparece el mensaje «“…“ tiene un valor negativo. Un
-diagrama circular no puede representar proporciones negativas» (o, si no se menciona
-la categoría: «Un diagrama circular no puede representar proporciones negativas»).
+diagrama circular no puede representar proporciones negativas.» (o, sin mencionar la
+categoría: «Un diagrama circular no puede representar proporciones negativas.»)
 
 Respuesta: Un gráfico circular muestra la distribución de un todo; una
-porción negativa no tiene correspondencia en él. Corrija la categoría mencionada en el
-editor de gráficos a un valor distinto de cero, o cambie a un
-**gráfico de barras**, que sí puede representar valores negativos.
+proporción negativa no tiene correspondencia en él. Corrija el valor de la categoría mencionada en el
+editor de gráficos a un valor distinto de cero, o cambie a
+**gráfico de barras**, que sí puede representar valores negativos. El editor no permite
+que se incluya una proporción negativa en el gráfico circular; el mensaje
+solo puede aparecer en un gráfico de una versión anterior.
 
 El aviso bloquea intencionadamente todo el gráfico, en lugar de limitarse a omitir el
-segmento negativo: un gráfico circular distribuye los valores restantes por todo el
-círculo completo, por lo que se obtendría un gráfico que parecería completo, con
+segmento negativo: un gráfico circular distribuye los valores restantes en el
+círculo completo, por lo que se obtendría un gráfico que parecería completo con
 porcentajes implícitamente aumentados.
 
 **Pregunta:** Me aparece el mensaje «No se ha podido cargar el gráfico.
-Vuelve a cargar la página».
+Vuelva a cargar la página».
 
 Respuesta: No se ha podido recargar la biblioteca de gráficos, normalmente debido a
-una conexión a Internet interrumpida. Vuelve a cargar la página; si el problema
-persiste, comprueba la conexión de red.
+una conexión a Internet interrumpida. Vuelva a cargar la página; si el problema
+persiste, compruebe la conexión de red.
 
-**Pregunta:** ¿Por qué mi gráfico está vacío aunque se hayan introducido datos?
+**Pregunta:** ¿Por qué mi gráfico está vacío aunque haya datos introducidos?
 
-Respuesta: Normalmente, el bloque se encuentra en una columna muy estrecha o en un
+Respuesta: Normalmente, el módulo se encuentra en una columna muy estrecha o en un
 elemento contraído, por lo que el contenedor tiene una altura de 0. El gráfico
-permanece entonces vacío de forma permanente, ya que no dispone de espacio para dibujarse. Mueve
-el bloque a una columna más ancha o despliega el elemento.
+permanece entonces vacío de forma permanente, ya que no dispone de espacio para dibujarse.
+módulo a una columna más ancha o despliega el elemento.
 
 **Pregunta:** ¿Por qué veo una gran
 diferencia en el gráfico entre dos valores casi iguales?
 
-Respuesta: Si no se establece un máximo, cada eje se extiende hasta el valor más alto que
-aparece en él. Si hay dos valores muy próximos entre sí, pero muy alejados de cero,
+Respuesta: Si no se ha establecido un máximo, cada eje se extiende hasta el valor más alto que
+aparece en él. Si dos valores están muy próximos entre sí, pero muy alejados de cero,
 la parte superior del eje ocupa todo el espacio, por lo que la diferencia
-parece mayor de lo que realmente es. Solución: En el editor de gráficos,
-establece manualmente el mínimo y el máximo para el eje en cuestión.
+parece mayor de lo que es. Solución: en el editor de diagramas,
+selecciona el eje en cuestión y, en «Eje», establece manualmente
+el mínimo y el máximo.
 
 **Pregunta:** ¿Por qué el valor peor se encuentra más alejado?
 
-Respuesta: En este eje falta el botón «Cuanto menor, mejor». Debe activarse en
-todos los indicadores en los que un valor más pequeño suponga un mejor
-resultado —por ejemplo, peso, consumo o tiempo de carga—. Actívalo en el editor de gráficos en
-el eje correspondiente.
+Respuesta: En este eje falta la opción «Cuanto menor, mejor». Debe activarse en
+todos los indicadores en los que un valor menor suponga un mejor
+resultado —como el peso, el consumo o el tiempo de carga—. En el editor de gráficos,
+selecciona el eje y actívalo en «Eje».
 
 **Pregunta:** No veo ningún botón para descargar debajo del gráfico.
 
-Respuesta: O bien la opción «Permitir descarga» no está
-activada en la configuración, o bien el gráfico aún no se ha completado: los
+Respuesta: O bien la opción «Permitir descarga» no está activada en el editor de gráficos, en
+«Comportamiento», o bien el gráfico aún no se ha completado: los
 botones solo aparecen cuando hay un gráfico disponible para descargar.
 
 **Pregunta:** Al hacer clic en «Como SVG» o «Como PNG» aparece el mensaje «La exportación ha
 fallado. Inténtalo de nuevo».
 
-Respuesta: La exportación no ha podido encontrar el gráfico dibujado —normalmente porque
-se está recargando en ese momento—. Espera un momento y vuelve a hacer clic; si el problema
+Respuesta: La exportación no ha podido encontrar el diagrama dibujado; normalmente, porque
+se está recargando en ese momento. Espera un momento y vuelve a hacer clic; si el problema
 persiste, actualiza la página.
 
-**Pregunta:** ¿Puedo mostrar más de seis series?
+**Pregunta:** ¿Puedo mostrar más de seis filas?
 
-Respuesta: Sí. La paleta de colores de MAN tiene seis colores; a partir de la séptima serie,
-los colores se repiten. No obstante, las series siguen siendo claramente
+Respuesta: Sí. La paleta de colores de MAN tiene seis colores; a partir de la séptima fila,
+los colores se repiten. No obstante, las filas siguen siendo claramente
 distinguibles, ya que cada punto de datos lleva su valor como etiqueta y
-el nombre y los valores de cada serie aparecen en la información sobre herramientas y en la leyenda.
+el nombre y los valores de cada fila aparecen en la información sobre herramientas y en la leyenda. En «Datos»
+también se puede asignar un color propio a cada fila.
 
 **Pregunta:** ¿Qué ocurre con mi gráfico cuando se realiza la
 traducción automática de la página?
 
-Respuesta: Se traducen el título, la nota al pie, las etiquetas de los ejes y
-los nombres de las series. Los números, las unidades, los límites de los ejes, los colores y el resto de
+Respuesta: Se traducen los títulos, las notas al pie, las etiquetas de los ejes y
+los nombres de las series. Las cifras, las unidades, los límites de los ejes, los colores y el resto de
 ajustes se mantienen sin cambios.
 
-**Pregunta:** Un número insertado de repente es 1000 veces mayor o
+**Pregunta:** Un número introducido de repente es 1000 veces mayor o
 menor de lo que debería.
 
-Respuesta: El editor de gráficos interpreta los números según la convención alemana: el punto se considera
-separador de miles y la coma, separador decimal. Por lo tanto, `1.234` se convierte en
-`1234` y no en `1,234`. Si se inserta una tabla con el formato inglés
+Respuesta: El editor de gráficos interpreta los números según las normas alemanas: al escribir, al
+insertarlos en la cuadrícula y al «insertar desde Excel»: se utiliza un punto como
+separador de miles, y una coma como separador decimal. Así, `1.234` se convierte
+en `1234` y no en `1,234`. Si se inserta una tabla con el formato inglés
 (punto como separador decimal), hay que ajustar los números afectados al
 adaptar al formato alemán; de lo contrario, por ejemplo, «1.234» (mil)
-se interpretará como «1,234» (uno coma dos tres cuatro). Si en un número aparecen tanto
+se leerá como «1,234» (uno coma dos tres cuatro). Si en un número aparecen tanto
 el punto como la coma, independientemente del formato, el último
 carácter se considera el separador decimal: tanto `1.234,5` como `1,234.5` dan como resultado
 `1234,5`.
+
+**Pregunta:** ¿Dónde están los campos «Altura en píxeles» y «Permitir descarga» en el
+cuadro de diálogo de Staffbase?
+
+Respuesta: Ambos se encuentran ahora en el editor de diagramas: la altura en
+«Diseño» y la descarga en «Comportamiento». Los campos antiguos están
+ocultos. Los gráficos más antiguos conservan sus valores; el editor los aplica
+al abrirlos y, si no se realizan cambios, el gráfico permanece en la página tal y como estaba.
+
+**Pregunta:** «Aplicar» no hace nada; en la parte superior aparece «Eje «…»: «Máximo demasiado pequeño».
+
+Respuesta: En la red se ha introducido para este eje un valor máximo que no
+es mayor que el mínimo. El eje está marcado en la cuadrícula; en «Eje»,
+aumenta el máximo o deja el campo en blanco; si está en blanco, significa «derivado de los valores
+».

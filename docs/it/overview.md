@@ -14,7 +14,7 @@ collega i propri valori su questi assi formando un'area. In questo modo è possi
 confrontare a colpo d’occhio diversi indicatori di più serie, anche se
 misurati in unità completamente diverse — chilometri, tonnellate,
 minuti, kilowatt. Solo nel grafico radar sono disponibili i valori minimo e massimo e l’opzione
-«più piccolo è meglio» per ciascun asse, oltre alle opzioni di visualizzazione «linee ausiliarie nella rete»
+«più piccolo è meglio» per ciascun asse, oltre alle opzioni di visualizzazione «linee guida nella rete»
 e «riempimento delle aree».
 
 **Grafico a barre (colonne).** Confronta i valori tra poche categorie.
@@ -24,8 +24,8 @@ significativo solo se tutte le categorie utilizzano la stessa unità di misura. 
 opzioni di visualizzazione sono disponibili l’impilamento (serie una sopra l’altra anziché affiancate) e
 la direzione (verticale o orizzontale).
 
-**Grafico a linee (andamento).** Mostra un andamento nel corso di una serie ordinata,
-ad esempio in base agli anni di costruzione. L’ordine degli assi nella griglia corrisponde
+**Grafico a linee (andamento).** Mostra un andamento nel corso di una
+serie ordinata, ad esempio per anno di costruzione. L’ordine degli assi nella griglia corrisponde
 all’ordine sulla linea. Opzioni di visualizzazione: smussare le linee, riempire l’area sotto
 la linea, mostrare i punti nei punti di supporto.
 
@@ -84,28 +84,28 @@ un numero tradotto non avrebbe senso.
 ## Cosa vedete nell’editor CMS
 
 Quando si inserisce il modulo, si apre automaticamente l’**editor del grafico**
-con una barra di controllo in alto (Salva, Aiuto, Chiudi) al posto di un
-piè di pagina — in questo modo il comando Salva rimane accessibile anche con una griglia di dati lunga,
-poiché la barra rimane fissa durante lo scorrimento. In alto la selezione del tipo di grafico
-e un campo in cui inserire una tabella copiata da Excel; sotto,
-una griglia con **una riga per ogni asse** e **una colonna per ogni serie**
-(nel caso di `pie` solo una colonna per serie), accanto un’anteprima in tempo reale che mostra esattamente
-come apparirà il grafico in seguito sulla pagina. Finché non è stato creato nulla,
-l’editor spiega i termini e offre le opzioni «Carica esempio»
-e «Crea tabella vuota» — a seconda del tipo selezionato, con un esempio diverso
-e adeguato. Il campo di testo sottostante mostra solo la forma tecnicamente
-memorizzata e codificata dei dati e non viene mai modificato manualmente.
+a schermo intero, con la stessa barra superiore presente in tutti i widget MAN: Applica,
+Annulla, Indietro, Aiuto e il selettore **Editor · Desktop · Tablet ·
+Mobile**. A sinistra c’è una griglia con **una riga per ogni asse** e **una
+colonna per ogni serie** (nel grafico a torta solo la prima serie), sopra una barra con
+l’asse selezionato e le relative azioni, «Inserisci da Excel» e «Carica
+esempio». A destra il pannello **«Grafico»** con le schede Dati, Formato,
+Asse e Comportamento. Nelle visualizzazioni per dispositivo, l’editor mostra, al posto della
+griglia, l’anteprima reale a larghezza del dispositivo; il pannello rimane accanto.
+Finché non è stato creato nulla, l’editor spiega i termini e offre
+«Carica esempio» e «Crea tabella vuota» – a seconda del tipo, con un
+altro esempio adeguato.
 
-Se la finestra di dialogo è stretta (ad es. su schermi di piccole dimensioni), l’
-anteprima si sposta sotto la griglia e — al di sotto di circa 700 pixel di larghezza —
-la griglia si trasforma in una sequenza di grafici, uno per ogni asse. La finestra di dialogo
-non scorre mai orizzontalmente.
+Nella finestra di dialogo Staffbase sottostante rimane solo il campo «Grafico» con la forma tecnicamente
+codificata dei dati; non viene mai modificato manualmente. I precedenti
+campi «Altezza in pixel» e «Consenti download» sono nascosti in quella finestra: entrambi
+si trovano ora nell’editor, mentre i grafici più vecchi mantengono i propri valori.
 
-Una caratteristica importante del radar: i suoi assi **non presentano una scala numerica visibile**
-scala numerica visibile**. Non è possibile rappresentare in modo sensato su un’unica scala
+Una caratteristica importante del grafico radar: i suoi assi **non presentano una scala numerica visibile**.
+** Non è possibile rappresentare in modo sensato su una scala comune
 più assi con unità diverse (ad es.
 chilometri e minuti). Ogni asse viene quindi esteso internamente in modo indipendente: da zero fino
 al proprio valore massimo. I valori effettivi sono riportati nei punti dati,
 nel tooltip e nella tabella dei dati. I grafici a barre e a linee mostrano
-invece un vero e proprio asse dei valori, calcolato ed etichettato da ECharts.
+invece un vero e proprio asse dei valori, calcolato e etichettato da ECharts.
 Maggiori informazioni alla voce [Impostazioni](settings.md).

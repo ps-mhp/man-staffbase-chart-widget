@@ -7,99 +7,89 @@ pasos se aplican, por analogía, a los otros tres tipos.
 ## Configurar el diagrama
 
 1. Coloca el widget **Diagrama** en la página. Se abrirán los ajustes del widget
-   y, en ellos, aparecerá inmediatamente el **editor de diagramas** sobre el
-   campo propiamente dicho. En la parte superior hay una barra de control con **Guardar**,
-   **Ayuda** (abre un panel deslizante con las mismas explicaciones que en esta
-   documentación) y **Cerrar**; permanece fija al desplazarse, incluso
-   en una tabla de datos extensa.
-2. En la parte superior del editor aparece el **tipo de gráfico**: **gráfico de red (radar /
-   araña)**, **gráfico de barras (columnas)**, **gráfico de líneas (tendencia)** o
-   **gráfico circular (pastel / anillo)**; el texto que aparece debajo indica para qué
-   está pensado el tipo seleccionado. Si se cambia de tipo posteriormente, no se pierden
-   datos: los ejes, las series, el título y la leyenda se conservan, y también la
-   indicaciones de los ejes (p. ej., mínimo/máximo en el radar) solo
-   se ocultan hasta que se vuelve a seleccionar ese tipo. Sin embargo,
-   **los ajustes de visualización** del tipo anterior se pierden;
-   más información al respecto en «Ajustes».
-3. Mientras aún no haya datos, la sección **«Ejes y
-   series»** ofrece dos opciones: **«Cargar ejemplo»** rellena un ejemplo adecuado para el
-   tipo seleccionado, que se puede sobrescribir fácilmente, y
-   **«Crear tabla vacía»** crea los ejes y las series para rellenarlos.
-4. Sin embargo, la opción recomendada es **«Importar datos desde una tabla»**,
-   arriba: selecciona la tabla comparativa en Excel, PowerPoint o Word,
-   cópiala y pégala en el campo. A continuación, indica **cómo está organizada la tabla
-  ** — la opción predeterminada es «un indicador por fila, una
-   variante», es decir, tal y como aparece la tabla en el editor que hay debajo.
-   A continuación, haz clic en **«Importar tabla»**. Este paso es el mismo para los
-   cuatro tipos.
+   y, en ellos, aparecerá inmediatamente el **editor de diagramas** a pantalla completa. A la izquierda
+   se encuentra la cuadrícula de datos y, a la derecha, el panel **«Diagrama»** con las pestañas
+   Datos, Diseño, Eje y Comportamiento. La opción **Ayuda** de la parte superior abre las mismas
+   explicaciones que esta documentación.
+2. En el panel, en **Diseño**, selecciona el **Tipo**: **Tabla**, **Barra**,
+   **Línea** o **Circular**; la frase que aparece debajo indica para qué sirve cada tipo
+  . Si se cambia más adelante, no se pierden datos: los ejes, las series y el título
+   y la leyenda se conservan; los datos de los ejes (p. ej., mínimo y máximo
+   en la tabla) simplemente se ocultan. Sin embargo, la **configuración del tipo** solo se aplica
+   a este; véase [Configuración](settings.md).
+3. Mientras aún no haya datos, la cuadrícula ofrece dos opciones:
+   **«Cargar ejemplo»** rellena un ejemplo adecuado al tipo, que se puede
+   sobrescribir; **«Crear tabla vacía»** crea los ejes y las filas para
+   rellenarlas.
+4. Sin embargo, la opción recomendada es **«Insertar desde Excel»**, situada en la esquina superior derecha,
+   encima de la cuadrícula: selecciona la tabla comparativa en Excel, PowerPoint o Word,
+   cópiala y pégala en el campo de la barra. Debajo,
+   especificar **cómo está organizada la tabla**; la configuración predeterminada es **ejes en filas**,
+   es decir, tal y como aparece la tabla en la cuadrícula. A continuación, **«Aplicar tabla»**.
+   Este paso es el mismo para los cuatro tipos.
 5. En la cuadrícula, **cada fila es un eje** y **cada columna de la derecha es una
-   serie**; en el gráfico circular, la cuadrícula muestra **solo la primera
-   columna de serie**; una nota debajo aclara que el resto de series
-   permanecen guardadas, pero no se dibujan, para que no parezca que
-   se han perdido datos. En la parte superior de cada columna de serie aparecen el nombre, el color y
-   las flechas para reordenar; al final de cada fila de eje, las flechas y la
-   cruz correspondientes a ese eje.
-6. Introduce la **unidad** para cada eje (p. ej., «kWh»). Un **salto de línea en el
-   nombre del eje** —con la tecla Intro— se aplica en el gráfico y
-   permite que las etiquetas largas sean legibles. En el gráfico circular se puede
-   establecer además un **color de segmento** propio para cada eje.
-7. Solo en el diagrama de red: en los ejes en los que un **valor menor
-   es mejor** —peso, consumo, tiempo de carga—, en la columna **Dirección**
-   activa el conmutador **«menor es mejor»**. Sin él, el
-   valor peor (mayor) quedaría más hacia fuera, y la imagen diría exactamente lo
-   contrario de lo que se quiere decir.
-8. Los **decimales** por eje se configuran tras el botón
-   **«Ajustes precisos por eje»**; **Mínimo** y **Máximo** allí
-   solo aparecen en el diagrama de red, porque las barras y la línea trazan un eje de valores común,
-   calculado por ECharts. En el caso normal no son necesarios;
-   si están vacíos, significa «derivado de los valores».
-9. En **«Título, leyenda y representación»**, introduce el título y la nota al pie,
-   coloca o oculta la **leyenda** (en los gráficos circulares enumera los
-   ejes; en los demás, las series) y configura las opciones de visualización adecuadas para cada tipo
-   : en el gráfico de radar, **líneas auxiliares en la cuadrícula** y **rellenar áreas**;
-   en el de barras, **apilar** y **orientación** (vertical/horizontal); en el de líneas,
-   **suavizar líneas**, **rellenar área** y **mostrar puntos**; en el gráfico circular,
-   **radio interior** (0 = círculo completo, mayor = anillo) y
-   **etiqueta de segmento** (porcentaje, valor absoluto, ambos o desactivado).
-10. La **vista previa** muestra en todo momento cómo se ve el diagrama en la página
-    y se mantiene fija al desplazarse. Si el cuadro de diálogo es lo suficientemente ancho
-    (a partir de unos 900 píxeles), se sitúa junto al campo de entrada; por debajo de esa anchura, se desplaza
-    por debajo de la cuadrícula, y por debajo de unos 700 píxeles, la cuadrícula se convierte
-    en una sucesión de tarjetas, una por cada eje. El cuadro de diálogo nunca se desplaza
-    horizontalmente.
-11. Ajusta la **altura** del gráfico (consulta [Configuración](settings.md)).
-12. Si quieres que el gráfico se pueda descargar como imagen, activa el botón
-    **«Permitir descarga»** (véase [Configuración](settings.md)).
-    A continuación, aparecerán dos botones debajo del gráfico: «Como SVG» y
-    «Como PNG»; el procedimiento es el mismo para los cuatro tipos.
-13. Haz clic en **Guardar** y, a continuación, en **Cerrar**. Solo al hacer clic en «Guardar» se transfieren
-    los datos al widget; mientras aparezca junto a los botones «Cambios no guardados»,
-    no se habrá aplicado ningún cambio.
+   serie**. En el gráfico circular, la cuadrícula muestra **solo la primera serie**;
+   una nota debajo indica que el resto de series se guardan, pero
+   no se dibujan.
+6. Sobrescribe valores individuales directamente en la cuadrícula. También se pueden pegar bloques desde Excel
+: copia las celdas, selecciona un campo en la cuadrícula y pulsa ⌘ V (Ctrl+V).
+7. Introduce la **unidad** para cada eje (p. ej., «kWh»). Un **salto de línea en el
+   nombre del eje** —con la tecla Intro— se aplica al gráfico y
+   permite que las etiquetas largas se mantengan legibles.
+8. Al hacer clic en una fila se selecciona el eje. La barra situada encima lo identifica
+   («Eje 2 de 6 · Peso de la batería») y ofrece las opciones **hacia arriba**, **hacia
+   abajo**, **duplicar** y **eliminar**. En el panel bajo **Eje**
+   se encuentran sus ajustes avanzados: nombre, unidad, decimales,
+   para la red **Mínimo**, **Máximo** y **«Cuanto menor, mejor»**, y para el
+   gráfico circular, el **color del segmento**.
+9. Solo en el caso de la red: en los ejes en los que un **valor menor es mejor** —
+  peso, consumo, tiempo de carga—, activa **«Cuanto menor, mejor»**.
+   Sin esta opción, el valor peor (mayor) quedaría más alejado, y la imagen
+   transmitiría lo contrario de lo que se pretende.
+10. En **Datos**, asigna un nombre a las series; si es necesario, establece un **color** propio
+    y cambia su orden —esto determina el color de la paleta y
+    la leyenda—.
+11. En **Diseño**, introduce el título y la nota al pie; coloca la **leyenda** encima
+    o debajo del gráfico, u ocultarla, y seleccionar la configuración del
+    tipo: en la red, **líneas de ayuda** y **rellenar áreas**; en las
+    barras, **dirección** y **apiladas**; en la línea, **suavizada**,
+    **relleno de área** y **mostrar puntos**; en el gráfico circular, **radio interior** y
+    **etiquetas de los segmentos**. En la parte inferior, la **altura en píxeles** (de 160 a
+    1200).
+12. Si quieres que el gráfico se pueda descargar como imagen, en
+    **Comportamiento**, activa **«Permitir descarga»**. Debajo del gráfico
+    aparecerán entonces dos botones: «Como SVG» y «Como PNG».
+13. En la parte superior, selecciona **Ordenador**, **Tableta** o **Móvil**: la
+    vista previa muestra el gráfico tal y como aparece en la página, y el panel
+    de la derecha permanece junto a él.
+14. **Aplicar** —o ⌘/Ctrl ↵ para aplicar y cerrar—. A continuación, en
+    Studio, **Guardar**; solo así se guarda la página.
 
 ## Modificar posteriormente
 
-1. Vuelve a abrir la configuración del widget: el editor de gráficos volverá a aparecer
-   con el estado guardado por última vez, incluido el tipo de gráfico.
-2. Sobrescribe los valores directamente en la cuadrícula o vuelve a
-   insertar una tabla actualizada. Los ejes y series con el mismo nombre conservan sus
-   unidades, orientaciones y colores ya establecidos; solo se
-   sustituyen los valores.
-3. Guarda y cierra como se ha indicado anteriormente.
+1. Vuelve a abrir la configuración del widget: el editor aparecerá con el
+   último estado guardado, incluido el tipo.
+2. Sobrescribe los valores directamente en la cuadrícula o vuelve a aplicar una tabla actualizada mediante
+   «Insertar desde Excel». Los ejes y series con el mismo nombre
+   conservan las unidades, los límites, la dirección y los colores; solo se sustituyen
+   los valores.
+3. Cada paso se puede deshacer con ⌘/Ctrl Z; **Deshacer** descarta
+   todo lo realizado desde la última aplicación.
+4. Aplica los cambios y guárdalos en Studio como se ha indicado anteriormente.
 
 ## Si algo no funciona
 
-1. Si en lugar del gráfico aparece un mensaje de aviso, en él ya se indica la
-   causa; consulta las [preguntas frecuentes](faq.md) para ver todos los mensajes posibles.
-2. Si no se puede aplicar la tabla insertada, comprueba si tiene
+1. Si en la página aparece un mensaje de aviso en lugar del gráfico, en él
+   ya se indica la causa; consulta las [Preguntas frecuentes](faq.md) para ver todos los mensajes posibles.
+2. Si no se puede ejecutar «Aplicar», el encabezado indica el motivo y la
+  pestaña afectada aparece marcada en rojo —por ejemplo, «Eje «…»: máximo demasiado
+  pequeño». Consulta «Comprobación» en [Configuración](settings.md).
+3. Si no se puede aplicar la tabla insertada, comprueba si tiene
    encabezados en la primera fila y en la primera columna. Si
-   los ejes y las series aparecen invertidos en la cuadrícula, es que se ha seleccionado incorrectamente la dirección de lectura debajo del
-   campo de inserción; cámbiala y vuelve a aplicar.
-3. Si el gráfico muestra cifras erróneas tras la inserción (por ejemplo, con un desfase de
+   los ejes y las filas están invertidos en la cuadrícula, se ha seleccionado una dirección de lectura
+   incorrecta: invierte el orden y vuelve a aplicar.
+4. Si, tras insertarlo, el gráfico muestra cifras erróneas (por ejemplo, con un desfase de
    un factor de 1000), suele deberse al separador de miles en
-   números procedentes de una fuente no alemana; consulta las indicaciones sobre números en
-   [Configuración](settings.md) y [Preguntas frecuentes](faq.md).
-4. En el gráfico circular, el área permanece vacía aunque se hayan introducido valores
-   : o bien todos los valores de la primera serie son cero o
-   faltan (`null`), o bien al menos un valor es negativo; en este caso,
-   el gráfico muestra un mensaje propio con el nombre del eje afectado
-   en lugar de un gráfico circular erróneo.
+   cifras procedentes de una fuente no alemana; véase [Preguntas frecuentes](faq.md).
+5. En el gráfico circular, el área permanece vacía aunque se hayan introducido
+   valores: en ese caso, todos los valores de la primera fila son cero o faltan.

@@ -1,7 +1,7 @@
 # Chart
 
 The chart widget displays metrics in four types—**radar chart
-(radar), bar, line, and pie**. Each type is configured using
+, bar chart, line chart, and pie chart**. Each type is configured using
 the same editor, which opens directly in the widget settings; a
 table copied from Excel can be imported there with a single click—see
 [Step-by-Step Guide](usage.md).
@@ -24,7 +24,7 @@ only useful if all categories use the same unit. As
 display options include stacking (series stacked on top of each other instead of side by side) and
 orientation (portrait or landscape).
 
-**Line Chart (Trend).** Shows a trend over an ordered
+**Line Chart (Trend).** Shows a trend across an ordered
 series, such as by year of construction. The order of the axes in the grid is
 the order on the line. Display options: Smooth lines, fill the area under
 the line, show points at the control points.
@@ -33,8 +33,8 @@ the line, show points at the control points.
 Segments are the axes (categories); their values determine the segment sizes.
 **Only the first series is plotted**—additional series
 remain saved and reappear as soon as you switch to a different chart
-type; the editor specifically notes this. Each category can be assigned
-its own segment color. Display options: Inner radius (0 results in a
+type; the editor provides a specific notification to this effect. Each category can be assigned
+its own segment color. Display options: inner radius (0 results in a
 full circle; a larger value results in a ring/doughnut) and segment labeling
 (percentage, absolute value, both, or hidden). Negative values
 are not a display issue with `pie`, but rather a data error—the
@@ -64,7 +64,7 @@ fields—they simply do not take effect as long as a different type is selected.
 
 When downloads are enabled, two buttons appear below the chart:
 “As SVG” and “As PNG.” The downloaded file contains **only the
-chart**, not the rest of the page—title, legend, axes, and values
+chart**, not the rest of the page—the title, legend, axes, and values
 exactly as they are currently displayed, with a white background (even if
 the page itself has a transparent or dark background). The SVG can be
 scaled up without loss of quality; the PNG is suitable for situations where SVG
@@ -83,28 +83,28 @@ and a translated number would be nonsense.
 
 ## What You See in the CMS Editor
 
-When you insert the block, the **chart editor** opens automatically
-with a control bar at the top (Save, Help, Close) instead of a
-footer—this way, the Save button remains accessible even with a long data grid,
-because the bar stays in place while you scroll. At the top is the chart type selector
-and a field where you can paste a table copied from Excel; below that
-is a grid with **one row per axis** and **one column per series**
-(for `pie`, only one series column), next to it a live preview that shows exactly
-how the chart will appear on the page later. As long as nothing
-has been created yet, the editor explains the terms and offers “Load Example”
-as well as “Create Empty Table”—with a different,
-appropriate example depending on the selected type. The text field behind it shows only the technically
-stored, encoded form of the data and is never edited manually.
+When you insert the module, the **Chart Editor** automatically opens
+in full-screen mode, with the same header as all MAN widgets: Apply,
+Cancel, Undo, Help, and the **Editor · Desktop · Tablet ·
+Mobile** toggle. On the left is a grid with **one row per axis** and **one
+column per series** (for pie charts, only the first series), above which is a bar showing
+the selected axis and its actions, “Insert from Excel,” and “Load
+Example.” On the right is the **“Chart”** panel with the tabs Data, Design,
+Axis, and Behavior. In the device views, the editor displays the actual preview at device width instead of the
+grid; the panel remains next to it.
+As long as nothing has been created yet, the editor explains the terms and offers
+“Load Example” and “Create Empty Table”—with a
+different, appropriate example depending on the type.
 
-If the dialog is narrow (e.g., on small screens), the
-preview moves below the grid, and—below a width of about 700 pixels—the
-grid becomes a sequence of charts, one per axis. The dialog
-never scrolls horizontally.
+In the Staffbase dialog behind it, only the “Chart” field remains, containing the technically
+encoded form of the data; it is never edited manually. The former
+fields “Height in Pixels” and “Allow Download” are hidden there—both
+are now located in the editor, and older charts retain their values.
 
-An important feature of the radar: Its axes have **no visible
+An important feature of the radar chart: Its axes have **no visible
 numeric scale**. Multiple axes with different units (e.g.,
-kilometers and minutes) cannot be meaningfully displayed on a single scale.
-Each axis is therefore scaled independently internally: from zero to
+kilometers and minutes) cannot be meaningfully represented on a single scale
+. Each axis is therefore scaled independently internally: from zero to
 its maximum value. The actual numbers appear at the data points,
 in the tooltip, and in the data table. Bar and line charts, on the other hand,
 display a true value axis calculated and labeled by ECharts.
