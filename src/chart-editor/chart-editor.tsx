@@ -231,10 +231,18 @@ export function ChartEditor({ value, onChange, shownIssues = null }: ChartEditor
             onOpenPaste={paste.show}
             onLoadExample={loadExample}
           />
-          <div className="flex min-h-0 flex-1 flex-col items-start gap-3 overflow-auto bg-secondary p-4">
-            {paste.inline !== null && <section className="w-full max-w-[560px] rounded-lg border bg-background p-4">{paste.inline}</section>}
+          {/* Das Raster liegt bündig an Leiste und Rand wie die Tabelle; nur
+              Einfügen, Leerzustand und Hinweise halten Abstand. */}
+          <div className="flex min-h-0 flex-1 flex-col items-start overflow-auto bg-secondary">
+            {paste.inline !== null && (
+              <div className="w-full p-4 pb-0">
+                <section className="w-full max-w-[560px] rounded-lg border bg-background p-4">{paste.inline}</section>
+              </div>
+            )}
             {isEmpty ? (
-              <EmptyState onExample={loadExample} onStarter={() => onChange(keepPageSettings(starterSpec(value.type), value))} />
+              <div className="w-full p-4 pb-0">
+                <EmptyState onExample={loadExample} onStarter={() => onChange(keepPageSettings(starterSpec(value.type), value))} />
+              </div>
             ) : (
               <DataGrid
                 spec={value}
@@ -243,18 +251,21 @@ export function ChartEditor({ value, onChange, shownIssues = null }: ChartEditor
                 onChange={onChange}
                 invalid={invalidAxes}
                 palette={theme.palette}
+                className="-mt-px -ml-px"
               />
             )}
-            <p className="max-w-[720px] text-[13px] text-muted-foreground">
-              Werte aus Excel: Zellen kopieren, hier ein Feld wählen, <Key>⌘</Key> <Key>V</Key>. Namen und Farben der Reihen
-              stehen rechts unter „Daten“, die Feineinstellungen der gewählten Achse unter „Achse“.
-            </p>
-            {value.type === "pie" && value.series.length > 1 && (
-              <p className="max-w-[720px] text-[13px] text-warning">
-                Ein Kuchendiagramm zeichnet nur die erste Reihe. Die weiteren bleiben gespeichert und erscheinen wieder,
-                sobald ein anderer Typ gewählt ist.
+            <div className="flex flex-col gap-3 px-4 py-3">
+              <p className="max-w-[720px] text-[13px] text-muted-foreground">
+                Werte aus Excel: Zellen kopieren, hier ein Feld wählen, <Key>⌘</Key> <Key>V</Key>. Namen und Farben der Reihen
+                stehen rechts unter „Daten“, die Feineinstellungen der gewählten Achse unter „Achse“.
               </p>
-            )}
+              {value.type === "pie" && value.series.length > 1 && (
+                <p className="max-w-[720px] text-[13px] text-warning">
+                  Ein Kuchendiagramm zeichnet nur die erste Reihe. Die weiteren bleiben gespeichert und erscheinen wieder,
+                  sobald ein anderer Typ gewählt ist.
+                </p>
+              )}
+            </div>
           </div>
         </div>
       </ConfigWorkspace>

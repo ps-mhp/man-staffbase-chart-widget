@@ -46,6 +46,8 @@ export interface DataGridProps {
   invalid: ReadonlySet<number>;
   /** Farben der Palette, für Reihen ohne eigene Farbe. */
   palette: readonly string[];
+  /** Zusätzliche Klassen der Tabelle, etwa um sie bündig an den Rand zu legen. */
+  className?: string;
 }
 
 /** Benennt eine Reihe, auch solange sie noch keinen Namen hat. */
@@ -161,7 +163,7 @@ function pasteOrigin(target: EventTarget): { row: number; column: number } | nul
   return { row: Number(cell.dataset.row), column: Number(cell.dataset.column) };
 }
 
-export function DataGrid({ spec, selected, onSelect, onChange, invalid, palette }: DataGridProps): React.ReactElement {
+export function DataGrid({ spec, selected, onSelect, onChange, invalid, palette, className }: DataGridProps): React.ReactElement {
   const shownSeries = shownSeriesOf(spec);
 
   const handlePaste = (event: React.ClipboardEvent): void => {
@@ -176,7 +178,7 @@ export function DataGrid({ spec, selected, onSelect, onChange, invalid, palette 
     <table
       aria-label="Diagrammdaten: Achsen in Zeilen, Reihen in Spalten"
       data-testid="chart-data-grid"
-      className="border-collapse bg-background text-sm text-foreground"
+      className={cn("border-collapse bg-background text-sm text-foreground", className)}
     >
       <thead>
         <tr>
