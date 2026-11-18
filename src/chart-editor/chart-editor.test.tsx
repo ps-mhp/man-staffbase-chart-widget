@@ -11,360 +11,238 @@
  * limitations under the License.
  */
 
-import { fireEvent, render, screen } from "@testing-library/react";
+/**
+ * Die Hauptfläche des Diagramm-Editors: Leiste, Datenraster, Einfügen und
+ * die Vorschau in den Geräteansichten. Das Panel rechts prüft
+ * `chart-inspector.test.tsx`.
+ */
+
 import * as React from "react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { ConfigShellProvider, type ConfigShellState } from "@man/config-ui/shell/shell-context";
 
 import { ChartSpec, emptySpec } from "../chart-model";
 import { ChartEditor } from "./chart-editor";
 
 jest.mock("../echarts-modules");
 
-const spec: ChartSpec = {
-  version: 1,
-  type: "radar",
-  title: "Vergleich",
-  legend: { show: true, position: "top" },
-  categories: [{ label: "Gewicht" }, { label: "Energie" }],
-  series: [{ name: "MAN", values: [1.8, 240] }],
-};
-
 class StubResizeObserver {
   observe(): void {}
   disconnect(): void {}
-}
-
-function setup(value: ChartSpec = spec) {
-  const onChange = jest.fn();
-  render(<ChartEditor value={value} onChange={onChange} onSave={jest.fn()} onClose={jest.fn()} dirty={false} />);
-  return { onChange };
-}
-
-/**
- * Rendert mit einer kurzen Teildefinition (nur `type`, `categories`,
- * `series`) und hält selbst den letzten Stand nach — die Testfälle wollen
- * nicht bei jeder Änderung `version` und `legend` mitschreiben, und ein
- * `onChange`, der nicht neu rendert, würde eine zweite Änderung auf dem
- * alten Stand aufsetzen lassen.
- */
-function renderEditor(partial: Pick<ChartSpec, "type" | "categories" | "series">) {
-  let current: ChartSpec = { version: 1, legend: { show: true, position: "top" }, ...partial };
-  const view = render(
-    <ChartEditor
-      value={current}
-      onChange={(next) => {
-        current = next;
-        rerender();
-      }}
-      onSave={jest.fn()}
-      onClose={jest.fn()}
-      dirty={false}
-    />,
-  );
-  function rerender(): void {
-    view.rerender(
-      <ChartEditor
-        value={current}
-        onChange={(next) => {
-          current = next;
-          rerender();
-        }}
-        onSave={jest.fn()}
-        onClose={jest.fn()}
-        dirty={false}
-      />,
-    );
-  }
-  return { latest: () => current, container: view.container };
 }
 
 beforeEach(() => {
   (global as unknown as { ResizeObserver: unknown }).ResizeObserver = StubResizeObserver;
 });
 
-describe("ChartEditor", () => {
-  it("nennt den Diagrammtyp, statt ihn zu verschweigen", () => {
-    // Am alten Dialog war nicht zu erkennen, welche Art Diagramm man baut.
-    setup();
-    expect(screen.getByLabelText("Diagrammtyp")).toHaveValue("radar");
-  });
+const spec = (patch: Partial<ChartSpec> = {}): ChartSpec => ({
+  version: 1,
+  type: "radar",
+  title: "Vergleich",
+  legend: { show: true, position: "top" },
+  categories: [{ label: "Gewicht", unit: "t" }, { label: "Energie" }],
+  series: [{ name: "MAN", values: [1.8, 240] }],
+  ...patch,
+});
 
-  it("zeigt jede Achse als Zeile und jede Serie als Wertespalte", () => {
-    setup();
-    expect(screen.getByDisplayValue("Gewicht")).toBeInTheDocument();
-    expect(screen.getByDisplayValue("MAN")).toBeInTheDocument();
-    expect(screen.getByDisplayValue("1,8")).toBeInTheDocument();
-  });
+const shellState = (overrides: Partial<ConfigShellState> = {}): ConfigShellState => ({
+  view: "editor",
+  setView: () => undefined,
+  preview: true,
+  issuesVisible: false,
+  ...overrides,
+});
 
-  it("beschriftet jeden Wert mit seiner Serie und seiner Achse", () => {
-    // Der alte Kopf sagte "Serie" ueber den Achsennamen — die Beschriftung
-    // log, und genau deshalb landeten Achsen in Serienfeldern.
+/** Baut den Editor mit lebendem Zustand auf: mehrere Schritte sehen jeweils den neuen Stand. */
+function setup(value: ChartSpec = spec(), shell: Partial<ConfigShellState> = {}) {
+  const onChange = jest.fn<void, [ChartSpec]>();
+  function Harness(): React.ReactElement {
+    const [current, setCurrent] = React.useState(value);
+    return (
+      <ConfigShellProvider value={shellState(shell)}>
+        <ChartEditor
+          value={current}
+          onChange={(next) => {
+            onChange(next);
+            setCurrent(next);
+          }}
+        />
+      </ConfigShellProvider>
+    );
+  }
+  render(<Harness />);
+  return { onChange, latest: (): ChartSpec => onChange.mock.calls.at(-1)![0] };
+}
+
+const grid = (): HTMLElement => screen.getByRole("table", { name: /Diagrammdaten/ });
+const heading = (): HTMLElement => screen.getByTestId("chart-data-heading");
+
+describe("Datenraster", () => {
+  it("zeigt jede Achse als Zeile und jede Reihe als Spalte mit Farbpunkt und Namen", () => {
     setup();
+    expect(within(grid()).getByRole("columnheader", { name: "MAN" })).toBeInTheDocument();
     expect(screen.getByLabelText("Name der Achse 1")).toHaveValue("Gewicht");
-    expect(screen.getByLabelText("Name der Serie 1")).toHaveValue("MAN");
+    expect(screen.getByLabelText("Einheit: Gewicht")).toHaveValue("t");
     expect(screen.getByLabelText("MAN, Gewicht")).toHaveValue("1,8");
   });
 
-  it("behält einen Zeilenumbruch im Achsennamen", () => {
-    // ECharts bricht die Achsenbeschriftung am `\n` um. Ein einzeiliges Feld
-    // verschluckte den Umbruch und zeigte "BenotungModularitaet".
-    const { onChange } = setup();
-    const field = screen.getByLabelText("Name der Achse 1");
-    expect(field.tagName).toBe("TEXTAREA");
-    fireEvent.change(field, { target: { value: "Benotung\nModularität" } });
-    expect(onChange.mock.lastCall[0].categories[0].label).toBe("Benotung\nModularität");
+  it("liest getippte Zahlen deutsch und behält Umbrüche im Achsennamen", () => {
+    const { latest } = setup();
+    fireEvent.change(screen.getByLabelText("MAN, Energie"), { target: { value: "1.234,5" } });
+    expect(latest().series[0].values[1]).toBe(1234.5);
+
+    fireEvent.change(screen.getByLabelText("Name der Achse 1"), { target: { value: "Gewicht\nleer" } });
+    expect(latest().categories[0].label).toBe("Gewicht\nleer");
   });
 
-  it("meldet einen geänderten Wert nach oben", () => {
-    const { onChange } = setup();
-    fireEvent.change(screen.getByDisplayValue("1,8"), { target: { value: "2,5" } });
-    expect(onChange.mock.lastCall[0].series[0].values[0]).toBe(2.5);
-  });
-
-  it("liest einen getippten Tausenderpunkt wie beim Einfügen einer Tabelle", () => {
-    // Drehmoment und Leistung kommen vierstellig. Ein zweiter, schwächerer
-    // Parser im Editor hätte hier still um Faktor tausend danebengelegen.
-    const { onChange } = setup();
-    fireEvent.change(screen.getByDisplayValue("1,8"), { target: { value: "1.234,56" } });
-    expect(onChange.mock.lastCall[0].series[0].values[0]).toBe(1234.56);
-  });
-
-  it("macht aus einem geleerten Feld eine Lücke, nicht eine Null", () => {
-    const { onChange } = setup();
-    fireEvent.change(screen.getByDisplayValue("1,8"), { target: { value: "" } });
-    expect(onChange.mock.lastCall[0].series[0].values[0]).toBeNull();
-  });
-
-  it("ergänzt eine Achse samt Wert in jeder Serie", () => {
-    const { onChange } = setup();
-    fireEvent.click(screen.getByRole("button", { name: /Achse hinzufügen/ }));
-    expect(onChange.mock.lastCall[0].categories).toHaveLength(3);
-    expect(onChange.mock.lastCall[0].series[0].values).toHaveLength(3);
-  });
-
-  it("ergänzt eine Serie", () => {
-    const { onChange } = setup();
-    fireEvent.click(screen.getByRole("button", { name: /Serie hinzufügen/ }));
-    expect(onChange.mock.lastCall[0].series).toHaveLength(2);
-  });
-
-  it("verschiebt eine Achse samt ihrer Werte", () => {
-    // Nur `categories` zu tauschen wuerde alle Werte um eine Achse
-    // verschieben — ein Fehler, der erst in der Vorschau auffaellt.
-    const { onChange } = setup();
-    fireEvent.click(screen.getByRole("button", { name: /Achse nach unten: Gewicht/ }));
-    const next = onChange.mock.lastCall[0];
-    expect(next.categories.map((c: { label: string }) => c.label)).toEqual(["Energie", "Gewicht"]);
-    expect(next.series[0].values).toEqual([240, 1.8]);
-  });
-
-  it("schaltet die Achsenrichtung um", () => {
-    const { onChange } = setup();
-    fireEvent.click(screen.getAllByRole("checkbox", { name: /Kleiner ist besser/ })[0]);
-    expect(onChange.mock.lastCall[0].categories[0].inverted).toBe(true);
-  });
-
-  it("blendet die Feineinstellungen erst auf Wunsch ein", () => {
-    // Drei unbeschriftete Kaestchen je Achse waren der Hauptgrund, warum der
-    // Dialog unverstaendlich war.
+  it("wählt die Achse, in deren Zeile der Fokus steht, und nennt sie in der Leiste", () => {
     setup();
-    expect(screen.queryByLabelText(/Minimum: Gewicht/)).not.toBeInTheDocument();
-    fireEvent.click(screen.getByRole("checkbox", { name: /Feineinstellungen je Achse/ }));
-    expect(screen.getByLabelText(/Minimum: Gewicht/)).toBeInTheDocument();
+    expect(heading()).toHaveTextContent("Achse 1 von 2 · Gewicht");
+
+    fireEvent.focus(screen.getByLabelText("MAN, Energie"));
+    expect(heading()).toHaveTextContent("Achse 2 von 2 · Energie");
+    expect(screen.getByRole("button", { name: "Achse 2 wählen" })).toHaveAttribute("aria-pressed", "true");
   });
 
-  it("übernimmt eine eingefügte Tabelle mit Kennzahlen in den Zeilen", () => {
-    const { onChange } = setup();
-    fireEvent.change(screen.getByLabelText(/Tabelle einfügen/), {
-      target: { value: "\tMAN\tMB\nLadeleistung\t750\t1.000" },
+  it("fügt einen aus Excel kopierten Block ab dem gewählten Feld ein", () => {
+    const { latest } = setup();
+    fireEvent.paste(screen.getByLabelText("MAN, Energie"), {
+      clipboardData: { getData: () => "300\t5\n7\t8\n" },
     });
-    fireEvent.click(screen.getByRole("button", { name: /Tabelle übernehmen/ }));
-    const next = onChange.mock.lastCall[0];
-    expect(next.categories.map((c: { label: string }) => c.label)).toEqual(["Ladeleistung"]);
-    expect(next.series.map((s: { name: string }) => s.name)).toEqual(["MAN", "MB"]);
-    expect(next.series[1].values).toEqual([1000]);
-  });
 
-  it("übernimmt eine eingefügte Tabelle auch andersherum", () => {
-    const { onChange } = setup();
-    fireEvent.click(screen.getByRole("radio", { name: /Je Zeile eine Variante/ }));
-    fireEvent.change(screen.getByLabelText(/Tabelle einfügen/), {
-      target: { value: "Modell\tA\tB\nMAN\t1\t2" },
-    });
-    fireEvent.click(screen.getByRole("button", { name: /Tabelle übernehmen/ }));
-    const next = onChange.mock.lastCall[0];
-    expect(next.categories.map((c: { label: string }) => c.label)).toEqual(["A", "B"]);
-    expect(next.series.map((s: { name: string }) => s.name)).toEqual(["MAN"]);
-  });
-
-  it("sagt, wenn eine eingefügte Tabelle nicht lesbar war, statt stillzuhalten", () => {
-    setup();
-    fireEvent.change(screen.getByLabelText(/Tabelle einfügen/), { target: { value: "nur eine Zeile" } });
-    fireEvent.click(screen.getByRole("button", { name: /Tabelle übernehmen/ }));
-    expect(screen.getByText(/konnte nicht gelesen werden/)).toBeInTheDocument();
-  });
-
-  it("zeigt eine Vorschau mit denselben Daten", () => {
-    setup();
-    expect(screen.getByTestId("chart-editor-preview")).toBeInTheDocument();
-  });
-
-  it("erklärt den Startzustand und bietet einen Einstieg an, statt leer dazustehen", () => {
-    setup(emptySpec());
-    expect(screen.getByText(/Noch keine Achsen und Serien/)).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /Leere Tabelle anlegen/ })).toBeInTheDocument();
-  });
-
-  it("füllt über „Beispiel laden“ einen vollständigen Vergleich ein", () => {
-    const { onChange } = setup(emptySpec());
-    fireEvent.click(screen.getByRole("button", { name: /Beispiel laden/ }));
-    const next = onChange.mock.lastCall[0];
-    expect(next.categories).toHaveLength(6);
-    expect(next.series.map((s: { name: string }) => s.name)).toEqual([
-      "MAN eTGX",
-      "Mercedes-Benz eActros 600",
+    expect(latest().categories).toHaveLength(3);
+    expect(latest().series.map((series) => series.values)).toEqual([
+      [1.8, 300, 7],
+      [null, 5, 8],
     ]);
-    expect(next.series[0].values).toHaveLength(6);
+  });
+
+  it("lässt einen einzelnen Wert das Feld selbst einfügen", () => {
+    const { onChange } = setup();
+    fireEvent.paste(screen.getByLabelText("MAN, Energie"), { clipboardData: { getData: () => "42" } });
+    expect(onChange).not.toHaveBeenCalled();
+  });
+
+  it("zeigt im Kuchen nur die gezeichnete Reihe und sagt, warum", () => {
+    setup(spec({ type: "pie", series: [{ name: "A", values: [1, 2] }, { name: "B", values: [3, 4] }] }));
+    expect(within(grid()).queryByRole("columnheader", { name: "B" })).toBeNull();
+    expect(screen.getAllByText(/zeichnet nur die erste Reihe/).length).toBeGreaterThan(0);
+  });
+
+  it("markiert eine fehlerhafte Achse erst, wenn Übernehmen an ihr scheiterte", () => {
+    const faulty = spec({ categories: [{ label: "Gewicht", min: 5, max: 1 }, { label: "Energie" }] });
+    setup(faulty);
+    expect(screen.getByLabelText("Name der Achse 1")).not.toHaveAttribute("aria-invalid");
+  });
+
+  it("zeigt den Fehler an der Achse, sobald Fehler sichtbar sind", () => {
+    const faulty = spec({ categories: [{ label: "Gewicht", min: 5, max: 1 }, { label: "Energie" }] });
+    setup(faulty, { issuesVisible: true });
+    expect(screen.getByLabelText("Name der Achse 1")).toHaveAttribute("aria-invalid", "true");
+    expect(within(screen.getByTestId("axis-row-0")).getByText("Fehlerhaft")).toBeInTheDocument();
   });
 });
 
-describe("Feldsichtbarkeit je Typ", () => {
-  const typeSpec = (type: ChartSpec["type"], categories: ChartSpec["categories"] = []): ChartSpec => ({
-    version: 1,
-    type,
-    legend: { show: true, position: "top" },
-    categories,
-    series: [],
+describe("Leiste über dem Raster", () => {
+  it("verschiebt, dupliziert und löscht die gewählte Achse samt Werten", async () => {
+    const { latest } = setup();
+
+    await userEvent.click(screen.getByRole("button", { name: "Achse nach unten" }));
+    expect(latest().categories.map((category) => category.label)).toEqual(["Energie", "Gewicht"]);
+    expect(latest().series[0].values).toEqual([240, 1.8]);
+    expect(heading()).toHaveTextContent("Achse 2 von 2 · Gewicht");
+
+    await userEvent.click(screen.getByRole("button", { name: "Achse duplizieren" }));
+    expect(latest().categories.map((category) => category.label)).toEqual(["Energie", "Gewicht", "Gewicht"]);
+    expect(heading()).toHaveTextContent("Achse 3 von 3");
+
+    await userEvent.click(screen.getByRole("button", { name: "Achse löschen" }));
+    expect(latest().categories).toHaveLength(2);
+    expect(heading()).toHaveTextContent("Achse 2 von 2");
   });
 
-  it("zeigt kleiner-ist-besser beim Radar", () => {
-    setup(typeSpec("radar", [{ label: "A" }]));
-    expect(screen.getByLabelText(/Kleiner ist besser/)).toBeInTheDocument();
+  it("sperrt „nach oben“ an der ersten Achse", () => {
+    setup();
+    expect(screen.getByRole("button", { name: "Achse nach oben" })).toHaveAttribute("aria-disabled", "true");
   });
 
-  it("blendet kleiner-ist-besser beim Balken aus", () => {
-    setup(typeSpec("bar", [{ label: "A" }]));
-    expect(screen.queryByLabelText(/Kleiner ist besser/)).not.toBeInTheDocument();
+  it("legt eine Achse an und setzt den Fokus in ihren Namen", async () => {
+    const { latest } = setup();
+    await userEvent.click(screen.getByRole("button", { name: "Achse hinzufügen" }));
+    expect(latest().categories).toHaveLength(3);
+    expect(latest().series[0].values).toHaveLength(3);
+    expect(screen.getByLabelText("Name der Achse 3")).toHaveFocus();
   });
 
-  it("blendet Minimum und Maximum beim Balken aus, auch mit Feineinstellungen", () => {
-    setup(typeSpec("bar", [{ label: "A" }]));
-    fireEvent.click(screen.getByRole("checkbox", { name: /Feineinstellungen je Achse/ }));
-    expect(screen.queryByLabelText(/^Minimum/)).not.toBeInTheDocument();
-    expect(screen.getByLabelText(/^Nachkomma/)).toBeInTheDocument();
+  it("legt eine Reihe an", async () => {
+    const { latest } = setup();
+    await userEvent.click(screen.getByRole("button", { name: "Reihe hinzufügen" }));
+    expect(latest().series).toHaveLength(2);
+    expect(within(grid()).getByRole("columnheader", { name: "Reihe 2" })).toBeInTheDocument();
   });
 
-  it("zeigt Stapeln und Richtung nur beim Balken", () => {
-    setup(typeSpec("bar"));
-    expect(screen.getByLabelText(/Balken stapeln/)).toBeInTheDocument();
-    expect(screen.getByLabelText(/Richtung/)).toBeInTheDocument();
-    expect(screen.queryByLabelText(/Hilfslinien im Netz/)).not.toBeInTheDocument();
-  });
-
-  it("verliert min und max beim Typwechsel nicht", () => {
-    const { onChange } = setup(typeSpec("radar", [{ label: "A", min: 2 }]));
-    fireEvent.change(screen.getByLabelText("Diagrammtyp"), { target: { value: "bar" } });
-    const next = onChange.mock.lastCall[0] as ChartSpec;
-    expect(next.categories[0].min).toBe(2);
-  });
-
-  it("blendet kleiner-ist-besser bei der Linie aus", () => {
-    setup(typeSpec("line", [{ label: "A" }]));
-    expect(screen.queryByLabelText(/Kleiner ist besser/)).not.toBeInTheDocument();
-  });
-
-  it("blendet Minimum und Maximum bei der Linie aus, auch mit Feineinstellungen", () => {
-    setup(typeSpec("line", [{ label: "A" }]));
-    fireEvent.click(screen.getByRole("checkbox", { name: /Feineinstellungen je Achse/ }));
-    expect(screen.queryByLabelText(/^Minimum/)).not.toBeInTheDocument();
-    expect(screen.getByLabelText(/^Nachkomma/)).toBeInTheDocument();
-  });
-
-  it("zeigt die Linienfelder nur bei der Linie", () => {
-    setup(typeSpec("line"));
-    expect(screen.getByLabelText("Linien glätten")).toBeInTheDocument();
-    expect(screen.getByLabelText("Fläche füllen")).toBeInTheDocument();
-    expect(screen.getByLabelText("Punkte zeigen")).toBeInTheDocument();
-  });
-
-  it("blendet die Linienfelder beim Balken aus", () => {
-    setup(typeSpec("bar"));
-    expect(screen.queryByLabelText("Linien glätten")).not.toBeInTheDocument();
-    expect(screen.queryByLabelText("Fläche füllen")).not.toBeInTheDocument();
-    expect(screen.queryByLabelText("Punkte zeigen")).not.toBeInTheDocument();
+  it("lädt ein Beispiel zum gewählten Typ und behält Höhe und Download", async () => {
+    const { latest } = setup(spec({ type: "bar", height: 500, allowExport: true }));
+    await userEvent.click(screen.getByRole("button", { name: "Beispiel laden" }));
+    expect(latest().type).toBe("bar");
+    expect(latest().categories.length).toBeGreaterThan(1);
+    expect(latest()).toMatchObject({ height: 500, allowExport: true });
   });
 });
 
-describe("Kuchendiagramm im Editor", () => {
-  const pieSpec: Pick<ChartSpec, "type" | "categories" | "series"> = {
-    type: "pie",
-    categories: [{ label: "Antrieb" }, { label: "Aufbau" }],
-    series: [
-      { name: "Anteil", values: [60, 40] },
-      { name: "Zweite", values: [1, 2] },
-    ],
-  };
+describe("Leerer Anfang", () => {
+  it("erklärt Achsen und Reihen und bietet Beispiel oder leere Tabelle an", async () => {
+    const { latest } = setup({ ...emptySpec(), height: 420 });
+    const empty = screen.getByTestId("chart-empty");
+    expect(empty).toHaveTextContent("Noch keine Achsen und Reihen");
 
-  it("zeigt nur die erste Serienspalte", () => {
-    renderEditor(pieSpec);
-    expect(screen.getByLabelText("Anteil, Antrieb")).toBeInTheDocument();
-    expect(screen.queryByLabelText("Zweite, Antrieb")).not.toBeInTheDocument();
-  });
-
-  it("sagt, dass weitere Serien erhalten bleiben", () => {
-    // Der Typ-Hinweis über dem Raster enthält ebenfalls die Wendung "nur die
-    // erste Serie" (er beschreibt den Typ allgemein) — deshalb hier auf eine
-    // Formulierung geprüft, die nur im Warn-Hinweis unter dem Raster steht.
-    renderEditor(pieSpec);
-    expect(screen.getByText(/Die weiteren bleiben gespeichert/i)).toBeInTheDocument();
-  });
-
-  it("zeigt den Hinweis nicht, wenn es nur eine Serie gibt", () => {
-    renderEditor({ ...pieSpec, series: [pieSpec.series[0]] });
-    expect(screen.queryByText(/Die weiteren bleiben gespeichert/i)).not.toBeInTheDocument();
-  });
-
-  it("bietet eine Segmentfarbe je Kategorie", () => {
-    const { latest } = renderEditor(pieSpec);
-    fireEvent.change(screen.getByLabelText("Segmentfarbe: Antrieb"), { target: { value: "#ff0000" } });
-    expect(latest().categories[0].color).toBe("#ff0000");
-  });
-
-  it("zeigt die Segmentfarbe bei keinem anderen Typ", () => {
-    renderEditor({ ...pieSpec, type: "bar" });
-    expect(screen.queryByLabelText(/Segmentfarbe/)).not.toBeInTheDocument();
-  });
-
-  it("zeigt Innenradius und Segmentbeschriftung", () => {
-    renderEditor(pieSpec);
-    expect(screen.getByLabelText("Innenradius")).toBeInTheDocument();
-    expect(screen.getByLabelText("Segmentbeschriftung")).toBeInTheDocument();
+    await userEvent.click(within(empty).getByRole("button", { name: "Leere Tabelle anlegen" }));
+    expect(latest().categories.length).toBeGreaterThan(0);
+    expect(latest().height).toBe(420);
+    expect(screen.queryByTestId("chart-empty")).toBeNull();
   });
 });
 
-// Container-Abfragen greifen in jsdom nicht (kein Layout, keine
-// Containergröße) — geprüft wird deshalb, dass die Beschriftungen im DOM
-// stehen, aus denen der per CSS zugeschaltete Kartenmodus seinen Inhalt
-// zieht. Ob er unter 700px tatsächlich erscheint, prüft die Sichtprüfung
-// am Bild (siehe Spezifikation, Abschnitt 9).
-describe("Kartenmodus", () => {
-  it("beschriftet jede Rasterzelle, damit sie ohne Kopfzeile lesbar bleibt", () => {
-    const { container } = renderEditor({
-      type: "radar",
-      categories: [{ label: "Reichweite" }],
-      series: [{ name: "eTGX", values: [740] }],
+describe("Aus Excel einfügen", () => {
+  it("übernimmt eine ganze Tabelle – ohne Rahmen über dem Raster", async () => {
+    const { latest } = setup();
+    await userEvent.click(screen.getByRole("button", { name: "Aus Excel einfügen" }));
+
+    const panel = screen.getByTestId("chart-paste-panel");
+    fireEvent.change(within(panel).getByLabelText("Tabelle"), {
+      target: { value: "\tMAN\tMB\nGewicht\t1,8\t2\nReichweite\t500\t480" },
     });
-    const cells = container.querySelectorAll(".chart-editor__cell");
-    expect(cells.length).toBeGreaterThan(0);
-    for (const cell of cells) expect(cell.getAttribute("data-label")).toBeTruthy();
+    await userEvent.click(within(panel).getByRole("button", { name: "Tabelle übernehmen" }));
+
+    expect(latest().categories.map((category) => category.label)).toEqual(["Gewicht", "Reichweite"]);
+    // Gleichnamige Achsen behalten ihre Einstellungen.
+    expect(latest().categories[0].unit).toBe("t");
+    expect(latest().series.map((series) => series.name)).toEqual(["MAN", "MB"]);
+    expect(screen.queryByTestId("chart-paste-panel")).toBeNull();
   });
 
-  it("nennt in der Wertzelle den Serienname", () => {
-    const { container } = renderEditor({
-      type: "radar",
-      categories: [{ label: "Reichweite" }],
-      series: [{ name: "eTGX", values: [740] }],
-    });
-    const labels = [...container.querySelectorAll(".chart-editor__cell")].map((c) => c.getAttribute("data-label"));
-    expect(labels).toContain("eTGX");
+  it("meldet eine unlesbare Tabelle am Feld", async () => {
+    const { onChange } = setup();
+    await userEvent.click(screen.getByRole("button", { name: "Aus Excel einfügen" }));
+    const panel = screen.getByTestId("chart-paste-panel");
+    fireEvent.change(within(panel).getByLabelText("Tabelle"), { target: { value: "nur eine Zeile" } });
+    await userEvent.click(within(panel).getByRole("button", { name: "Tabelle übernehmen" }));
+
+    expect(within(panel).getByRole("alert")).toHaveTextContent("ließ sich nicht lesen");
+    expect(onChange).not.toHaveBeenCalled();
+  });
+});
+
+describe("Vorschau", () => {
+  it("zeigt in den Geräteansichten die echte Leseansicht, still gestellt, und lässt das Panel stehen", () => {
+    setup(spec({ height: 360 }), { view: "desktop" });
+
+    const preview = screen.getByTestId("chart-preview");
+    expect(preview).toHaveAttribute("inert");
+    expect(screen.getByRole("region", { name: "Vorschau Desktop" })).toContainElement(preview);
+    expect(preview.querySelector<HTMLElement>(".man-chart__canvas")?.style.height).toBe("360px");
+    expect(screen.queryByRole("table", { name: /Diagrammdaten/ })).toBeNull();
+    expect(screen.getByRole("complementary", { name: "Diagramm" })).toBeInTheDocument();
   });
 });

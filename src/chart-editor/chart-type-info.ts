@@ -14,28 +14,33 @@
 import { ChartType } from "../chart-model";
 
 /**
- * Was in der Typ-Auswahl steht.
+ * Was zu jedem Diagrammtyp im Editor steht.
  *
- * Der Klammerzusatz nennt den Fachbegriff, unter dem die Redaktion die
- * Vorlage aus der Präsentation kennt; der Satz dahinter sagt, wofür der Typ
- * taugt. Beides fehlte, und deshalb war am Dialog nicht zu erkennen, welche
- * Art Diagramm man überhaupt gerade baut.
+ * `label` ist das kurze Wort auf der Pill („Netz“), `name` der Fachbegriff,
+ * unter dem die Redaktion die Vorlage aus der Präsentation kennt, und
+ * `hint` sagt, wofür der Typ taugt – er steht unter den Pills und in der
+ * Hilfe. Ohne ihn war am Dialog nicht zu erkennen, welche Art Diagramm man
+ * gerade baut.
  */
-export const CHART_TYPE_INFO: Record<ChartType, { label: string; hint: string }> = {
+export const CHART_TYPE_INFO: Record<ChartType, { label: string; name: string; hint: string }> = {
   radar: {
-    label: "Netzdiagramm (Radar / Spinne)",
+    label: "Netz",
+    name: "Netzdiagramm (Radar / Spinne)",
     hint: "Vergleicht wenige Varianten über mehrere Kennwerte hinweg. Jede Achse darf eine eigene Einheit haben.",
   },
   bar: {
-    label: "Balkendiagramm (Säulen)",
-    hint: "Vergleicht Werte über wenige Kategorien. Alle Balken teilen sich eine Werteachse — nur bei gleicher Einheit sinnvoll.",
+    label: "Balken",
+    name: "Balkendiagramm (Säulen)",
+    hint: "Vergleicht Werte über wenige Kategorien. Alle Balken teilen sich eine Werteachse – nur bei gleicher Einheit sinnvoll.",
   },
   line: {
-    label: "Liniendiagramm (Verlauf)",
-    hint: "Zeigt eine Entwicklung über eine geordnete Reihe hinweg — etwa über Jahre. Die Reihenfolge der Achsen ist die Reihenfolge im Raster.",
+    label: "Linie",
+    name: "Liniendiagramm (Verlauf)",
+    hint: "Zeigt eine Entwicklung über eine geordnete Reihe hinweg – etwa über Jahre. Die Reihenfolge der Achsen ist die im Raster.",
   },
   pie: {
-    label: "Kuchendiagramm (Torte / Ring)",
-    hint: "Zeigt die Aufteilung eines Ganzen. Es wird nur die erste Serie gezeichnet, und alle Werte sollten dieselbe Einheit haben.",
+    label: "Kuchen",
+    name: "Kuchendiagramm (Torte / Ring)",
+    hint: "Zeigt die Aufteilung eines Ganzen. Gezeichnet wird nur die erste Reihe; alle Werte sollten dieselbe Einheit haben.",
   },
 };
