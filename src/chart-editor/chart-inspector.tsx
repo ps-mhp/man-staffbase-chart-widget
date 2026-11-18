@@ -40,6 +40,9 @@ export interface ChartInspectorProps {
   invalidAxes: ReadonlySet<number>;
   issuesVisible: boolean;
   palette: readonly string[];
+  /** Der offene Reiter, wenn der Editor ihn führt; sonst „Gestaltung“. */
+  tab?: string;
+  onTabChange?: (id: string) => void;
 }
 
 /** Die rote Marke am Reiter, mit der Zahl der Fehler darin. */
@@ -79,7 +82,7 @@ function BehaviorTab({ value, onChange }: Pick<ChartInspectorProps, "value" | "o
 }
 
 export function ChartInspector(props: ChartInspectorProps): React.ReactElement {
-  const { value, onChange, selected, invalidAxes, issuesVisible, palette } = props;
+  const { value, onChange, selected, invalidAxes, issuesVisible, palette, tab, onTabChange } = props;
   const heightIssues = issuesVisible && heightOutOfRange(value.height) ? 1 : 0;
   const axisIssues = invalidAxes.has(selected) ? 1 : 0;
 
@@ -100,5 +103,5 @@ export function ChartInspector(props: ChartInspectorProps): React.ReactElement {
     { id: "behavior", label: "Verhalten", content: <BehaviorTab value={value} onChange={onChange} /> },
   ];
 
-  return <InspectorPanel title="Diagramm" tabs={tabs} defaultTab="design" />;
+  return <InspectorPanel title="Diagramm" tabs={tabs} defaultTab="design" selectedTab={tab} onTabChange={onTabChange} />;
 }

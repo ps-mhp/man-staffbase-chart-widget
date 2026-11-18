@@ -13,7 +13,7 @@
 
 
 import { ChartSpec } from "../chart-model";
-import { axisIssueIndexes, chartChangesStatus, validateChart } from "./editor-rules";
+import { axisIssueIndexes, chartChangesStatus, issueTarget, validateChart } from "./editor-rules";
 
 const spec = (patch: Partial<ChartSpec> = {}): ChartSpec => ({
   version: 1,
@@ -70,5 +70,20 @@ describe("chartChangesStatus", () => {
     expect(chartChangesStatus({ ...saved, type: "line", allowExport: true }, saved)).toBe(
       "Diagrammtyp geändert · Download geändert",
     );
+  });
+});
+
+describe("issueTarget", () => {
+  it("führt die Höhe in den Reiter „Gestaltung“", () => {
+    expect(issueTarget("height")).toEqual({ tab: "design", field: "Höhe in px" });
+  });
+
+  it("führt Achsenfehler in den Reiter „Achse“ der Achse", () => {
+    expect(issueTarget("axis-3-bounds")).toEqual({ tab: "axis", axis: 3, field: "Maximum" });
+    expect(issueTarget("axis-0-share")).toEqual({ tab: "axis", axis: 0 });
+  });
+
+  it("kennt keine fremden Kennungen", () => {
+    expect(issueTarget("unbekannt")).toBeNull();
   });
 });

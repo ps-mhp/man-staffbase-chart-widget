@@ -32,6 +32,29 @@ export const boundsIssueId = (index: number): string => `axis-${index}-bounds`;
 /** Kennung des Fehlers „negativer Anteil“ an einem Kuchensegment. */
 export const shareIssueId = (index: number): string => `axis-${index}-share`;
 
+/** Wohin ein Fehler im Editor führt: Reiter des Panels, Achse und Feld. */
+export interface IssueTarget {
+  tab: "design" | "axis";
+  axis?: number;
+  /** Beschriftung des Felds, das den Fokus bekommt; ohne Feld bleibt es beim Reiter. */
+  field?: string;
+}
+
+const AXIS_ISSUE = /^axis-(\d+)-(bounds|share)$/;
+
+/**
+ * Löst die Kennung eines Fehlers in sein Ziel auf. Die Kennungen kommen aus
+ * `validateChart`; eine fremde führt nirgends hin. Ein negativer Anteil hat
+ * im Panel kein eigenes Feld (er steht im Raster), dort bleibt es beim Reiter.
+ */
+export function issueTarget(id: string): IssueTarget | null {
+  if (id === HEIGHT_ISSUE) return { tab: "design", field: "Höhe in px" };
+  const match = AXIS_ISSUE.exec(id);
+  if (match === null) return null;
+  const axis = Number(match[1]);
+  return match[2] === "bounds" ? { tab: "axis", axis, field: "Maximum" } : { tab: "axis", axis };
+}
+
 /** Benennt eine Achse für Meldungen, auch solange sie noch keinen Namen hat. */
 export const axisName = (category: Category, index: number): string =>
   category.label.replace(/\n/g, " ").trim() || `Achse ${index + 1}`;

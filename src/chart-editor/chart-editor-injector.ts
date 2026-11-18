@@ -113,8 +113,12 @@ export function startChartEditorInjector(root: ParentNode = document): () => voi
     parse: (raw) => parseForEditor(raw, root),
     serialize: serializeChartSpec,
     shell: chartEditorShell,
-    render: ({ value, onChange }) =>
-      React.createElement(React.Suspense, { fallback: LOADING }, React.createElement(LazyChartEditor, { value, onChange })),
+    render: ({ value, onChange, shownIssues }) =>
+      React.createElement(
+        React.Suspense,
+        { fallback: LOADING },
+        React.createElement(LazyChartEditor, { value, onChange, shownIssues }),
+      ),
     // Beim ersten Anlegen gleich öffnen – ein leeres Textfeld namens
     // „Diagramm“ sagt niemandem, was zu tun ist.
     openInitially: () => true,

@@ -234,6 +234,74 @@ describe("Aus Excel einfügen", () => {
   });
 });
 
+describe("Sprung zum ersten Fehler", () => {
+  const shown = (...ids: string[]) => ({ issues: ids.map((id) => ({ id, message: id })) });
+
+  function renderWithIssues(value: ChartSpec, shownIssues: ReturnType<typeof shown>) {
+    return render(
+      <ConfigShellProvider value={shellState({ issuesVisible: true })}>
+        <ChartEditor value={value} onChange={() => undefined} shownIssues={shownIssues} />
+      </ConfigShellProvider>,
+    );
+  }
+
+  it("wählt bei einem Maximum-Fehler die Achse, öffnet „Achse“ und fokussiert das Maximum", () => {
+    renderWithIssues(spec({ categories: [{ label: "Gewicht" }, { label: "Energie", min: 10, max: 5 }] }), shown("axis-1-bounds"));
+
+    expect(heading()).toHaveTextContent("Achse 2 von 2 · Energie");
+    expect(screen.getByRole("tab", { name: /Achse/ })).toHaveAttribute("aria-selected", "true");
+    expect(screen.getByLabelText("Maximum")).toHaveFocus();
+  });
+
+  it("öffnet bei einer Höhe außerhalb der Grenzen „Gestaltung“ und fokussiert die Höhe", () => {
+    renderWithIssues(spec({ height: 90 }), shown("height"));
+
+    expect(screen.getByRole("tab", { name: /Gestaltung/ })).toHaveAttribute("aria-selected", "true");
+    expect(screen.getByLabelText("Höhe in px")).toHaveFocus();
+  });
+
+  it("springt zum ersten der Fehler, nicht zum letzten", () => {
+    renderWithIssues(
+      spec({ height: 90, categories: [{ label: "Gewicht" }, { label: "Energie", min: 10, max: 5 }] }),
+      shown("axis-1-bounds", "height"),
+    );
+
+    expect(heading()).toHaveTextContent("Achse 2 von 2");
+    expect(screen.getByRole("tab", { name: /Achse/ })).toHaveAttribute("aria-selected", "true");
+  });
+
+  it("öffnet bei einem negativen Anteil den Reiter „Achse“ der betroffenen Achse", () => {
+    renderWithIssues(spec({ type: "pie", series: [{ name: "MAN", values: [3, -1] }] }), shown("axis-1-share"));
+
+    expect(heading()).toHaveTextContent("Achse 2 von 2");
+    expect(screen.getByRole("tab", { name: /Achse/ })).toHaveAttribute("aria-selected", "true");
+  });
+
+  it("springt bei jedem neuen Versuch erneut, auch wenn der Nutzer den Reiter gewechselt hat", async () => {
+    const value = spec({ height: 90 });
+    const first = shown("height");
+    const { rerender } = renderWithIssues(value, first);
+    await userEvent.click(screen.getByRole("tab", { name: "Daten" }));
+    expect(screen.getByRole("tab", { name: "Daten" })).toHaveAttribute("aria-selected", "true");
+
+    rerender(
+      <ConfigShellProvider value={shellState({ issuesVisible: true })}>
+        <ChartEditor value={value} onChange={() => undefined} shownIssues={shown("height")} />
+      </ConfigShellProvider>,
+    );
+
+    expect(screen.getByRole("tab", { name: /Gestaltung/ })).toHaveAttribute("aria-selected", "true");
+    expect(screen.getByLabelText("Höhe in px")).toHaveFocus();
+  });
+
+  it("lässt alles stehen, solange nichts scheiterte oder die Kennung unbekannt ist", () => {
+    renderWithIssues(spec(), { issues: [{ id: "unbekannt", message: "?" }] });
+
+    expect(heading()).toHaveTextContent("Achse 1 von 2");
+    expect(screen.getByRole("tab", { name: /Gestaltung/ })).toHaveAttribute("aria-selected", "true");
+  });
+});
+
 describe("Vorschau", () => {
   it("zeigt in den Geräteansichten die echte Leseansicht, still gestellt, und lässt das Panel stehen", () => {
     setup(spec({ height: 360 }), { view: "desktop" });

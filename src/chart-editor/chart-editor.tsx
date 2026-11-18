@@ -34,7 +34,7 @@ import * as React from "react";
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { ConfigWorkspace } from "@man/config-ui/layout/config-workspace";
 import { Button } from "@man/config-ui/primitives/button";
-import { useConfigShell } from "@man/config-ui/shell/shell-context";
+import { useConfigShell, type ValidationIssue } from "@man/config-ui/shell/shell-context";
 import { useSidePanel } from "@man/config-ui/shell/side-panels";
 
 import { ChartSpec } from "../chart-model";
@@ -44,7 +44,7 @@ import { ChartPreview } from "./chart-preview";
 import { DataBar } from "./data-bar";
 import { DataGrid } from "./data-grid";
 import { addCategory, addSeries, duplicateCategory, moveCategory, removeCategory } from "./editor-operations";
-import { axisIssueIndexes, validateChart } from "./editor-rules";
+import { axisIssueIndexes, issueTarget, validateChart } from "./editor-rules";
 import { exampleSpec, starterSpec } from "./example-spec";
 import { Grid, applyGrid } from "./grid-import";
 import { PastePanel } from "./paste-panel";
@@ -54,6 +54,11 @@ export { ChartEditorHelp } from "./chart-editor-help";
 export interface ChartEditorProps {
   value: ChartSpec;
   onChange: (spec: ChartSpec) => void;
+  /**
+   * Die Fehler des letzten gescheiterten „Übernehmen“; je Versuch ein neues
+   * Objekt. Der Editor springt dann zum ersten.
+   */
+  shownIssues?: { issues: readonly ValidationIssue[] } | null;
 }
 
 const PASTE_PANEL = "chart-paste";
@@ -110,6 +115,41 @@ function useAxisSelection(count: number, rootRef: React.RefObject<HTMLDivElement
   };
 }
 
+/**
+ * Nach einem gescheiterten „Übernehmen“ zum ersten Fehler: die Achse wählen,
+ * den Reiter öffnen und, wenn es ein Feld dafür gibt, hineinspringen. Der
+ * Reiter gehört dem Editor, damit der Sprung ihn setzen kann; die Vorgabe
+ * bleibt „Gestaltung“.
+ */
+function useIssueJump(
+  shownIssues: ChartEditorProps["shownIssues"],
+  selectAxis: (index: number) => void,
+  rootRef: React.RefObject<HTMLDivElement | null>,
+) {
+  const [tab, setTab] = useState("design");
+  const [field, setField] = useState<{ label: string } | null>(null);
+  useEffect(() => {
+    const first = shownIssues?.issues[0];
+    const target = first === undefined ? null : issueTarget(first.id);
+    if (target === null) return;
+    if (target.axis !== undefined) selectAxis(target.axis);
+    setTab(target.tab);
+    // Ein neues Objekt je Versuch: auch dasselbe Feld bekommt den Fokus neu.
+    setField(target.field === undefined ? null : { label: target.field });
+  }, [shownIssues, selectAxis]);
+  // Erst nach dem Zeichnen: Reiter und Achse stehen dann im Panel.
+  useEffect(() => {
+    if (field === null) return;
+    const label = Array.from(rootRef.current?.querySelectorAll("label") ?? []).find(
+      (element) => element.textContent?.trim() === field.label,
+    );
+    const control = label?.htmlFor ? rootRef.current?.querySelector<HTMLElement>(`[id="${label.htmlFor}"]`) : null;
+    control?.focus();
+    setField(null);
+  }, [field, tab, rootRef]);
+  return { tab, setTab };
+}
+
 /** „Aus Excel einfügen“: als Leiste im Rahmen, ohne Rahmen über dem Raster. */
 function usePastePanel(value: ChartSpec, onChange: (spec: ChartSpec) => void) {
   const panels = useSidePanel();
@@ -138,12 +178,13 @@ function usePastePanel(value: ChartSpec, onChange: (spec: ChartSpec) => void) {
   return { show, inline: inline && !available ? <PastePanel onApply={apply} /> : null };
 }
 
-export function ChartEditor({ value, onChange }: ChartEditorProps): React.ReactElement {
+export function ChartEditor({ value, onChange, shownIssues = null }: ChartEditorProps): React.ReactElement {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const theme = useChartTheme(rootRef);
   const { issuesVisible } = useConfigShell();
   const axes = useAxisSelection(value.categories.length, rootRef);
   const paste = usePastePanel(value, onChange);
+  const jump = useIssueJump(shownIssues, axes.select, rootRef);
   const issues = useMemo(() => validateChart(value), [value]);
   const invalidAxes = issuesVisible ? axisIssueIndexes(issues) : NO_AXES;
   const { selected } = axes;
@@ -163,6 +204,8 @@ export function ChartEditor({ value, onChange }: ChartEditorProps): React.ReactE
             invalidAxes={invalidAxes}
             issuesVisible={issuesVisible}
             palette={theme.palette}
+            tab={jump.tab}
+            onTabChange={jump.setTab}
           />
         }
         preview={<ChartPreview spec={value} />}
