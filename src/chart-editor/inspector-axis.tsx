@@ -23,8 +23,8 @@
 
 import * as React from "react";
 import { useId } from "react";
-import { TriangleAlert } from "lucide-react";
 import { Field } from "@man/config-ui/form/field";
+import { IssueText } from "@man/config-ui/form/issue-text";
 import { SwitchRow } from "@man/config-ui/form/switch-row";
 import { Input } from "@man/config-ui/primitives/input";
 import { Textarea } from "@man/config-ui/primitives/textarea";
@@ -46,15 +46,6 @@ function suggestedMax(spec: ChartSpec, index: number, min: number): number {
   const values = spec.series.map((series) => series.values[index]).filter((value): value is number => typeof value === "number");
   const largest = Math.max(...values);
   return Number.isFinite(largest) && largest > min ? largest : min + 1;
-}
-
-function ErrorText({ id, children }: { id?: string; children: React.ReactNode }): React.ReactElement {
-  return (
-    <p id={id} role="alert" className="flex items-start gap-1.5 text-[13px] text-destructive">
-      <TriangleAlert className="mt-0.5 size-3.5 shrink-0" aria-hidden />
-      <span>{children}</span>
-    </p>
-  );
 }
 
 interface BoundsProps {
@@ -89,9 +80,9 @@ function BoundsFields({ spec, category, index, issuesVisible, patch }: BoundsPro
         </Field>
       </div>
       {conflict && category.min !== undefined ? (
-        <ErrorText id={errorId}>
+        <IssueText id={errorId}>
           {`Maximum muss größer als Minimum sein – zum Beispiel ${formatEditorNumber(suggestedMax(spec, index, category.min))}.`}
-        </ErrorText>
+        </IssueText>
       ) : (
         <p className="text-[13px] text-muted-foreground">Leer: aus den Werten abgeleitet. Werte darüber hinaus stehen am Rand.</p>
       )}
@@ -148,7 +139,7 @@ export function AxisTab({ value, onChange, selected, issuesVisible, palette }: A
           />
         </Field>
       )}
-      {negativeShare && <ErrorText>Der Wert dieses Segments ist negativ. Ein Kuchen zeigt nur Anteile ab null.</ErrorText>}
+      {negativeShare && <IssueText>Der Wert dieses Segments ist negativ. Ein Kuchen zeigt nur Anteile ab null.</IssueText>}
     </div>
   );
 }
